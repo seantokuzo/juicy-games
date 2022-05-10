@@ -1,0 +1,21 @@
+.form {
+  text-align: left;
+
+  padding: 2rem;
+  
+  &__group {
+    @include flex(column, flex-start, center);
+  }
+
+  &__label {
+
+  }
+
+  &__input {
+    text-align: center;
+
+    &::placeholder {
+      opacity: .7;
+    }
+  }
+}

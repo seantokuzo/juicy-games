@@ -4,6 +4,11 @@ import { gsap } from 'gsap'
 
 export default function Welcome() {
   const welcomeRef = useRef()
+  const q = gsap.utils.selector(welcomeRef)
+
+  useEffect(() => {
+    gsap.from(q('.welcome__title'), { x: -100 })
+  }, [])
 
   return (
     <section className="welcome page" ref={welcomeRef}>

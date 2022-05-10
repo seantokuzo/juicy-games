@@ -5,6 +5,7 @@
 @import 'login';
 @import 'signup';
 @import 'game';
+@import 'forms';
 
 body {
   background: $primary-color;
@@ -23,6 +24,5 @@ a {
 }
 
 .page {
-  @include flex(column, center);
   @include fixed-hunnid;
 }

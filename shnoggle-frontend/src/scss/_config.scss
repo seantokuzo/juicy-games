@@ -15,7 +15,7 @@ $fs-primary: 'Inter', Verdana, Tahoma, Geneva, sans-serif;
   transition: all 0.5s ease-in-out;
 }
 
-@mixin flex($direction, $justify) {
+@mixin flex($direction, $align, $justify) {
   display: flex;
   flex-direction: $direction;
   align-items: center;
@@ -23,6 +23,7 @@ $fs-primary: 'Inter', Verdana, Tahoma, Geneva, sans-serif;
 }
 
 @mixin fixed-hunnid {
+  @include flex(column, center, center);
   position: fixed;
   width: 100%;
   height: 100%;
