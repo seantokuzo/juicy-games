@@ -14,7 +14,7 @@ const app = express()
 app.use(helmet())
 
 // Dev Logging
-if (process.env.NODE_END === 'dvelopment') {
+if (process.env.NODE_END === 'development') {
   app.use(morgan('dev'))
 }
 

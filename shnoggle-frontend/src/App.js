@@ -1,11 +1,28 @@
-import React from "react"
-import "./styles.scss"
+import React from 'react'
+import { Routes, Route } from 'react-router-dom'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Welcome from './pages/Welcome'
+import Login from './pages/Login'
+import Signup from './pages/Signup'
+import Game from './pages/Game'
+import Leaderboard from './pages/Leaderboard'
+import './scss/main.scss'
 
-export default function App() {
+function App() {
   return (
     <div className="app">
-      <h1>Hello World</h1>
-      <p>text text text text</p>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Welcome />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/game" element={<Game />} />
+        <Route path="/leaderboard" element={<Leaderboard />} />
+      </Routes>
+      <Footer />
     </div>
   )
 }
+
+export default App

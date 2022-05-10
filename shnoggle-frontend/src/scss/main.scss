@@ -1,0 +1,28 @@
+@import 'config';
+@import 'header';
+@import 'footer';
+@import 'welcome';
+@import 'login';
+@import 'signup';
+@import 'game';
+
+body {
+  background: $primary-color;
+  color: set-text-color($primary-color);
+  height: 100vh;
+  font-family: $fs-primary;
+  line-height: 1;
+}
+
+a {
+  text-decoration: none;
+}
+
+.app {
+
+}
+
+.page {
+  @include flex(column, center);
+  @include fixed-hunnid;
+}

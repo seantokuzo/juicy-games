@@ -1,0 +1,20 @@
+.welcome {
+  @include flex(column, center);
+  @include fixed-hunnid;
+  
+  &__links-div {
+    width: 100%;
+    @include flex(row, space-around)
+  }
+
+  &__link {
+    color: white;
+    min-width: 200px;
+    text-align: center;
+
+    margin: 1rem 0;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: $secondary-color;
+  }
+}
