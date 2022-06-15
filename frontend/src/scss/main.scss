@@ -1,15 +1,15 @@
 @import 'config';
+@import 'global';
 @import 'header';
 @import 'footer';
 @import 'welcome';
-@import 'login';
 @import 'signup';
 @import 'game';
 @import 'forms';
 
 body {
-  background: $primary-color;
-  color: set-text-color($primary-color);
+  background: $bg-dark;
+  color: $cream1;
   height: 100vh;
   font-family: $fs-primary;
   line-height: 1;
@@ -21,8 +21,4 @@ a {
 
 .app {
 
-}
-
-.page {
-  @include fixed-hunnid;
 }

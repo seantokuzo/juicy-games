@@ -5,8 +5,6 @@
   padding: 1rem;
 
   &__pfp-div {
-    border: 1px solid;
-    border-color: $primary-color;
     @include transition-ease;
 
     &:hover {

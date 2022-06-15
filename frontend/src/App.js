@@ -3,7 +3,6 @@ import { Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Welcome from './pages/Welcome'
-import Login from './pages/Login'
 import Signup from './pages/Signup'
 import Game from './pages/Game'
 import Leaderboard from './pages/Leaderboard'
@@ -15,7 +14,6 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Welcome />} />
-        <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/game" element={<Game />} />
         <Route path="/leaderboard" element={<Leaderboard />} />

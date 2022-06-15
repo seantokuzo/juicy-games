@@ -1,4 +1,9 @@
 // COLORS
+$bg-dark: #151515;
+$purp1: #301B3F;
+$purp2: #3C415C;
+$cream1: #B4A5A5;
+$cream2: #ECDBBA;
 $primary-color: #272727;
 $secondary-color: #ff652f;
 
@@ -11,14 +16,14 @@ $fs-primary: 'Inter', Verdana, Tahoma, Geneva, sans-serif;
   padding: 0;
 }
 
-@mixin transition-ease {
-  transition: all 0.5s ease-in-out;
+@mixin transition-ease($time: 300ms) {
+  transition: all $time ease-in-out;
 }
 
-@mixin flex($direction, $align, $justify) {
+@mixin flex($direction: row, $align: center, $justify: center) {
   display: flex;
   flex-direction: $direction;
-  align-items: center;
+  align-items: $align;
   justify-content: $justify;
 }
 
@@ -27,33 +32,4 @@ $fs-primary: 'Inter', Verdana, Tahoma, Geneva, sans-serif;
   position: fixed;
   width: 100%;
   height: 100%;
-  // border: 1px solid red;
 }
-
-@function set-text-color($color) {
-  @if (lightness($color) > 40%) {
-    @return #000;
-  }
-
-  @else {
-    @return #fff;
-  }
-}
-
-// @mixin media-md {
-//   @media screen and (min-width: 768px) {
-//     @content;
-//   }
-// }
-
-// @mixin media-lg {
-//   @media screen and (min-width: 1024px) {
-//     @content;
-//   }
-// }
-
-// @mixin media-xl {
-//   @media screen and (min-width: 1600px) {
-//     @content;
-//   }
-// }

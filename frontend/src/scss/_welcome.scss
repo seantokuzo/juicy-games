@@ -3,17 +3,17 @@
   
   &__links-div {
     width: 100%;
-    @include flex(row, center, space-around)
+    @include flex(column, center, space-around);
   }
 
   &__link {
-    color: white;
+    color: $cream1;
     min-width: 200px;
     text-align: center;
 
     margin: 1rem 0;
     padding: 10px;
     border-radius: 5px;
-    background-color: $secondary-color;
+    background-color: $purp1;
   }
 }
