@@ -20,7 +20,7 @@ $fs-primary: 'Inter', Verdana, Tahoma, Geneva, sans-serif;
   transition: all $time ease-in-out;
 }
 
-@mixin flex($direction: row, $align: center, $justify: center) {
+@mixin flex($direction: column, $align: center, $justify: center) {
   display: flex;
   flex-direction: $direction;
   align-items: $align;
