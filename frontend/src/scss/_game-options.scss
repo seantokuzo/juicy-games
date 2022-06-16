@@ -9,6 +9,11 @@
     transform: translateX(200%);
   }
 
+  &__option {
+    @include flex;
+    margin-top: 1rem;
+  }
+
   &__inputs {
     @include flex;
   }
@@ -16,5 +21,13 @@
   &__selector {
     text-align: center;
     width: min-content;
+  }
+
+  &__radio-div {
+    @include flex(row, center, center);
+  }
+
+  &__radio-option {
+    @include flex(column, center, center);
   }
 }
