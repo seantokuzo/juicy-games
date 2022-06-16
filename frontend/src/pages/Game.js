@@ -4,15 +4,15 @@ import GameOptions from '../components/GameOptions'
 const Game = () => {
   const [categories, setCategories] = useState(undefined)
   const [showOptions, setShowOptions] = useState(true)
-  console.log(categories)
   const [gameOptions, setGameOptions] = useState({
     amount: '5',
     category: '',
     difficulty: 'easy',
     type: 'multiple'
   })
-
-  console.log(gameOptions)
+  const [trivia, setTrivia] = useState(undefined)
+  const [gameActive, setGameActive] = useState(false)
+  console.log(trivia)
 
   const updateOptions = (e) => {
     const { name, value } = e.target
@@ -38,6 +38,22 @@ const Game = () => {
       .catch((err) => console.log(err))
   }, [])
 
+  useEffect(() => {
+    if (gameActive) {
+      fetch(
+        `https://opentdb.com/api.php?amount=${gameOptions.amount}&category=${gameOptions.category}&difficulty=${gameOptions.difficulty}&type=${gameOptions.type}`
+      )
+        .then((res) => res.json())
+        .then((data) => setTrivia(data.results))
+        .catch((err) => console.log(err))
+      setShowOptions(false)
+    }
+  }, [gameActive])
+
+  function startGame() {
+    setGameActive(true)
+  }
+
   return (
     <div className="game page">
       <div
@@ -49,6 +65,7 @@ const Game = () => {
           categories={categories}
           gameOptions={gameOptions}
           updateOptions={updateOptions}
+          startGame={startGame}
         />
       </div>
       <h1>Game</h1>

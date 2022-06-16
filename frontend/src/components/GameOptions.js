@@ -1,6 +1,6 @@
 import React from 'react'
 
-const GameOptions = ({ categories, gameOptions, updateOptions }) => {
+const GameOptions = ({ categories, gameOptions, updateOptions, startGame }) => {
   const { amount, category, difficulty, type } = gameOptions
 
   return (
@@ -83,6 +83,10 @@ const GameOptions = ({ categories, gameOptions, updateOptions }) => {
           </div>
         </div>
       </div>
+
+      <button type="button" className="game-options__btn" onClick={startGame}>
+        Start Trivia
+      </button>
     </div>
   )
 }
