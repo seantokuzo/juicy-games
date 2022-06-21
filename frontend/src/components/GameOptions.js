@@ -1,7 +1,10 @@
 import React from 'react'
+import { useAppContext } from '../context/appContext'
 
-const GameOptions = ({ categories, gameOptions, updateOptions, startGame }) => {
+const GameOptions = () => {
+  const { categories, gameOptions, startGame, updateGameOptions } = useAppContext()
   const { amount, category, difficulty, type } = gameOptions
+  console.log(gameOptions)
 
   return (
     <div className="game-options__inputs">
@@ -11,7 +14,7 @@ const GameOptions = ({ categories, gameOptions, updateOptions, startGame }) => {
           name="amount"
           id="amount"
           className="game-options__amount game-options__selector"
-          onChange={updateOptions}
+          onChange={updateGameOptions}
           value={amount}
         >
           <option value={5}>5</option>
@@ -29,7 +32,7 @@ const GameOptions = ({ categories, gameOptions, updateOptions, startGame }) => {
           name="category"
           id="category"
           className="game-options__categories game-options__selector"
-          onChange={updateOptions}
+          onChange={updateGameOptions}
           value={category}
         >
           {categories &&
@@ -47,7 +50,7 @@ const GameOptions = ({ categories, gameOptions, updateOptions, startGame }) => {
           name="difficulty"
           id="difficulty"
           className="game-options__difficulty game-options__selector"
-          onChange={updateOptions}
+          onChange={updateGameOptions}
           value={difficulty}
         >
           <option value="easy">easy</option>
@@ -66,7 +69,7 @@ const GameOptions = ({ categories, gameOptions, updateOptions, startGame }) => {
               name="type"
               value="multiple"
               checked={type === 'multiple'}
-              onChange={updateOptions}
+              onChange={updateGameOptions}
             />
             <label htmlFor="multiple-choice">Multiple Choice</label>
           </div>
@@ -77,7 +80,7 @@ const GameOptions = ({ categories, gameOptions, updateOptions, startGame }) => {
               name="type"
               value="boolean"
               checked={type === 'boolean'}
-              onChange={updateOptions}
+              onChange={updateGameOptions}
             />
             <label htmlFor="true-false">True/False</label>
           </div>

@@ -1,13 +1,32 @@
-import React, { useRef, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { gsap } from "gsap"
+import React, { useRef, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { useAppContext } from '../context/appContext'
+import { gsap } from 'gsap'
 
 export default function Welcome() {
+  const { categories, retrieveCategories, updateGameOptions } = useAppContext()
   const welcomeRef = useRef()
   const q = gsap.utils.selector(welcomeRef)
+  console.log(categories)
+  
+  useEffect(() => {
+    gsap.from(q('.welcome__title'), { x: -100 })
+  }, [])
 
   useEffect(() => {
-    gsap.from(q(".welcome__title"), { x: -100 })
+    fetch('https://opentdb.com/api_category.php')
+      .then((res) => res.json())
+      .then((data) => {
+        // setGameOptions((prev) => ({
+        //   ...prev,
+        //   category: data.trivia_categories[0].id.toString()
+        // }))
+        updateGameOptions('category', data.trivia_categories[0].id.toString())
+        retrieveCategories(
+          data.trivia_categories.slice(0, data.trivia_categories.length - 2)
+        )
+      })
+      .catch((err) => console.log(err))
   }, [])
 
   // const loginForm = (
