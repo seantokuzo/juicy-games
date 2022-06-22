@@ -2,12 +2,13 @@ import React from 'react'
 import { useAppContext } from '../context/appContext'
 
 const GameOptions = () => {
-  const { categories, gameOptions, startGame, updateGameOptions } = useAppContext()
+  const { categories, gameOptions, loadQuestions, updateGameOptions } = useAppContext()
   const { amount, category, difficulty, type } = gameOptions
-  console.log(gameOptions)
+  // console.log(gameOptions)
 
   return (
     <div className="game-options__inputs">
+      {/* NUMBER OF QUESTIONS */}
       <div className="game-options__option">
         <label htmlFor="amount"># of Questions</label>
         <select
@@ -26,6 +27,7 @@ const GameOptions = () => {
         </select>
       </div>
 
+      {/* CATEGORY OPTION */}
       <div className="game-options__option">
         <label htmlFor="category">Category</label>
         <select
@@ -44,6 +46,7 @@ const GameOptions = () => {
         </select>
       </div>
 
+      {/* DIFFICULTY OPTION */}
       <div className="game-options__option">
         <label htmlFor="difficulty">Difficulty</label>
         <select
@@ -59,6 +62,7 @@ const GameOptions = () => {
         </select>
       </div>
 
+      {/* QUESTION TYPE */}
       <div className="game-options__option">
         <p>Question type</p>
         <div className="game-options__radio-div">
@@ -86,8 +90,7 @@ const GameOptions = () => {
           </div>
         </div>
       </div>
-
-      <button type="button" className="game-options__btn" onClick={startGame}>
+      <button type="button" className="game-options__btn" onClick={loadQuestions}>
         Start Trivia
       </button>
     </div>

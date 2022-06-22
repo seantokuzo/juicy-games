@@ -1,22 +1,8 @@
-import React, { useRef, useEffect } from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
-import { useAppContext } from '../context/appContext'
+// import { useAppContext } from '../context/appContext'
 
-export default function Welcome() {
-  const { categories, retrieveCategories, updateGameOptions } = useAppContext()
-  console.log(categories)
-
-  useEffect(() => {
-    fetch('https://opentdb.com/api_category.php')
-      .then((res) => res.json())
-      .then((data) => {
-        retrieveCategories(
-          data.trivia_categories.slice(0, data.trivia_categories.length - 2)
-        )
-      })
-      .catch((err) => console.log(err))
-  }, [])
-
+const Welcome = () => {
   // const loginForm = (
   //   <form className="form form__login">
   //     <div className="form__group">
@@ -64,3 +50,5 @@ export default function Welcome() {
     </section>
   )
 }
+
+export default Welcome

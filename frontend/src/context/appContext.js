@@ -1,6 +1,13 @@
 import React, { useReducer, useContext } from 'react'
 import reducer from './reducer'
-import { RETRIEVE_CATEGORIES, START_GAME, UPDATE_GAME_OPTIONS } from './actions'
+import {
+  RETRIEVE_CATEGORIES,
+  UPDATE_GAME_OPTIONS,
+  LOAD_QUESTIONS_BEGIN,
+  LOAD_QUESTIONS_SUCCESS,
+  LOAD_QUESTIONS_ERROR,
+  START_GAME
+} from './actions'
 
 const initialState = {
   categories: undefined,
@@ -12,7 +19,10 @@ const initialState = {
     type: 'multiple'
   },
   trivia: undefined,
-  gameActive: false
+  loadingQuestions: false,
+  gameActive: false,
+  showAlert: false,
+  alertText: ''
 }
 
 const AppContext = React.createContext()
@@ -20,27 +30,18 @@ const AppContext = React.createContext()
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
-  // useEffect(() => {
-  //   fetch('https://opentdb.com/api_category.php')
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setCategories(
-  //         data.trivia_categories.slice(0, data.trivia_categories.length - 2)
-  //       )
-  //       setGameOptions((prev) => ({
-  //         ...prev,
-  //         category: data.trivia_categories[0].id.toString()
-  //       }))
-  //     })
-  //     .catch((err) => console.log(err))
-  // }, [])
+  console.log(state.trivia)
 
   const retrieveCategories = (cats) => {
     dispatch({ type: RETRIEVE_CATEGORIES, payload: { cats } })
   }
 
-  const startGame = () => {
-    dispatch({ type: START_GAME })
+  const loadQuestions = () => {
+    dispatch({ type: LOAD_QUESTIONS_BEGIN })
+  }
+
+  const setTrivia = (questionsData) => {
+    dispatch({ type: LOAD_QUESTIONS_SUCCESS, payload: { questionsData } })
   }
 
   const updateGameOptions = (e) => {
@@ -54,8 +55,21 @@ const AppContextProvider = ({ children }) => {
     })
   }
 
+  const startGame = () => {
+    dispatch({ type: START_GAME })
+  }
+
   return (
-    <AppContext.Provider value={{ ...state, startGame, retrieveCategories, updateGameOptions }}>
+    <AppContext.Provider
+      value={{
+        ...state,
+        retrieveCategories,
+        updateGameOptions,
+        loadQuestions,
+        setTrivia,
+        startGame
+      }}
+    >
       {children}
     </AppContext.Provider>
   )

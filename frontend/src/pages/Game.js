@@ -3,23 +3,45 @@ import { useAppContext } from '../context/appContext'
 import GameOptions from '../components/GameOptions'
 
 const Game = () => {
-  const { showOptions, gameActive } = useAppContext()
+  const {
+    showOptions,
+    loadingQuestions,
+    setTrivia,
+    trivia,
+    gameActive,
+    gameOptions
+  } = useAppContext()
 
-  // useEffect(() => {
-  //   if (gameActive) {
-  //     fetch(
-  //       `https://opentdb.com/api.php?amount=${gameOptions.amount}&category=${gameOptions.category}&difficulty=${gameOptions.difficulty}&type=${gameOptions.type}`
-  //     )
-  //       .then((res) => res.json())
-  //       .then((data) => setTrivia(data.results))
-  //       .catch((err) => console.log(err))
-  //   }
-  // }, [gameActive])
+  console.log(trivia)
+
+  useEffect(() => {
+    if (loadingQuestions) {
+      const startTime = Date.now()
+      console.log(startTime)
+      fetch(
+        `https://opentdb.com/api.php?amount=${gameOptions.amount}&category=${gameOptions.category}&difficulty=${gameOptions.difficulty}&type=${gameOptions.type}`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          // LOADING SCREEN FOR AT LEAST 1 SECOND
+          const time = 1000 - (Date.now() - startTime)
+          if (time > 0) {
+            setTimeout(() => {
+              setTrivia(data.results)
+            }, time)
+            return
+          }
+          setTrivia(data.results)
+        })
+        .catch((err) => console.log(err))
+    }
+  }, [loadingQuestions])
 
   return (
     <div className="game page">
       {showOptions && !gameActive && <GameOptions />}
-      <h1>Game</h1>
+      {gameActive && <h1>Game</h1>}
+      {loadingQuestions && <h1>Loading Questions...</h1>}
     </div>
   )
 }
