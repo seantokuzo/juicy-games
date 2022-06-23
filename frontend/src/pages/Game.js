@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useAppContext } from '../context/appContext'
 import GameOptions from '../components/GameOptions'
+import Alert from '../components/Alert'
 
 const Game = () => {
   const {
+    optionComboError,
+    showAlert,
     showOptions,
     loadingQuestions,
     setTrivia,
@@ -23,6 +26,11 @@ const Game = () => {
       )
         .then((res) => res.json())
         .then((data) => {
+          // DISPLAY ALERT IF NOT ENOUGH QUESTIONS RETRIEVED
+          if (data.results < gameOptions.amount) {
+            optionComboError()
+            return
+          }
           // LOADING SCREEN FOR AT LEAST 1 SECOND
           const time = 1000 - (Date.now() - startTime)
           if (time > 0) {
@@ -39,6 +47,7 @@ const Game = () => {
 
   return (
     <div className="game page">
+      {showAlert && <Alert />}
       {showOptions && !gameActive && <GameOptions />}
       {gameActive && <h1>Game</h1>}
       {loadingQuestions && <h1>Loading Questions...</h1>}

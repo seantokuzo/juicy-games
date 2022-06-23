@@ -4,10 +4,28 @@ import {
   LOAD_QUESTIONS_ERROR,
   RETRIEVE_CATEGORIES,
   START_GAME,
-  UPDATE_GAME_OPTIONS
+  UPDATE_GAME_OPTIONS,
+  OPTION_COMBO_ERROR,
+  CLEAR_ALERT
 } from './actions'
 
 const reducer = (state, action) => {
+  if (action.type === OPTION_COMBO_ERROR) {
+    return {
+      ...state,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: `Database Error: There are no ${state.gameOptions.type} questions for ${state.gameOptions.category}`
+    }
+  }
+  if (action.type === CLEAR_ALERT) {
+    return {
+      ...state,
+      showAlert: false,
+      alertType: '',
+      alertText: ''
+    }
+  }
   if (action.type === RETRIEVE_CATEGORIES) {
     return {
       ...state,
