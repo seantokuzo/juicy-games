@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useAppContext } from '../context/appContext'
-import GameOptions from '../components/game/GameOptions'
-import Alert from '../components/Alert'
+import { GameOptions, GameReady, Question, Alert } from '../components/index.js'
 
 const Game = () => {
   const {
