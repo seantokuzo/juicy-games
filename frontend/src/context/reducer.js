@@ -86,7 +86,7 @@ const reducer = (state, action) => {
   if (action.type === START_GAME) {
     return {
       ...state,
-      showOptions: false,
+      gameReady: false,
       gameActive: true
     }
   }
