@@ -12,7 +12,7 @@ function App() {
     fetch('https://opentdb.com/api_category.php')
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         retrieveCategories(
           data.trivia_categories.slice(0, data.trivia_categories.length - 3)
         )
