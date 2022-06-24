@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useAppContext } from '../context/appContext'
-import GameOptions from '../components/GameOptions'
+import GameOptions from '../components/game/GameOptions'
 import Alert from '../components/Alert'
 
 const Game = () => {
@@ -11,6 +11,7 @@ const Game = () => {
     loadingQuestions,
     setTrivia,
     trivia,
+    gameReady,
     gameActive,
     gameOptions
   } = useAppContext()
@@ -49,6 +50,7 @@ const Game = () => {
     <div className="game page">
       {showAlert && <Alert />}
       {showOptions && !gameActive && <GameOptions />}
+      {gameReady && <GameReady />}
       {gameActive && <h1>Game</h1>}
       {loadingQuestions && <h1>Loading Questions...</h1>}
     </div>

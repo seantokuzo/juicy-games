@@ -9,13 +9,38 @@ import {
   CLEAR_ALERT
 } from './actions'
 
+import { initialState } from './appContext'
+
+// const initialState = {
+//   categories: undefined,
+//   showOptions: true,
+//   gameOptions: {
+//     amount: '5',
+//     category: '',
+//     difficulty: 'easy',
+//     type: 'multiple'
+//   },
+//   trivia: undefined,
+//   loadingQuestions: false,
+//   gameActive: false,
+//   showAlert: false,
+//   alertText: ''
+// }
+
 const reducer = (state, action) => {
   if (action.type === OPTION_COMBO_ERROR) {
     return {
-      ...state,
+      ...initialState,
+      categories: state.categories,
       showAlert: true,
       alertType: 'danger',
-      alertText: `Database Error: There are no ${state.gameOptions.type} questions for ${state.gameOptions.category}`
+      alertText: `Database Error: There are no ${
+        state.gameOptions.type === 'boolean' ? 'True/False' : 'Multiple Choice'
+      } questions for ${
+        state.categories.filter(
+          (cat) => cat.id * 1 === state.gameOptions.category * 1
+        )[0].name
+      }. Please try a different combo of options`
     }
   }
   if (action.type === CLEAR_ALERT) {
@@ -54,7 +79,8 @@ const reducer = (state, action) => {
     return {
       ...state,
       loadingQuestions: false,
-      trivia: action.payload.questionsData
+      trivia: action.payload.questionsData,
+      gameReady: true
     }
   }
   if (action.type === START_GAME) {

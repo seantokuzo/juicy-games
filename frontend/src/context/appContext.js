@@ -20,8 +20,9 @@ const initialState = {
     difficulty: 'easy',
     type: 'multiple'
   },
-  trivia: undefined,
   loadingQuestions: false,
+  trivia: undefined,
+  gameReady: false,
   gameActive: false,
   showAlert: false,
   alertText: ''
@@ -34,7 +35,7 @@ const AppContextProvider = ({ children }) => {
 
   const optionComboError = () => {
     dispatch({ type: OPTION_COMBO_ERROR })
-    clearAlert()
+    clearAlert(5000)
   }
 
   const clearAlert = (time = 3000) => {

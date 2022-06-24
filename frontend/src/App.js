@@ -1,24 +1,18 @@
 import React, { useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { useAppContext } from './context/appContext'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Welcome from './pages/Welcome'
-import Signup from './pages/Signup'
-import Game from './pages/Game'
-import Leaderboard from './pages/Leaderboard'
+import { Header, Footer } from './components/index.js'
+import { Welcome, Signup, Game, Leaderboard } from './pages/index.js'
 import './scss/main.scss'
 
 function App() {
-  const {
-    retrieveCategories,
-    updateGameOptions
-  } = useAppContext()
+  const { retrieveCategories, updateGameOptions } = useAppContext()
 
   useEffect(() => {
     fetch('https://opentdb.com/api_category.php')
       .then((res) => res.json())
       .then((data) => {
+        console.log(data)
         retrieveCategories(
           data.trivia_categories.slice(0, data.trivia_categories.length - 3)
         )

@@ -1,5 +1,6 @@
 .alert {
-  @include absolute(0%);
+  @include absolute(5%);
+  color: white;
 
   &-success {
     background-color: green;

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useAppContext } from '../context/appContext'
+import { useAppContext } from '../../context/appContext'
 
 const GameOptions = () => {
   const { categories, gameOptions, loadQuestions, updateGameOptions } = useAppContext()
