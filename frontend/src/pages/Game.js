@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { decode } from 'html-entities'
 import { useAppContext } from '../context/appContext'
-import { GameOptions, GameReady, Question, Alert } from '../components/index.js'
+import {
+  GameOptions,
+  GameReady,
+  TriviaCarousel,
+  Alert
+} from '../components/index.js'
 
 const Game = () => {
   const {
@@ -9,18 +15,17 @@ const Game = () => {
     showOptions,
     loadingQuestions,
     setTrivia,
-    trivia,
     gameReady,
     gameActive,
     gameOptions
   } = useAppContext()
 
-  console.log(trivia)
+  // console.log(trivia)
 
   useEffect(() => {
     if (loadingQuestions) {
       const startTime = Date.now()
-      console.log(startTime)
+      // console.log(startTime)
       fetch(
         `https://opentdb.com/api.php?amount=${gameOptions.amount}&category=${gameOptions.category}&difficulty=${gameOptions.difficulty}&type=${gameOptions.type}`
       )
@@ -31,15 +36,23 @@ const Game = () => {
             optionComboError()
             return
           }
+          const trivia = data.results.map((obj) => ({
+            question: decode(obj.question),
+            correctAnswer: decode(obj.correct_answer),
+            possibleAnswers: [...obj.incorrect_answers, obj.correct_answer]
+              .map((string) => decode(string))
+              .sort(() => (Math.random() > 0.5 ? 1 : -1)),
+            selectedAnswer: ''
+          }))
           // LOADING SCREEN FOR AT LEAST 1 SECOND
           const time = 1000 - (Date.now() - startTime)
           if (time > 0) {
             setTimeout(() => {
-              setTrivia(data.results)
+              setTrivia(trivia)
             }, time)
             return
           }
-          setTrivia(data.results)
+          setTrivia(trivia)
         })
         .catch((err) => console.log(err))
     }
@@ -48,9 +61,9 @@ const Game = () => {
   return (
     <div className="game page">
       {showAlert && <Alert />}
-      {showOptions && !gameActive && <GameOptions />}
+      {showOptions && <GameOptions />}
       {gameReady && <GameReady />}
-      {gameActive && <h1>Game</h1>}
+      {gameActive && <TriviaCarousel />}
       {loadingQuestions && <h1>Loading Questions...</h1>}
     </div>
   )

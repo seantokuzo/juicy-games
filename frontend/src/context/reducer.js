@@ -1,12 +1,13 @@
 import {
+  CLEAR_ALERT,
+  RETRIEVE_CATEGORIES,
+  UPDATE_GAME_OPTIONS,
   LOAD_QUESTIONS_BEGIN,
   LOAD_QUESTIONS_SUCCESS,
   LOAD_QUESTIONS_ERROR,
-  RETRIEVE_CATEGORIES,
-  START_GAME,
-  UPDATE_GAME_OPTIONS,
   OPTION_COMBO_ERROR,
-  CLEAR_ALERT
+  START_GAME,
+  SELECT_ANSWER
 } from './actions'
 
 import { initialState } from './appContext'
@@ -88,6 +89,19 @@ const reducer = (state, action) => {
       ...state,
       gameReady: false,
       gameActive: true
+    }
+  }
+  if (action.type === SELECT_ANSWER) {
+    return {
+      ...state,
+      trivia: [...state.trivia].map((obj, i) =>
+        i === action.payload.index
+          ? {
+              ...state.trivia[action.payload.index],
+              selectedAnswer: action.payload.answer
+            }
+          : obj
+      )
     }
   }
   throw new Error(`No such action : ${action.type}`)

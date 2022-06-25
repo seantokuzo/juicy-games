@@ -4,6 +4,6 @@ import Alert from './Alert'
 
 import GameOptions from './game/GameOptions'
 import GameReady from './game/GameReady'
-import Question from './game/Question'
+import TriviaCarousel from './game/TriviaCarousel'
 
-export { Header, Footer, Alert, GameOptions, GameReady, Question }
+export { Header, Footer, Alert, GameOptions, GameReady, TriviaCarousel }

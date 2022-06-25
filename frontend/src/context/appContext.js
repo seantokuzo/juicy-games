@@ -8,7 +8,8 @@ import {
   LOAD_QUESTIONS_BEGIN,
   LOAD_QUESTIONS_SUCCESS,
   LOAD_QUESTIONS_ERROR,
-  START_GAME
+  START_GAME,
+  SELECT_ANSWER
 } from './actions'
 
 const initialState = {
@@ -71,6 +72,10 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: START_GAME })
   }
 
+  const selectAnswer = (index, answer) => {
+    dispatch({ type: SELECT_ANSWER, payload: { index, answer } })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -80,7 +85,8 @@ const AppContextProvider = ({ children }) => {
         updateGameOptions,
         loadQuestions,
         setTrivia,
-        startGame
+        startGame,
+        selectAnswer
       }}
     >
       {children}
