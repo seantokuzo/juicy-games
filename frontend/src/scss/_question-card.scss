@@ -1,0 +1,27 @@
+.question-card {
+  @include absolute(50%);
+  width: 100%;
+  padding: 1rem;
+  text-align: center;
+
+  background-color: $bg-dark;
+  border: 1px solid red;
+
+  &__question {
+    
+  }
+
+  &__answers {
+    @include flex;
+  }
+
+  &__answer {
+
+    &-text {
+
+      &--selected {
+
+      }
+    }
+  }
+}

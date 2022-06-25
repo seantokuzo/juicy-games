@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppContext } from '../../context/appContext'
-import Question from './Question'
+import Question from './QuestionCard'
 import { nanoid } from 'nanoid'
 
 const TriviaCarousel = () => {
@@ -13,6 +13,7 @@ const TriviaCarousel = () => {
         <Question
           question={q.question}
           possibleAnswers={q.possibleAnswers}
+          selectedAnswer={q.selectedAnswer}
           index={index}
           key={nanoid()}
         />
