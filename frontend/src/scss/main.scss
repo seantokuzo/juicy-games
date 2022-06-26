@@ -7,13 +7,14 @@
 @import 'signup';
 @import 'game';
 @import 'game-options';
+@import 'game-ready';
 @import 'forms';
 @import 'trivia-carousel';
 @import 'question-card';
 
 body {
-  background: $bg-dark;
-  color: $cream1;
+  background: $th1-red;
+  color: $th1-white;
   height: 100vh;
   font-family: $fs-primary;
   line-height: 1;
@@ -21,6 +22,7 @@ body {
 
 a {
   text-decoration: none;
+  color: $th1-red;
 }
 
 .app {

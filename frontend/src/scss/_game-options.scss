@@ -5,9 +5,9 @@
   height: 100%;
   @include flex;
   
-  &__hidden {
-    transform: translateX(200%);
-  }
+  // &__hidden {
+  //   transform: translateX(200%);
+  // }
 
   &__option {
     @include flex;

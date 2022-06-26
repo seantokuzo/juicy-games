@@ -12,8 +12,7 @@ import {
   SELECT_ANSWER
 } from './actions'
 
-// const localTrivia = JSON.parse(localStorage.getItem('localTrivia'))
-let localTrivia
+const localTrivia = JSON.parse(localStorage.getItem('localTrivia'))
 
 const initialState = {
   categories: undefined,
@@ -26,6 +25,7 @@ const initialState = {
   },
   loadingQuestions: false,
   trivia: localTrivia || undefined,
+  currentQuestion: 1,
   gameReady: false,
   gameActive: false,
   showAlert: false,

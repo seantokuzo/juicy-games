@@ -1,3 +1,28 @@
+/* *** GLOBAL FONT SIZES *** */
+.title {
+  font-size: 3rem;
+}
+.subtitle {
+  font-size: 2rem;
+}
+.text {
+  font-size: 1rem;
+}
+
+/* *** GLOBAL CLASSES *** */
 .page {
-  @include fixed-hunnid;
+  @include absolute;
+  @include flex;
+}
+
+.btn {
+  border: none;
+  border-radius: 2px;
+  background: $th1-white;
+
+  padding: .5rem;
+
+  &-text {
+    color: $th1-red;
+  }
 }

@@ -24,13 +24,13 @@ function App() {
       .catch((err) => console.log(err))
   }, [])
 
-  // useEffect(() => {
-  //   const localTriv = JSON.parse(localStorage.getItem('localTrivia'))
-  //   if (localTriv) {
-  //     setTrivia(localTriv)
-  //     navigate('/game')
-  //   }
-  // }, [])
+  useEffect(() => {
+    const localTriv = JSON.parse(localStorage.getItem('localTrivia'))
+    if (localTriv) {
+      setTrivia(localTriv)
+      navigate('/game')
+    }
+  }, [])
 
   return (
     <div className="app">

@@ -1,19 +1,14 @@
 .welcome {
-  @include fixed-hunnid;
   
   &__links-div {
     width: 100%;
     @include flex(column, center, space-around);
+    margin-top: 1rem;
   }
 
   &__link {
-    color: $cream1;
+    text-decoration: none;
     min-width: 200px;
     text-align: center;
-
-    margin: 1rem 0;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: $purp1;
   }
 }

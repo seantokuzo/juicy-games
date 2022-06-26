@@ -1,4 +1,24 @@
 .carousel {
-  @include absolute(50%);
+  @include flex;
   width: 100%;
+  
+  border: 1px solid blue;
+
+  &__controls {
+    @include flex(row, center, space-around);
+  }
+
+  &-char {
+    font-size: 1.5em;
+    margin: 0 .5rem;
+  }
+
+  &-number {
+
+    &--current {
+      border-radius: 50%;
+      background-color: $th1-white;
+      color: $th1-red;
+    }
+  }
 }

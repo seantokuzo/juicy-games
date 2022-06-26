@@ -43,7 +43,7 @@ const Welcome = () => {
             Create an Account
           </h3>
         </Link> */}
-        <Link to="/game">
+        <Link to="/game" className="btn welcome__btn">
           <h3 className="welcome__link welcome__link--guest">Play as Guest</h3>
         </Link>
       </div>

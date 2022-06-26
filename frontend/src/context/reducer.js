@@ -79,6 +79,7 @@ const reducer = (state, action) => {
     console.log('loading questions')
     return {
       ...state,
+      showOptions: false,
       loadingQuestions: false,
       trivia: action.payload.questionsData,
       gameReady: true
@@ -87,6 +88,8 @@ const reducer = (state, action) => {
   if (action.type === START_GAME) {
     return {
       ...state,
+      showOptions: false,
+      loadingQuestions: false,
       gameReady: false,
       gameActive: true
     }
