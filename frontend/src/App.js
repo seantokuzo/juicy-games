@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useAppContext } from './context/appContext'
 import { Header, Footer } from './components/index.js'
 import { Welcome, Signup, Game, Leaderboard } from './pages/index.js'
 import './scss/main.scss'
 
 function App() {
-  const { retrieveCategories, updateGameOptions } = useAppContext()
+  const { setTrivia, retrieveCategories, updateGameOptions } = useAppContext()
+  const navigate = useNavigate()
 
   useEffect(() => {
     fetch('https://opentdb.com/api_category.php')
@@ -22,6 +23,14 @@ function App() {
       })
       .catch((err) => console.log(err))
   }, [])
+
+  // useEffect(() => {
+  //   const localTriv = JSON.parse(localStorage.getItem('localTrivia'))
+  //   if (localTriv) {
+  //     setTrivia(localTriv)
+  //     navigate('/game')
+  //   }
+  // }, [])
 
   return (
     <div className="app">

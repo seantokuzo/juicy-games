@@ -44,6 +44,7 @@ const Game = () => {
               .sort(() => (Math.random() > 0.5 ? 1 : -1)),
             selectedAnswer: ''
           }))
+          localStorage.setItem('localTrivia', JSON.stringify(trivia))
           // LOADING SCREEN FOR AT LEAST 1 SECOND
           const time = 1000 - (Date.now() - startTime)
           if (time > 0) {

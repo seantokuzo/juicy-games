@@ -13,18 +13,14 @@ const QuestionCard = ({ index, question, possibleAnswers, selectedAnswer }) => {
           return (
             <div
               key={nanoid()}
-              className="question-card__answer"
+              className={
+                answer === selectedAnswer
+                  ? 'question-card__answer--selected'
+                  : 'question-card__answer'
+              }
               onClick={() => selectAnswer(index, answer)}
             >
-              <p
-                className={
-                  answer === selectedAnswer
-                    ? 'question-card__answer-text--selected'
-                    : 'question-card__answer-text'
-                }
-              >
-                {answer}
-              </p>
+              <p className="question-card__answer-text">{answer}</p>
             </div>
           )
         })}

@@ -1,5 +1,6 @@
 .question-card {
   @include absolute(50%);
+  @include flex;
   width: 100%;
   padding: 1rem;
   text-align: center;
@@ -12,16 +13,22 @@
   }
 
   &__answers {
-    @include flex;
+    @include flex(row, center, space-around);
+    flex-wrap: wrap;
+
+    border: 1px solid aqua;
   }
 
   &__answer {
+    border: 2px solid;
+    border-color: blue;
+    &--selected {
+      color: white;
+      background-color: green;
+    }
 
     &-text {
 
-      &--selected {
-
-      }
     }
   }
 }
