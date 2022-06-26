@@ -11,8 +11,8 @@
 
 /* *** GLOBAL CLASSES *** */
 .page {
-  @include absolute;
-  @include flex;
+  // @include absolute;
+  // @include flex;
 }
 
 .btn {
@@ -21,6 +21,12 @@
   background: $th1-white;
 
   padding: .5rem;
+
+  @include transition-ease;
+
+  &:hover {
+    @include box-shadow;
+  }
 
   &-text {
     color: $th1-red;

@@ -1,11 +1,12 @@
 .carousel {
+  @include absolute;
   @include flex;
   width: 100%;
   
-  border: 1px solid blue;
-
   &__controls {
-    @include flex(row, center, space-around);
+    @include flex(row, center, space-evenly);
+    width: 100%;
+    margin-top: 1.5rem;
   }
 
   &-char {
@@ -15,10 +16,13 @@
 
   &-number {
 
+    &--answered {
+      color: $th2-blue;
+    }
+
     &--current {
-      border-radius: 50%;
-      background-color: $th1-white;
-      color: $th1-red;
+      text-decoration: underline;
+
     }
   }
 }

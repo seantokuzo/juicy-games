@@ -9,7 +9,8 @@ import {
   LOAD_QUESTIONS_SUCCESS,
   LOAD_QUESTIONS_ERROR,
   START_GAME,
-  SELECT_ANSWER
+  SELECT_ANSWER,
+  TOGGLE_QUESTION
 } from './actions'
 
 const localTrivia = JSON.parse(localStorage.getItem('localTrivia'))
@@ -79,6 +80,12 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: SELECT_ANSWER, payload: { index, answer } })
   }
 
+  const toggleQuestion = (questionNumber) => {
+    console.log(questionNumber < 1 || questionNumber > state.trivia.length)
+    if (questionNumber < 1 || questionNumber > state.trivia.length) return
+    dispatch({ type: TOGGLE_QUESTION, payload: { questionNumber } })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -89,7 +96,8 @@ const AppContextProvider = ({ children }) => {
         loadQuestions,
         setTrivia,
         startGame,
-        selectAnswer
+        selectAnswer,
+        toggleQuestion
       }}
     >
       {children}

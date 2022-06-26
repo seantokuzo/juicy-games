@@ -10,7 +10,6 @@ $th2-yellow: #FFD93D;
 $th2-green: #6BCB77;
 $th2-blue: #4D96FF;
 
-
 // COLORS
 $bg-dark: #151515;
 $purp1: #301B3F;
@@ -46,4 +45,21 @@ $fs-primary: 'Fascinate', 'Inter', Verdana, Tahoma, Geneva, sans-serif;
   top: $top;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+@mixin box-shadow($color: #000000, $op1: 0.35, $op2: 0.15) {
+  box-shadow: 0.25em 0.25em 0.75em rgba($color, $op1),
+              0.125em 0.125em 0.25em rgba($color, $op2);
+}
+
+@mixin computer-hover {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}
+
+@mixin media-sm {
+  @media screen and (min-width: 340px) and (min-height: 551px) {
+    @content;
+  }
 }

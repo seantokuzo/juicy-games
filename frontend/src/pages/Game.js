@@ -60,7 +60,7 @@ const Game = () => {
   }, [loadingQuestions])
 
   return (
-    <div className="game page">
+    <div className="game">
       {showAlert && <Alert />}
       {showOptions && <GameOptions />}
       {gameReady && <GameReady />}

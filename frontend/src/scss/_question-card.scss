@@ -1,16 +1,18 @@
 .question-card {
-  @include absolute(50%);
+  // @include absolute;
   @include flex;
-  width: 85vw;
-  min-width: fit-content;
-  padding: 1rem;
+  @include box-shadow;
+  width: 80%;
+  padding: 1rem 2rem;
   text-align: center;
 
   background-color: lighten($th1-red, 10);
-  // border: 1px solid red;
+  z-index: 1000;
 
   &--hidden {
+    display: none;
     opacity: 0;
+    z-index: 10;
 
     &-left {
       transform: translateX(-200%);
@@ -33,20 +35,34 @@
   }
   
   &__answer {
-    border: 1px solid;
+    // border: 3px solid;
+    // border-color: $th1-red;
     border-radius: 2px;
-    border-color: $th1-red;
     background-color: $th1-red;
     
     margin: 1rem 0;
-    padding: 0.5rem;
+    padding: .75rem 0;
+
+    cursor: pointer;
+    @include transition-ease;
     
     &--selected {
-      background-color: $th2-green;
+      background-color: $th2-blue;
+      @include box-shadow;
     }
-
+    
     &-text {
+      
+    }
+  }
+}
 
+@include computer-hover {
+  .question-card {
+    &__answer {
+      &:hover {
+        @include box-shadow;
+      }
     }
   }
 }

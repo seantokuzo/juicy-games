@@ -7,7 +7,8 @@ import {
   LOAD_QUESTIONS_ERROR,
   OPTION_COMBO_ERROR,
   START_GAME,
-  SELECT_ANSWER
+  SELECT_ANSWER,
+  TOGGLE_QUESTION
 } from './actions'
 
 import { initialState } from './appContext'
@@ -21,8 +22,10 @@ import { initialState } from './appContext'
 //     difficulty: 'easy',
 //     type: 'multiple'
 //   },
-//   trivia: undefined,
 //   loadingQuestions: false,
+//   trivia: localTrivia || undefined,
+//   currentQuestion: 1,
+//   gameReady: false,
 //   gameActive: false,
 //   showAlert: false,
 //   alertText: ''
@@ -101,10 +104,21 @@ const reducer = (state, action) => {
         i === action.payload.index
           ? {
               ...state.trivia[action.payload.index],
-              selectedAnswer: action.payload.answer
+              selectedAnswer:
+                action.payload.answer ===
+                state.trivia[action.payload.index].selectedAnswer
+                  ? ''
+                  : action.payload.answer
             }
           : obj
       )
+    }
+  }
+  if (action.type === TOGGLE_QUESTION) {
+    console.log(action.payload.currentQuestion)
+    return {
+      ...state,
+      currentQuestion: action.payload.questionNumber
     }
   }
   throw new Error(`No such action : ${action.type}`)

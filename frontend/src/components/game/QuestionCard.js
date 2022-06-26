@@ -23,7 +23,7 @@ const QuestionCard = ({ index, question, possibleAnswers, selectedAnswer }) => {
               key={nanoid()}
               className={
                 answer === selectedAnswer
-                  ? 'question-card__answer--selected'
+                  ? 'question-card__answer question-card__answer--selected'
                   : 'question-card__answer'
               }
               onClick={() => selectAnswer(index, answer)}
