@@ -9,6 +9,7 @@ import {
   LOAD_QUESTIONS_SUCCESS,
   LOAD_QUESTIONS_ERROR,
   START_GAME,
+  RESET_OPTIONS,
   SELECT_ANSWER,
   TOGGLE_QUESTION
 } from './actions'
@@ -76,6 +77,11 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: START_GAME })
   }
 
+  const resetOptions = () => {
+    dispatch({ type: RESET_OPTIONS })
+    localStorage.removeItem('localTrivia')
+  }
+
   const selectAnswer = (index, answer) => {
     dispatch({ type: SELECT_ANSWER, payload: { index, answer } })
   }
@@ -96,6 +102,7 @@ const AppContextProvider = ({ children }) => {
         loadQuestions,
         setTrivia,
         startGame,
+        resetOptions,
         selectAnswer,
         toggleQuestion
       }}

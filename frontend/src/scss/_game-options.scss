@@ -1,21 +1,14 @@
 .game-options {
-  background-color: $bg-dark;
-  position: fixed;
+  @include absolute;
   width: 100%;
-  height: 100%;
-  @include flex;
   
-  // &__hidden {
-  //   transform: translateX(200%);
-  // }
+  &__inputs {
+    @include flex;
+  }
 
   &__option {
     @include flex;
     margin-top: 1rem;
-  }
-
-  &__inputs {
-    @include flex;
   }
 
   &__selector {

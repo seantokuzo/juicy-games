@@ -1,8 +1,9 @@
 import React from 'react'
+import { RESET_OPTIONS } from '../../context/actions'
 import { useAppContext } from '../../context/appContext'
 
 const GameReady = () => {
-  const { startGame, trivia } = useAppContext()
+  const { startGame, resetOptions, trivia } = useAppContext()
   console.log(trivia)
   return (
     <div className="game-ready">
@@ -10,6 +11,9 @@ const GameReady = () => {
       <h3 className="subtitle game-ready__subtitle">Butt are you?</h3>
       <div className="btn game-ready__btn" onClick={startGame}>
         <p className="text btn-text game-ready__btn-text">Start Game</p>
+      </div>
+      <div className="btn game-ready__btn" onClick={resetOptions}>
+        <p className="text btn-text game-ready__btn-text">Game Options</p>
       </div>
     </div>
   )

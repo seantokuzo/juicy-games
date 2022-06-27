@@ -7,6 +7,7 @@ import {
   LOAD_QUESTIONS_ERROR,
   OPTION_COMBO_ERROR,
   START_GAME,
+  RESET_OPTIONS,
   SELECT_ANSWER,
   TOGGLE_QUESTION
 } from './actions'
@@ -95,6 +96,16 @@ const reducer = (state, action) => {
       loadingQuestions: false,
       gameReady: false,
       gameActive: true
+    }
+  }
+  if (action.type === RESET_OPTIONS) {
+    return {
+      ...state,
+      showOptions: true,
+      trivia: undefined,
+      loadingQuestions: false,
+      gameReady: false,
+      gameActive: false
     }
   }
   if (action.type === SELECT_ANSWER) {

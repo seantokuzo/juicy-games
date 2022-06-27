@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useAppContext } from '../../context/appContext'
 import accurateInterval from '../../utils/accurateInterval'
+import { TIME_PER_QUESTION } from '../../assets/data/constants'
 
 const Timer = () => {
   const { gameOptions, gameActive } = useAppContext()
-  const [timeLeft, setTimeLeft] = useState(gameOptions.amount * 15 * 1000)
+  const [timeLeft, setTimeLeft] = useState(
+    gameOptions.amount * TIME_PER_QUESTION * 1000
+  )
   const [myInterval, setMyInterval] = useState('')
 
   useEffect(() => {
