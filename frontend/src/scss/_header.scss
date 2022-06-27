@@ -1,9 +1,11 @@
 .header {
   position: absolute;
+  top: 0;
   @include flex(row, center, space-between);
   width: 100%;
 
   padding: .5rem;
+  z-index: 9999;
 
   &__pfp-div {
     @include transition-ease;

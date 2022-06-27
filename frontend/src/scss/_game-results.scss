@@ -1,0 +1,35 @@
+.game-results {
+  @include flex;
+  width: 75%;
+  margin: 4rem auto;
+  
+  &__question-div {
+    width: 100%;
+    @include flex;
+  }
+  &__question {
+    margin-bottom: .5rem;
+  }
+  &__answer-div {
+    @include flex(row, center, space-around);
+    
+  }
+  &__answer {
+    text-align: center;
+    width: 100%;
+    margin: 0 .5rem;
+    padding: .5rem 1.5rem;
+
+    border-radius: 2px;
+
+    &--correct {
+      background-color: $th2-green;
+    }
+    
+    &--incorrect {
+      background-color: darken($th1-red, 40%);
+
+    }
+  }
+
+}

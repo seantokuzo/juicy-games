@@ -11,6 +11,7 @@
 @import 'forms';
 @import 'trivia-carousel';
 @import 'question-card';
+@import 'game-results';
 
 body {
   background: $th1-red;
@@ -35,6 +36,50 @@ select {
     outline: none;
     @include box-shadow(#000000, .35, .15);
   }
+}
+
+input[type="radio"] {
+  /* Add if not using autoprefixer */
+  -webkit-appearance: none;
+  /* Remove most all native input styles */
+  appearance: none;
+  /* For iOS < 15 */
+  background-color: $th1-white;
+  /* Not removed via appearance */
+  margin: 0;
+
+  font: inherit;
+  color: currentColor;
+  width: 1.15em;
+  height: 1.15em;
+  margin: .5rem 0;
+  border: 0.15em solid currentColor;
+  border-radius: 50%;
+  transform: translateY(-0.075em);
+
+  display: grid;
+  place-content: center;
+}
+
+input[type="radio"]::before {
+  content: "";
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  transform: scale(0);
+  transition: 120ms transform ease-in-out;
+  @include box-shadow;
+  /* Windows High Contrast Mode */
+  background-color: $th1-red;
+}
+
+input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+input[type="radio"]:focus {
+  outline: 2px solid rgba($th1-white, .6);
+  outline-offset: 2px;
 }
 
 .app {

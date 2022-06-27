@@ -1,6 +1,7 @@
 import React, { useReducer, useContext } from 'react'
 import reducer from './reducer'
 import {
+  DISPLAY_ALERT,
   OPTION_COMBO_ERROR,
   CLEAR_ALERT,
   RETRIEVE_CATEGORIES,
@@ -11,7 +12,8 @@ import {
   START_GAME,
   RESET_OPTIONS,
   SELECT_ANSWER,
-  TOGGLE_QUESTION
+  TOGGLE_QUESTION,
+  SUBMIT_ANSWERS
 } from './actions'
 
 const localTrivia = JSON.parse(localStorage.getItem('localTrivia'))
@@ -30,6 +32,7 @@ const initialState = {
   currentQuestion: 1,
   gameReady: false,
   gameActive: false,
+  gameOver: false,
   showAlert: false,
   alertText: ''
 }
@@ -38,6 +41,7 @@ const AppContext = React.createContext()
 
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
+  console.log(state)
 
   const optionComboError = () => {
     dispatch({ type: OPTION_COMBO_ERROR })
@@ -92,6 +96,24 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: TOGGLE_QUESTION, payload: { questionNumber } })
   }
 
+  const submitAnswers = () => {
+    // console.log(state.trivia)
+    // const answers = state.trivia.map((triviaData) => triviaData.selectedAnswer)
+    // if (!answers.every((answer) => answer)) {
+    //   dispatch({
+    //     type: DISPLAY_ALERT,
+    //     payload: {
+    //       alertType: 'danger',
+    //       alertText:
+    //         "You haven't answered all the questions. There's still time!"
+    //     }
+    //   })
+    //   clearAlert(3000)
+    //   return
+    // }
+    dispatch({ type: SUBMIT_ANSWERS })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -104,7 +126,8 @@ const AppContextProvider = ({ children }) => {
         startGame,
         resetOptions,
         selectAnswer,
-        toggleQuestion
+        toggleQuestion,
+        submitAnswers
       }}
     >
       {children}

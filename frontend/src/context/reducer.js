@@ -1,4 +1,5 @@
 import {
+  DISPLAY_ALERT,
   CLEAR_ALERT,
   RETRIEVE_CATEGORIES,
   UPDATE_GAME_OPTIONS,
@@ -9,7 +10,8 @@ import {
   START_GAME,
   RESET_OPTIONS,
   SELECT_ANSWER,
-  TOGGLE_QUESTION
+  TOGGLE_QUESTION,
+  SUBMIT_ANSWERS
 } from './actions'
 
 import { initialState } from './appContext'
@@ -33,6 +35,14 @@ import { initialState } from './appContext'
 // }
 
 const reducer = (state, action) => {
+  if (action.type === DISPLAY_ALERT) {
+    return {
+      ...state,
+      showAlert: true,
+      alertType: action.payload.alertType,
+      alertText: action.payload.alertText
+    }
+  }
   if (action.type === OPTION_COMBO_ERROR) {
     return {
       ...initialState,
@@ -86,7 +96,8 @@ const reducer = (state, action) => {
       showOptions: false,
       loadingQuestions: false,
       trivia: action.payload.questionsData,
-      gameReady: true
+      gameReady: true,
+      gameOver: false
     }
   }
   if (action.type === START_GAME) {
@@ -95,7 +106,8 @@ const reducer = (state, action) => {
       showOptions: false,
       loadingQuestions: false,
       gameReady: false,
-      gameActive: true
+      gameActive: true,
+      gameOver: false
     }
   }
   if (action.type === RESET_OPTIONS) {
@@ -105,7 +117,8 @@ const reducer = (state, action) => {
       trivia: undefined,
       loadingQuestions: false,
       gameReady: false,
-      gameActive: false
+      gameActive: false,
+      gameOver: false
     }
   }
   if (action.type === SELECT_ANSWER) {
@@ -130,6 +143,13 @@ const reducer = (state, action) => {
     return {
       ...state,
       currentQuestion: action.payload.questionNumber
+    }
+  }
+  if (action.type === SUBMIT_ANSWERS) {
+    return {
+      ...state,
+      gameActive: false,
+      gameOver: true
     }
   }
   throw new Error(`No such action : ${action.type}`)

@@ -4,7 +4,8 @@ import QuestionCard from './QuestionCard'
 import { nanoid } from 'nanoid'
 
 const TriviaCarousel = () => {
-  const { trivia, currentQuestion, toggleQuestion } = useAppContext()
+  const { trivia, currentQuestion, toggleQuestion, submitAnswers } =
+    useAppContext()
   // console.log(trivia)
   // console.log(currentQuestion)
 
@@ -47,7 +48,9 @@ const TriviaCarousel = () => {
         ></i>
       </div>
       <div className="btn carousel__submit-btn">
-        <h3 className="text">Submit</h3>
+        <h3 className="text" onClick={submitAnswers}>
+          Submit
+        </h3>
       </div>
     </div>
   )

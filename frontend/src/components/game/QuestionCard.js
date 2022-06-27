@@ -1,9 +1,10 @@
 import React from 'react'
+import { useSwipeable } from 'react-swipeable'
 import { useAppContext } from '../../context/appContext'
 import { nanoid } from 'nanoid'
 
 const QuestionCard = ({ index, question, possibleAnswers, selectedAnswer }) => {
-  const { selectAnswer, currentQuestion } = useAppContext()
+  const { selectAnswer, currentQuestion, toggleQuestion } = useAppContext()
 
   const cardClass =
     index + 1 < currentQuestion
@@ -12,8 +13,15 @@ const QuestionCard = ({ index, question, possibleAnswers, selectedAnswer }) => {
       ? 'question-card question-card--hidden question-card--hidden-right'
       : 'question-card question-card--current'
 
+  const handlers = useSwipeable({
+    delta: 50,
+    preventScrollOnSwipe: true,
+    onSwipedLeft: () => toggleQuestion(currentQuestion + 1),
+    onSwipedRight: () => toggleQuestion(currentQuestion - 1)
+  })
+
   return (
-    <div className={cardClass} key={question}>
+    <div {...handlers} className={cardClass} key={question}>
       <h1 className="question-card__label">#{index + 1}</h1>
       <h3 className="question-card__question">{question}</h3>
       <div className="question-card__answers">

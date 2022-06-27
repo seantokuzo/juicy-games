@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { decode } from 'html-entities'
 import { useAppContext } from '../context/appContext'
 import {
   GameOptions,
   GameReady,
   TriviaCarousel,
+  GameResults,
   Alert
 } from '../components/index.js'
 
@@ -17,10 +18,11 @@ const Game = () => {
     setTrivia,
     gameReady,
     gameActive,
-    gameOptions
+    gameOptions,
+    gameOver
   } = useAppContext()
 
-  // console.log(trivia)
+  console.log(gameOver)
 
   useEffect(() => {
     if (loadingQuestions) {
@@ -46,7 +48,7 @@ const Game = () => {
           }))
           localStorage.setItem('localTrivia', JSON.stringify(trivia))
           // LOADING SCREEN FOR AT LEAST 1 SECOND
-          const time = 1000 - (Date.now() - startTime)
+          const time = 2000 - (Date.now() - startTime)
           if (time > 0) {
             setTimeout(() => {
               setTrivia(trivia)
@@ -65,7 +67,8 @@ const Game = () => {
       {showOptions && <GameOptions />}
       {gameReady && <GameReady />}
       {gameActive && <TriviaCarousel />}
-      {loadingQuestions && <h1>Loading Questions...</h1>}
+      {gameOver && <GameResults />}
+      {loadingQuestions && <h1 className="center">Loading...</h1>}
     </div>
   )
 }
