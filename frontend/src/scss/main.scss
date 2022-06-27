@@ -25,6 +25,18 @@ a {
   color: $th1-red;
 }
 
+select {
+  appearance: none;
+  background: none;
+  border: none;
+  text-align: center;
+
+  &:focus {
+    outline: none;
+    @include box-shadow(#000000, .35, .15);
+  }
+}
+
 .app {
 
 }

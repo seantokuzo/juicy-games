@@ -1,6 +1,7 @@
 /* *** GLOBAL FONT SIZES *** */
 .title {
-  font-size: 3rem;
+  font-size: 2rem;
+  text-align: center;
 }
 .subtitle {
   font-size: 2rem;
@@ -18,17 +19,16 @@
 .btn {
   border: none;
   border-radius: 2px;
+  color: $th1-red;
   background: $th1-white;
 
   padding: .5rem;
+
+  text-align: center;
 
   @include transition-ease;
 
   &:hover {
     @include box-shadow;
-  }
-
-  &-text {
-    color: $th1-red;
   }
 }

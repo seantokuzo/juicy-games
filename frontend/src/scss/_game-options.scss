@@ -1,26 +1,59 @@
 .game-options {
   @include absolute;
-  width: 100%;
-  
-  &__inputs {
-    @include flex;
-  }
+  @include flex;
+  width: 90%;
+  padding: 2rem;
+
+  // border: 3px solid $th1-white;
+  border-radius: 5px;
+
+  background-color: #ffffff15;
+
+  @include box-shadow(#000000, .5, .35);
 
   &__option {
     @include flex;
-    margin-top: 1rem;
-  }
+    width: 100%;
 
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  &__label {
+    
+  }
+  
   &__selector {
     text-align: center;
-    width: min-content;
+    width: 100%;
+    
+    font-family: $fs-primary;
+    font-size: 1em;
+
+    margin: .5rem 0 0;
+    padding: .2rem 0;
+
+    color: $th1-red;
+    background-color: $th1-white;
+    
   }
 
   &__radio-div {
     @include flex(row, center, center);
+    margin-top: .5rem;
   }
-
+  
   &__radio-option {
     @include flex(column, center, center);
+    margin: 0 .5rem;
+  }
+  
+  &__btn {
+    margin-top: 1rem;
+    color: $th1-red;
+
+    &:hover {
+      @include box-shadow;
+    }
   }
 }

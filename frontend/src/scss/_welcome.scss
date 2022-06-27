@@ -1,4 +1,6 @@
 .welcome {
+  @include absolute;
+  @include flex;
   
   &__links-div {
     width: 100%;

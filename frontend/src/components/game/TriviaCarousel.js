@@ -46,6 +46,9 @@ const TriviaCarousel = () => {
           onClick={() => toggleQuestion(currentQuestion + 1)}
         ></i>
       </div>
+      <div className="btn carousel__submit-btn">
+        <h3 className="text">Submit</h3>
+      </div>
     </div>
   )
 }
