@@ -98,19 +98,19 @@ const AppContextProvider = ({ children }) => {
 
   const submitAnswers = () => {
     // console.log(state.trivia)
-    // const answers = state.trivia.map((triviaData) => triviaData.selectedAnswer)
-    // if (!answers.every((answer) => answer)) {
-    //   dispatch({
-    //     type: DISPLAY_ALERT,
-    //     payload: {
-    //       alertType: 'danger',
-    //       alertText:
-    //         "You haven't answered all the questions. There's still time!"
-    //     }
-    //   })
-    //   clearAlert(3000)
-    //   return
-    // }
+    const answers = state.trivia.map((triviaData) => triviaData.selectedAnswer)
+    if (!answers.every((answer) => answer)) {
+      dispatch({
+        type: DISPLAY_ALERT,
+        payload: {
+          alertType: 'danger',
+          alertText:
+            "You haven't answered all the questions. There's still time!"
+        }
+      })
+      clearAlert(3000)
+      return
+    }
     dispatch({ type: SUBMIT_ANSWERS })
   }
 
