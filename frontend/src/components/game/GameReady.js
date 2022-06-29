@@ -4,7 +4,7 @@ import { useAppContext } from '../../context/appContext'
 
 const GameReady = () => {
   const { startGame, resetOptions, trivia } = useAppContext()
-  console.log(trivia)
+  // console.log(trivia)
   return (
     <div className="game-ready">
       <h1 className="title game-ready__title">Game Ready</h1>

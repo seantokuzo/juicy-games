@@ -48,9 +48,9 @@ const TriviaCarousel = () => {
         ></i>
       </div>
       <div className="btn carousel__submit-btn">
-        <h3 className="text" onClick={submitAnswers}>
+        <h1 className="subtitle" onClick={submitAnswers}>
           Submit
-        </h3>
+        </h1>
       </div>
     </div>
   )

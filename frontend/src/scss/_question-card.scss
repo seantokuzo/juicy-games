@@ -9,6 +9,8 @@
   background-color: lighten($th1-red, 10);
   z-index: 1000;
 
+  animation: fade-in 150ms ease-in forwards;
+
   &--hidden {
     display: none;
     opacity: 0;
@@ -24,7 +26,7 @@
   }
 
   &__question {
-    
+   margin-top: 1rem; 
   }
 
   &__answers {
@@ -39,6 +41,7 @@
     // border-color: $th1-red;
     border-radius: 2px;
     background-color: $th1-red;
+    font-weight: bolder;
     
     margin: 1rem 0;
     padding: .75rem 0;
@@ -64,5 +67,16 @@
         @include box-shadow;
       }
     }
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: rotateY(.5turn);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateY(1turn);
   }
 }

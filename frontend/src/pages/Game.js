@@ -22,7 +22,7 @@ const Game = () => {
     gameOver
   } = useAppContext()
 
-  console.log(gameOver)
+  localStorage.clear()
 
   useEffect(() => {
     if (loadingQuestions) {
@@ -38,7 +38,8 @@ const Game = () => {
             optionComboError()
             return
           }
-          const trivia = data.results.map((obj) => ({
+          const trivia = data.results.map((obj, i) => ({
+            id: i + 1,
             question: decode(obj.question),
             correctAnswer: decode(obj.correct_answer),
             possibleAnswers: [...obj.incorrect_answers, obj.correct_answer]
@@ -46,7 +47,10 @@ const Game = () => {
               .sort(() => (Math.random() > 0.5 ? 1 : -1)),
             selectedAnswer: ''
           }))
-          localStorage.setItem('localTrivia', JSON.stringify(trivia))
+
+          // SAVE TRIVIA IN LOCAL STORAGE
+          // localStorage.setItem('localTrivia', JSON.stringify(trivia))
+
           // LOADING SCREEN FOR AT LEAST 1 SECOND
           const time = 2000 - (Date.now() - startTime)
           if (time > 0) {

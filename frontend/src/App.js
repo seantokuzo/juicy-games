@@ -13,7 +13,6 @@ function App() {
     fetch('https://opentdb.com/api_category.php')
       .then((res) => res.json())
       .then((data) => {
-        // console.log(data)
         retrieveCategories(
           data.trivia_categories.slice(0, data.trivia_categories.length - 3)
         )
@@ -24,13 +23,14 @@ function App() {
       .catch((err) => console.log(err))
   }, [])
 
-  useEffect(() => {
-    const localTriv = JSON.parse(localStorage.getItem('localTrivia'))
-    if (localTriv) {
-      setTrivia(localTriv)
-      // navigate('/game')
-    }
-  }, [])
+  // CHECK FOR TRIVIA STORED IN LCOAL STORAGE
+  // useEffect(() => {
+  //   const localTriv = JSON.parse(localStorage.getItem('localTrivia'))
+  //   if (localTriv) {
+  //     setTrivia(localTriv)
+  //     navigate('/game')
+  //   }
+  // }, [])
 
   return (
     <div className="app">

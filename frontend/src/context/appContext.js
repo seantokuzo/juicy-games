@@ -41,7 +41,7 @@ const AppContext = React.createContext()
 
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  console.log(state)
+  // console.log(state.trivia)
 
   const optionComboError = () => {
     dispatch({ type: OPTION_COMBO_ERROR })
@@ -88,29 +88,36 @@ const AppContextProvider = ({ children }) => {
 
   const selectAnswer = (index, answer) => {
     dispatch({ type: SELECT_ANSWER, payload: { index, answer } })
+
+    // AUTO QUESTION SWITCHER ON ANSWER SELECT
+    const unanswered = state.trivia.filter(
+      (question) => !question.selectedAnswer
+    )
+    const nextUnanswered = unanswered.filter((q) => q.id !== index + 1)
+    if (nextUnanswered.length > 0) toggleQuestion(nextUnanswered[0].id)
   }
 
   const toggleQuestion = (questionNumber) => {
-    console.log(questionNumber < 1 || questionNumber > state.trivia.length)
     if (questionNumber < 1 || questionNumber > state.trivia.length) return
     dispatch({ type: TOGGLE_QUESTION, payload: { questionNumber } })
   }
 
   const submitAnswers = (str) => {
-    // console.log(state.trivia)
-    const answers = state.trivia.map((triviaData) => triviaData.selectedAnswer)
-    if (!answers.every((answer) => answer) && str !== 'OUT_OF_TIME') {
-      dispatch({
-        type: DISPLAY_ALERT,
-        payload: {
-          alertType: 'danger',
-          alertText:
-            "You haven't answered all the questions. There's still time!"
-        }
-      })
-      clearAlert(3000)
-      return
-    }
+    // CHECK IF ALL QUESTIONS HAVE BEEN ANSWERED
+    // const answers = state.trivia.map((triviaData) => triviaData.selectedAnswer)
+    // if (!answers.every((answer) => answer) && str !== 'OUT_OF_TIME') {
+    //   dispatch({
+    //     type: DISPLAY_ALERT,
+    //     payload: {
+    //       alertType: 'danger',
+    //       alertText:
+    //         "You haven't answered all the questions. There's still time!"
+    //     }
+    //   })
+    //   clearAlert(3000)
+    //   return
+    // }
+    //SUBMIT ANSWERS
     dispatch({ type: SUBMIT_ANSWERS })
   }
 

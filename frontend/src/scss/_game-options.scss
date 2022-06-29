@@ -2,7 +2,7 @@
   @include absolute;
   @include flex;
   width: 90%;
-  max-width: 600px;
+  max-width: 450px;
   padding: 2rem;
 
   // border: 3px solid $th1-white;
@@ -27,7 +27,7 @@
   &__selector {
     width: 100%;
     
-    font-family: $fs-primary;
+    font-family: $fs-fun;
     font-size: 1em;
     
     margin: .5rem 0 0;

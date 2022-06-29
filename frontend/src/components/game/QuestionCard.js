@@ -23,8 +23,8 @@ const QuestionCard = ({ index, question, possibleAnswers, selectedAnswer }) => {
   return (
     <div {...handlers} className={cardClass} key={question}>
       <h1 className="question-card__label">#{index + 1}</h1>
-      <h3 className="question-card__question">{question}</h3>
-      <div className="question-card__answers">
+      <h3 className="question-card__question fs-text">{question}</h3>
+      <div className="question-card__answers fs-text">
         {possibleAnswers.map((answer) => {
           return (
             <div
@@ -34,7 +34,11 @@ const QuestionCard = ({ index, question, possibleAnswers, selectedAnswer }) => {
                   ? 'question-card__answer question-card__answer--selected'
                   : 'question-card__answer'
               }
-              onClick={() => selectAnswer(index, answer)}
+              onClick={() => {
+                if (answer !== selectedAnswer) {
+                  selectAnswer(index, answer)
+                }
+              }}
             >
               <p className="question-card__answer-text">{answer}</p>
             </div>

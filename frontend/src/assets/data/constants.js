@@ -1,1 +1,1 @@
-export const TIME_PER_QUESTION = 1
+export const TIME_PER_QUESTION = 12

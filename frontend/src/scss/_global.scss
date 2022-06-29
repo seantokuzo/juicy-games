@@ -10,6 +10,10 @@
   font-size: 1rem;
 }
 
+.fs-text {
+  font-family: $fs-text;
+}
+
 /* *** GLOBAL CLASSES *** */
 .page {
   // @include absolute;
@@ -17,6 +21,7 @@
 }
 
 .btn {
+  font-family: $fs-fun;
   border: none;
   border-radius: 2px;
   color: $th1-red;

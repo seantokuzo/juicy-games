@@ -49,8 +49,8 @@ const Timer = () => {
 
   return (
     <div className="timer">
-      <h3 className="subtitle timer-title">Time Remaining</h3>
-      <h3 className="title timer-title">{formatTime(timeLeft)}</h3>
+      <h3 className="text timer-text">Time Remaining</h3>
+      <h3 className="subtitle timer-time">{formatTime(timeLeft)}</h3>
     </div>
   )
 }

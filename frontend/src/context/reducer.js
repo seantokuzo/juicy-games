@@ -82,7 +82,6 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === LOAD_QUESTIONS_BEGIN) {
-    console.log('loading questions')
     return {
       ...state,
       showOptions: false,
@@ -90,7 +89,6 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === LOAD_QUESTIONS_SUCCESS) {
-    console.log('loading questions')
     return {
       ...state,
       showOptions: false,

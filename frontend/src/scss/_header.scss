@@ -1,5 +1,5 @@
 .header {
-  position: absolute;
+  position: fixed;
   top: 0;
   @include flex(row, center, center);
   width: 100%;
@@ -9,6 +9,11 @@
 
   &__pfp-div {
     @include transition-ease;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    justify-self: flex-start;
+    height: 5vh;
 
     &:hover {
       transform: scale(1.1);
