@@ -96,10 +96,10 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: TOGGLE_QUESTION, payload: { questionNumber } })
   }
 
-  const submitAnswers = () => {
+  const submitAnswers = (str) => {
     // console.log(state.trivia)
     const answers = state.trivia.map((triviaData) => triviaData.selectedAnswer)
-    if (!answers.every((answer) => answer)) {
+    if (!answers.every((answer) => answer) && str !== 'OUT_OF_TIME') {
       dispatch({
         type: DISPLAY_ALERT,
         payload: {

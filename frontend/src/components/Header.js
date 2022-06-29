@@ -9,7 +9,7 @@ export default function Header() {
 
   return (
     <header className="header">
-      <div className="header__pfp-div">{pfp}</div>
+      {/* <div className="header__pfp-div">{pfp}</div> */}
       {(gameReady || gameActive) && <Timer />}
     </header>
   )

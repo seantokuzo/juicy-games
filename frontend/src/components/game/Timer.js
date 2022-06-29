@@ -4,7 +4,7 @@ import accurateInterval from '../../utils/accurateInterval'
 import { TIME_PER_QUESTION } from '../../assets/data/constants'
 
 const Timer = () => {
-  const { gameOptions, gameActive } = useAppContext()
+  const { gameOptions, gameActive, submitAnswers } = useAppContext()
   const [timeLeft, setTimeLeft] = useState(
     gameOptions.amount * TIME_PER_QUESTION * 1000
   )
@@ -15,6 +15,13 @@ const Timer = () => {
       startTimer()
     }
   }, [gameActive])
+
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      submitAnswers('OUT_OF_TIME')
+      setTimeLeft(0)
+    }
+  }, [timeLeft])
 
   const formatTime = (time) => {
     const minutes = Math.floor(time / 1000 / 60)
@@ -42,8 +49,8 @@ const Timer = () => {
 
   return (
     <div className="timer">
-      <h3 className="timer-title">Time Remaining</h3>
-      <h3 className="timer-title">{formatTime(timeLeft)}</h3>
+      <h3 className="subtitle timer-title">Time Remaining</h3>
+      <h3 className="title timer-title">{formatTime(timeLeft)}</h3>
     </div>
   )
 }

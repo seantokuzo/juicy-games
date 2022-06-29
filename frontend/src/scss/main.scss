@@ -2,6 +2,7 @@
 @import 'global';
 @import 'alert';
 @import 'header';
+@import 'timer';
 @import 'footer';
 @import 'welcome';
 @import 'signup';
@@ -30,7 +31,6 @@ select {
   appearance: none;
   background: none;
   border: none;
-  text-align: center;
 
   &:focus {
     outline: none;

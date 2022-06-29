@@ -2,6 +2,7 @@
   @include absolute;
   @include flex;
   width: 90%;
+  max-width: 600px;
   padding: 2rem;
 
   // border: 3px solid $th1-white;
@@ -24,18 +25,17 @@
   }
   
   &__selector {
-    text-align: center;
     width: 100%;
     
     font-family: $fs-primary;
     font-size: 1em;
-
+    
     margin: .5rem 0 0;
-    padding: .2rem 0;
-
+    padding: .2rem;
+    
     color: $th1-red;
     background-color: $th1-white;
-    
+    text-align-last: center;
   }
 
   &__radio-div {

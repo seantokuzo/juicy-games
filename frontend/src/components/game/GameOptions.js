@@ -105,10 +105,7 @@ const GameOptions = () => {
           </div>
         </div>
       </div>
-      <div
-        className="btn game-options__btn"
-        onClick={loadQuestions}
-      >
+      <div className="btn game-options__btn" onClick={loadQuestions}>
         Load Questions
       </div>
     </div>

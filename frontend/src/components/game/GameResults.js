@@ -51,7 +51,7 @@ const GameResults = () => {
         </div>
       ))}
       <div className="btn game-ready__btn" onClick={resetOptions}>
-        <p className="text btn-text game-ready__btn-text">Game Options</p>
+        <p className="text btn-text game-ready__btn-text">Play Again</p>
       </div>
     </div>
   )

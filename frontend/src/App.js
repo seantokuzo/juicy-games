@@ -28,7 +28,7 @@ function App() {
     const localTriv = JSON.parse(localStorage.getItem('localTrivia'))
     if (localTriv) {
       setTrivia(localTriv)
-      navigate('/game')
+      // navigate('/game')
     }
   }, [])
 
@@ -37,11 +37,11 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Welcome />} />
-        {/* <Route path="/signup" element={<Signup />} /> */}
+        <Route path="/signup" element={<Signup />} />
         <Route path="/game" element={<Game />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   )
 }
