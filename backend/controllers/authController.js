@@ -137,7 +137,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   // 3) SEND IT TO THE USER'S EMAIL
   const resetURL = `${req.protocol}://${req.get(
     'host'
-  )}/api/v1/shnoggle/resetPassword/${resetToken}`
+  )}/api/v1/trivial-trivia/resetPassword/${resetToken}`
 
   const message = `<p style="color:red;font-size:20px;">Forgot your password? Submit a PATCH request with your new password and passwordConfirm to: ${resetURL}.\nIf you didn't forget your password, please ignore this email!</p>`
 

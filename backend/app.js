@@ -5,11 +5,12 @@ const helmet = require('helmet')
 const mongoSanitize = require('express-mongo-sanitize')
 const xss = require('xss-clean')
 
-const shnoggleRouter = require('./routes/shnoggleRoutes')
+const appRouter = require('./routes/appRoutes')
 
 const app = express()
 
 // 1) GLOBAL MIDDLEWARES
+
 // Set Security HTTP Headers
 app.use(helmet())
 
@@ -46,7 +47,7 @@ app.use((req, res, next) => {
 })
 
 // 3) ROUTES
-app.use('/api/v1/shnoggle', shnoggleRouter)
+app.use('/api/v1/trivial-trivia', appRouter)
 
 // app.all('*', (req, res, next) => {
 //   next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404))

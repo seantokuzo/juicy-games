@@ -26,9 +26,3 @@ const sendEmail = async (options) => {
 
 module.exports = sendEmail
 
-// service: 'Gmail ',
-// auth: {
-//   user: process.env.EMAIL_USERNAME,
-//   password: process.env.EMAIL_PASSWORD,
-//   },
-// Activate in gmail "less secure app" option
