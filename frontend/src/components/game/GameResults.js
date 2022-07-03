@@ -43,7 +43,7 @@ const GameResults = () => {
       </h5>
       {trivia.map((x, i) => (
         <div className="game-results__question-div" key={nanoid()}>
-          <p>#{i + 1}</p>
+          <p className=' subtitle game-results__number'>#{i + 1}</p>
           <p className="game-results__question">{x.question}</p>
           <div className="game-results__answer-div">
             {createAnswer(x.selectedAnswer, x.correctAnswer)}

@@ -6,7 +6,16 @@
   &__question-div {
     width: 100%;
     @include flex;
+
+    padding: 1rem 0;
+
+    border-bottom: 2px solid darken($th1-red, 10%);
   }
+
+  &__number {
+    margin: 0 0 .5rem;
+  }
+
   &__question {
     margin-bottom: .5rem;
   }

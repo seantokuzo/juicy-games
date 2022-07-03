@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import { decode } from 'html-entities'
 import { useAppContext } from '../context/appContext'
 import {
   GameOptions,
@@ -29,7 +28,7 @@ const Game = () => {
       const startTime = Date.now()
       // console.log(startTime)
       fetch(
-        `https://opentdb.com/api.php?amount=${gameOptions.amount}&category=${gameOptions.category}&difficulty=${gameOptions.difficulty}&type=${gameOptions.type}`
+        `https://opentdb.com/api.php?amount=${gameOptions.amount}&category=${gameOptions.category}&difficulty=${gameOptions.difficulty}&type=${gameOptions.type}&encode=url3986`
       )
         .then((res) => res.json())
         .then((data) => {
@@ -40,10 +39,10 @@ const Game = () => {
           }
           const trivia = data.results.map((obj, i) => ({
             id: i + 1,
-            question: decode(obj.question),
-            correctAnswer: decode(obj.correct_answer),
+            question: decodeURIComponent(obj.question),
+            correctAnswer: decodeURIComponent(obj.correct_answer),
             possibleAnswers: [...obj.incorrect_answers, obj.correct_answer]
-              .map((string) => decode(string))
+              .map((string) => decodeURIComponent(string))
               .sort(() => (Math.random() > 0.5 ? 1 : -1)),
             selectedAnswer: ''
           }))
