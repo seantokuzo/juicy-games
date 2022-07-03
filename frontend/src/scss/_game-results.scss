@@ -9,7 +9,7 @@
 
     padding: 1rem 0;
 
-    border-bottom: 2px solid darken($th1-red, 10%);
+    border-bottom: 2px solid rgba(lighten($th1-red, 10%), 0.5);
   }
 
   &__number {
@@ -41,4 +41,7 @@
     }
   }
 
+  &__btn {
+    margin: 1.5rem 0 2.5rem;
+  }
 }

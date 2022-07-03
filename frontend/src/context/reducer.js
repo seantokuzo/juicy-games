@@ -116,7 +116,8 @@ const reducer = (state, action) => {
       loadingQuestions: false,
       gameReady: false,
       gameActive: false,
-      gameOver: false
+      gameOver: false,
+      currentQuestion: 1
     }
   }
   if (action.type === SELECT_ANSWER) {
