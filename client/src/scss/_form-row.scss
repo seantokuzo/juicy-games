@@ -1,0 +1,22 @@
+.form-row {
+  @include flex(column, center, center);
+  width: 80%;
+  min-width: 250px;
+  max-width: 500px;
+
+  margin: 0 0 .5rem;
+  
+  &__label {
+    margin-bottom: .5rem;
+  }
+  
+  &__input {
+    width: 100%;
+    font-family: $fs-fun;
+    color: $th1-red;
+    letter-spacing: 1px;
+    padding: 5px 0;
+
+    border: none;
+  }
+}

@@ -7,6 +7,8 @@ import GameReady from './game/GameReady'
 import TriviaCarousel from './game/TriviaCarousel'
 import GameResults from './game/GameResults'
 
+import FormRow from './FormRow'
+
 export {
   Header,
   Footer,
@@ -14,5 +16,6 @@ export {
   GameOptions,
   GameReady,
   TriviaCarousel,
-  GameResults
+  GameResults,
+  FormRow
 }
