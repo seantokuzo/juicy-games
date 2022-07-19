@@ -22,7 +22,7 @@ export const signup = async (req, res) => {
   }
 
   const user = await User.create({ username, email, password })
-  const token = 'Ay babay'
+  const token = user.createJWT()
 
   res.status(StatusCodes.CREATED).json({
     user: {
