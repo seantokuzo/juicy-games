@@ -18,7 +18,7 @@ import morgan from 'morgan'
 import connectDB from './db/connect.js'
 
 // ROUTERS
-// import authRouter from './routes/authRoutes.js'
+import authRouter from './routes/authRoutes.js'
 // import jobsRouter from './routes/jobsRoutes.js'
 
 // MIDDLEWARE
@@ -47,6 +47,8 @@ app.get('/', (req, res) => {
 app.get('/api/v1', (req, res) => {
   res.json({ msg: 'API Version 1' })
 })
+
+app.use('/api/v1/auth', authRouter)
 
 // app.get('*', (req, res) => {
 //   res.sendFile(path.resolve(__dirname, './client/build/index.html'))
