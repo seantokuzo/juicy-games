@@ -35,6 +35,28 @@ export const signup = async (req, res) => {
 
 export const login = async (req, res) => {
   console.log(req.body)
+  const { email, password } = req.body
+
+  // CHECK FOR ALL FIELDS
+  if (!email || !password) {
+    throw new BadRequestError("Email and password, c'mon now")
+  }
+
+  const user = await User.findOne({ email }).select('+password')
+
+  if (!user) {
+    throw new UnauthenticatedError('Invalid credentials')
+  }
+
+  const passwordTest = await user.comparePassword(password)
+  if (!passwordTest) {
+    throw new UnauthenticatedError('Password wrong fam')
+  }
+
+  user.password = undefined
+
+  const token = user.createJWT()
+  res.status(StatusCodes.OK).json({ user, token })
 }
 
 export const updateMe = async (req, res) => {

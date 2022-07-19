@@ -22,9 +22,9 @@ import authRouter from './routes/authRoutes.js'
 // import jobsRouter from './routes/jobsRoutes.js'
 
 // MIDDLEWARE
-// import notFoundMiddleware from './middleware/not-found.js'
-// import errorHandlerMiddleware from './middleware/error-handler.js'
-// import authenticateUser from './middleware/auth.js'
+import notFoundMiddleware from './middleware/not-found.js'
+import errorHandlerMiddleware from './middleware/error-handler.js'
+import authenticateUser from './middleware/auth.js'
 
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'))
@@ -54,8 +54,8 @@ app.use('/api/v1/auth', authRouter)
 //   res.sendFile(path.resolve(__dirname, './client/build/index.html'))
 // })
 
-// app.use(notFoundMiddleware)
-// app.use(errorHandlerMiddleware)
+app.use(notFoundMiddleware)
+app.use(errorHandlerMiddleware)
 
 const port = process.env.PORT || 5000
 
