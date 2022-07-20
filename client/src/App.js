@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useAppContext } from './context/appContext'
 import { Header, Footer } from './components/index.js'
-import { Welcome, Signup, Game, Leaderboard } from './pages/index.js'
+import { Home, Game, Leaderboard } from './pages/index.js'
 import './scss/main.scss'
 
 function App() {
@@ -36,8 +36,7 @@ function App() {
     <div className="app">
       <Header />
       <Routes>
-        <Route path="/" element={<Welcome />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Home />} />
         <Route path="/game" element={<Game />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>

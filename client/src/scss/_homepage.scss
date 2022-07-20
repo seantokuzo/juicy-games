@@ -1,32 +1,35 @@
-.welcome {
+.home {
   @include absolute;
   @include flex;
-  width: 100%;
+  width: 90%;
+  max-width: 500px;
   
   &__login-form {
     @include flex;
-    width: 100%;
+    width: 90%;
+    margin: 1rem 0 0;
     padding: 2rem 0;
-
+    
     background-color: darken($th1-red, 10%);
+    @include box-shadow;
   }
-
+  
   &__btn {
     margin-top: 1rem;
     padding: .75rem 0;
     width: 80%;
     min-width: 250px;
     max-width: 500px;
-
+    
     &-login {
       font-size: larger;
       background-color: $th1-red;
       color: white;
     }
   }
-  
+
   &__links-div {
-    width: 100%;
+    width: 90%;
     @include flex(column, center, space-around);
     margin-top: 1rem;
   }
