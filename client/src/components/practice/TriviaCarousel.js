@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppContext } from '../../context/appContext'
-import QuestionCard from './QuestionCard'
+import QuestionCard from '../QuestionCard'
 import { nanoid } from 'nanoid'
 
 const TriviaCarousel = () => {

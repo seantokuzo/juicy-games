@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react'
 import { useAppContext } from '../context/appContext'
 import {
-  GameOptions,
+  PracticeOptions,
   GameReady,
   TriviaCarousel,
-  GameResults,
-  Alert
+  PracticeResults
 } from '../components/index.js'
 
-const Game = () => {
+const Practice = () => {
   const {
     optionComboError,
-    showAlert,
     showOptions,
     loadingQuestions,
     setTrivia,
@@ -66,14 +64,13 @@ const Game = () => {
 
   return (
     <div className="game">
-      {showAlert && <Alert />}
-      {showOptions && <GameOptions />}
+      {showOptions && <PracticeOptions />}
       {gameReady && <GameReady />}
       {gameActive && <TriviaCarousel />}
-      {gameOver && <GameResults />}
+      {gameOver && <PracticeResults />}
       {loadingQuestions && <h1 className="center">Loading...</h1>}
     </div>
   )
 }
 
-export default Game
+export default Practice

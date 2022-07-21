@@ -1,4 +1,5 @@
 import React, { useReducer, useContext } from 'react'
+import axios from 'axios'
 import reducer from './reducer'
 import {
   MISSING_FIELDS_ALERT,
@@ -23,6 +24,7 @@ import {
 const localTrivia = JSON.parse(localStorage.getItem('localTrivia'))
 
 const initialState = {
+  // PRACTICE GAME STATE - NEEDS REFACTOR / RENAME
   categories: undefined,
   showOptions: true,
   gameOptions: {
@@ -37,13 +39,14 @@ const initialState = {
   gameReady: false,
   gameActive: false,
   gameOver: false,
+  // SO FAR SO GOOD
+  isLoading: false,
   showAlert: false,
   alertText: '',
   alertType: '',
   theme: 'strawberry',
   user: null,
-  token: null,
-  isLoading: false
+  token: null
 }
 
 const AppContext = React.createContext()
@@ -52,14 +55,38 @@ const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   // console.log(state.trivia)
 
+  // AXIOS AUTH FETCH WITH TOKEN
+  const authFetch = axios.create({
+    baseURL: '/api/v1/'
+  })
+  // SET HEADER IN REQUESTS
+  authFetch.interceptors.request.use(
+    (config) => {
+      config.headers.common['Authorization'] = `Bearer ${state.token}`
+      return config
+    },
+    (err) => {
+      return Promise.reject(err)
+    }
+  )
+  // RESPONSE - CHECK IF ERROR IS INVALID AUTH
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response
+    },
+    (err) => {
+      // LOGOUT USER IN CASE OF INVALID AUTHENTICATION
+      console.log(err.response)
+      if (err.response.status === 401) {
+        logoutUser()
+      }
+      return Promise.reject(err)
+    }
+  )
+
   const missingFieldsAlert = () => {
     dispatch({ type: MISSING_FIELDS_ALERT })
     clearAlert()
-  }
-
-  const optionComboError = () => {
-    dispatch({ type: OPTION_COMBO_ERROR })
-    clearAlert(5000)
   }
 
   const clearAlert = (time = 3000) => {
@@ -68,18 +95,47 @@ const AppContextProvider = ({ children }) => {
     }, time)
   }
 
+  const changeTheme = (newTheme) => {
+    dispatch({ type: CHANGE_THEME, payload: { newTheme } })
+  }
+
+  const setupUser = async (currentUser, endpoint, alertText) => {
+    console.log(currentUser, endpoint, alertText)
+    dispatch({ type: SETUP_USER_BEGIN })
+    try {
+      const { data } = await axios.post(`/api/v1/auth/${endpoint}`, currentUser)
+      const { user, token } = data
+      dispatch({
+        type: SETUP_USER_SUCCESS,
+        payload: { user, token, alertText }
+      })
+      // ADD USER TO LOCAL STORAGE
+      // addUserToLocalStorage({ user, token })
+    } catch (err) {
+      console.log(err)
+      dispatch({
+        type: SETUP_USER_ERROR,
+        payload: { msg: err.response.data }
+      })
+    }
+    clearAlert()
+  }
+
+  // ********************************************************
+  // THESE ARE ALL FOR THE PRACTICE GAME - WILL BE REFACTORED
+  const optionComboError = () => {
+    dispatch({ type: OPTION_COMBO_ERROR })
+    clearAlert(5000)
+  }
   const retrieveCategories = (categories) => {
     dispatch({ type: RETRIEVE_CATEGORIES, payload: { categories } })
   }
-
   const loadQuestions = () => {
     dispatch({ type: LOAD_QUESTIONS_BEGIN })
   }
-
   const setTrivia = (questionsData) => {
     dispatch({ type: LOAD_QUESTIONS_SUCCESS, payload: { questionsData } })
   }
-
   const updateGameOptions = (e) => {
     const { name, value } = e.target
     dispatch({
@@ -90,16 +146,13 @@ const AppContextProvider = ({ children }) => {
       }
     })
   }
-
   const startGame = () => {
     dispatch({ type: START_GAME })
   }
-
   const resetOptions = () => {
     dispatch({ type: RESET_OPTIONS })
     localStorage.removeItem('localTrivia')
   }
-
   const selectAnswer = (index, answer) => {
     dispatch({ type: SELECT_ANSWER, payload: { index, answer } })
 
@@ -110,44 +163,35 @@ const AppContextProvider = ({ children }) => {
     const nextUnanswered = unanswered.filter((q) => q.id !== index + 1)
     if (nextUnanswered.length > 0) toggleQuestion(nextUnanswered[0].id)
   }
-
   const toggleQuestion = (questionNumber) => {
     if (questionNumber < 1 || questionNumber > state.trivia.length) return
     dispatch({ type: TOGGLE_QUESTION, payload: { questionNumber } })
   }
-
   const submitAnswers = (str) => {
     // CHECK IF ALL QUESTIONS HAVE BEEN ANSWERED
-    // const answers = state.trivia.map((triviaData) => triviaData.selectedAnswer)
-    // if (!answers.every((answer) => answer) && str !== 'OUT_OF_TIME') {
-    //   dispatch({
-    //     type: DISPLAY_ALERT,
-    //     payload: {
-    //       alertType: 'danger',
-    //       alertText:
-    //         "You haven't answered all the questions. There's still time!"
-    //     }
-    //   })
-    //   clearAlert(3000)
-    //   return
-    // }
+    const answers = state.trivia.map((triviaData) => triviaData.selectedAnswer)
+    if (!answers.every((answer) => answer) && str !== 'OUT_OF_TIME') {
+      dispatch({
+        type: DISPLAY_ALERT,
+        payload: {
+          alertType: 'danger',
+          alertText:
+            "You haven't answered all the questions. There's still time!"
+        }
+      })
+      clearAlert(3000)
+      return
+    }
     //SUBMIT ANSWERS
     dispatch({ type: SUBMIT_ANSWERS })
   }
-
-  const changeTheme = (newTheme) => {
-    dispatch({ type: CHANGE_THEME, payload: { newTheme } })
-  }
-
-  const setupUser = (user) => {
-    console.log(user)
-  }
+  // ********************************************************
 
   return (
     <AppContext.Provider
       value={{
         ...state,
-        missingFieldsAlert,
+        // PRACTICE GAME
         optionComboError,
         retrieveCategories,
         updateGameOptions,
@@ -158,7 +202,10 @@ const AppContextProvider = ({ children }) => {
         selectAnswer,
         toggleQuestion,
         submitAnswers,
+        // GOOD
         changeTheme,
+        // USER
+        missingFieldsAlert,
         setupUser
       }}
     >

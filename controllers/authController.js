@@ -25,10 +25,7 @@ export const signup = async (req, res) => {
   const token = user.createJWT()
 
   res.status(StatusCodes.CREATED).json({
-    user: {
-      username: user.username,
-      email: user.email
-    },
+    user,
     token
   })
 }

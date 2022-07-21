@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSwipeable } from 'react-swipeable'
-import { useAppContext } from '../../context/appContext'
+import { useAppContext } from '../context/appContext'
 import { nanoid } from 'nanoid'
 
 const QuestionCard = ({ index, question, possibleAnswers, selectedAnswer }) => {

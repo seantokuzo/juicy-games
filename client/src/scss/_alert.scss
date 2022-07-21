@@ -1,9 +1,10 @@
 .alert {
-  width: 80%;
+  width: 90%;
   margin: 0 0 1rem;
-  padding: 1rem 0;
+  padding: 1rem .5rem;
 
-  font-size: 1em;
+  font-family: $fs-text;
+  font-size: .75em;
   text-align: center;
 
   color: white;

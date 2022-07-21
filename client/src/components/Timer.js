@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import { useAppContext } from '../../context/appContext'
-import accurateInterval from '../../utils/accurateInterval'
-import { TIME_PER_QUESTION } from '../../assets/data/constants'
+import { useAppContext } from '../context/appContext'
+import accurateInterval from '../utils/accurateInterval'
+import { TIME_PER_QUESTION } from '../assets/data/constants'
 
 const Timer = () => {
   const { gameOptions, gameActive, submitAnswers } = useAppContext()

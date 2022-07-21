@@ -1,11 +1,11 @@
 import Header from './Header'
 import Footer from './Footer'
 import Alert from './Alert'
+import GameReady from './GameReady'
 
-import GameOptions from './game/GameOptions'
-import GameReady from './game/GameReady'
-import TriviaCarousel from './game/TriviaCarousel'
-import GameResults from './game/GameResults'
+import PracticeOptions from './practice/PracticeOptions'
+import PracticeResults from './practice/PracticeResults'
+import TriviaCarousel from './practice/TriviaCarousel'
 
 import FormRow from './FormRow'
 
@@ -13,9 +13,9 @@ export {
   Header,
   Footer,
   Alert,
-  GameOptions,
+  PracticeOptions,
   GameReady,
   TriviaCarousel,
-  GameResults,
+  PracticeResults,
   FormRow
 }

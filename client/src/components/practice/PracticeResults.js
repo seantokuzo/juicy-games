@@ -2,7 +2,7 @@ import React from 'react'
 import { useAppContext } from '../../context/appContext'
 import { nanoid } from 'nanoid'
 
-const GameResults = () => {
+const PracticeResults = () => {
   const { trivia, resetOptions } = useAppContext()
   const correctAnswers = trivia.map((x) => x.correctAnswer)
   const selectedAnswers = trivia.map((x) => x.selectedAnswer)
@@ -60,4 +60,4 @@ const GameResults = () => {
   )
 }
 
-export default GameResults
+export default PracticeResults

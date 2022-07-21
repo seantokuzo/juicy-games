@@ -1,10 +1,8 @@
 import React from 'react'
-import { RESET_OPTIONS } from '../../context/actions'
-import { useAppContext } from '../../context/appContext'
+import { useAppContext } from '../context/appContext'
 
 const GameReady = () => {
-  const { startGame, resetOptions, trivia } = useAppContext()
-  // console.log(trivia)
+  const { startGame, resetOptions } = useAppContext()
   return (
     <div className="game-ready">
       <h1 className="title game-ready__title">Game Ready</h1>

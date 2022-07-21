@@ -1,24 +1,31 @@
 import React from 'react'
 import { useAppContext } from '../../context/appContext'
+import Alert from '../Alert'
 
-const GameOptions = () => {
-  const { categories, gameOptions, loadQuestions, updateGameOptions } =
-    useAppContext()
+const PracticeOptions = () => {
+  const {
+    showAlert,
+    categories,
+    gameOptions,
+    loadQuestions,
+    updateGameOptions
+  } = useAppContext()
   const { amount, category, difficulty, type } = gameOptions
   // console.log(gameOptions)
 
   return (
-    <div className="game-options">
-      <h3 className="game-options__title title">Game Options</h3>
+    <div className="practice-options">
+      <h3 className="practice-options__title title">Practice Trivia</h3>
       {/* NUMBER OF QUESTIONS */}
-      <div className="game-options__option">
-        <label className="game-options__label text" htmlFor="amount">
+      {showAlert && <Alert />}
+      <div className="practice-options__option">
+        <label className="practice-options__label text" htmlFor="amount">
           # of Questions
         </label>
         <select
           name="amount"
           id="amount"
-          className="game-options__amount game-options__selector"
+          className="practice-options__amount practice-options__selector"
           onChange={updateGameOptions}
           value={amount}
         >
@@ -32,14 +39,14 @@ const GameOptions = () => {
       </div>
 
       {/* CATEGORY OPTION */}
-      <div className="game-options__option">
-        <label className="game-options__label text" htmlFor="category">
+      <div className="practice-options__option">
+        <label className="practice-options__label text" htmlFor="category">
           Category
         </label>
         <select
           name="category"
           id="category"
-          className="game-options__categories game-options__selector"
+          className="practice-options__categories practice-options__selector"
           onChange={updateGameOptions}
           value={category}
         >
@@ -53,14 +60,14 @@ const GameOptions = () => {
       </div>
 
       {/* DIFFICULTY OPTION */}
-      <div className="game-options__option">
-        <label className="game-options__label text" htmlFor="difficulty">
+      <div className="practice-options__option">
+        <label className="practice-options__label text" htmlFor="difficulty">
           Difficulty
         </label>
         <select
           name="difficulty"
           id="difficulty"
-          className="game-options__difficulty game-options__selector"
+          className="practice-options__difficulty practice-options__selector"
           onChange={updateGameOptions}
           value={difficulty}
         >
@@ -71,10 +78,10 @@ const GameOptions = () => {
       </div>
 
       {/* QUESTION TYPE */}
-      <div className="game-options__option">
+      <div className="practice-options__option">
         <p>Question type</p>
-        <div className="game-options__radio-div">
-          <div className="game-options__radio-option">
+        <div className="practice-options__radio-div">
+          <div className="practice-options__radio-option">
             <input
               type="radio"
               id="multiple-choice"
@@ -84,13 +91,13 @@ const GameOptions = () => {
               onChange={updateGameOptions}
             />
             <label
-              className="game-options__label text"
+              className="practice-options__label text"
               htmlFor="multiple-choice"
             >
               Multiple Choice
             </label>
           </div>
-          <div className="game-options__radio-option">
+          <div className="practice-options__radio-option">
             <input
               type="radio"
               id="true-false"
@@ -99,17 +106,20 @@ const GameOptions = () => {
               checked={type === 'boolean'}
               onChange={updateGameOptions}
             />
-            <label className="game-options__label text" htmlFor="true-false">
+            <label
+              className="practice-options__label text"
+              htmlFor="true-false"
+            >
               True/False
             </label>
           </div>
         </div>
       </div>
-      <div className="btn game-options__btn" onClick={loadQuestions}>
+      <div className="btn practice-options__btn" onClick={loadQuestions}>
         Load Questions
       </div>
     </div>
   )
 }
 
-export default GameOptions
+export default PracticeOptions

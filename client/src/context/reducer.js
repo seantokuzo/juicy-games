@@ -39,6 +39,12 @@ import { initialState } from './appContext'
 // }
 
 const reducer = (state, action) => {
+  if (action.type === CHANGE_THEME) {
+    return {
+      ...state,
+      theme: action.payload.newTheme
+    }
+  }
   if (action.type === MISSING_FIELDS_ALERT) {
     console.log('cmon')
     return {
@@ -48,6 +54,42 @@ const reducer = (state, action) => {
       alertText: "Don't be shy, fill out all the fields"
     }
   }
+  if (action.type === CLEAR_ALERT) {
+    return {
+      ...state,
+      showAlert: false,
+      alertType: '',
+      alertText: ''
+    }
+  }
+  if (action.type === SETUP_USER_BEGIN) {
+    return {
+      ...state,
+      isLoading: true
+    }
+  }
+  if (action.type === SETUP_USER_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      user: action.payload.user,
+      token: action.payload.token,
+      showAlert: true,
+      alertType: 'success',
+      alertText: action.payload.alertText
+    }
+  }
+  if (action.type === SETUP_USER_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg
+    }
+  }
+  // ************************************************************
+  // PRACTICE GAME REDUCERS - NEED REFACTOR
   if (action.type === OPTION_COMBO_ERROR) {
     return {
       ...initialState,
@@ -61,14 +103,6 @@ const reducer = (state, action) => {
           (cat) => cat.id * 1 === state.gameOptions.category * 1
         )[0].name
       }. Please try a different combo of options`
-    }
-  }
-  if (action.type === CLEAR_ALERT) {
-    return {
-      ...state,
-      showAlert: false,
-      alertType: '',
-      alertText: ''
     }
   }
   if (action.type === RETRIEVE_CATEGORIES) {
@@ -156,12 +190,8 @@ const reducer = (state, action) => {
       gameOver: true
     }
   }
-  if (action.type === CHANGE_THEME) {
-    return {
-      ...state,
-      theme: action.payload.newTheme
-    }
-  }
+  // PRACTICE GAME REDUCERS - NEED REFACTOR
+  // ************************************************************
   throw new Error(`No such action : ${action.type}`)
 }
 

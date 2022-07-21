@@ -17,6 +17,8 @@ const Home = () => {
   const { user, isLoading, showAlert, missingFieldsAlert, setupUser } =
     useAppContext()
 
+  console.log(user)
+
   const toggleForm = () => {
     setValues({ ...values, loginNotSignup: !values.loginNotSignup })
   }
@@ -94,7 +96,7 @@ const Home = () => {
           handleChange={handleChange}
         />
         <FormRow
-          type="text"
+          type="password"
           name="password"
           value={values.password}
           handleChange={handleChange}
@@ -102,6 +104,7 @@ const Home = () => {
         <button
           type="submit"
           className="btn home__btn home__btn-login home__btn-btn"
+          disabled={isLoading}
         >
           {values.loginNotSignup ? 'Login' : 'Signup'}
         </button>
@@ -114,12 +117,17 @@ const Home = () => {
           type="button"
           className="btn home__btn home__btn-btn"
           onClick={toggleForm}
+          disabled={isLoading}
         >
           <h3 className="home__link home__link--signup">
             {values.loginNotSignup ? 'Create an Account' : 'Login to Account'}
           </h3>
         </button>
-        <Link to="/game" className="btn home__btn">
+        <Link
+          to="/practice"
+          className="btn home__btn"
+          style={{ pointerEvents: isLoading ? 'none' : '' }}
+        >
           <h3 className="home__link home__link--guest">Play as Guest</h3>
         </Link>
       </div>

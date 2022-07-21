@@ -1,5 +1,6 @@
-import Game from './Game'
+import Practice from './Practice'
 import Leaderboard from './Leaderboard'
 import Home from './Home'
+import ProtectedRoute from './ProtectedRoute'
 
-export { Game, Leaderboard, Home }
+export { Practice, Leaderboard, Home, ProtectedRoute }

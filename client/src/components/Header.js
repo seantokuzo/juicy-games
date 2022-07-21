@@ -1,7 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import { useAppContext } from '../context/appContext'
-import Timer from './game/Timer'
+import Timer from './Timer'
 
 export default function Header() {
   const { pathname } = useLocation()
@@ -12,7 +12,7 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header__pfp-div">{pfp}</div>
-      {pathname === '/game' && (gameReady || gameActive) && <Timer />}
+      {pathname === '/practice' && (gameReady || gameActive) && <Timer />}
     </header>
   )
 }
