@@ -2,7 +2,7 @@ import {
   MISSING_FIELDS_ALERT,
   CLEAR_ALERT,
   RETRIEVE_CATEGORIES,
-  UPDATE_GAME_OPTIONS,
+  UPDATE_PRACTICE_OPTIONS,
   LOAD_QUESTIONS_BEGIN,
   LOAD_QUESTIONS_SUCCESS,
   LOAD_QUESTIONS_ERROR,
@@ -113,15 +113,37 @@ const reducer = (state, action) => {
   if (action.type === RETRIEVE_CATEGORIES) {
     return {
       ...state,
-      categories: action.payload.categories
+      practiceState: {
+        ...state.practiceState,
+        practiceCategories: action.payload.categories
+      }
     }
   }
-  if (action.type === UPDATE_GAME_OPTIONS) {
+  // practiceState: {
+  //   practiceCategories: undefined,
+  //   showPracticeOptions: true,
+  //   practiceOptions: {
+  //     amount: '5',
+  //     category: '',
+  //     difficulty: 'easy',
+  //     type: 'multiple'
+  //   },
+  //   loadingPractice: false,
+  //   practiceTrivia: undefined,
+  //   currentPracticeQuestion: 1,
+  //   practiceReady: false,
+  //   practiceActive: false,
+  //   practiceOver: false
+  // },
+  if (action.type === UPDATE_PRACTICE_OPTIONS) {
     return {
       ...state,
-      gameOptions: {
-        ...state.gameOptions,
-        [action.payload.name]: action.payload.value
+      practiceState: {
+        ...state.practiceState,
+        practiceOptions: {
+          ...state.practiceState.practiceOptions,
+          [action.payload.name]: action.payload.value
+        }
       }
     }
   }

@@ -3,16 +3,11 @@ import { useAppContext } from '../../context/appContext'
 import Alert from '../Alert'
 
 const PracticeOptions = () => {
-  const {
-    showAlert,
-    categories,
-    gameOptions,
-    loadQuestions,
-    updateGameOptions
-  } = useAppContext()
-  const { amount, category, difficulty, type } = gameOptions
-  // console.log(gameOptions)
-
+  const { showAlert, practiceState, loadQuestions, updatePracticeOptions } =
+    useAppContext()
+  const { practiceOptions, practiceCategories } = practiceState
+  const { amount, category, difficulty, type } = practiceOptions
+  
   return (
     <div className="practice-options">
       <h3 className="practice-options__title title">Practice Trivia</h3>
@@ -26,7 +21,7 @@ const PracticeOptions = () => {
           name="amount"
           id="amount"
           className="practice-options__amount practice-options__selector"
-          onChange={updateGameOptions}
+          onChange={updatePracticeOptions}
           value={amount}
         >
           <option value={5}>5</option>
@@ -47,13 +42,13 @@ const PracticeOptions = () => {
           name="category"
           id="category"
           className="practice-options__categories practice-options__selector"
-          onChange={updateGameOptions}
+          onChange={updatePracticeOptions}
           value={category}
         >
-          {categories &&
-            categories.map((cat) => (
-              <option value={cat.id} key={cat.name}>
-                {cat.name}
+          {practiceCategories &&
+            practiceCategories.map((category) => (
+              <option value={category.id} key={category.name}>
+                {category.name}
               </option>
             ))}
         </select>
@@ -68,7 +63,7 @@ const PracticeOptions = () => {
           name="difficulty"
           id="difficulty"
           className="practice-options__difficulty practice-options__selector"
-          onChange={updateGameOptions}
+          onChange={updatePracticeOptions}
           value={difficulty}
         >
           <option value="easy">easy</option>
@@ -88,7 +83,7 @@ const PracticeOptions = () => {
               name="type"
               value="multiple"
               checked={type === 'multiple'}
-              onChange={updateGameOptions}
+              onChange={updatePracticeOptions}
             />
             <label
               className="practice-options__label text"
@@ -104,7 +99,7 @@ const PracticeOptions = () => {
               name="type"
               value="boolean"
               checked={type === 'boolean'}
-              onChange={updateGameOptions}
+              onChange={updatePracticeOptions}
             />
             <label
               className="practice-options__label text"

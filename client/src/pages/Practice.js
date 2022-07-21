@@ -9,44 +9,47 @@ import {
 
 const Practice = () => {
   const {
-    retrieveCategories,
-    updateGameOptions,
+    retrievePracticeCategories,
+    updatePracticeOptions,
     optionComboError,
-    showOptions,
-    loadingQuestions,
     setTrivia,
-    gameReady,
-    gameActive,
-    gameOptions,
-    gameOver
+    practiceState
   } = useAppContext()
-
-  localStorage.clear()
+  const {
+    practiceReady,
+    practiceActive,
+    practiceOver,
+    practiceOptions,
+    showPracticeOptions,
+    loadingPractice
+  } = practiceState
 
   useEffect(() => {
     fetch('https://opentdb.com/api_category.php')
       .then((res) => res.json())
       .then((data) => {
-        retrieveCategories(
+        retrievePracticeCategories(
           data.trivia_categories.slice(0, data.trivia_categories.length - 3)
         )
-        updateGameOptions({
+        console.log('retrieved')
+        updatePracticeOptions({
           target: { name: 'category', value: data.trivia_categories[0].id }
         })
+        console.log('updated')
       })
       .catch((err) => console.log(err))
   }, [])
 
   useEffect(() => {
-    if (loadingQuestions) {
+    if (loadingPractice) {
       const startTime = Date.now()
       fetch(
-        `https://opentdb.com/api.php?amount=${gameOptions.amount}&category=${gameOptions.category}&difficulty=${gameOptions.difficulty}&type=${gameOptions.type}&encode=url3986`
+        `https://opentdb.com/api.php?amount=${practiceOptions.amount}&category=${practiceOptions.category}&difficulty=${practiceOptions.difficulty}&type=${practiceOptions.type}&encode=url3986`
       )
         .then((res) => res.json())
         .then((data) => {
           // DISPLAY ALERT IF NOT ENOUGH QUESTIONS RETRIEVED
-          if (data.results < gameOptions.amount) {
+          if (data.results < practiceOptions.amount) {
             optionComboError()
             return
           }
@@ -72,15 +75,15 @@ const Practice = () => {
         })
         .catch((err) => console.log(err))
     }
-  }, [loadingQuestions])
+  }, [loadingPractice])
 
   return (
     <div className="game">
-      {showOptions && <PracticeOptions />}
-      {gameReady && <GameReady />}
-      {gameActive && <TriviaCarousel />}
-      {gameOver && <PracticeResults />}
-      {loadingQuestions && <h1 className="center">Loading...</h1>}
+      {showPracticeOptions && <PracticeOptions />}
+      {practiceReady && <GameReady />}
+      {practiceActive && <TriviaCarousel />}
+      {practiceOver && <PracticeResults />}
+      {loadingPractice && <h1 className="center">Loading...</h1>}
     </div>
   )
 }

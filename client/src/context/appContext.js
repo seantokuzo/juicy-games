@@ -6,7 +6,7 @@ import {
   OPTION_COMBO_ERROR,
   CLEAR_ALERT,
   RETRIEVE_CATEGORIES,
-  UPDATE_GAME_OPTIONS,
+  UPDATE_PRACTICE_OPTIONS,
   LOAD_QUESTIONS_BEGIN,
   LOAD_QUESTIONS_SUCCESS,
   LOAD_QUESTIONS_ERROR,
@@ -26,29 +26,31 @@ const user = localStorage.getItem('user')
 const token = localStorage.getItem('token')
 
 const initialState = {
-  // PRACTICE GAME STATE - NEEDS REFACTOR / RENAME
-  categories: undefined,
-  showOptions: true,
-  gameOptions: {
-    amount: '5',
-    category: '',
-    difficulty: 'easy',
-    type: 'multiple'
-  },
-  loadingQuestions: false,
-  trivia: undefined,
-  currentQuestion: 1,
-  gameReady: false,
-  gameActive: false,
-  gameOver: false,
-  // SO FAR SO GOOD
+  // MAIN STATE
+  theme: 'strawberry',
   isLoading: false,
   showAlert: false,
   alertText: '',
   alertType: '',
-  theme: 'strawberry',
   user: user ? JSON.parse(user) : null,
-  token: token
+  token: token,
+  // PRACTICE GAME STATE
+  practiceState: {
+    practiceCategories: undefined,
+    showPracticeOptions: true,
+    practiceOptions: {
+      amount: '5',
+      category: '',
+      difficulty: 'easy',
+      type: 'multiple'
+    },
+    loadingPractice: false,
+    practiceTrivia: undefined,
+    currentPracticeQuestion: 1,
+    practiceReady: false,
+    practiceActive: false,
+    practiceOver: false
+  }
 }
 
 const baseURL = 'http://localhost:5000'
@@ -88,6 +90,7 @@ const AppContextProvider = ({ children }) => {
     }
   )
 
+  // MISSING LOGIN / SIGNUP FIELDS
   const missingFieldsAlert = () => {
     dispatch({ type: MISSING_FIELDS_ALERT })
     clearAlert()
@@ -149,7 +152,7 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: OPTION_COMBO_ERROR })
     clearAlert(5000)
   }
-  const retrieveCategories = (categories) => {
+  const retrievePracticeCategories = (categories) => {
     dispatch({ type: RETRIEVE_CATEGORIES, payload: { categories } })
   }
   const loadQuestions = () => {
@@ -158,10 +161,10 @@ const AppContextProvider = ({ children }) => {
   const setTrivia = (questionsData) => {
     dispatch({ type: LOAD_QUESTIONS_SUCCESS, payload: { questionsData } })
   }
-  const updateGameOptions = (e) => {
+  const updatePracticeOptions = (e) => {
     const { name, value } = e.target
     dispatch({
-      type: UPDATE_GAME_OPTIONS,
+      type: UPDATE_PRACTICE_OPTIONS,
       payload: {
         name,
         value
@@ -215,8 +218,8 @@ const AppContextProvider = ({ children }) => {
         ...state,
         // PRACTICE GAME
         optionComboError,
-        retrieveCategories,
-        updateGameOptions,
+        retrievePracticeCategories,
+        updatePracticeOptions,
         loadQuestions,
         setTrivia,
         startGame,
