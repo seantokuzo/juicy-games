@@ -11,7 +11,8 @@ import {
   RESET_OPTIONS,
   SELECT_ANSWER,
   TOGGLE_QUESTION,
-  SUBMIT_ANSWERS
+  SUBMIT_ANSWERS,
+  CHANGE_THEME
 } from './actions'
 
 import { initialState } from './appContext'
@@ -149,6 +150,12 @@ const reducer = (state, action) => {
       ...state,
       gameActive: false,
       gameOver: true
+    }
+  }
+  if (action.type === CHANGE_THEME) {
+    return {
+      ...state,
+      theme: action.payload.newTheme
     }
   }
   throw new Error(`No such action : ${action.type}`)

@@ -6,7 +6,8 @@ import { Home, Game, Leaderboard } from './pages/index.js'
 import './scss/main.scss'
 
 function App() {
-  const { setTrivia, retrieveCategories, updateGameOptions } = useAppContext()
+  const { setTrivia, retrieveCategories, updateGameOptions, theme } =
+    useAppContext()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -32,8 +33,10 @@ function App() {
   //   }
   // }, [])
 
+  console.log(theme);
+
   return (
-    <div className="app">
+    <div className={`app ${theme}`}>
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />

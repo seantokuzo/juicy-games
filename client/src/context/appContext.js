@@ -13,7 +13,8 @@ import {
   RESET_OPTIONS,
   SELECT_ANSWER,
   TOGGLE_QUESTION,
-  SUBMIT_ANSWERS
+  SUBMIT_ANSWERS,
+  CHANGE_THEME
 } from './actions'
 
 const localTrivia = JSON.parse(localStorage.getItem('localTrivia'))
@@ -34,7 +35,8 @@ const initialState = {
   gameActive: false,
   gameOver: false,
   showAlert: false,
-  alertText: ''
+  alertText: '',
+  theme: 'strawberry'
 }
 
 const AppContext = React.createContext()
@@ -121,6 +123,10 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: SUBMIT_ANSWERS })
   }
 
+  const changeTheme = (newTheme) => {
+    dispatch({ type: CHANGE_THEME, payload: { newTheme } })
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -134,7 +140,8 @@ const AppContextProvider = ({ children }) => {
         resetOptions,
         selectAnswer,
         toggleQuestion,
-        submitAnswers
+        submitAnswers,
+        changeTheme
       }}
     >
       {children}

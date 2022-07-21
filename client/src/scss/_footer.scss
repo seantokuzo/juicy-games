@@ -3,9 +3,40 @@
   left: 0%;
   bottom: 0%;
 
-  padding: .25rem;
+  width: 100%;
+  @include flex(row, baseline, space-between);
+
+  padding: .35rem;
 
   &__text {
     font-size: .5em;
+  }
+
+  &__fruits {
+    font-size: 1.75em;
+  }
+
+  &__fruit {
+    margin-left: 8px;
+    padding: 5px;
+    border-radius: 50%;
+    @include box-shadow;
+    
+    &-strawberry {
+      color: $th1-red;
+    }
+    &-orange {
+      color: $th1-orange;
+    }
+    &-banana {
+      color: $th2-yellow;
+    }
+    &-grape {
+      color: $grape;
+    }
+
+    &--selected {
+      background-color: $bg-dark;
+    }
   }
 }

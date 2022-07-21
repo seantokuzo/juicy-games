@@ -15,11 +15,29 @@
 @import 'form-row';
 
 body {
-  background: $th1-red;
-  color: $th1-white;
   height: 100vh;
   font-family: $fs-fun;
   line-height: 1;
+}
+
+.app {
+  width: 100%;
+  height: 100vh;
+  color: $th1-white;
+}
+
+.strawberry {
+  background-color: $th1-red;
+}
+.orange {
+  background-color: $th1-orange;
+}
+.banana {
+  background-color: $th2-yellow;
+  color: $bg-dark;
+}
+.grape {
+  background-color: $grape;
 }
 
 a {
@@ -80,8 +98,4 @@ input[type="radio"]:checked::before {
 input[type="radio"]:focus {
   outline: 2px solid rgba($th1-white, .6);
   outline-offset: 2px;
-}
-
-.app {
-
 }

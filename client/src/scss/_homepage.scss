@@ -22,9 +22,12 @@
     max-width: 500px;
     
     &-login {
-      font-size: larger;
       background-color: $th1-red;
       color: white;
+    }
+    
+    &-btn {
+      font-size: larger;
     }
   }
 
