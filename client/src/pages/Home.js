@@ -42,6 +42,7 @@ const Home = () => {
         missingFieldsAlert()
         return
       }
+      console.log('setting up - login');
       return setupUser(
         formUser,
         'login',
@@ -68,7 +69,7 @@ const Home = () => {
   useEffect(() => {
     if (user) {
       setTimeout(() => {
-        navigate('/')
+        navigate('/game')
       }, 3000)
     }
   }, [user, navigate])

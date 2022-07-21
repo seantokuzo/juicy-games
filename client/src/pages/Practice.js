@@ -9,6 +9,8 @@ import {
 
 const Practice = () => {
   const {
+    retrieveCategories,
+    updateGameOptions,
     optionComboError,
     showOptions,
     loadingQuestions,
@@ -22,9 +24,22 @@ const Practice = () => {
   localStorage.clear()
 
   useEffect(() => {
+    fetch('https://opentdb.com/api_category.php')
+      .then((res) => res.json())
+      .then((data) => {
+        retrieveCategories(
+          data.trivia_categories.slice(0, data.trivia_categories.length - 3)
+        )
+        updateGameOptions({
+          target: { name: 'category', value: data.trivia_categories[0].id }
+        })
+      })
+      .catch((err) => console.log(err))
+  }, [])
+
+  useEffect(() => {
     if (loadingQuestions) {
       const startTime = Date.now()
-      // console.log(startTime)
       fetch(
         `https://opentdb.com/api.php?amount=${gameOptions.amount}&category=${gameOptions.category}&difficulty=${gameOptions.difficulty}&type=${gameOptions.type}&encode=url3986`
       )
@@ -44,9 +59,6 @@ const Practice = () => {
               .sort(() => (Math.random() > 0.5 ? 1 : -1)),
             selectedAnswer: ''
           }))
-
-          // SAVE TRIVIA IN LOCAL STORAGE
-          // localStorage.setItem('localTrivia', JSON.stringify(trivia))
 
           // LOADING SCREEN FOR AT LEAST 1 SECOND
           const time = 2000 - (Date.now() - startTime)

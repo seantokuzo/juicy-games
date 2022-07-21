@@ -3,27 +3,18 @@ import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useAppContext } from './context/appContext'
 import { Header, Footer } from './components/index.js'
 import { Home, Practice, Leaderboard, ProtectedRoute } from './pages/index.js'
-import { AuthSharedLayout, MyTrivia } from './pages/protected/index.js'
+import {
+  AuthSharedLayout,
+  MyTrivia,
+  MyLeaderboard,
+  MyStats,
+  MyAccount
+} from './pages/protected/index.js'
 import './scss/main.scss'
 
 function App() {
-  const { setTrivia, retrieveCategories, updateGameOptions, theme } =
-    useAppContext()
+  const { theme } = useAppContext()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    fetch('https://opentdb.com/api_category.php')
-      .then((res) => res.json())
-      .then((data) => {
-        retrieveCategories(
-          data.trivia_categories.slice(0, data.trivia_categories.length - 3)
-        )
-        updateGameOptions({
-          target: { name: 'category', value: data.trivia_categories[0].id }
-        })
-      })
-      .catch((err) => console.log(err))
-  }, [])
 
   // CHECK FOR TRIVIA STORED IN LCOAL STORAGE
   // useEffect(() => {
@@ -48,9 +39,9 @@ function App() {
           }
         >
           <Route index element={<MyTrivia />} />
-          <Route path="/me" element={<MyAccount />} />
-          <Route path="/my-stats" element={<MyStats />} />
-          <Route path="/leaderboard" element={<MyLeaderboard />} />
+          <Route path="/game/me" element={<MyAccount />} />
+          <Route path="/game/my-stats" element={<MyStats />} />
+          <Route path="/game/leaderboard" element={<MyLeaderboard />} />
         </Route>
         <Route path="/practice" element={<Practice />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
