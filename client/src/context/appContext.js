@@ -18,10 +18,12 @@ import {
   CHANGE_THEME,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
-  SETUP_USER_ERROR
+  SETUP_USER_ERROR,
+  LOGOUT_USER
 } from './actions'
 
-const localTrivia = JSON.parse(localStorage.getItem('localTrivia'))
+const user = localStorage.getItem('user')
+const token = localStorage.getItem('token')
 
 const initialState = {
   // PRACTICE GAME STATE - NEEDS REFACTOR / RENAME
@@ -34,7 +36,7 @@ const initialState = {
     type: 'multiple'
   },
   loadingQuestions: false,
-  trivia: localTrivia || undefined,
+  trivia: undefined,
   currentQuestion: 1,
   gameReady: false,
   gameActive: false,
@@ -45,9 +47,11 @@ const initialState = {
   alertText: '',
   alertType: '',
   theme: 'strawberry',
-  user: null,
-  token: null
+  user: user ? JSON.parse(user) : null,
+  token: token
 }
+
+const baseURL = 'http://localhost:5000'
 
 const AppContext = React.createContext()
 
@@ -57,7 +61,7 @@ const AppContextProvider = ({ children }) => {
 
   // AXIOS AUTH FETCH WITH TOKEN
   const authFetch = axios.create({
-    baseURL: '/api/v1/'
+    baseURL: `${baseURL}/api/v1/`
   })
   // SET HEADER IN REQUESTS
   authFetch.interceptors.request.use(
@@ -95,15 +99,27 @@ const AppContextProvider = ({ children }) => {
     }, time)
   }
 
+  const addUserToLocalStorage = ({ user, token }) => {
+    localStorage.setItem('user', JSON.stringify(user))
+    localStorage.setItem('token', token)
+  }
+
+  const removeUserFromLocalStorage = () => {
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
+  }
+
   const changeTheme = (newTheme) => {
     dispatch({ type: CHANGE_THEME, payload: { newTheme } })
   }
 
   const setupUser = async (currentUser, endpoint, alertText) => {
-
     dispatch({ type: SETUP_USER_BEGIN })
     try {
-      const { data } = await axios.post(`/api/v1/auth/${endpoint}`, currentUser)
+      const { data } = await axios.post(
+        `${baseURL}/api/v1/auth/${endpoint}`,
+        currentUser
+      )
       console.log(data)
       const { user, token } = data
       dispatch({
@@ -111,7 +127,7 @@ const AppContextProvider = ({ children }) => {
         payload: { user, token, alertText }
       })
       // ADD USER TO LOCAL STORAGE
-      // addUserToLocalStorage({ user, token })
+      addUserToLocalStorage({ user, token })
     } catch (err) {
       console.log(err)
       dispatch({
@@ -120,6 +136,11 @@ const AppContextProvider = ({ children }) => {
       })
     }
     clearAlert()
+  }
+
+  const logoutUser = () => {
+    dispatch({ type: LOGOUT_USER })
+    removeUserFromLocalStorage()
   }
 
   // ********************************************************
@@ -207,7 +228,8 @@ const AppContextProvider = ({ children }) => {
         changeTheme,
         // USER
         missingFieldsAlert,
-        setupUser
+        setupUser,
+        logoutUser
       }}
     >
       {children}

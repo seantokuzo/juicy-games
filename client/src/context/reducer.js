@@ -15,28 +15,11 @@ import {
   CHANGE_THEME,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
-  SETUP_USER_ERROR
+  SETUP_USER_ERROR,
+  LOGOUT_USER
 } from './actions'
 
 import { initialState } from './appContext'
-
-// const initialState = {
-//   categories: undefined,
-//   showOptions: true,
-//   gameOptions: {
-//     amount: '5',
-//     category: '',
-//     difficulty: 'easy',
-//     type: 'multiple'
-//   },
-//   loadingQuestions: false,
-//   trivia: localTrivia || undefined,
-//   currentQuestion: 1,
-//   gameReady: false,
-//   gameActive: false,
-//   showAlert: false,
-//   alertText: ''
-// }
 
 const reducer = (state, action) => {
   if (action.type === CHANGE_THEME) {
@@ -88,11 +71,33 @@ const reducer = (state, action) => {
       alertText: action.payload.msg
     }
   }
+  if (action.type === LOGOUT_USER) {
+    return {
+      ...initialState,
+      user: null,
+      token: null
+    }
+  }
   // ************************************************************
   // PRACTICE GAME REDUCERS - NEED REFACTOR
   if (action.type === OPTION_COMBO_ERROR) {
     return {
-      ...initialState,
+      ...state,
+      // INITIAL STATE PATCH**
+      showOptions: true,
+      gameOptions: {
+        amount: '5',
+        category: '',
+        difficulty: 'easy',
+        type: 'multiple'
+      },
+      loadingQuestions: false,
+      trivia: undefined,
+      currentQuestion: 1,
+      gameReady: false,
+      gameActive: false,
+      gameOver: false,
+      // OG RETURN
       categories: state.categories,
       showAlert: true,
       alertType: 'danger',

@@ -16,6 +16,20 @@ function App() {
   const { theme } = useAppContext()
   const navigate = useNavigate()
 
+  const fetchData = async () => {
+    try {
+      const res = await fetch('/api/v1')
+      const data = await res.json()
+      console.log(data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  useEffect(() => {
+    fetchData()
+  }, [])
+
   // CHECK FOR TRIVIA STORED IN LCOAL STORAGE
   // useEffect(() => {
   //   const localTriv = JSON.parse(localStorage.getItem('localTrivia'))

@@ -8,11 +8,16 @@ import {
 import { useAppContext } from '../context/appContext'
 
 export default function Footer() {
-  const { theme, changeTheme } = useAppContext()
+  const { user, theme, changeTheme, logoutUser } = useAppContext()
 
   return (
     <footer className="footer">
       <p className="text footer__text">A seantokuzo game</p>
+      {user && (
+        <button type="button" className="btn" onClick={logoutUser}>
+          Logout {user.username}
+        </button>
+      )}
       <div className="footer__fruits">
         <GiStrawberry
           className={
