@@ -33,8 +33,6 @@ function App() {
   //   }
   // }, [])
 
-  console.log(theme);
-
   return (
     <div className={`app ${theme}`}>
       <Header />

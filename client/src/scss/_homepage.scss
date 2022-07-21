@@ -3,12 +3,20 @@
   @include flex;
   width: 90%;
   max-width: 500px;
+
+  text-align: center;
+
+  &__form-title {
+    font-size: larger;
+    margin: 0 0 1rem;
+    text-shadow: 2px 2px rgba(#000000, 20%);
+  }
   
   &__login-form {
     @include flex;
     width: 90%;
     margin: 1rem 0 0;
-    padding: 2rem 0;
+    padding: 1.5rem 0 2rem;
 
     border-radius: 5px;
 
@@ -29,7 +37,7 @@
     }
     
     &-btn {
-      font-size: larger;
+      font-size: 1.1em;
     }
   }
 

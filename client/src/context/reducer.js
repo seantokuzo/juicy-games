@@ -1,5 +1,5 @@
 import {
-  DISPLAY_ALERT,
+  MISSING_FIELDS_ALERT,
   CLEAR_ALERT,
   RETRIEVE_CATEGORIES,
   UPDATE_GAME_OPTIONS,
@@ -12,7 +12,10 @@ import {
   SELECT_ANSWER,
   TOGGLE_QUESTION,
   SUBMIT_ANSWERS,
-  CHANGE_THEME
+  CHANGE_THEME,
+  SETUP_USER_BEGIN,
+  SETUP_USER_SUCCESS,
+  SETUP_USER_ERROR
 } from './actions'
 
 import { initialState } from './appContext'
@@ -36,12 +39,13 @@ import { initialState } from './appContext'
 // }
 
 const reducer = (state, action) => {
-  if (action.type === DISPLAY_ALERT) {
+  if (action.type === MISSING_FIELDS_ALERT) {
+    console.log('cmon')
     return {
       ...state,
       showAlert: true,
-      alertType: action.payload.alertType,
-      alertText: action.payload.alertText
+      alertType: 'danger',
+      alertText: "Don't be shy, fill out all the fields"
     }
   }
   if (action.type === OPTION_COMBO_ERROR) {
@@ -70,7 +74,7 @@ const reducer = (state, action) => {
   if (action.type === RETRIEVE_CATEGORIES) {
     return {
       ...state,
-      categories: action.payload.cats
+      categories: action.payload.categories
     }
   }
   if (action.type === UPDATE_GAME_OPTIONS) {

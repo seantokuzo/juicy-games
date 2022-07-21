@@ -1,7 +1,7 @@
 import React, { useReducer, useContext } from 'react'
 import reducer from './reducer'
 import {
-  DISPLAY_ALERT,
+  MISSING_FIELDS_ALERT,
   OPTION_COMBO_ERROR,
   CLEAR_ALERT,
   RETRIEVE_CATEGORIES,
@@ -14,7 +14,10 @@ import {
   SELECT_ANSWER,
   TOGGLE_QUESTION,
   SUBMIT_ANSWERS,
-  CHANGE_THEME
+  CHANGE_THEME,
+  SETUP_USER_BEGIN,
+  SETUP_USER_SUCCESS,
+  SETUP_USER_ERROR
 } from './actions'
 
 const localTrivia = JSON.parse(localStorage.getItem('localTrivia'))
@@ -36,7 +39,11 @@ const initialState = {
   gameOver: false,
   showAlert: false,
   alertText: '',
-  theme: 'strawberry'
+  alertType: '',
+  theme: 'strawberry',
+  user: null,
+  token: null,
+  isLoading: false
 }
 
 const AppContext = React.createContext()
@@ -44,6 +51,11 @@ const AppContext = React.createContext()
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   // console.log(state.trivia)
+
+  const missingFieldsAlert = () => {
+    dispatch({ type: MISSING_FIELDS_ALERT })
+    clearAlert()
+  }
 
   const optionComboError = () => {
     dispatch({ type: OPTION_COMBO_ERROR })
@@ -56,8 +68,8 @@ const AppContextProvider = ({ children }) => {
     }, time)
   }
 
-  const retrieveCategories = (cats) => {
-    dispatch({ type: RETRIEVE_CATEGORIES, payload: { cats } })
+  const retrieveCategories = (categories) => {
+    dispatch({ type: RETRIEVE_CATEGORIES, payload: { categories } })
   }
 
   const loadQuestions = () => {
@@ -127,10 +139,15 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: CHANGE_THEME, payload: { newTheme } })
   }
 
+  const setupUser = (user) => {
+    console.log(user)
+  }
+
   return (
     <AppContext.Provider
       value={{
         ...state,
+        missingFieldsAlert,
         optionComboError,
         retrieveCategories,
         updateGameOptions,
@@ -141,7 +158,8 @@ const AppContextProvider = ({ children }) => {
         selectAnswer,
         toggleQuestion,
         submitAnswers,
-        changeTheme
+        changeTheme,
+        setupUser
       }}
     >
       {children}

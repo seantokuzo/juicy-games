@@ -1,6 +1,14 @@
 .alert {
-  @include absolute(5%);
+  width: 80%;
+  margin: 0 0 1rem;
+  padding: 1rem 0;
+
+  font-size: 1em;
+  text-align: center;
+
   color: white;
+
+  @include box-shadow;
 
   &-success {
     background-color: green;
