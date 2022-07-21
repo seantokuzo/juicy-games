@@ -1,5 +1,5 @@
 import React from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useAppContext } from '../context/appContext'
 import Timer from './Timer'
 
@@ -12,7 +12,9 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header__pfp-div">
-        {pfp}
+        <Link to={user ? '/game/me' : '/'} className="header__pfp-link">
+          {pfp}
+        </Link>
         {user && <h5 className="header__pfp-name text">{user.username}</h5>}
       </div>
       {pathname === '/practice' && (gameReady || gameActive) && <Timer />}

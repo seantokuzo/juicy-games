@@ -132,7 +132,7 @@ const AppContextProvider = ({ children }) => {
       console.log(err)
       dispatch({
         type: SETUP_USER_ERROR,
-        payload: { msg: err.response.data }
+        payload: { msg: err.response.data.msg }
       })
     }
     clearAlert()

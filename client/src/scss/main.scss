@@ -30,16 +30,52 @@ body {
 
 .strawberry {
   background-color: $th1-red;
+
+  .btn {
+    color: $th1-red;
+  }
+  .home__btn-login {
+    color: white;
+    background-color: $th1-red;
+  }
 }
 .orange {
   background-color: $th1-orange;
+  
+  .btn {
+    color: $th1-orange;
+  }
+  .home__btn-login {
+    color: white;
+    background-color: $th1-orange;
+  }
 }
 .banana {
   background-color: $th2-yellow;
   color: $bg-dark;
+  
+  .btn {
+    color: $th2-yellow;
+  }
+  .home__btn-login {
+    color: white;
+    background-color: $th2-yellow;
+  }
+  
+  .home__form-title {
+    text-shadow: 2px 2px darken($th2-yellow, 50%);
+  }
 }
 .grape {
   background-color: $grape;
+  
+  .btn {
+    color: $grape;
+  }
+  .home__btn-login {
+    color: white;
+    background-color: $grape;
+  }
 }
 
 a {
