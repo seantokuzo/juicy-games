@@ -12,9 +12,9 @@
   @include box-shadow;
 
   &-success {
-    background-color: rgba($alert-success, 50%);
+    background-color: rgba($alert-success, 0.75);
   }
   &-danger {
-    background-color: rgba($alert-danger, 50%)
+    background-color: rgba($alert-danger, 0.75)
   }
 }

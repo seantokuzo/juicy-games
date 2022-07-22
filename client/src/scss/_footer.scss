@@ -4,7 +4,7 @@
   bottom: 0%;
 
   width: 100%;
-  @include flex(row, baseline, space-between);
+  @include flex(row, center, space-between);
 
   padding: .35rem;
 
@@ -13,7 +13,11 @@
   }
 
   &__fruits {
+    position: absolute;
+    bottom: .5rem;
+    right: .5rem;
     font-size: 1.75em;
+    justify-self: flex-end;
   }
 
   &__fruit {

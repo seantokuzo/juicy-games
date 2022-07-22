@@ -42,12 +42,8 @@ const Home = () => {
         missingFieldsAlert()
         return
       }
-      console.log('setting up - login');
-      return setupUser(
-        formUser,
-        'login',
-        "Login Successful. Let's see how them brains doing today"
-      )
+      console.log('setting up - login')
+      return setupUser(formUser, 'login', "Let's Geeerrrrrrr")
     }
 
     // IF SIGNING UP NEW ACCOUNT
@@ -58,11 +54,7 @@ const Home = () => {
         return
       }
       formUser = { ...formUser, username }
-      return setupUser(
-        formUser,
-        'signup',
-        'Sign up successful. Welcome to your worst nightmare'
-      )
+      return setupUser(formUser, 'signup', 'Welcome to your worst nightmare')
     }
   }
 
@@ -70,14 +62,14 @@ const Home = () => {
     if (user) {
       setTimeout(() => {
         navigate('/game')
-      }, 3000)
+      }, 2000)
     }
   }, [user, navigate])
 
   return (
     <section className="home page">
       <h1 className="home__title title">Trivial Trivia</h1>
-      <form className="home__login-form" onSubmit={submitForm}>
+      <form className="home__login-form form" onSubmit={submitForm}>
         <h3 className="home__form-title text">
           {values.loginNotSignup ? 'Login to Play' : 'Create an Account'}
         </h3>
@@ -104,7 +96,7 @@ const Home = () => {
         />
         <button
           type="submit"
-          className="btn home__btn home__btn-login home__btn-btn"
+          className="btn btn-theme home__btn home__btn-login home__btn-btn"
           disabled={isLoading}
         >
           {values.loginNotSignup ? 'Login' : 'Signup'}
@@ -129,7 +121,7 @@ const Home = () => {
           className="btn home__btn"
           style={{ pointerEvents: isLoading ? 'none' : '' }}
         >
-          <h3 className="home__link home__link--guest">Play as Guest</h3>
+          <h3 className="home__link home__link--guest subtitle">Practice</h3>
         </Link>
       </div>
     </section>

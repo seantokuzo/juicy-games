@@ -1,0 +1,42 @@
+.account {
+  @include flex(column, center, space-between);
+  width: 100%;
+  height: 100vh;
+  padding: 25% 0;
+  max-width: 500px;
+
+  &__user {
+    &-avatars {
+
+    }
+    &-details {
+
+      &__form {
+
+        &-btn {
+
+        }
+      }
+    }
+  }
+  
+  &__links {
+    @include flex;
+    width: 100%;
+    &-link {
+      width: 70%;
+      max-width: 300px;
+      @include box-shadow;
+      
+      &:nth-child(2) {
+        margin: 1rem 0;
+      }
+      
+      &:hover, &:focus, &:active {
+        transform: scale(1.025);
+        @include box-shadow( #000000, 0.5, 0.35);
+        text-shadow: 1px 1px #00000070;
+      }
+    }
+  }
+}

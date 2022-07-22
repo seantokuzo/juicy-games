@@ -7,12 +7,11 @@
 @import 'homepage';
 @import 'practice-options';
 @import 'practice-ready';
-@import 'forms';
 @import 'trivia-carousel';
 @import 'question-card';
 @import 'practice-results';
-@import 'form-row';
 @import 'auth-shared';
+@import 'account';
 
 body {
   height: 100vh;
@@ -28,13 +27,15 @@ body {
   color: $th1-white;
 }
 
+
+// COLORS COLORS COLORS COLORS
 .strawberry {
   background-color: $th1-red;
 
   .btn, .practice-options__selector {
     color: $th1-red;
   }
-  .home__btn-login {
+  .btn-theme {
     color: white;
     background-color: $th1-red;
   }
@@ -52,7 +53,7 @@ body {
   .btn, .practice-options__selector {
     color: $th1-orange;
   }
-  .home__btn-login {
+  .btn-theme {
     color: white;
     background-color: $th1-orange;
   }
@@ -70,7 +71,7 @@ body {
   .btn, .practice-options__selector {
     color: $th2-yellow;
   }
-  .home__btn-login {
+  .btn-theme {
     color: white;
     background-color: $th2-yellow;
   }
@@ -91,7 +92,7 @@ body {
   .btn, .practice-options__selector {
     color: $grape;
   }
-  .home__btn-login {
+  .btn-theme {
     color: white;
     background-color: $grape;
   }

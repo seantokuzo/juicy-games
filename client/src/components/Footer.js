@@ -12,7 +12,7 @@ export default function Footer() {
 
   return (
     <footer className="footer">
-      <p className="text footer__text">A seantokuzo game</p>
+      {/* <p className="text footer__text">A seantokuzo game</p> */}
       {user && (
         <button type="button" className="btn" onClick={logoutUser}>
           Logout {user.username}
