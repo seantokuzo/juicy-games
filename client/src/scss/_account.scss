@@ -4,18 +4,23 @@
   height: 100vh;
   padding: 25% 0;
   max-width: 500px;
+  
+  &__form {
+    @include flex;
 
-  &__user {
-    &-avatars {
+    &-form {
 
     }
-    &-details {
 
-      &__form {
+    &-btn {
 
-        &-btn {
+      width: 100%;
+      @include box-shadow;
+      margin: 1rem 0 0;
 
-        }
+
+      &-submit {
+  
       }
     }
   }

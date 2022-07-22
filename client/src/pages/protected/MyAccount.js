@@ -1,43 +1,95 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { FormRow } from '../../components'
+import { FormRow, Alert } from '../../components'
 import { useAppContext } from '../../context/appContext'
 
 const MyAccount = () => {
-  const { user } = useAppContext()
+  const {
+    user,
+    displayAlert,
+    showAlert,
+    isLoading,
+    updateUser,
+    updatePassword,
+    deleteAccount
+  } = useAppContext()
+
+  const [editUserNotPass, setEditUserNotPass] = useState(true)
 
   const [username, setUsername] = useState(user?.username)
   const [email, setEmail] = useState(user?.email)
 
+  const [password, setPassword] = useState('')
+  const [passwordConfirm, setPasswordConfirm] = useState('')
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(e.target)
+    console.log(username, email)
+
+    // IF EDITING USER DETAILS
+    if (editUserNotPass) {
+      updateUser({ username, email })
+    }
+
+    // IF EDITING PASSWORD
+    if (password !== passwordConfirm)
+      return displayAlert('danger', "Them passwords don't match fam")
   }
 
   return (
     <div className="account">
       <div className="account__user">
-        <div className="account__user-avatars"></div>
-        <div className="account__user-details">
-          <form
-            className="form account__user-details__form"
-            onSubmit={handleSubmit}
-          >
-            <FormRow
-              type="text"
-              name="username"
-              value={username}
-              handleChange={(e) => setUsername(e.target.value)}
-            />
-            <FormRow
-              type="email"
-              name="email"
-              value={email}
-              handleChange={(e) => setEmail(e.target.value)}
-            />
-            <Link to="/game/danger-zone" className="btn btn-theme account__user-details__form-btn">
-              <h3 className="account__links-link-text text">Update Password</h3>
-            </Link>
+        <div className="account__avatars"></div>
+        <div className="account__form">
+          {showAlert && <Alert />}
+          <form className="form account__form-form" onSubmit={handleSubmit}>
+            {editUserNotPass ? (
+              <>
+                <FormRow
+                  type="text"
+                  name="username"
+                  value={username}
+                  handleChange={(e) => setUsername(e.target.value)}
+                />
+                <FormRow
+                  type="email"
+                  name="email"
+                  value={email}
+                  handleChange={(e) => setEmail(e.target.value)}
+                />
+              </>
+            ) : (
+              <>
+                <FormRow
+                  type="password"
+                  name="password"
+                  value={password}
+                  handleChange={(e) => setPassword(e.target.value)}
+                />
+                <FormRow
+                  type="password"
+                  name="passwordConfirm"
+                  value={passwordConfirm}
+                  handleChange={(e) => setPasswordConfirm(e.target.value)}
+                />
+              </>
+            )}
+            <button
+              type="submit"
+              className="btn btn-theme account__form-btn account__form-btn--submit"
+              disabled={isLoading || showAlert}
+            >
+              {editUserNotPass ? 'Update Me' : 'Update Password'}
+            </button>
+            <button
+              type="button"
+              className="btn btn-theme account__form-btn"
+              style={{ backgroundColor: editUserNotPass ? 'red' : '' }}
+              onClick={() => setEditUserNotPass(!editUserNotPass)}
+              disabled={isLoading || showAlert}
+            >
+              {editUserNotPass ? 'Danger Zone' : 'Edit Account'}
+            </button>
           </form>
         </div>
       </div>
@@ -58,7 +110,8 @@ const MyAccount = () => {
 
 export default MyAccount
 
-{/* <div className="account__password">
+{
+  /* <div className="account__password">
         <form
           className="form account__password-form"
           onSubmit={handlePasswordChange}
@@ -76,4 +129,5 @@ export default MyAccount
             handleChange={(e) => setPasswordConfirm(e.target.value)}
           />
         </form>
-      </div> */}
+      </div> */
+}
