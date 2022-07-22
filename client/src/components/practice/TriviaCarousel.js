@@ -1,19 +1,22 @@
 import React from 'react'
 import { useAppContext } from '../../context/appContext'
 import QuestionCard from '../QuestionCard'
+import Alert from '../Alert'
 import { nanoid } from 'nanoid'
 
 const TriviaCarousel = () => {
   const {
     practiceState: { currentPracticeQuestion, practiceTrivia },
     togglePracticeQuestion,
-    submitPracticeAnswers
+    submitPracticeAnswers,
+    showAlert
   } = useAppContext()
   // console.log(practiceTrivia)
   // console.log(currentPracticeQuestion)
 
   return (
     <div className="carousel">
+      {showAlert && <Alert />}
       {practiceTrivia.map((q, index) => (
         <QuestionCard
           question={q.question}

@@ -91,7 +91,7 @@ const AppContextProvider = ({ children }) => {
     }
   )
 
-  const displayAlert = (type, msg, time = 3000) => {
+  const displayAlert = (alertType, alertText, time = 3000) => {
     dispatch({ type: DISPLAY_ALERT, payload: { alertType, alertText } })
     clearAlert(time)
   }
@@ -208,12 +208,12 @@ const AppContextProvider = ({ children }) => {
       (triviaData) => triviaData.selectedAnswer
     )
     if (!answers.every((answer) => answer) && str !== 'OUT_OF_TIME') {
+      console.log('we are here')
       displayAlert(
         'danger',
         "You haven't answered all the questions. There's still time!",
         5000
       )
-      clearAlert(3000)
       return
     }
     //SUBMIT ANSWERS

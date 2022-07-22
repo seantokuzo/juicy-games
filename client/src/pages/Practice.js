@@ -29,18 +29,21 @@ const Practice = () => {
 
   // LOAD CATEGORIES FROM API
   useEffect(() => {
-    fetch('https://opentdb.com/api_category.php')
-      .then((res) => res.json())
-      .then((data) => {
-        retrievePracticeCategories(
-          data.trivia_categories.slice(0, data.trivia_categories.length - 3)
-        )
-        updatePracticeOptions({
-          target: { name: 'category', value: data.trivia_categories[0].id }
+    if (showPracticeOptions) {
+      fetch('https://opentdb.com/api_category.php')
+        .then((res) => res.json())
+        .then((data) => {
+          retrievePracticeCategories(
+            data.trivia_categories.slice(0, data.trivia_categories.length - 3)
+          )
+          localStorage.setItem('practiceCategories', JSON.stringify())
+          updatePracticeOptions({
+            target: { name: 'category', value: data.trivia_categories[0].id }
+          })
         })
-      })
-      .catch((err) => console.log(err))
-  }, [])
+        .catch((err) => console.log(err))
+    }
+  }, [showPracticeOptions])
 
   // LOAD PRACTICE TRIVIA QUESTIONS
   useEffect(() => {
