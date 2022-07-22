@@ -2,20 +2,21 @@ import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 import reducer from './reducer'
 import {
+  CHANGE_THEME,
+  DISPLAY_ALERT,
   MISSING_FIELDS_ALERT,
   OPTION_COMBO_ERROR,
   CLEAR_ALERT,
   RETRIEVE_CATEGORIES,
   UPDATE_PRACTICE_OPTIONS,
-  LOAD_QUESTIONS_BEGIN,
-  LOAD_QUESTIONS_SUCCESS,
-  LOAD_QUESTIONS_ERROR,
-  START_GAME,
-  RESET_OPTIONS,
-  SELECT_ANSWER,
-  TOGGLE_QUESTION,
-  SUBMIT_ANSWERS,
-  CHANGE_THEME,
+  LOAD_PRACTICE_BEGIN,
+  LOAD_PRACTICE_SUCCESS,
+  LOAD_PRACTICE_ERROR,
+  START_PRACTICE,
+  RESET_PRACTICE_OPTIONS,
+  SELECT_PRACTICE_ANSWER,
+  TOGGLE_PRACTICE_QUESTION,
+  SUBMIT_PRACTICE_ANSWERS,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
@@ -90,6 +91,11 @@ const AppContextProvider = ({ children }) => {
     }
   )
 
+  const displayAlert = (type, msg, time = 3000) => {
+    dispatch({ type: DISPLAY_ALERT, payload: { alertType, alertText } })
+    clearAlert(time)
+  }
+
   // MISSING LOGIN / SIGNUP FIELDS
   const missingFieldsAlert = () => {
     dispatch({ type: MISSING_FIELDS_ALERT })
@@ -155,11 +161,12 @@ const AppContextProvider = ({ children }) => {
   const retrievePracticeCategories = (categories) => {
     dispatch({ type: RETRIEVE_CATEGORIES, payload: { categories } })
   }
-  const loadQuestions = () => {
-    dispatch({ type: LOAD_QUESTIONS_BEGIN })
+  const loadPractice = () => {
+    console.log('load questions yo')
+    dispatch({ type: LOAD_PRACTICE_BEGIN })
   }
   const setTrivia = (questionsData) => {
-    dispatch({ type: LOAD_QUESTIONS_SUCCESS, payload: { questionsData } })
+    dispatch({ type: LOAD_PRACTICE_SUCCESS, payload: { questionsData } })
   }
   const updatePracticeOptions = (e) => {
     const { name, value } = e.target
@@ -171,44 +178,46 @@ const AppContextProvider = ({ children }) => {
       }
     })
   }
-  const startGame = () => {
-    dispatch({ type: START_GAME })
+  const startPractice = () => {
+    dispatch({ type: START_PRACTICE })
   }
-  const resetOptions = () => {
-    dispatch({ type: RESET_OPTIONS })
-    localStorage.removeItem('localTrivia')
+  const resetPracticeOptions = () => {
+    dispatch({ type: RESET_PRACTICE_OPTIONS })
   }
-  const selectAnswer = (index, answer) => {
-    dispatch({ type: SELECT_ANSWER, payload: { index, answer } })
+  const selectPracticeAnswer = (index, answer) => {
+    dispatch({ type: SELECT_PRACTICE_ANSWER, payload: { index, answer } })
 
     // AUTO QUESTION SWITCHER ON ANSWER SELECT
-    const unanswered = state.trivia.filter(
+    const unanswered = state.practiceState.practiceTrivia.filter(
       (question) => !question.selectedAnswer
     )
     const nextUnanswered = unanswered.filter((q) => q.id !== index + 1)
-    if (nextUnanswered.length > 0) toggleQuestion(nextUnanswered[0].id)
+    if (nextUnanswered.length > 0) togglePracticeQuestion(nextUnanswered[0].id)
   }
-  const toggleQuestion = (questionNumber) => {
-    if (questionNumber < 1 || questionNumber > state.trivia.length) return
-    dispatch({ type: TOGGLE_QUESTION, payload: { questionNumber } })
+  const togglePracticeQuestion = (questionNumber) => {
+    if (
+      questionNumber < 1 ||
+      questionNumber > state.practiceState.practiceTrivia.length
+    )
+      return
+    dispatch({ type: TOGGLE_PRACTICE_QUESTION, payload: { questionNumber } })
   }
-  const submitAnswers = (str) => {
+  const submitPracticeAnswers = (str) => {
     // CHECK IF ALL QUESTIONS HAVE BEEN ANSWERED
-    const answers = state.trivia.map((triviaData) => triviaData.selectedAnswer)
+    const answers = state.practiceState.practiceTrivia.map(
+      (triviaData) => triviaData.selectedAnswer
+    )
     if (!answers.every((answer) => answer) && str !== 'OUT_OF_TIME') {
-      dispatch({
-        type: DISPLAY_ALERT,
-        payload: {
-          alertType: 'danger',
-          alertText:
-            "You haven't answered all the questions. There's still time!"
-        }
-      })
+      displayAlert(
+        'danger',
+        "You haven't answered all the questions. There's still time!",
+        5000
+      )
       clearAlert(3000)
       return
     }
     //SUBMIT ANSWERS
-    dispatch({ type: SUBMIT_ANSWERS })
+    dispatch({ type: SUBMIT_PRACTICE_ANSWERS })
   }
   // ********************************************************
 
@@ -220,15 +229,16 @@ const AppContextProvider = ({ children }) => {
         optionComboError,
         retrievePracticeCategories,
         updatePracticeOptions,
-        loadQuestions,
+        loadPractice,
         setTrivia,
-        startGame,
-        resetOptions,
-        selectAnswer,
-        toggleQuestion,
-        submitAnswers,
+        startPractice,
+        resetPracticeOptions,
+        selectPracticeAnswer,
+        togglePracticeQuestion,
+        submitPracticeAnswers,
         // GOOD
         changeTheme,
+        displayAlert,
         // USER
         missingFieldsAlert,
         setupUser,

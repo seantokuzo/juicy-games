@@ -4,21 +4,22 @@ import accurateInterval from '../utils/accurateInterval'
 import { TIME_PER_QUESTION } from '../assets/data/constants'
 
 const Timer = () => {
-  const { gameOptions, gameActive, submitAnswers } = useAppContext()
+  const { practiceState, submitPracticeAnswers } = useAppContext()
+  const { practiceOptions, practiceActive } = practiceState
   const [timeLeft, setTimeLeft] = useState(
-    gameOptions.amount * TIME_PER_QUESTION * 1000
+    practiceOptions.amount * TIME_PER_QUESTION * 1000
   )
   const [myInterval, setMyInterval] = useState('')
 
   useEffect(() => {
-    if (gameActive) {
+    if (practiceActive) {
       startTimer()
     }
-  }, [gameActive])
+  }, [practiceActive])
 
   useEffect(() => {
     if (timeLeft <= 0) {
-      submitAnswers('OUT_OF_TIME')
+      submitPracticeAnswers('OUT_OF_TIME')
       setTimeLeft(0)
     }
   }, [timeLeft])

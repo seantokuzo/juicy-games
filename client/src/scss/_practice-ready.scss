@@ -1,10 +1,8 @@
-.game-ready {
+.practice-ready {
   @include absolute;
-
   text-align: center;
 
   &__title {
-    
   }
   &__subtitle {
     margin: 1rem 0;

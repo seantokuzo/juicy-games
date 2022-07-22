@@ -3,11 +3,14 @@ import { useAppContext } from '../../context/appContext'
 import Alert from '../Alert'
 
 const PracticeOptions = () => {
-  const { showAlert, practiceState, loadQuestions, updatePracticeOptions } =
-    useAppContext()
-  const { practiceOptions, practiceCategories } = practiceState
+  const {
+    showAlert,
+    practiceState: { practiceOptions, practiceCategories },
+    loadPractice,
+    updatePracticeOptions
+  } = useAppContext()
   const { amount, category, difficulty, type } = practiceOptions
-  
+
   return (
     <div className="practice-options">
       <h3 className="practice-options__title title">Practice Trivia</h3>
@@ -110,7 +113,7 @@ const PracticeOptions = () => {
           </div>
         </div>
       </div>
-      <div className="btn practice-options__btn" onClick={loadQuestions}>
+      <div className="btn practice-options__btn" onClick={loadPractice}>
         Load Questions
       </div>
     </div>

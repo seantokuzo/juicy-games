@@ -2,28 +2,32 @@ import React, { useEffect } from 'react'
 import { useAppContext } from '../context/appContext'
 import {
   PracticeOptions,
-  GameReady,
+  PracticeReady,
   TriviaCarousel,
-  PracticeResults
+  PracticeResults,
+  Alert
 } from '../components/index.js'
 
 const Practice = () => {
   const {
+    displayAlert,
+    showAlert,
     retrievePracticeCategories,
     updatePracticeOptions,
     optionComboError,
     setTrivia,
-    practiceState
+    practiceState: {
+      practiceCategories,
+      practiceReady,
+      practiceActive,
+      practiceOver,
+      practiceOptions,
+      showPracticeOptions,
+      loadingPractice
+    }
   } = useAppContext()
-  const {
-    practiceReady,
-    practiceActive,
-    practiceOver,
-    practiceOptions,
-    showPracticeOptions,
-    loadingPractice
-  } = practiceState
 
+  // LOAD CATEGORIES FROM API
   useEffect(() => {
     fetch('https://opentdb.com/api_category.php')
       .then((res) => res.json())
@@ -31,15 +35,14 @@ const Practice = () => {
         retrievePracticeCategories(
           data.trivia_categories.slice(0, data.trivia_categories.length - 3)
         )
-        console.log('retrieved')
         updatePracticeOptions({
           target: { name: 'category', value: data.trivia_categories[0].id }
         })
-        console.log('updated')
       })
       .catch((err) => console.log(err))
   }, [])
 
+  // LOAD PRACTICE TRIVIA QUESTIONS
   useEffect(() => {
     if (loadingPractice) {
       const startTime = Date.now()
@@ -73,14 +76,21 @@ const Practice = () => {
           }
           setTrivia(trivia)
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log(err)
+          displayAlert(
+            'danger',
+            'Something went wrong retrieving your questions. Try again later.',
+            5000
+          )
+        })
     }
   }, [loadingPractice])
 
   return (
     <div className="game">
       {showPracticeOptions && <PracticeOptions />}
-      {practiceReady && <GameReady />}
+      {practiceReady && <PracticeReady />}
       {practiceActive && <TriviaCarousel />}
       {practiceOver && <PracticeResults />}
       {loadingPractice && <h1 className="center">Loading...</h1>}

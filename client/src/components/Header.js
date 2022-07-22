@@ -5,7 +5,8 @@ import Timer from './Timer'
 
 export default function Header() {
   const { pathname } = useLocation()
-  const { user, gameReady, gameActive, gameOptions } = useAppContext()
+  const { user, practiceState } = useAppContext()
+  const { practiceReady, practiceActive, practiceOptions } = practiceState
 
   const pfp = <i className="fa-solid fa-user header__pfp-icon"></i>
 
@@ -17,7 +18,7 @@ export default function Header() {
         </Link>
         {user && <h5 className="header__pfp-name text">{user.username}</h5>}
       </div>
-      {pathname === '/practice' && (gameReady || gameActive) && <Timer />}
+      {pathname === '/practice' && (practiceReady || practiceActive) && <Timer />}
     </header>
   )
 }

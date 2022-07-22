@@ -4,20 +4,24 @@ import { useAppContext } from '../context/appContext'
 import { nanoid } from 'nanoid'
 
 const QuestionCard = ({ index, question, possibleAnswers, selectedAnswer }) => {
-  const { selectAnswer, currentQuestion, toggleQuestion } = useAppContext()
+  const {
+    practiceState: { currentPracticeQuestion },
+    selectPracticeAnswer,
+    togglePracticeQuestion
+  } = useAppContext()
 
   const cardClass =
-    index + 1 < currentQuestion
+    index + 1 < currentPracticeQuestion
       ? 'question-card question-card--hidden question-card--hidden-left'
-      : index + 1 > currentQuestion
+      : index + 1 > currentPracticeQuestion
       ? 'question-card question-card--hidden question-card--hidden-right'
       : 'question-card question-card--current'
 
   const handlers = useSwipeable({
     delta: 50,
     preventScrollOnSwipe: true,
-    onSwipedLeft: () => toggleQuestion(currentQuestion + 1),
-    onSwipedRight: () => toggleQuestion(currentQuestion - 1)
+    onSwipedLeft: () => togglePracticeQuestion(currentPracticeQuestion + 1),
+    onSwipedRight: () => togglePracticeQuestion(currentPracticeQuestion - 1)
   })
 
   return (
@@ -36,7 +40,7 @@ const QuestionCard = ({ index, question, possibleAnswers, selectedAnswer }) => {
               }
               onClick={() => {
                 if (answer !== selectedAnswer) {
-                  selectAnswer(index, answer)
+                  selectPracticeAnswer(index, answer)
                 }
               }}
             >

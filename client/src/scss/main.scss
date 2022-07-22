@@ -5,13 +5,12 @@
 @import 'timer';
 @import 'footer';
 @import 'homepage';
-@import 'game';
 @import 'practice-options';
-@import 'game-ready';
+@import 'practice-ready';
 @import 'forms';
 @import 'trivia-carousel';
 @import 'question-card';
-@import 'game-results';
+@import 'practice-results';
 @import 'form-row';
 @import 'auth-shared';
 
@@ -32,22 +31,35 @@ body {
 .strawberry {
   background-color: $th1-red;
 
-  .btn {
+  .btn, .practice-options__selector {
     color: $th1-red;
   }
   .home__btn-login {
     color: white;
     background-color: $th1-red;
   }
+  .footer {
+    background-color: $th1-red;
+  }
+
+  input[type="radio"]::before {
+    background-color: $th1-red;
+  }
 }
 .orange {
   background-color: $th1-orange;
   
-  .btn {
+  .btn, .practice-options__selector {
     color: $th1-orange;
   }
   .home__btn-login {
     color: white;
+    background-color: $th1-orange;
+  }
+  .footer {
+    background-color: $th1-orange;
+  }
+  input[type="radio"]::before {
     background-color: $th1-orange;
   }
 }
@@ -55,11 +67,17 @@ body {
   background-color: $th2-yellow;
   color: $bg-dark;
   
-  .btn {
+  .btn, .practice-options__selector {
     color: $th2-yellow;
   }
   .home__btn-login {
     color: white;
+    background-color: $th2-yellow;
+  }
+  .footer {
+    background-color: $th2-yellow;
+  }
+  input[type="radio"]::before {
     background-color: $th2-yellow;
   }
   
@@ -70,11 +88,17 @@ body {
 .grape {
   background-color: $grape;
   
-  .btn {
+  .btn, .practice-options__selector {
     color: $grape;
   }
   .home__btn-login {
     color: white;
+    background-color: $grape;
+  }
+  .footer {
+    background-color: $grape;
+  }
+  input[type="radio"]::before {
     background-color: $grape;
   }
 }

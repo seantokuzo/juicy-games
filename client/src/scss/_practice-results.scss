@@ -1,7 +1,8 @@
 .game-results {
   @include flex;
   width: 75%;
-  margin: 10% auto 0;
+  margin: 0 auto;
+  padding: 15% 0;
   
   &__question-div {
     width: 100%;

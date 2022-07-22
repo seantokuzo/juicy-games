@@ -3,9 +3,12 @@ import { useAppContext } from '../../context/appContext'
 import { nanoid } from 'nanoid'
 
 const PracticeResults = () => {
-  const { trivia, resetOptions } = useAppContext()
-  const correctAnswers = trivia.map((x) => x.correctAnswer)
-  const selectedAnswers = trivia.map((x) => x.selectedAnswer)
+  const {
+    practiceState: { practiceTrivia },
+    resetPracticeOptions
+  } = useAppContext()
+  const correctAnswers = practiceTrivia.map((x) => x.correctAnswer)
+  const selectedAnswers = practiceTrivia.map((x) => x.selectedAnswer)
 
   const score = correctAnswers.reduce((acc, answer, i) => {
     if (answer === selectedAnswers[i]) return acc + 1
@@ -41,7 +44,7 @@ const PracticeResults = () => {
       <h5 className=" subtitle game-results__score">
         Result: {score}/{correctAnswers.length}
       </h5>
-      {trivia.map((x, i) => (
+      {practiceTrivia.map((x, i) => (
         <div className="game-results__question-div" key={nanoid()}>
           <p className=" subtitle game-results__number">#{i + 1}</p>
           <p className="game-results__question">{x.question}</p>
@@ -52,7 +55,7 @@ const PracticeResults = () => {
       ))}
       <div
         className="btn game-ready__btn game-results__btn"
-        onClick={resetOptions}
+        onClick={resetPracticeOptions}
       >
         <p className="text btn-text game-ready__btn-text">Play Again</p>
       </div>

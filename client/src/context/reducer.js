@@ -1,22 +1,23 @@
 import {
+  CHANGE_THEME,
+  DISPLAY_ALERT,
   MISSING_FIELDS_ALERT,
   CLEAR_ALERT,
-  RETRIEVE_CATEGORIES,
-  UPDATE_PRACTICE_OPTIONS,
-  LOAD_QUESTIONS_BEGIN,
-  LOAD_QUESTIONS_SUCCESS,
-  LOAD_QUESTIONS_ERROR,
-  OPTION_COMBO_ERROR,
-  START_GAME,
-  RESET_OPTIONS,
-  SELECT_ANSWER,
-  TOGGLE_QUESTION,
-  SUBMIT_ANSWERS,
-  CHANGE_THEME,
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
-  LOGOUT_USER
+  LOGOUT_USER,
+  RETRIEVE_CATEGORIES,
+  UPDATE_PRACTICE_OPTIONS,
+  LOAD_PRACTICE_BEGIN,
+  LOAD_PRACTICE_SUCCESS,
+  LOAD_PRACTICE_ERROR,
+  OPTION_COMBO_ERROR,
+  START_PRACTICE,
+  RESET_PRACTICE_OPTIONS,
+  SELECT_PRACTICE_ANSWER,
+  TOGGLE_PRACTICE_QUESTION,
+  SUBMIT_PRACTICE_ANSWERS
 } from './actions'
 
 import { initialState } from './appContext'
@@ -26,6 +27,14 @@ const reducer = (state, action) => {
     return {
       ...state,
       theme: action.payload.newTheme
+    }
+  }
+  if (action.type === DISPLAY_ALERT) {
+    return {
+      ...state,
+      showAlert: true,
+      alertType: action.payload.alertType,
+      alertText: action.payload.alertText
     }
   }
   if (action.type === MISSING_FIELDS_ALERT) {
@@ -83,29 +92,21 @@ const reducer = (state, action) => {
   if (action.type === OPTION_COMBO_ERROR) {
     return {
       ...state,
-      // INITIAL STATE PATCH**
-      showOptions: true,
-      gameOptions: {
-        amount: '5',
-        category: '',
-        difficulty: 'easy',
-        type: 'multiple'
+      practiceState: {
+        ...initialState.practiceState,
+        practiceCategories: state.practiceState.practiceCategories
       },
-      loadingQuestions: false,
-      trivia: undefined,
-      currentQuestion: 1,
-      gameReady: false,
-      gameActive: false,
-      gameOver: false,
       // OG RETURN
-      categories: state.categories,
       showAlert: true,
       alertType: 'danger',
       alertText: `Database Error: There are no ${
-        state.gameOptions.type === 'boolean' ? 'True/False' : 'Multiple Choice'
+        state.practiceState.practiceOptions.type === 'boolean'
+          ? 'True/False'
+          : 'Multiple Choice'
       } questions for ${
-        state.categories.filter(
-          (cat) => cat.id * 1 === state.gameOptions.category * 1
+        state.practiceState.practiceCategories.filter(
+          (cat) =>
+            cat.id * 1 === state.practiceState.practiceOptions.category * 1
         )[0].name
       }. Please try a different combo of options`
     }
@@ -147,74 +148,91 @@ const reducer = (state, action) => {
       }
     }
   }
-  if (action.type === LOAD_QUESTIONS_BEGIN) {
+  if (action.type === LOAD_PRACTICE_BEGIN) {
     return {
       ...state,
-      showOptions: false,
-      loadingQuestions: true
+      practiceState: {
+        ...state.practiceState,
+        showPracticeOptions: false,
+        loadingPractice: true
+      }
+      // showOptions: false,
+      // loadingQuestions: true
     }
   }
-  if (action.type === LOAD_QUESTIONS_SUCCESS) {
+  if (action.type === LOAD_PRACTICE_SUCCESS) {
     return {
       ...state,
-      showOptions: false,
-      loadingQuestions: false,
-      trivia: action.payload.questionsData,
-      gameReady: true,
-      gameOver: false
+      practiceState: {
+        ...state.practiceState,
+        showPracticeOptions: false,
+        loadingPractice: false,
+        practiceTrivia: action.payload.questionsData,
+        practiceReady: true,
+        practiceOver: false
+      }
     }
   }
-  if (action.type === START_GAME) {
+  if (action.type === START_PRACTICE) {
     return {
       ...state,
-      showOptions: false,
-      loadingQuestions: false,
-      gameReady: false,
-      gameActive: true,
-      gameOver: false
+      practiceState: {
+        ...state.practiceState,
+        showPracticeOptions: false,
+        loadingPractice: false,
+        practiceReady: false,
+        practiceActive: true,
+        practiceOver: false
+      }
     }
   }
-  if (action.type === RESET_OPTIONS) {
+  if (action.type === RESET_PRACTICE_OPTIONS) {
     return {
       ...state,
-      showOptions: true,
-      trivia: undefined,
-      loadingQuestions: false,
-      gameReady: false,
-      gameActive: false,
-      gameOver: false,
-      currentQuestion: 1
+      practiceState: {
+        ...initialState.practiceState
+      }
     }
   }
-  if (action.type === SELECT_ANSWER) {
+  if (action.type === SELECT_PRACTICE_ANSWER) {
     return {
       ...state,
-      trivia: [...state.trivia].map((obj, i) =>
-        i === action.payload.index
-          ? {
-              ...state.trivia[action.payload.index],
-              selectedAnswer:
-                action.payload.answer ===
-                state.trivia[action.payload.index].selectedAnswer
-                  ? ''
-                  : action.payload.answer
-            }
-          : obj
-      )
+      practiceState: {
+        ...state.practiceState,
+        practiceTrivia: [...state.practiceState.practiceTrivia].map((obj, i) =>
+          i === action.payload.index
+            ? {
+                ...state.practiceState.practiceTrivia[action.payload.index],
+                selectedAnswer:
+                  action.payload.answer ===
+                  state.practiceState.practiceTrivia[action.payload.index]
+                    .selectedAnswer
+                    ? ''
+                    : action.payload.answer
+              }
+            : obj
+        )
+      }
     }
   }
-  if (action.type === TOGGLE_QUESTION) {
-    console.log(action.payload.currentQuestion)
+  if (action.type === TOGGLE_PRACTICE_QUESTION) {
+    console.log(action.payload.currentPracticeQuestion)
     return {
       ...state,
-      currentQuestion: action.payload.questionNumber
+      practiceState: {
+        ...state.practiceState,
+        currentPracticeQuestion: action.payload.questionNumber
+      }
     }
   }
-  if (action.type === SUBMIT_ANSWERS) {
+  if (action.type === SUBMIT_PRACTICE_ANSWERS) {
     return {
       ...state,
-      gameActive: false,
-      gameOver: true
+      practiceState: {
+        ...state.practiceState,
+        practiceActive: false,
+        practiceOver: true
+      }
     }
   }
   // PRACTICE GAME REDUCERS - NEED REFACTOR
