@@ -19,12 +19,12 @@
   &-number {
 
     &--answered {
-      color: $th2-blue;
+      color: $th-berry;
     }
 
     &--current {
       text-decoration: underline;
-      text-shadow: .15rem .15rem .15rem darken($th1-red, 20%);
+      text-shadow: .15rem .15rem .15rem darken($th-strawberry, 20%);
     }
   }
 

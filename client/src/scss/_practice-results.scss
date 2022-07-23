@@ -10,7 +10,7 @@
 
     padding: 1rem 0;
 
-    border-bottom: 2px solid rgba(lighten($th1-red, 10%), 0.5);
+    border-bottom: 2px solid rgba(lighten($th-strawberry, 10%), 0.5);
   }
 
   &__number {
@@ -33,11 +33,11 @@
     border-radius: 2px;
 
     &--correct {
-      background-color: $th2-green;
+      background-color: $alert-success;
     }
     
     &--incorrect {
-      background-color: darken($th1-red, 40%);
+      background-color: darken($th-strawberry, 40%);
 
     }
   }

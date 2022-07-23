@@ -6,7 +6,7 @@
   padding: 1rem 2rem;
   text-align: center;
 
-  background-color: lighten($th1-red, 10);
+  background-color: lighten($th-strawberry, 10);
   z-index: 1000;
 
   animation: fade-in 150ms ease-in forwards;
@@ -38,9 +38,9 @@
   
   &__answer {
     // border: 3px solid;
-    // border-color: $th1-red;
+    // border-color: $th-strawberry;
     border-radius: 2px;
-    background-color: $th1-red;
+    background-color: $th-strawberry;
     font-weight: bolder;
     
     margin: 1rem 0;
@@ -50,7 +50,7 @@
     @include transition-ease;
     
     &--selected {
-      background-color: $th2-blue;
+      background-color: $th-berry;
       @include box-shadow;
     }
     

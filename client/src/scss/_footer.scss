@@ -27,20 +27,23 @@
     @include box-shadow;
     
     &-strawberry {
-      color: $th1-red;
+      color: $th-strawberry;
     }
     &-orange {
-      color: $th1-orange;
+      color: $th-orange;
     }
-    &-banana {
-      color: $th2-yellow;
+    &-berry {
+      color: $th-banana;
+    }
+    &-berry {
+      color: $th-berry;
     }
     &-grape {
-      color: $grape;
+      color: $th-grape;
     }
 
     &--selected {
-      background-color: $bg-dark;
+      background-color: $clr-black;
     }
   }
 }

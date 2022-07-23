@@ -20,7 +20,8 @@ const MyAccount = () => {
   const [email, setEmail] = useState(user?.email)
 
   const [password, setPassword] = useState('')
-  const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [newPassword, setNewPassword] = useState('')
+  const [newPasswordConfirm, setNewPasswordConfirm] = useState('')
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -50,12 +51,14 @@ const MyAccount = () => {
                   name="username"
                   value={username}
                   handleChange={(e) => setUsername(e.target.value)}
+                  labelText={'change username'}
                 />
                 <FormRow
                   type="email"
                   name="email"
                   value={email}
                   handleChange={(e) => setEmail(e.target.value)}
+                  labelText={'update email'}
                 />
               </>
             ) : (
@@ -65,12 +68,21 @@ const MyAccount = () => {
                   name="password"
                   value={password}
                   handleChange={(e) => setPassword(e.target.value)}
+                  labelText={'current password'}
                 />
                 <FormRow
                   type="password"
-                  name="passwordConfirm"
-                  value={passwordConfirm}
-                  handleChange={(e) => setPasswordConfirm(e.target.value)}
+                  name="newPassword"
+                  value={newPassword}
+                  handleChange={(e) => setNewPassword(e.target.value)}
+                  labelText={'new password'}
+                />
+                <FormRow
+                  type="password"
+                  name="newPasswordConfirm"
+                  value={newPasswordConfirm}
+                  handleChange={(e) => setNewPasswordConfirm(e.target.value)}
+                  labelText={'confirm new password'}
                 />
               </>
             )}

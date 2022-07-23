@@ -3,6 +3,7 @@ import {
   GiStrawberry,
   GiOrangeSlice,
   GiBananaBunch,
+  GiRaspberry,
   GiGrapes
 } from 'react-icons/gi'
 import { useAppContext } from '../context/appContext'
@@ -42,6 +43,14 @@ export default function Footer() {
               : 'footer__fruit footer__fruit-banana'
           }
           onClick={() => changeTheme('banana')}
+        />
+        <GiRaspberry
+          className={
+            theme === 'berry'
+              ? 'footer__fruit footer__fruit-berry footer__fruit--selected'
+              : 'footer__fruit footer__fruit-berry'
+          }
+          onClick={() => changeTheme('berry')}
         />
         <GiGrapes
           className={
