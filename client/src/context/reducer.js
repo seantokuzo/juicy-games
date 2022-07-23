@@ -90,6 +90,35 @@ const reducer = (state, action) => {
       token: null
     }
   }
+  if (action.type === UPDATE_USER_BEGIN) {
+    return {
+      ...state,
+      practiceState: {
+        ...initialState.practiceState
+      },
+      isLoading: true
+    }
+  }
+  if (action.type === UPDATE_USER_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      user: action.payload.user,
+      token: action.payload.token,
+      showAlert: true,
+      alertType: 'success',
+      alertText: 'Updated! Enjoy the new digs'
+    }
+  }
+  if (action.type === UPDATE_USER_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg
+    }
+  }
   // ************************************************************
   // PRACTICE GAME REDUCERS - NEED REFACTOR
   if (action.type === OPTION_COMBO_ERROR) {

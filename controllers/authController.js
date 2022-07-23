@@ -56,8 +56,23 @@ export const login = async (req, res) => {
   res.status(StatusCodes.OK).json({ user, token })
 }
 
-export const updateMe = async (req, res) => {
-  console.log(req.body)
+export const updateUser = async (req, res) => {
+  const { username, email } = req.body
+
+  if (!username || !email) {
+    throw new BadRequestError("Don't be shy, GIVE US THE INFO")
+  }
+
+  const user = await User.findOne({ _id: req.user.userId })
+
+  user.username = username
+  user.email = email
+
+  await user.save()
+
+  const token = user.createJWT()
+
+  res.status(StatusCodes.OK).json({ user, token })
 }
 
 export const updatePassword = async (req, res) => {

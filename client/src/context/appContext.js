@@ -155,10 +155,23 @@ const AppContextProvider = ({ children }) => {
     removeUserFromLocalStorage()
   }
 
-  const updateUser = (updatedUser) => {
-    console.log('Path: updateUser')
-    console.log('This User:', state.user)
-    console.log('Updated Info:', updatedUser)
+  const updateUser = async (updatedUser) => {
+    dispatch({ type: UPDATE_USER_BEGIN })
+    try {
+      const { data } = await authFetch.patch('auth/updateUser', updatedUser)
+
+      const { user, token } = data
+      dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, token } })
+      addUserToLocalStorage({ user, token })
+    } catch (err) {
+      if (err.response.status !== 401) {
+        dispatch({
+          type: UPDATE_USER_ERROR,
+          payload: { msg: err.response.data.msg }
+        })
+      }
+    }
+    clearAlert()
   }
 
   const updatePassword = (oldPass, newPass) => {
