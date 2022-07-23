@@ -24,7 +24,7 @@
 
     &--current {
       text-decoration: underline;
-      text-shadow: .15rem .15rem .15rem darken($th-strawberry, 20%);
+      @include text-shadow;
     }
   }
 

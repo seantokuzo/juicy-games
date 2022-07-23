@@ -47,6 +47,10 @@ $fs-text: 'Inter', Verdana, Tahoma, Geneva, sans-serif;
               0.125em 0.125em 0.25em rgba($color, $op2);
 }
 
+@mixin text-shadow($color: #00000090, $px: 2px) {
+  text-shadow: $px $px $color;
+}
+
 @mixin computer-hover {
   @media (hover: hover) and (pointer: fine) {
     @content;

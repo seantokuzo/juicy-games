@@ -44,7 +44,7 @@
       &:hover, &:focus, &:active {
         transform: scale(1.025);
         @include box-shadow( #000000, 0.5, 0.35);
-        text-shadow: 1px 1px #00000070;
+        @include text-shadow;
       }
     }
   }

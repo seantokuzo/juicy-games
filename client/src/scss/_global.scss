@@ -45,6 +45,10 @@
   }
 }
 
+.btn-theme {
+  @include text-shadow;
+}
+
 .form {
   @include flex;
   padding: 1.5rem 2rem;
@@ -59,10 +63,15 @@
     max-width: 500px;
 
     margin: 0;
-
+    @include text-shadow;
+    
     &__label {
       margin: 1rem 0 0.5rem;
       text-transform: capitalize;
+    }
+    
+    &__explanation {
+      margin: -0.25rem 0 0.5rem;
     }
 
     &__input {

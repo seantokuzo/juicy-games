@@ -77,6 +77,7 @@ const MyAccount = () => {
                   value={email}
                   handleChange={(e) => setEmail(e.target.value)}
                   labelText={'update email'}
+                  explanation="(requires confirmation)"
                 />
               </>
             ) : (
