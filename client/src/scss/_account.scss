@@ -1,5 +1,5 @@
 .account {
-  @include flex(column, center, space-between);
+  @include flex(column, center, space-around);
   width: 100%;
   height: 100vh;
   padding: 18% 0;

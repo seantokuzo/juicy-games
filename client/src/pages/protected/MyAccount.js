@@ -125,17 +125,19 @@ const MyAccount = () => {
           </form>
         </div>
       </div>
-      <div className="account__links">
-        <Link to="/game" className="btn account__links-link">
-          <h3 className="account__links-link-text subtitle">My Trivia</h3>
-        </Link>
-        <Link to="/game/my-stats" className="btn account__links-link">
-          <h3 className="account__links-link-text subtitle">My Stats</h3>
-        </Link>
-        <Link to="/game/leaderboard" className="btn account__links-link">
-          <h3 className="account__links-link-text subtitle">Leaderboard</h3>
-        </Link>
-      </div>
+      {editUserNotPass && (
+        <div className="account__links">
+          <Link to="/game" className="btn account__links-link">
+            <h3 className="account__links-link-text subtitle">My Trivia</h3>
+          </Link>
+          <Link to="/game/my-stats" className="btn account__links-link">
+            <h3 className="account__links-link-text subtitle">My Stats</h3>
+          </Link>
+          <Link to="/game/leaderboard" className="btn account__links-link">
+            <h3 className="account__links-link-text subtitle">Leaderboard</h3>
+          </Link>
+        </div>
+      )}
     </div>
   )
 }
