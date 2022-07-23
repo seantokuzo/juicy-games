@@ -178,11 +178,15 @@ const AppContextProvider = ({ children }) => {
   }
 
   const updatePassword = async (currentPassword, newPassword) => {
-    if (currentPassword === newPassword)
+    if (!currentPassword || !newPassword) {
+      return displayAlert('danger', 'You entered nothing... *golf clap*')
+    }
+    if (currentPassword === newPassword) {
       return displayAlert(
         'danger',
         'Why would you update it to the exact same password?'
       )
+    }
     dispatch({ type: UPDATE_USER_BEGIN })
     try {
       const { data } = await authFetch.patch('/auth/updatePassword', {
