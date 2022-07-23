@@ -23,7 +23,10 @@ import {
   LOGOUT_USER,
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
-  UPDATE_USER_ERROR
+  UPDATE_USER_ERROR,
+  UPDATE_PASSWORD_BEGIN,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_ERROR
 } from './actions'
 
 const user = localStorage.getItem('user')
@@ -174,9 +177,25 @@ const AppContextProvider = ({ children }) => {
     clearAlert()
   }
 
-  const updatePassword = (oldPass, newPass) => {
-    console.log('Path: updatePassword')
-    console.log(oldPass, newPass)
+  const updatePassword = async (currentPassword, newPassword) => {
+    dispatch({ type: UPDATE_USER_BEGIN })
+    try {
+      const { data } = await authFetch.patch('/auth/updatePassword', {
+        currentPassword,
+        newPassword
+      })
+      const { token } = data
+      dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: { token } })
+      addUserToLocalStorage({ user: state.user, token })
+    } catch (err) {
+      if (err.response.status !== 401) {
+        dispatch({
+          type: UPDATE_PASSWORD_ERROR,
+          payload: { msg: err.response.data.msg }
+        })
+      }
+    }
+    clearAlert()
   }
 
   // *******************************

@@ -20,7 +20,10 @@ import {
   SUBMIT_PRACTICE_ANSWERS,
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
-  UPDATE_USER_ERROR
+  UPDATE_USER_ERROR,
+  UPDATE_PASSWORD_BEGIN,
+  UPDATE_PASSWORD_SUCCESS,
+  UPDATE_PASSWORD_ERROR
 } from './actions'
 
 import { initialState } from './appContext'
@@ -111,6 +114,34 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === UPDATE_USER_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg
+    }
+  }
+  if (action.type === UPDATE_PASSWORD_BEGIN) {
+    return {
+      ...state,
+      practiceState: {
+        ...initialState.practiceState
+      },
+      isLoading: true
+    }
+  }
+  if (action.type === UPDATE_PASSWORD_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      token: action.payload.token,
+      showAlert: true,
+      alertType: 'success',
+      alertText: 'Password Updated - Super Secure'
+    }
+  }
+  if (action.type === UPDATE_PASSWORD_ERROR) {
     return {
       ...state,
       isLoading: false,
