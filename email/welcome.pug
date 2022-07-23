@@ -1,0 +1,19 @@
+extends baseEmail
+
+block content
+  p Hi #{username},
+  p Welcome to Trivial Trivia
+  p Get ready to let the world know how little you know
+  p (And find out they/we/us pretty dumb too)
+  table.btn.btn-primary(role='presentation', border='0', cellpadding='0', cellspacing='0')
+    tbody
+      tr
+        td(align='left')
+          table(role='presentation', border='0', cellpadding='0', cellspacing='0')
+            tbody
+              tr
+                td
+                  p Your a fruit, but what kind?
+                  a(href=`${url}`, target='_blank') Choose your avatar
+  p We're always adding new features so check back soon for new game modes and ish
+  p - Some Guy, CEO
