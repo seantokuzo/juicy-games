@@ -1,6 +1,7 @@
 import User from '../models/User.js'
 import { StatusCodes } from 'http-status-codes'
 import { BadRequestError, UnauthenticatedError } from '../errors/index.js'
+import { Email } from '../utils/email.js'
 
 export const signup = async (req, res) => {
   const { username, email, password } = req.body
@@ -23,6 +24,13 @@ export const signup = async (req, res) => {
 
   const user = await User.create({ username, email, password })
   const token = user.createJWT()
+  //TEMPORARY URL
+  const url = `${req.protocol}://localhost:8080/game`
+  // FOR SENDING THE CONFIRM EMAIL API ENDPOINT
+  // const url = `${req.protocol}://${req.get('host')}/api/v1/game`
+
+  // SEND TRIAL EMAIL
+  await new Email(user, url).sendWelcome()
 
   res.status(StatusCodes.CREATED).json({
     user,
