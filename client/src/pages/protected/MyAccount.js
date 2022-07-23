@@ -14,6 +14,8 @@ const MyAccount = () => {
     deleteAccount
   } = useAppContext()
 
+  console.log(user)
+
   const [editUserNotPass, setEditUserNotPass] = useState(true)
 
   const [username, setUsername] = useState(user?.username)
@@ -29,12 +31,28 @@ const MyAccount = () => {
 
     // IF EDITING USER DETAILS
     if (editUserNotPass) {
+      // CHECK IF ANYHTING CHANGED
+      if (user.email === email && user.username === username) {
+        displayAlert(
+          'success',
+          'Updated to the same exact thing! Congrats on wasting our time',
+          5000
+        )
+        return
+      }
+      // IF THERE ARE UPDATES FIRE OFF THE AXIOS
       updateUser({ username, email })
+      return
     }
 
     // IF EDITING PASSWORD
-    if (password !== passwordConfirm)
-      return displayAlert('danger', "Them passwords don't match fam")
+    if (!editUserNotPass) {
+      if (newPassword !== newPasswordConfirm) {
+        displayAlert('danger', "Them passwords don't match fam")
+        return
+      }
+      updatePassword(password, newPassword)
+    }
   }
 
   return (
@@ -43,7 +61,7 @@ const MyAccount = () => {
         <div className="account__avatars"></div>
         <div className="account__form">
           {showAlert && <Alert />}
-          <form className="form account__form-form" onSubmit={handleSubmit}>
+          <form className="form" onSubmit={handleSubmit}>
             {editUserNotPass ? (
               <>
                 <FormRow
@@ -90,9 +108,11 @@ const MyAccount = () => {
               type="submit"
               className="btn btn-theme account__form-btn account__form-btn--submit"
               disabled={isLoading || showAlert}
+              style={{ backgroundColor: !editUserNotPass ? 'red' : '' }}
             >
               {editUserNotPass ? 'Update Me' : 'Update Password'}
             </button>
+            <div className="account__form-line"></div>
             <button
               type="button"
               className="btn btn-theme account__form-btn"

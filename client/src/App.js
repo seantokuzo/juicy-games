@@ -34,7 +34,7 @@ function App() {
   // useEffect(() => {
   //   const localTriv = JSON.parse(localStorage.getItem('localTrivia'))
   //   if (localTriv) {
-  //     setTrivia(localTriv)
+  //     setPracticeTrivia(localTriv)
   //     navigate('/game')
   //   }
   // }, [])

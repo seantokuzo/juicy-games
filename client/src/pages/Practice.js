@@ -15,7 +15,7 @@ const Practice = () => {
     retrievePracticeCategories,
     updatePracticeOptions,
     optionComboError,
-    setTrivia,
+    setPracticeTrivia,
     practiceState: {
       practiceCategories,
       practiceReady,
@@ -73,11 +73,11 @@ const Practice = () => {
           const time = 2000 - (Date.now() - startTime)
           if (time > 0) {
             setTimeout(() => {
-              setTrivia(trivia)
+              setPracticeTrivia(trivia)
             }, time)
             return
           }
-          setTrivia(trivia)
+          setPracticeTrivia(trivia)
         })
         .catch((err) => {
           console.log(err)

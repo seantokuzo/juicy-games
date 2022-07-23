@@ -47,7 +47,7 @@
 
 .form {
   @include flex;
-  padding: 2rem;
+  padding: 1.5rem 2rem;
   border-radius: 5px;
   background-color: rgba(black, .3);
   @include box-shadow;
@@ -58,10 +58,10 @@
     min-width: 250px;
     max-width: 500px;
 
-    margin: 0 0 .5rem;
+    margin: 0;
 
     &__label {
-      margin-bottom: .5rem;
+      margin: 1rem 0 0.5rem;
       text-transform: capitalize;
     }
 

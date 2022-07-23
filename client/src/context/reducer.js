@@ -7,7 +7,7 @@ import {
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
   LOGOUT_USER,
-  RETRIEVE_CATEGORIES,
+  RETRIEVE_PRACTICE_CATEGORIES,
   UPDATE_PRACTICE_OPTIONS,
   LOAD_PRACTICE_BEGIN,
   LOAD_PRACTICE_SUCCESS,
@@ -17,7 +17,10 @@ import {
   RESET_PRACTICE_OPTIONS,
   SELECT_PRACTICE_ANSWER,
   TOGGLE_PRACTICE_QUESTION,
-  SUBMIT_PRACTICE_ANSWERS
+  SUBMIT_PRACTICE_ANSWERS,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR
 } from './actions'
 
 import { initialState } from './appContext'
@@ -111,7 +114,7 @@ const reducer = (state, action) => {
       }. Please try a different combo of options`
     }
   }
-  if (action.type === RETRIEVE_CATEGORIES) {
+  if (action.type === RETRIEVE_PRACTICE_CATEGORIES) {
     return {
       ...state,
       practiceState: {

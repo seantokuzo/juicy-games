@@ -7,7 +7,7 @@ import {
   MISSING_FIELDS_ALERT,
   OPTION_COMBO_ERROR,
   CLEAR_ALERT,
-  RETRIEVE_CATEGORIES,
+  RETRIEVE_PRACTICE_CATEGORIES,
   UPDATE_PRACTICE_OPTIONS,
   LOAD_PRACTICE_BEGIN,
   LOAD_PRACTICE_SUCCESS,
@@ -20,7 +20,10 @@ import {
   SETUP_USER_BEGIN,
   SETUP_USER_SUCCESS,
   SETUP_USER_ERROR,
-  LOGOUT_USER
+  LOGOUT_USER,
+  UPDATE_USER_BEGIN,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_ERROR
 } from './actions'
 
 const user = localStorage.getItem('user')
@@ -152,20 +155,32 @@ const AppContextProvider = ({ children }) => {
     removeUserFromLocalStorage()
   }
 
-  // ********************************************************
-  // THESE ARE ALL FOR THE PRACTICE GAME - WILL BE REFACTORED
+  const updateUser = (updatedUser) => {
+    console.log('Path: updateUser')
+    console.log('This User:', state.user)
+    console.log('Updated Info:', updatedUser)
+  }
+
+  const updatePassword = (oldPass, newPass) => {
+    console.log('Path: updatePassword')
+    console.log(oldPass, newPass)
+  }
+
+  // *******************************
+  // *** PRACTICE STATE HANDLERS ***
+  // *******************************
   const optionComboError = () => {
     dispatch({ type: OPTION_COMBO_ERROR })
     clearAlert(5000)
   }
   const retrievePracticeCategories = (categories) => {
-    dispatch({ type: RETRIEVE_CATEGORIES, payload: { categories } })
+    dispatch({ type: RETRIEVE_PRACTICE_CATEGORIES, payload: { categories } })
   }
   const loadPractice = () => {
     console.log('load questions yo')
     dispatch({ type: LOAD_PRACTICE_BEGIN })
   }
-  const setTrivia = (questionsData) => {
+  const setPracticeTrivia = (questionsData) => {
     dispatch({ type: LOAD_PRACTICE_SUCCESS, payload: { questionsData } })
   }
   const updatePracticeOptions = (e) => {
@@ -230,7 +245,7 @@ const AppContextProvider = ({ children }) => {
         retrievePracticeCategories,
         updatePracticeOptions,
         loadPractice,
-        setTrivia,
+        setPracticeTrivia,
         startPractice,
         resetPracticeOptions,
         selectPracticeAnswer,
@@ -242,7 +257,9 @@ const AppContextProvider = ({ children }) => {
         // USER
         missingFieldsAlert,
         setupUser,
-        logoutUser
+        logoutUser,
+        updateUser,
+        updatePassword
       }}
     >
       {children}

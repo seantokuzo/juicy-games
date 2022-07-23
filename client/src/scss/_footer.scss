@@ -24,7 +24,8 @@
     margin-left: 8px;
     padding: 5px;
     border-radius: 50%;
-    @include box-shadow;
+    background-color: rgba($clr-black, 0.25);
+    @include box-shadow(#00000050, .1, .1);
     
     &-strawberry {
       color: $th-strawberry;
@@ -32,7 +33,7 @@
     &-orange {
       color: $th-orange;
     }
-    &-berry {
+    &-banana {
       color: $th-banana;
     }
     &-berry {
