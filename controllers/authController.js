@@ -1,3 +1,5 @@
+import jwt from 'jsonwebtoken'
+import { promisify } from 'util'
 import User from '../models/User.js'
 import { StatusCodes } from 'http-status-codes'
 import { BadRequestError, UnauthenticatedError } from '../errors/index.js'
@@ -12,8 +14,8 @@ export const signup = async (req, res) => {
   }
 
   // CHECK IF PASSWORDS MATCH
-  if (!username || !email || !password || !passwordConfirm) {
-    throw new BadRequestError('Quit skimping on the info. Fill out all fields!')
+  if (password !== passwordConfirm) {
+    throw new BadRequestError("Them passwords don't match bruh")
   }
 
   // CHECK FOR EXISTING USER WITH USERNAME
@@ -79,8 +81,30 @@ export const signup = async (req, res) => {
 }
 
 export const confirmSignup = async (req, res) => {
-  console.log('confirm me please')
-  res.status(StatusCodes.OK).json({msg: 'oh fuhhh ya'})
+  const token = req.params.token
+
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
+  console.log(decoded)
+
+  const user = await User.findById(decoded.userId).select('+confirmed')
+
+  if (!user) {
+    throw new BadRequestError('Bad token - user doesn not exist')
+  }
+
+  if (user.confirmed) {
+    throw new BadRequestError('You already verified your email silly goose')
+  }
+
+  user.confirmed = true
+  user.confirmationExpires = undefined
+  await user.save({ validateBeforeSave: false })
+
+  const url = `${req.protocol}://localhost:8080/game`
+  await new Email(user, url).sendWelcome()
+
+  const newToken = user.createJWT(true)
+  res.status(StatusCodes.OK).json({ msg: 'Account confirmed!' })
 }
 
 export const login = async (req, res) => {
