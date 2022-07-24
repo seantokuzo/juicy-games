@@ -8,14 +8,21 @@ const initialState = {
   username: '',
   email: '',
   password: '',
+  passwordConfirm: '',
   loginNotSignup: true
 }
 
 const Home = () => {
   const navigate = useNavigate()
   const [values, setValues] = useState(initialState)
-  const { user, isLoading, showAlert, missingFieldsAlert, setupUser } =
-    useAppContext()
+  const {
+    user,
+    isLoading,
+    displayAlert,
+    showAlert,
+    missingFieldsAlert,
+    setupUser
+  } = useAppContext()
 
   console.log(user)
 
@@ -32,7 +39,8 @@ const Home = () => {
 
     console.log('submit form')
 
-    const { username, email, password, loginNotSignup } = values
+    const { username, email, password, passwordConfirm, loginNotSignup } =
+      values
     let formUser = { email, password }
 
     // IF LOGGING IN
@@ -49,11 +57,15 @@ const Home = () => {
     // IF SIGNING UP NEW ACCOUNT
     if (!loginNotSignup) {
       // CHECK FOR ALL FIELDS
-      if (!username || !email || !password) {
+      if (!username || !email || !password || !passwordConfirm) {
         missingFieldsAlert()
         return
       }
-      formUser = { ...formUser, username }
+      if (password !== passwordConfirm) {
+        displayAlert('danger', "Let's try to make those passwords match")
+        return
+      }
+      formUser = { ...formUser, username, passwordConfirm }
       return setupUser(formUser, 'signup', 'Welcome to your worst nightmare')
     }
   }
@@ -80,6 +92,7 @@ const Home = () => {
             name="username"
             value={values.username}
             handleChange={handleChange}
+            first={true}
           />
         )}
         <FormRow
@@ -87,6 +100,7 @@ const Home = () => {
           name="email"
           value={values.email}
           handleChange={handleChange}
+          first={values.loginNotSignup}
         />
         <FormRow
           type="password"
@@ -94,6 +108,15 @@ const Home = () => {
           value={values.password}
           handleChange={handleChange}
         />
+        {!values.loginNotSignup && (
+          <FormRow
+            type="password"
+            name="passwordConfirm"
+            value={values.passwordConfirm}
+            handleChange={handleChange}
+            labelText="password confirm"
+          />
+        )}
         <button
           type="submit"
           className="btn btn-theme home__btn home__btn-login home__btn-btn"
@@ -116,13 +139,15 @@ const Home = () => {
             {values.loginNotSignup ? 'Create an Account' : 'Login to Account'}
           </h3>
         </button>
-        <Link
-          to="/practice"
-          className="btn home__btn"
-          style={{ pointerEvents: isLoading ? 'none' : '' }}
-        >
-          <h3 className="home__link home__link--guest subtitle">Practice</h3>
-        </Link>
+        {values.loginNotSignup && (
+          <Link
+            to="/practice"
+            className="btn home__btn"
+            style={{ pointerEvents: isLoading ? 'none' : '' }}
+          >
+            <h3 className="home__link home__link--guest subtitle">Practice</h3>
+          </Link>
+        )}
       </div>
     </section>
   )

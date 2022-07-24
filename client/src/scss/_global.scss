@@ -56,6 +56,10 @@
   background-color: rgba(black, .3);
   @include box-shadow;
 
+  &-title {
+    margin: 0;
+  }
+
   &-row {
     @include flex(column, center, center);
     width: 80%;
@@ -68,6 +72,10 @@
     &__label {
       margin: 1rem 0 0.5rem;
       text-transform: capitalize;
+
+      &--first {
+        margin-top: 0;
+      }
     }
     
     &__explanation {

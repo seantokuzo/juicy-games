@@ -1,6 +1,7 @@
 import React from 'react'
 
 const FormRow = ({
+  first = false,
   type,
   name,
   value,
@@ -10,7 +11,14 @@ const FormRow = ({
 }) => {
   return (
     <div className="form-row">
-      <label htmlFor={name} className="form-row__label subtitle">
+      <label
+        htmlFor={name}
+        className={
+          first
+            ? 'form-row__label form-row__label--first subtitle'
+            : 'form-row__label subtitle'
+        }
+      >
         {labelText || name}
       </label>
       {explanation && (
