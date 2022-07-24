@@ -4,38 +4,83 @@ import { BadRequestError, UnauthenticatedError } from '../errors/index.js'
 import { Email } from '../utils/email.js'
 
 export const signup = async (req, res) => {
-  const { username, email, password } = req.body
+  const { username, email, password, passwordConfirm } = req.body
 
   // CHECK FOR ALL FIELDS
-  if (!username || !email || !password) {
+  if (!username || !email || !password || !passwordConfirm) {
     throw new BadRequestError('Quit skimping on the info. Fill out all fields!')
   }
 
-  // CHECK FOR EXISTING USER WITH USERNAME OR EMAIL
-  const prevUsername = await User.findOne({ username })
-  console.log(prevUsername)
-  if (prevUsername) {
+  // CHECK IF PASSWORDS MATCH
+  if (!username || !email || !password || !passwordConfirm) {
+    throw new BadRequestError('Quit skimping on the info. Fill out all fields!')
+  }
+
+  // CHECK FOR EXISTING USER WITH USERNAME
+  let prevUser = await User.findOne({ username }).select('+confirmed')
+  // IF PREVIOUS USER EXISTS AND CONFIRMED
+  if (prevUser && prevUser.confirmed) {
     throw new BadRequestError('Username taken. Way to be original')
   }
-  const prevEmail = await User.findOne({ email })
-  if (prevEmail) {
-    throw new BadRequestError('A user with this email already exists')
+  // IF NO PREVIOUS USER WITH USERNAME - CHECK FOR PREV USER WITH EMAIL
+  if (!prevUser) {
+    prevUser = await User.findOne({ email }).select('+confirmed')
+  }
+  if (prevUser && prevUser.confirmed) {
+    throw new BadRequestError('Email taken. Way to be original')
+  }
+  // IF PREVIOUS USER EXISTS BUT IS NOT CONFIRMED AND TOKEN STILL VALID
+  if (
+    prevUser &&
+    !prevUser.confirmed &&
+    prevUser.confirmationExpires > Date.now()
+  ) {
+    throw new BadRequestError(
+      'Confirmation email has already been sent. Please check your email'
+    )
+  }
+  // IF PREVIOUS USER EXISTS BUT CONFIRMATION TOKEN EXPIRED
+  if (
+    prevUser &&
+    !prevUser.confirmed &&
+    prevUser.confirmationExpires < Date.now()
+  ) {
+    await User.deleteOne({ username })
   }
 
-  const user = await User.create({ username, email, password })
-  const token = user.createJWT()
-  //TEMPORARY URL
-  const url = `${req.protocol}://localhost:8080/game`
-  // FOR SENDING THE CONFIRM EMAIL API ENDPOINT
-  // const url = `${req.protocol}://${req.get('host')}/api/v1/game`
+  const dateJoined = Date.now()
+  const confirmationExpires = Date.now() + 24 * 60 * 60 * 1000
+
+  const user = await User.create({
+    username,
+    email,
+    password,
+    dateJoined,
+    confirmationExpires
+  })
+  const token = user.createJWT(false)
+
+  // CREATE URL FOR BTN IN EMAIL - TOKEN AS PARAM
+  // FOR DEVELOPMENT
+  const url = `${req.protocol}://${req.get(
+    'host'
+  )}/api/v1/auth/confirmSignup/${token}`
+  // FOR PRODUCTION
+  // const url = `${req.protocol}://${req.get(
+  //   'host'
+  // )}/api/v1/auth/confirmSignup/${token}`
 
   // SEND TRIAL EMAIL
-  await new Email(user, url).sendWelcome()
+  await new Email(user, url).sendEmailConfirm()
 
   res.status(StatusCodes.CREATED).json({
-    user,
-    token
+    msg: "We sent you an email. If that was your real email address now's the time to prove it"
   })
+}
+
+export const confirmSignup = async (req, res) => {
+  console.log('confirm me please')
+  res.status(StatusCodes.OK).json({msg: 'oh fuhhh ya'})
 }
 
 export const login = async (req, res) => {
@@ -60,7 +105,7 @@ export const login = async (req, res) => {
 
   user.password = undefined
 
-  const token = user.createJWT()
+  const token = user.createJWT(true)
   res.status(StatusCodes.OK).json({ user, token })
 }
 
@@ -78,7 +123,7 @@ export const updateUser = async (req, res) => {
 
   await user.save()
 
-  const token = user.createJWT()
+  const token = user.createJWT(true)
 
   res.status(StatusCodes.OK).json({ user, token })
 }
@@ -101,7 +146,15 @@ export const updatePassword = async (req, res) => {
   user.password = newPassword
   await user.save()
 
-  const token = user.createJWT()
+  const token = user.createJWT(true)
 
   res.status(StatusCodes.OK).json({ token })
+}
+
+export const forgotPassword = async (req, res) => {
+  console.log('forgot password')
+}
+
+export const resetPassword = async (req, res) => {
+  console.log('reset password')
 }

@@ -26,6 +26,26 @@ const UserSchema = new mongoose.Schema({
     required: [true, 'Please provide password'],
     minlength: 8,
     select: false
+  },
+  role: {
+    type: String,
+    enum: ['user', 'quiz-master', 'admin'],
+    default: 'user'
+  },
+  dateJoined: Date,
+  passwordChangedAt: Date,
+  passwordResetToken: String,
+  passwordResetExpires: Date,
+  confirmationExpires: Date,
+  confirmed: {
+    type: Boolean,
+    default: false,
+    select: false
+  },
+  active: {
+    type: Boolean,
+    default: true,
+    select: false
   }
 })
 
@@ -37,9 +57,14 @@ UserSchema.pre('save', async function () {
   this.password = await bcrypt.hash(this.password, salt)
 })
 
-UserSchema.methods.createJWT = function () {
+UserSchema.methods.createJWT = function (confirmed) {
+  if (confirmed) {
+    return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_LIFETIME
+    })
+  }
   return jwt.sign({ userId: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_LIFETIME
+    expiresIn: process.env.JWT_CONFIRM_LIFETIME
   })
 }
 
