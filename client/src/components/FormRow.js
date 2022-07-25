@@ -15,8 +15,8 @@ const FormRow = ({
         htmlFor={name}
         className={
           first
-            ? 'form-row__label form-row__label--first subtitle'
-            : 'form-row__label subtitle'
+            ? 'form-row__label form-row__label--first text'
+            : 'form-row__label text'
         }
       >
         {labelText || name}

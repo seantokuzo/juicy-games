@@ -17,9 +17,12 @@ import {
   SELECT_PRACTICE_ANSWER,
   TOGGLE_PRACTICE_QUESTION,
   SUBMIT_PRACTICE_ANSWERS,
-  SETUP_USER_BEGIN,
-  SETUP_USER_SUCCESS,
-  SETUP_USER_ERROR,
+  SIGNUP_USER_BEGIN,
+  SIGNUP_USER_SUCCESS,
+  SIGNUP_USER_ERROR,
+  LOGIN_USER_BEGIN,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_ERROR,
   LOGOUT_USER,
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
@@ -29,11 +32,10 @@ import {
   UPDATE_PASSWORD_ERROR
 } from './actions'
 
-let user = (localStorage.getItem('user'))
+let user = localStorage.getItem('user')
 if (user === undefined) localStorage.removeItem('user')
 user = undefined
 const token = localStorage.getItem('token')
-
 
 const initialState = {
   // MAIN STATE
@@ -131,8 +133,27 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: CHANGE_THEME, payload: { newTheme } })
   }
 
-  const setupUser = async (currentUser, endpoint, alertText) => {
-    dispatch({ type: SETUP_USER_BEGIN })
+  const signupNewUser = async (newUser) => {
+    dispatch({ type: SIGNUP_USER_BEGIN })
+    try {
+      const { data } = await axios.post(
+        `${baseURL}/api/v1/auth/signup`,
+        newUser
+      )
+      const alertText = data.msg
+      dispatch({ type: SIGNUP_USER_SUCCESS, payload: { alertText } })
+    } catch (err) {
+      console.log(err)
+      dispatch({
+        type: SIGNUP_USER_ERROR,
+        payload: { msg: err.response.data.msg }
+      })
+    }
+    clearAlert()
+  }
+
+  const loginUser = async (currentUser, endpoint, alertText) => {
+    dispatch({ type: LOGIN_USER_BEGIN })
     try {
       const { data } = await axios.post(
         `${baseURL}/api/v1/auth/${endpoint}`,
@@ -141,7 +162,7 @@ const AppContextProvider = ({ children }) => {
       console.log(data)
       const { user, token } = data
       dispatch({
-        type: SETUP_USER_SUCCESS,
+        type: LOGIN_USER_SUCCESS,
         payload: { user, token, alertText }
       })
       // ADD USER TO LOCAL STORAGE
@@ -149,7 +170,7 @@ const AppContextProvider = ({ children }) => {
     } catch (err) {
       console.log(err)
       dispatch({
-        type: SETUP_USER_ERROR,
+        type: LOGIN_USER_ERROR,
         payload: { msg: err.response.data.msg }
       })
     }
@@ -284,6 +305,16 @@ const AppContextProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         ...state,
+        // GOOD
+        changeTheme,
+        displayAlert,
+        // USER
+        missingFieldsAlert,
+        signupNewUser,
+        loginUser,
+        logoutUser,
+        updateUser,
+        updatePassword,
         // PRACTICE GAME
         optionComboError,
         retrievePracticeCategories,
@@ -294,16 +325,7 @@ const AppContextProvider = ({ children }) => {
         resetPracticeOptions,
         selectPracticeAnswer,
         togglePracticeQuestion,
-        submitPracticeAnswers,
-        // GOOD
-        changeTheme,
-        displayAlert,
-        // USER
-        missingFieldsAlert,
-        setupUser,
-        logoutUser,
-        updateUser,
-        updatePassword
+        submitPracticeAnswers
       }}
     >
       {children}

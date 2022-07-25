@@ -2,7 +2,13 @@ import React, { useEffect } from 'react'
 import { Routes, Route, useNavigate } from 'react-router-dom'
 import { useAppContext } from './context/appContext'
 import { Header, Footer } from './components/index.js'
-import { Home, Practice, Leaderboard, ProtectedRoute } from './pages/index.js'
+import {
+  Home,
+  Signup,
+  Practice,
+  Leaderboard,
+  ProtectedRoute
+} from './pages/index.js'
 import {
   AuthSharedLayout,
   MyTrivia,
@@ -44,6 +50,7 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<Signup />} />
         <Route
           path="/game"
           element={

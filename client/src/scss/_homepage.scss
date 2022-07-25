@@ -1,49 +1,12 @@
 .home {
-  @include absolute;
-  @include flex;
-  width: 90%;
+  width: 100%;
   max-width: 500px;
 
-  text-align: center;
-
-  &__form-title {
-    font-size: larger;
-    margin: 0 0 1rem;
+  &__title {
     @include text-shadow;
   }
-  
-  &__login-form {
-    width: 90%;
+
+  &__form {
     margin: 1rem 0 0;
-    padding: 1.5rem 0 2rem;
-    
-    // GLOBAL???
-    // @include flex;
-    // border-radius: 5px;
-    // background-color: rgba(black, .3);
-    // @include box-shadow;
-  }
-  
-  &__btn {
-    margin-top: 1rem;
-    padding: .75rem 0;
-    width: 80%;
-    min-width: 250px;
-    max-width: 500px;
-    
-    &-btn {
-      font-size: 1.1em;
-    }
-  }
-
-  &__links-div {
-    width: 90%;
-    @include flex(column, center, space-around);
-    margin-top: 1rem;
-  }
-
-  &__link {
-    text-decoration: none;
-    text-align: center;
   }
 }

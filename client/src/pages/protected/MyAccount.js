@@ -14,7 +14,7 @@ const MyAccount = () => {
     deleteAccount
   } = useAppContext()
 
-  console.log(user)
+  // console.log(user)
 
   const [editUserNotPass, setEditUserNotPass] = useState(true)
 

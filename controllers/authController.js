@@ -76,7 +76,7 @@ export const signup = async (req, res) => {
   await new Email(user, url).sendEmailConfirm()
 
   res.status(StatusCodes.CREATED).json({
-    msg: "We sent you an email. If that was your real email address now's the time to prove it"
+    msg: "We sent you a confirmation email. If that was your real email address now's the time to prove it"
   })
 }
 

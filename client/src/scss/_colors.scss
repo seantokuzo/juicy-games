@@ -1,0 +1,119 @@
+// RED RED RED
+.strawberry {
+  background-color: $th-strawberry;
+  
+  .btn,
+  .practice-options__selector {
+    color: $th-strawberry;
+  }
+  
+  .btn-theme {
+    color: white;
+    background-color: $th-strawberry;
+  }
+  
+  .footer {
+    background-color: $th-strawberry;
+  }
+  
+  input[type="radio"]::before {
+    background-color: $th-strawberry;
+  }
+}
+
+// ORANGE ORANGE ORANGE
+.orange {
+  background-color: $th-orange;
+  
+  .btn,
+  .practice-options__selector {
+    color: $th-orange;
+  }
+  
+  .btn-theme {
+    color: white;
+    background-color: $th-orange;
+  }
+  
+  .footer {
+    background-color: $th-orange;
+  }
+  
+  input[type="radio"]::before {
+    background-color: $th-orange;
+  }
+}
+
+// GREEN GREEN GREEN
+.banana {
+  background-color: $th-banana;
+  color: $clr-black;
+  
+  .btn,
+  .practice-options__selector {
+    color: $th-banana;
+  }
+  
+  .btn-theme {
+    color: white;
+    background-color: $th-banana;
+  }
+  
+  .footer {
+    background-color: $th-banana;
+  }
+  
+  input[type="radio"]::before {
+    background-color: $th-banana;
+  }
+  
+  .home__form-title {
+    @include text-shadow(darken($th-banana, 50%));
+  }
+}
+
+// BLUE BLUE BLUE
+.berry {
+  background-color: $th-berry;
+  
+  .btn,
+  .practice-options__selector {
+    color: $th-berry;
+  }
+  
+  .btn-theme {
+    color: white;
+    background-color: $th-berry;
+  }
+  
+  .footer {
+    background-color: $th-berry;
+  }
+  
+  input[type="radio"]::before {
+    background-color: $th-berry;
+  }
+}
+
+// PURPLE PURPLE PURPLE
+.grape {
+  background-color: $th-grape;
+  
+  .btn,
+  .practice-options__selector {
+    color: $th-grape;
+  }
+
+  .btn-theme {
+    color: white;
+    background-color: $th-grape;
+  }
+
+  .footer {
+    background-color: $th-grape;
+  }
+
+  input[type="radio"]::before {
+    background-color: $th-grape;
+  }
+}

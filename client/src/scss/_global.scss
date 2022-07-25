@@ -24,6 +24,7 @@
 }
 
 .btn {
+  cursor: pointer;
   font-family: $fs-fun;
   border: none;
   border-radius: 2px;
@@ -35,9 +36,11 @@
   text-align: center;
 
   @include transition-ease;
+  @include box-shadow($clr-black, 0.2, 0.1);
 
   &:hover, &:focus {
     @include box-shadow;
+    transform: scale(1.025)
   }
 
   &:active {
@@ -49,55 +52,22 @@
   @include text-shadow;
 }
 
-.form {
-  @include flex;
-  padding: 1.5rem 2rem;
-  border-radius: 5px;
-  background-color: rgba(black, .3);
-  @include box-shadow;
+.links-div {
+  width: 80%;
+  @include flex(column, center, space-around);
+  margin: 1rem 0 0;
+}
 
-  &-title {
-    margin: 0;
-  }
-
-  &-row {
-    @include flex(column, center, center);
-    width: 80%;
-    min-width: 250px;
-    max-width: 500px;
-
-    margin: 0;
-    @include text-shadow;
-    
-    &__label {
-      margin: 1rem 0 0.5rem;
-      text-transform: capitalize;
-
-      &--first {
-        margin-top: 0;
-      }
-    }
-    
-    &__explanation {
-      margin: -0.25rem 0 0.5rem;
-    }
-
-    &__input {
-      text-align: center;
-      width: 100%;
-      font-family: $fs-fun;
-      color: $th-strawberry;
-      letter-spacing: 1px;
-      padding: 5px 0;
-      // padding-left: 5px;
-
-      border: none;
-
-      &::placeholder {
-          opacity: .1;
-        }
-    }
-  }
+.link {
+  margin: 1rem 0 0;
+  width: 80%;
+  min-width: 250px;
+  max-width: 500px;
+  text-decoration: none;
+  text-align: center;
+  padding: .75rem 0;
+  font-size: 1.1em;
+  @include text-shadow(darken($clr-white, 15%), 2.5px);
 }
 
 .center {

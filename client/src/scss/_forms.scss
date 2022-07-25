@@ -1,0 +1,68 @@
+.form {
+  @include flex;
+  width: 80%;
+  max-width: 500px;
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: rgba(black, .3);
+  @include box-shadow;
+  text-align: center;
+
+  &-title {
+    margin: 0;
+    margin: 0 0 1rem;
+    @include text-shadow;
+    padding: 0 0 2px;
+    // border-bottom: 2px solid;
+  }
+
+  &-row {
+    @include flex(column, center, center);
+    width: 80%;
+    min-width: 250px;
+    max-width: 500px;
+
+    margin: 0;
+    // @include text-shadow;
+
+    &__label {
+      margin: 1rem 0 0.5rem;
+      text-transform: capitalize;
+
+      &--first {
+        margin-top: 0;
+      }
+    }
+
+    &__explanation {
+      margin: -0.25rem 0 0.5rem;
+    }
+
+    &__input {
+      text-align: center;
+      width: 100%;
+      font-family: $fs-fun;
+      color: $th-strawberry;
+      letter-spacing: 1px;
+      padding: 5px 0;
+      // padding-left: 5px;
+
+      border: none;
+
+      &::placeholder {
+        opacity: .1;
+      }
+    }
+  }
+
+  &-btn {
+    width: 80%;
+    min-width: 250px;
+    max-width: 500px;
+
+    margin-top: 1rem;
+    padding: .75rem 0;
+
+    font-size: 1.1em;
+  }
+}
