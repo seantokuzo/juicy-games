@@ -29,8 +29,11 @@ import {
   UPDATE_PASSWORD_ERROR
 } from './actions'
 
-const user = localStorage.getItem('user')
+let user = (localStorage.getItem('user'))
+if (user === undefined) localStorage.removeItem('user')
+user = undefined
 const token = localStorage.getItem('token')
+
 
 const initialState = {
   // MAIN STATE
