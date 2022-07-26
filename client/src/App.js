@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import { useAppContext } from './context/appContext'
 import { Header, Footer } from './components/index.js'
 import {
@@ -20,7 +20,6 @@ import './scss/main.scss'
 
 function App() {
   const { theme } = useAppContext()
-  const navigate = useNavigate()
 
   const fetchData = async () => {
     try {
@@ -35,15 +34,6 @@ function App() {
   useEffect(() => {
     fetchData()
   }, [])
-
-  // CHECK FOR TRIVIA STORED IN LCOAL STORAGE
-  // useEffect(() => {
-  //   const localTriv = JSON.parse(localStorage.getItem('localTrivia'))
-  //   if (localTriv) {
-  //     setPracticeTrivia(localTriv)
-  //     navigate('/game')
-  //   }
-  // }, [])
 
   return (
     <div className={`app ${theme}`}>

@@ -3,7 +3,7 @@ const router = express.Router()
 
 import {
   signup,
-  confirmSignup,
+  confirmEmail,
   login,
   updateUser,
   updatePassword,
@@ -14,7 +14,7 @@ import {
 import authenticateUser from '../middleware/auth.js'
 
 router.route('/signup').post(signup)
-router.route('/confirmSignup/:token').get(confirmSignup)
+router.route('/confirmEmail/:token').get(confirmEmail)
 router.route('/login').post(login)
 router.route('/updateUser').patch(authenticateUser, updateUser)
 router.route('/updatePassword').patch(authenticateUser, updatePassword)

@@ -62,7 +62,7 @@ const Home = () => {
         <button
           type="submit"
           className="btn btn-theme form-btn"
-          disabled={isLoading}
+          disabled={isLoading || showAlert}
         >
           <h3 className="home__link home__link--signup">Login</h3>
         </button>
@@ -74,14 +74,14 @@ const Home = () => {
         <Link
           to="/signup"
           className="btn link"
-          style={{ pointerEvents: isLoading ? 'none' : '' }}
+          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
         >
           <h3>Create an Account</h3>
         </Link>
         <Link
           to="/practice"
           className="btn link"
-          style={{ pointerEvents: isLoading ? 'none' : '' }}
+          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
         >
           <h3>Practice</h3>
         </Link>

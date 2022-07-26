@@ -5,6 +5,7 @@ import { StatusCodes } from 'http-status-codes'
 import { BadRequestError, UnauthenticatedError } from '../errors/index.js'
 import { Email } from '../utils/email.js'
 
+// ********** SIGNUP * SIGNUP * SIGNUP **********
 export const signup = async (req, res) => {
   const { username, email, password, passwordConfirm } = req.body
 
@@ -60,12 +61,12 @@ export const signup = async (req, res) => {
     dateJoined,
     confirmationExpires
   })
-  const token = user.createJWT(false)
 
   // CREATE URL FOR BTN IN EMAIL - TOKEN AS PARAM
+  const token = user.createJWT(false)
   const url = `${req.protocol}://${req.get(
     'host'
-  )}/api/v1/auth/confirmSignup/${token}`
+  )}/api/v1/auth/confirmEmail/${token}`
 
   // SEND TRIAL EMAIL
   await new Email(user, url).sendEmailConfirm()
@@ -75,7 +76,8 @@ export const signup = async (req, res) => {
   })
 }
 
-export const confirmSignup = async (req, res) => {
+// ********** CONFIRM EMAIL * CONFIRM EMAIL * CONFIRM EMAIL **********
+export const confirmEmail = async (req, res) => {
   const token = req.params.token
 
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
@@ -88,7 +90,12 @@ export const confirmSignup = async (req, res) => {
   }
 
   if (user.confirmed) {
-    throw new BadRequestError('You already verified your email silly goose')
+    throw new BadRequestError('You already verified this email silly goose')
+  }
+
+  if (user.newEmail) {
+    user.email = user.newEmail
+    user.newEmail = undefined
   }
 
   user.confirmed = true
@@ -98,10 +105,10 @@ export const confirmSignup = async (req, res) => {
   const url = `${req.protocol}://localhost:8080/game`
   await new Email(user, url).sendWelcome()
 
-  const newToken = user.createJWT(true)
   res.status(StatusCodes.OK).json({ msg: 'Account confirmed!' })
 }
 
+// ********** LOGIN * LOGIN * LOGIN **********
 export const login = async (req, res) => {
   console.log(req.body)
   const { email, password } = req.body
@@ -111,7 +118,20 @@ export const login = async (req, res) => {
     throw new BadRequestError("Email and password, c'mon now")
   }
 
-  const user = await User.findOne({ email }).select('+password +confirmed')
+  let user = await User.findOne({ email }).select('+password +confirmed')
+  if (user) {
+    if (user.newEmail) {
+      throw new UnauthenticatedError(
+        'Confirm and login with your updated email. This one old'
+      )
+    }
+  }
+
+  if (!user) {
+    user = await User.findOne({ newEmail: email }).select(
+      '+password +confirmed'
+    )
+  }
 
   // CHECK IF USER EXISTS
   if (!user) {
@@ -128,7 +148,7 @@ export const login = async (req, res) => {
     // CREATE URL FOR BTN IN EMAIL - TOKEN AS PARAM
     const url = `${req.protocol}://${req.get(
       'host'
-    )}/api/v1/auth/confirmSignup/${token}`
+    )}/api/v1/auth/confirmEmail/${token}`
     // SEND TRIAL EMAIL
     user.password = undefined
     user.confirmed = undefined
@@ -150,6 +170,7 @@ export const login = async (req, res) => {
   res.status(StatusCodes.OK).json({ user, token })
 }
 
+// ********** UPDATE USER * UPDATE USER * UPDATE USER **********
 export const updateUser = async (req, res) => {
   const { username, email, emailUpdated } = req.body
 
@@ -157,12 +178,26 @@ export const updateUser = async (req, res) => {
     throw new BadRequestError("Don't be shy, GIVE US THE INFO")
   }
 
+  if (emailUpdated) {
+    const prevUserWithEmail = await User.findOne({ email })
+    if (prevUserWithEmail) {
+      throw new BadRequestError(
+        'User already registered to that email, nice try tho'
+      )
+    }
+  }
+
   const user = await User.findOne({ _id: req.user.userId }).select('+confirmed')
 
+  let msg =
+    user.username === username
+      ? 'Email updated and confirmation sent! Confirm your new email to log back in'
+      : 'Email and username updated. Confirm your new email address to log back in'
+
   user.username = username
-  user.email = email
-  user.confirmed = !emailUpdated
   if (emailUpdated) {
+    user.newEmail = email
+    user.confirmed = false
     user.confirmationExpires = Date.now() + 24 * 60 * 60 * 1000
   }
 
@@ -172,12 +207,12 @@ export const updateUser = async (req, res) => {
     const token = user.createJWT(false)
     const url = `${req.protocol}://${req.get(
       'host'
-    )}/api/v1/auth/confirmSignup/${token}`
-    await new Email(user, url).sendEmailConfirm()
+    )}/api/v1/auth/confirmEmail/${token}`
+    await new Email(user, url).sendUpdateEmailConfirm()
     res.status(StatusCodes.OK).json({
       user: undefined,
       token: undefined,
-      msg: 'Email updated and confirmation sent! Confirm your new email to log back in'
+      msg
     })
   }
   if (!emailUpdated) {
@@ -189,6 +224,7 @@ export const updateUser = async (req, res) => {
   }
 }
 
+// ********** UPDATE PASSWORD * UPDATE PASSWORD * UPDATE PASSWORD **********
 export const updatePassword = async (req, res) => {
   const { currentPassword, newPassword } = req.body
 
@@ -212,10 +248,12 @@ export const updatePassword = async (req, res) => {
   res.status(StatusCodes.OK).json({ token })
 }
 
+// ********** FORGOT PASSWORD * FORGOT PASSWORD * FORGOT PASSWORD **********
 export const forgotPassword = async (req, res) => {
   console.log('forgot password')
 }
 
+// ********** RESET PASSWORD * RESET PASSWORD * RESET PASSWORD **********
 export const resetPassword = async (req, res) => {
   console.log('reset password')
 }

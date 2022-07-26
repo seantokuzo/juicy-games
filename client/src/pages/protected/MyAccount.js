@@ -53,6 +53,9 @@ const MyAccount = () => {
         return
       }
       updatePassword(password, newPassword)
+      setPassword('')
+      setNewPassword('')
+      setNewPasswordConfirm('')
     }
   }
 
@@ -68,6 +71,7 @@ const MyAccount = () => {
               value={username}
               handleChange={(e) => setUsername(e.target.value)}
               labelText={'change username'}
+              first={true}
             />
             <FormRow
               type="email"
@@ -86,6 +90,7 @@ const MyAccount = () => {
               value={password}
               handleChange={(e) => setPassword(e.target.value)}
               labelText={'current password'}
+              first={true}
             />
             <FormRow
               type="password"

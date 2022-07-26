@@ -6,7 +6,7 @@ import { dirname } from 'path'
 
 export class Email {
   constructor(user, url) {
-    this.to = user.email
+    this.to = user.newEmail || user.email
     this.username = user.username
     this.url = url
     this.from = `Trivial Trivia <${process.env.EMAIL_FROM}>`
@@ -61,6 +61,13 @@ export class Email {
   async sendEmailConfirm() {
     await this.send(
       'confirmEmail',
+      'Trivial Trivia | Please confirm your email address'
+    )
+  }
+
+  async sendUpdateEmailConfirm() {
+    await this.send(
+      'updateEmailConfirm',
       'Trivial Trivia | Please confirm your email address'
     )
   }

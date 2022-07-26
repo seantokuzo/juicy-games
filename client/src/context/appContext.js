@@ -39,10 +39,12 @@ if (user === 'undefined') {
   user = undefined
 }
 const token = localStorage.getItem('token')
+const localTheme = localStorage.getItem('theme')
+console.log(localTheme);
 
 const initialState = {
   // MAIN STATE
-  theme: 'strawberry',
+  theme: localTheme || 'strawberry',
   isLoading: false,
   showAlert: false,
   alertText: '',
@@ -135,6 +137,7 @@ const AppContextProvider = ({ children }) => {
 
   const changeTheme = (newTheme) => {
     dispatch({ type: CHANGE_THEME, payload: { newTheme } })
+    localStorage.setItem('theme', newTheme)
   }
 
   const signupNewUser = async (newUser) => {
