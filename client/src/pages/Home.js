@@ -26,7 +26,10 @@ const Home = () => {
       missingFieldsAlert()
       return
     }
-    loginUser({ email, password })
+    loginUser(
+      { email, password },
+      'Login success. Welcome to your worst nightmare'
+    )
   }
 
   useEffect(() => {

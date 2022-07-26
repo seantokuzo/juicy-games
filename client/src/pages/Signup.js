@@ -10,12 +10,10 @@ const initialState = {
   passwordConfirm: ''
 }
 
-const initialSignupSuccess = false
-
 const Signup = () => {
   const navigate = useNavigate()
   const [values, setValues] = useState(initialState)
-  // const [signupSuccess, setSignupSuccess] = useState(false)
+  const [signupSuccess, setSignupSuccess] = useState(false)
   const {
     user,
     isLoading,
@@ -29,7 +27,7 @@ const Signup = () => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault()
     const { username, email, password, passwordConfirm } = values
 
@@ -43,7 +41,16 @@ const Signup = () => {
       displayAlert('danger', "Let's try to make those passwords match")
       return
     }
-    signupNewUser({ username, email, password, passwordConfirm })
+    const response = await signupNewUser({
+      username,
+      email,
+      password,
+      passwordConfirm
+    })
+
+    if (response.status === 'success') {
+      setSignupSuccess(true)
+    }
   }
 
   useEffect(() => {
@@ -57,55 +64,74 @@ const Signup = () => {
   return (
     <section className="signup page">
       <form className="form" onSubmit={submitForm}>
-        <h3 className="form-title subtitle">Create an Account</h3>
+        {!signupSuccess && (
+          <h3 className="form-title subtitle">Create an Account</h3>
+        )}
         {showAlert && <Alert />}
-        <FormRow
-          type="text"
-          name="username"
-          value={values.username}
-          handleChange={handleChange}
-          first={true}
-        />
-        <FormRow
-          type="email"
-          name="email"
-          value={values.email}
-          handleChange={handleChange}
-          first={values.loginNotSignup}
-        />
-        <FormRow
-          type="password"
-          name="password"
-          value={values.password}
-          handleChange={handleChange}
-        />
-        <FormRow
-          type="password"
-          name="passwordConfirm"
-          value={values.passwordConfirm}
-          handleChange={handleChange}
-          labelText="password confirm"
-        />
-        <button
-          type="submit"
-          className="btn btn-theme form-btn signup__btn"
-          disabled={isLoading}
-        >
-          {values.loginNotSignup ? 'Login' : 'Signup'}
-        </button>
+        {signupSuccess && (
+          <div className={`alert alert-success`}>
+            We sent you a confirmation email. If that was your real email
+            address now's the time to prove it
+          </div>
+        )}
+        {!signupSuccess && (
+          <>
+            <FormRow
+              type="text"
+              name="username"
+              value={values.username}
+              handleChange={handleChange}
+              first={true}
+            />
+            <FormRow
+              type="email"
+              name="email"
+              value={values.email}
+              handleChange={handleChange}
+              first={values.loginNotSignup}
+            />
+            <FormRow
+              type="password"
+              name="password"
+              value={values.password}
+              handleChange={handleChange}
+            />
+            <FormRow
+              type="password"
+              name="passwordConfirm"
+              value={values.passwordConfirm}
+              handleChange={handleChange}
+              labelText="password confirm"
+            />
+            <button
+              type="submit"
+              className="btn btn-theme form-btn signup__btn"
+              disabled={isLoading || showAlert}
+            >
+              {values.loginNotSignup ? 'Login' : 'Signup'}
+            </button>
+          </>
+        )}
+        {signupSuccess && (
+          <Link to="/" className="btn form-btn">
+            <h3>Back to Login</h3>
+          </Link>
+        )}
       </form>
-      <div className="links-div signup__links-div">
-        <h3 className="text" style={{ textDecoration: 'underline' }}>
-          OR
-        </h3>
-        <Link
-          to="/"
-          className="btn link signup__link"
-          style={{ pointerEvents: isLoading ? 'none' : '' }}
-        >
-          <h3 className="link-text signup__link-text">Login to Account</h3>
-        </Link>
-      </div>
+      {!signupSuccess && (
+        <div className="links-div signup__links-div">
+          <h3 className="text" style={{ textDecoration: 'underline' }}>
+            OR
+          </h3>
+          <Link
+            to="/"
+            className="btn link signup__link"
+            style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
+          >
+            <h3 className="link-text signup__link-text">Login to Account</h3>
+          </Link>
+        </div>
+      )}
     </section>
   )
 }

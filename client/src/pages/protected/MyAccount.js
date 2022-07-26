@@ -56,86 +56,81 @@ const MyAccount = () => {
   }
 
   return (
-    <div className="account">
-      <div className="account__user">
-        <div className="account__avatars"></div>
-        <div className="account__form">
-          {showAlert && <Alert />}
-          <form className="form" onSubmit={handleSubmit}>
-            {editUserNotPass ? (
-              <>
-                <FormRow
-                  type="text"
-                  name="username"
-                  value={username}
-                  handleChange={(e) => setUsername(e.target.value)}
-                  labelText={'change username'}
-                />
-                <FormRow
-                  type="email"
-                  name="email"
-                  value={email}
-                  handleChange={(e) => setEmail(e.target.value)}
-                  labelText={'update email'}
-                  explanation="(requires confirmation)"
-                />
-              </>
-            ) : (
-              <>
-                <FormRow
-                  type="password"
-                  name="password"
-                  value={password}
-                  handleChange={(e) => setPassword(e.target.value)}
-                  labelText={'current password'}
-                />
-                <FormRow
-                  type="password"
-                  name="newPassword"
-                  value={newPassword}
-                  handleChange={(e) => setNewPassword(e.target.value)}
-                  labelText={'new password'}
-                />
-                <FormRow
-                  type="password"
-                  name="newPasswordConfirm"
-                  value={newPasswordConfirm}
-                  handleChange={(e) => setNewPasswordConfirm(e.target.value)}
-                  labelText={'confirm new password'}
-                />
-              </>
-            )}
-            <button
-              type="submit"
-              className="btn btn-theme account__form-btn account__form-btn--submit"
-              disabled={isLoading || showAlert}
-              style={{ backgroundColor: !editUserNotPass ? 'red' : '' }}
-            >
-              {editUserNotPass ? 'Update Me' : 'Update Password'}
-            </button>
-            <div className="account__form-line"></div>
-            <button
-              type="button"
-              className="btn btn-theme account__form-btn"
-              style={{ backgroundColor: editUserNotPass ? 'red' : '' }}
-              onClick={() => setEditUserNotPass(!editUserNotPass)}
-              disabled={isLoading || showAlert}
-            >
-              {editUserNotPass ? 'Danger Zone' : 'Edit Account'}
-            </button>
-          </form>
-        </div>
-      </div>
+    <div className="account page">
+      <form className="form" onSubmit={handleSubmit}>
+        {showAlert && <Alert />}
+        {editUserNotPass ? (
+          <>
+            <FormRow
+              type="text"
+              name="username"
+              value={username}
+              handleChange={(e) => setUsername(e.target.value)}
+              labelText={'change username'}
+            />
+            <FormRow
+              type="email"
+              name="email"
+              value={email}
+              handleChange={(e) => setEmail(e.target.value)}
+              labelText={'update email'}
+              explanation="(requires confirmation)"
+            />
+          </>
+        ) : (
+          <>
+            <FormRow
+              type="password"
+              name="password"
+              value={password}
+              handleChange={(e) => setPassword(e.target.value)}
+              labelText={'current password'}
+            />
+            <FormRow
+              type="password"
+              name="newPassword"
+              value={newPassword}
+              handleChange={(e) => setNewPassword(e.target.value)}
+              labelText={'new password'}
+            />
+            <FormRow
+              type="password"
+              name="newPasswordConfirm"
+              value={newPasswordConfirm}
+              handleChange={(e) => setNewPasswordConfirm(e.target.value)}
+              labelText={'confirm new password'}
+            />
+          </>
+        )}
+        <button
+          type="submit"
+          className="btn btn-theme form-btn"
+          disabled={isLoading || showAlert}
+          style={{ backgroundColor: !editUserNotPass ? 'red' : '' }}
+        >
+          {editUserNotPass ? 'Update Me' : 'Update Password'}
+        </button>
+        <div className="account__form-line"></div>
+        <button
+          type="button"
+          className="btn btn-theme form-btn"
+          style={{ backgroundColor: editUserNotPass ? 'red' : '' }}
+          onClick={() => setEditUserNotPass(!editUserNotPass)}
+          disabled={isLoading || showAlert}
+        >
+          {editUserNotPass ? 'Danger Zone' : 'Edit Account'}
+        </button>
+      </form>
       {editUserNotPass && (
-        <div className="account__links">
-          <Link to="/game" className="btn account__links-link">
-            <h3 className="account__links-link-text subtitle">My Trivia</h3>
+        <div className="links-div">
+          <Link to="/game" className="btn link account__links-link">
+            <h3>My Trivia</h3>
           </Link>
-          <Link to="/game/my-stats" className="btn account__links-link">
-            <h3 className="account__links-link-text subtitle">My Stats</h3>
+          <Link to="/game/my-stats" className="btn link account__links-link">
+            <h3>My Stats</h3>
           </Link>
-          <Link to="/game/leaderboard" className="btn account__links-link">
-            <h3 className="account__links-link-text subtitle">Leaderboard</h3>
+          <Link to="/game/leaderboard" className="btn link account__links-link">
+            <h3>Leaderboard</h3>
           </Link>
         </div>
       )}

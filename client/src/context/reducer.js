@@ -73,9 +73,9 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      showAlert: true,
-      alertType: 'success',
-      alertText: action.payload.alertText
+      // showAlert: true,
+      // alertType: 'success',
+      // alertText: action.payload.alertText
     }
   }
   if (action.type === SIGNUP_USER_ERROR) {

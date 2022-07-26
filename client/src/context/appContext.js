@@ -33,8 +33,10 @@ import {
 } from './actions'
 
 let user = localStorage.getItem('user')
-if (user === undefined) localStorage.removeItem('user')
-user = undefined
+if (user === undefined) {
+  localStorage.removeItem('user')
+  user = undefined
+}
 const token = localStorage.getItem('token')
 
 const initialState = {
@@ -134,32 +136,34 @@ const AppContextProvider = ({ children }) => {
   }
 
   const signupNewUser = async (newUser) => {
+    let response
     dispatch({ type: SIGNUP_USER_BEGIN })
     try {
       const { data } = await axios.post(
         `${baseURL}/api/v1/auth/signup`,
         newUser
       )
-      const alertText = data.msg
-      dispatch({ type: SIGNUP_USER_SUCCESS, payload: { alertText } })
+      dispatch({ type: SIGNUP_USER_SUCCESS })
+      response = { status: 'success', msg: data.msg }
     } catch (err) {
       console.log(err)
       dispatch({
         type: SIGNUP_USER_ERROR,
         payload: { msg: err.response.data.msg }
       })
+      response = { status: 'error', msg: 'error' }
+      clearAlert()
     }
-    clearAlert()
+    return response
   }
 
-  const loginUser = async (currentUser, endpoint, alertText) => {
+  const loginUser = async (currentUser, alertText) => {
     dispatch({ type: LOGIN_USER_BEGIN })
     try {
       const { data } = await axios.post(
-        `${baseURL}/api/v1/auth/${endpoint}`,
+        `${baseURL}/api/v1/auth/login`,
         currentUser
       )
-      console.log(data)
       const { user, token } = data
       dispatch({
         type: LOGIN_USER_SUCCESS,
