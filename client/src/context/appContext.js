@@ -75,6 +75,7 @@ const AppContext = React.createContext()
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
   // console.log(state.trivia)
+  console.log(state.user)
 
   // AXIOS AUTH FETCH WITH TOKEN
   const authFetch = axios.create({

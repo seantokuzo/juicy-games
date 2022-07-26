@@ -120,9 +120,7 @@ export const login = async (req, res) => {
 
   // CHECK IF USER CONFIRMED
   if (!user.confirmed && user.confirmationExpires > Date.now()) {
-    throw new BadRequestError(
-      'As per my previous email, you gotta confirm your email first. Hurry before it expires!'
-    )
+    throw new BadRequestError('You gotta confirm your email first!')
   }
   // IF CONFIRMATION TOKEN EXPIRED
   if (!user.confirmed && user.confirmationExpires < Date.now()) {
@@ -136,7 +134,7 @@ export const login = async (req, res) => {
     user.confirmed = undefined
     await new Email(user, url).sendEmailConfirm()
     throw new BadRequestError(
-      "You took too long to confirm your email. You can never play again... Jk, just sent you another confirmation email. Don't blow it this time"
+      "New confirmation email sent. Don't blow it this time"
     )
   }
 
@@ -164,6 +162,9 @@ export const updateUser = async (req, res) => {
   user.username = username
   user.email = email
   user.confirmed = !emailUpdated
+  if (emailUpdated) {
+    user.confirmationExpires = Date.now() + 24 * 60 * 60 * 1000
+  }
 
   await user.save()
 
