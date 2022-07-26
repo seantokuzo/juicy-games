@@ -23,6 +23,7 @@ import {
   SUBMIT_PRACTICE_ANSWERS,
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
+  UPDATE_USER_EMAIL_SUCCESS,
   UPDATE_USER_ERROR,
   UPDATE_PASSWORD_BEGIN,
   UPDATE_PASSWORD_SUCCESS,
@@ -72,7 +73,7 @@ const reducer = (state, action) => {
   if (action.type === SIGNUP_USER_SUCCESS) {
     return {
       ...state,
-      isLoading: false,
+      isLoading: false
       // showAlert: true,
       // alertType: 'success',
       // alertText: action.payload.alertText
@@ -137,7 +138,8 @@ const reducer = (state, action) => {
       token: action.payload.token,
       showAlert: true,
       alertType: 'success',
-      alertText: 'Updated! Enjoy the new digs'
+      alertText: action.payload.alertText
+      // alertText: 'Updated! Enjoy the new digs'
     }
   }
   if (action.type === UPDATE_USER_ERROR) {

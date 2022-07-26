@@ -40,8 +40,9 @@ const MyAccount = () => {
         )
         return
       }
+      const emailUpdated = user.email !== email
       // IF THERE ARE UPDATES FIRE OFF THE AXIOS
-      updateUser({ username, email })
+      updateUser({ username, email, emailUpdated })
       return
     }
 

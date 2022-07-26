@@ -26,6 +26,7 @@ import {
   LOGOUT_USER,
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
+  UPDATE_USER_EMAIL_SUCCESS,
   UPDATE_USER_ERROR,
   UPDATE_PASSWORD_BEGIN,
   UPDATE_PASSWORD_SUCCESS,
@@ -33,7 +34,7 @@ import {
 } from './actions'
 
 let user = localStorage.getItem('user')
-if (user === undefined) {
+if (user === 'undefined') {
   localStorage.removeItem('user')
   user = undefined
 }
@@ -191,8 +192,19 @@ const AppContextProvider = ({ children }) => {
     try {
       const { data } = await authFetch.patch('auth/updateUser', updatedUser)
 
-      const { user, token } = data
-      dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, token } })
+      const { user, token, msg } = data
+
+      console.log(msg)
+
+      dispatch({
+        type: UPDATE_USER_SUCCESS,
+        payload: { user, token, alertText: msg }
+      })
+      if (!user) {
+        removeUserFromLocalStorage()
+        clearAlert(5000)
+        return
+      }
       addUserToLocalStorage({ user, token })
     } catch (err) {
       if (err.response.status !== 401) {
@@ -212,7 +224,7 @@ const AppContextProvider = ({ children }) => {
     if (currentPassword === newPassword) {
       return displayAlert(
         'danger',
-        'Why would you update it to the exact same password?'
+        'Your old and new passwords seem suspiciously similar. Fix that'
       )
     }
     dispatch({ type: UPDATE_USER_BEGIN })

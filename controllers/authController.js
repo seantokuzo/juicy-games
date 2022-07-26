@@ -63,14 +63,9 @@ export const signup = async (req, res) => {
   const token = user.createJWT(false)
 
   // CREATE URL FOR BTN IN EMAIL - TOKEN AS PARAM
-  // FOR DEVELOPMENT
   const url = `${req.protocol}://${req.get(
     'host'
   )}/api/v1/auth/confirmSignup/${token}`
-  // FOR PRODUCTION
-  // const url = `${req.protocol}://${req.get(
-  //   'host'
-  // )}/api/v1/auth/confirmSignup/${token}`
 
   // SEND TRIAL EMAIL
   await new Email(user, url).sendEmailConfirm()
@@ -116,10 +111,33 @@ export const login = async (req, res) => {
     throw new BadRequestError("Email and password, c'mon now")
   }
 
-  const user = await User.findOne({ email }).select('+password')
+  const user = await User.findOne({ email }).select('+password +confirmed')
 
+  // CHECK IF USER EXISTS
   if (!user) {
     throw new UnauthenticatedError('Invalid credentials')
+  }
+
+  // CHECK IF USER CONFIRMED
+  if (!user.confirmed && user.confirmationExpires > Date.now()) {
+    throw new BadRequestError(
+      'As per my previous email, you gotta confirm your email first. Hurry before it expires!'
+    )
+  }
+  // IF CONFIRMATION TOKEN EXPIRED
+  if (!user.confirmed && user.confirmationExpires < Date.now()) {
+    const token = user.createJWT(false)
+    // CREATE URL FOR BTN IN EMAIL - TOKEN AS PARAM
+    const url = `${req.protocol}://${req.get(
+      'host'
+    )}/api/v1/auth/confirmSignup/${token}`
+    // SEND TRIAL EMAIL
+    user.password = undefined
+    user.confirmed = undefined
+    await new Email(user, url).sendEmailConfirm()
+    throw new BadRequestError(
+      "You took too long to confirm your email. You can never play again... Jk, just sent you another confirmation email. Don't blow it this time"
+    )
   }
 
   const passwordTest = await user.comparePassword(password)
@@ -128,28 +146,46 @@ export const login = async (req, res) => {
   }
 
   user.password = undefined
+  user.confirmed = undefined
 
   const token = user.createJWT(true)
   res.status(StatusCodes.OK).json({ user, token })
 }
 
 export const updateUser = async (req, res) => {
-  const { username, email } = req.body
+  const { username, email, emailUpdated } = req.body
 
   if (!username || !email) {
     throw new BadRequestError("Don't be shy, GIVE US THE INFO")
   }
 
-  const user = await User.findOne({ _id: req.user.userId })
+  const user = await User.findOne({ _id: req.user.userId }).select('+confirmed')
 
   user.username = username
   user.email = email
+  user.confirmed = !emailUpdated
 
   await user.save()
 
-  const token = user.createJWT(true)
-
-  res.status(StatusCodes.OK).json({ user, token })
+  if (emailUpdated) {
+    const token = user.createJWT(false)
+    const url = `${req.protocol}://${req.get(
+      'host'
+    )}/api/v1/auth/confirmSignup/${token}`
+    await new Email(user, url).sendEmailConfirm()
+    res.status(StatusCodes.OK).json({
+      user: undefined,
+      token: undefined,
+      msg: 'Email updated and confirmation sent! Confirm your new email to log back in'
+    })
+  }
+  if (!emailUpdated) {
+    const token = user.createJWT(true)
+    user.confirmed = undefined
+    res
+      .status(StatusCodes.OK)
+      .json({ user, token, msg: 'Username updated. Enjoy the new digs' })
+  }
 }
 
 export const updatePassword = async (req, res) => {
