@@ -251,6 +251,11 @@ export const updatePassword = async (req, res) => {
 // ********** FORGOT PASSWORD * FORGOT PASSWORD * FORGOT PASSWORD **********
 export const forgotPassword = async (req, res) => {
   console.log('forgot password')
+  console.log(req.body)
+
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: 'Check your email for the password reset link' })
 }
 
 // ********** RESET PASSWORD * RESET PASSWORD * RESET PASSWORD **********

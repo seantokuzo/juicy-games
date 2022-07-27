@@ -7,7 +7,8 @@ import {
   Signup,
   Practice,
   Leaderboard,
-  ProtectedRoute
+  ProtectedRoute,
+  ForgotPassword
 } from './pages/index.js'
 import {
   AuthSharedLayout,
@@ -41,6 +42,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route
           path="/game"
           element={

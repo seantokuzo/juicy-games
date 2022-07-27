@@ -30,7 +30,10 @@ import {
   UPDATE_USER_ERROR,
   UPDATE_PASSWORD_BEGIN,
   UPDATE_PASSWORD_SUCCESS,
-  UPDATE_PASSWORD_ERROR
+  UPDATE_PASSWORD_ERROR,
+  REQUEST_PASSWORD_RESET_BEGIN,
+  REQUEST_PASSWORD_RESET_SUCCESS,
+  REQUEST_PASSWORD_RESET_ERROR
 } from './actions'
 
 let user = localStorage.getItem('user')
@@ -40,7 +43,7 @@ if (user === 'undefined') {
 }
 const token = localStorage.getItem('token')
 const localTheme = localStorage.getItem('theme')
-console.log(localTheme);
+console.log(localTheme)
 
 const initialState = {
   // MAIN STATE
@@ -251,6 +254,27 @@ const AppContextProvider = ({ children }) => {
     clearAlert()
   }
 
+  const requestPasswordReset = async (user) => {
+    dispatch({ type: REQUEST_PASSWORD_RESET_BEGIN })
+    try {
+      const { data } = await axios.post(
+        `${baseURL}/api/v1/auth/forgotPassword`,
+        user
+      )
+      dispatch({
+        type: REQUEST_PASSWORD_RESET_SUCCESS,
+        payload: { alertText: data.msg }
+      })
+    } catch (err) {
+      console.log(err.response.data.msg)
+      dispatch({
+        type: REQUEST_PASSWORD_RESET_ERROR,
+        payload: { msg: err.response.data.msg }
+      })
+    }
+    clearAlert()
+  }
+
   // *******************************
   // *** PRACTICE STATE HANDLERS ***
   // *******************************
@@ -335,6 +359,7 @@ const AppContextProvider = ({ children }) => {
         logoutUser,
         updateUser,
         updatePassword,
+        requestPasswordReset,
         // PRACTICE GAME
         optionComboError,
         retrievePracticeCategories,

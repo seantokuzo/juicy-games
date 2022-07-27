@@ -27,7 +27,10 @@ import {
   UPDATE_USER_ERROR,
   UPDATE_PASSWORD_BEGIN,
   UPDATE_PASSWORD_SUCCESS,
-  UPDATE_PASSWORD_ERROR
+  UPDATE_PASSWORD_ERROR,
+  REQUEST_PASSWORD_RESET_BEGIN,
+  REQUEST_PASSWORD_RESET_SUCCESS,
+  REQUEST_PASSWORD_RESET_ERROR
 } from './actions'
 
 import { initialState } from './appContext'
@@ -171,6 +174,30 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === UPDATE_PASSWORD_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg
+    }
+  }
+  if (action.type === REQUEST_PASSWORD_RESET_BEGIN) {
+    return {
+      ...state,
+      isLoading: true
+    }
+  }
+  if (action.type === REQUEST_PASSWORD_RESET_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'success',
+      alertText: action.payload.alertText
+    }
+  }
+  if (action.type === REQUEST_PASSWORD_RESET_ERROR) {
     return {
       ...state,
       isLoading: false,

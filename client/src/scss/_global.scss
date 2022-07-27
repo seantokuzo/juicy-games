@@ -14,6 +14,27 @@
   font-family: $fs-text;
 }
 
+.text-mini {
+  font-family: $fs-text;
+  font-size: 0.75rem;
+  margin-top: 1rem;
+  color: rgba($clr-white, 0.65);
+  text-decoration: underline;
+  cursor: pointer;
+  
+  &:hover {
+    transform: scale(1.01);
+    // @include text-shadow;
+    color: rgba($clr-white, 0.85);
+    font-weight: bolder;
+  }
+  
+  &:active {
+    color: rgba($clr-white, 0.65);
+    transform: scale(1)
+  }
+}
+
 /* *** GLOBAL CLASSES *** */
 .page {
   @include flex;

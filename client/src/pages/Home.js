@@ -66,6 +66,7 @@ const Home = () => {
         >
           <h3 className="home__link home__link--signup">Login</h3>
         </button>
+        <Link to='/forgotPassword' className='text-mini'>forgot password?</Link>
       </form>
       <div className="links-div">
         <h3 className="text" style={{ textDecoration: 'underline' }}>
