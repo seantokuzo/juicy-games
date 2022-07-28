@@ -81,12 +81,17 @@ export const confirmEmail = async (req, res) => {
   const token = req.params.token
 
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET)
-  console.log(decoded)
 
   const user = await User.findById(decoded.userId).select('+confirmed')
 
   if (!user) {
     throw new BadRequestError('Bad token - user doesn not exist')
+  }
+
+  if (Date.now() > user.confirmationExpires) {
+    throw new BadRequestError(
+      'Your confirmation link has expired. Try signing up again and maybe confirm your email a little quicker huh?'
+    )
   }
 
   if (user.confirmed) {
@@ -198,7 +203,8 @@ export const updateUser = async (req, res) => {
   if (emailUpdated) {
     user.newEmail = email
     user.confirmed = false
-    user.confirmationExpires = Date.now() + 24 * 60 * 60 * 1000
+    // user.confirmationExpires = Date.now() + 24 * 60 * 60 * 1000
+    user.confirmationExpires = Date.now() + 10 * 1000
   }
 
   await user.save()
