@@ -54,7 +54,6 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === MISSING_FIELDS_ALERT) {
-    console.log('cmon')
     return {
       ...state,
       showAlert: true,
@@ -364,7 +363,6 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === TOGGLE_PRACTICE_QUESTION) {
-    console.log(action.payload.currentPracticeQuestion)
     return {
       ...state,
       practiceState: {

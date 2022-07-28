@@ -272,7 +272,6 @@ export const updatePassword = async (req, res) => {
 // ********** FORGOT PASSWORD * FORGOT PASSWORD * FORGOT PASSWORD **********
 export const forgotPassword = async (req, res) => {
   const { email } = req.body
-  console.log(email)
   const user = await User.findOne({ email })
   if (!user) {
     throw new NotFoundError('User not found. Who the funk are you?')
@@ -302,10 +301,33 @@ export const forgotPassword = async (req, res) => {
 
 // ********** RESET PASSWORD * RESET PASSWORD * RESET PASSWORD **********
 export const resetPassword = async (req, res) => {
-  console.log('reset password')
-  console.log(req.params.token)
+  const { newPassword } = req.body
+
+  const hashedToken = crypto
+    .createHash('sha256')
+    .update(req.params.token)
+    .digest('hex')
+
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() }
+  })
+
+  if (!user) {
+    throw new BadRequestError(
+      'Reset link expired or invalid. Womp womp, try again'
+    )
+  }
+  user.password = newPassword
+  user.passwordResetToken = undefined
+  user.passwordResetExpires = undefined
+  user.passwordChangedAt = Date.now() - 1000
+  await user.save()
+
+  user.password = undefined
+  const token = user.createJWT(true)
 
   res
     .status(StatusCodes.OK)
-    .json({ msg: 'Password updated. Tell Google to remember that ish for you' })
+    .json({ user, token })
 }

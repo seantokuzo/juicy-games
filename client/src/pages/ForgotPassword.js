@@ -17,7 +17,7 @@ const ForgotPassword = () => {
     }
     // SEND REQUEST & RESET EMAIL
     requestPasswordReset({ email })
-    // setEmail('')
+    setEmail('')
   }
 
   return (

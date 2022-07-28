@@ -46,7 +46,6 @@ if (user === 'undefined') {
 }
 const token = localStorage.getItem('token')
 const localTheme = localStorage.getItem('theme')
-console.log(localTheme)
 
 const initialState = {
   // MAIN STATE
@@ -82,8 +81,6 @@ const AppContext = React.createContext()
 
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
-  // console.log(state.trivia)
-  console.log(state.user)
 
   // AXIOS AUTH FETCH WITH TOKEN
   const authFetch = axios.create({
@@ -285,6 +282,7 @@ const AppContextProvider = ({ children }) => {
         `${baseURL}/api/v1/auth/resetPassword/${resetToken}`,
         { newPassword }
       )
+      const { user, token } = data
       dispatch({ type: RESET_PASSWORD_SUCCESS, payload: { user, token } })
     } catch (err) {
       console.log(err.response.data.msg)
@@ -307,7 +305,6 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: RETRIEVE_PRACTICE_CATEGORIES, payload: { categories } })
   }
   const loadPractice = () => {
-    console.log('load questions yo')
     dispatch({ type: LOAD_PRACTICE_BEGIN })
   }
   const setPracticeTrivia = (questionsData) => {
@@ -353,7 +350,6 @@ const AppContextProvider = ({ children }) => {
       (triviaData) => triviaData.selectedAnswer
     )
     if (!answers.every((answer) => answer) && str !== 'OUT_OF_TIME') {
-      console.log('we are here')
       displayAlert(
         'danger',
         "You haven't answered all the questions. There's still time!",

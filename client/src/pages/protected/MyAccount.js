@@ -14,8 +14,6 @@ const MyAccount = () => {
     deleteAccount
   } = useAppContext()
 
-  // console.log(user)
-
   const [editUserNotPass, setEditUserNotPass] = useState(true)
 
   const [username, setUsername] = useState(user?.username)
@@ -27,7 +25,6 @@ const MyAccount = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(username, email)
 
     // IF EDITING USER DETAILS
     if (editUserNotPass) {

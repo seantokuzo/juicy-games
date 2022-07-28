@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useParams, useNavigate } from 'react-router-dom'
 import { Alert, FormRow } from '../components'
 import { useAppContext } from '../context/appContext'
 
@@ -9,10 +9,14 @@ const initialState = {
 }
 
 const ResetPassword = () => {
+  const navigate = useNavigate()
   const [values, setValues] = useState(initialState)
 
   const { token } = useParams()
-  const { isLoading, showAlert, displayAlert, resetPassword } = useAppContext()
+  const { user, isLoading, showAlert, displayAlert, resetPassword } =
+    useAppContext()
+
+  console.log(user)
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
@@ -37,6 +41,14 @@ const ResetPassword = () => {
     resetPassword(token, password)
     setValues(initialState)
   }
+
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate('/game')
+      }, 2000)
+    }
+  }, [user, navigate])
 
   return (
     <div className="forgot page">
