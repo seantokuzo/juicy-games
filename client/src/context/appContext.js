@@ -33,7 +33,10 @@ import {
   UPDATE_PASSWORD_ERROR,
   REQUEST_PASSWORD_RESET_BEGIN,
   REQUEST_PASSWORD_RESET_SUCCESS,
-  REQUEST_PASSWORD_RESET_ERROR
+  REQUEST_PASSWORD_RESET_ERROR,
+  RESET_PASSWORD_BEGIN,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_ERROR
 } from './actions'
 
 let user = localStorage.getItem('user')
@@ -275,9 +278,27 @@ const AppContextProvider = ({ children }) => {
     clearAlert()
   }
 
-  // *******************************
-  // *** PRACTICE STATE HANDLERS ***
-  // *******************************
+  const resetPassword = async (resetToken, newPassword) => {
+    dispatch({ type: RESET_PASSWORD_BEGIN })
+    try {
+      const { data } = await axios.patch(
+        `${baseURL}/api/v1/auth/resetPassword/${resetToken}`,
+        { newPassword }
+      )
+      dispatch({ type: RESET_PASSWORD_SUCCESS, payload: { user, token } })
+    } catch (err) {
+      console.log(err.response.data.msg)
+      dispatch({
+        type: RESET_PASSWORD_ERROR,
+        payload: { msg: err.response.data.msg }
+      })
+    }
+    clearAlert()
+  }
+
+  // ***********************************************
+  // ***         PRACTICE STATE HANDLERS         ***
+  // ***********************************************
   const optionComboError = () => {
     dispatch({ type: OPTION_COMBO_ERROR })
     clearAlert(5000)
@@ -360,6 +381,7 @@ const AppContextProvider = ({ children }) => {
         updateUser,
         updatePassword,
         requestPasswordReset,
+        resetPassword,
         // PRACTICE GAME
         optionComboError,
         retrievePracticeCategories,

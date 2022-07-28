@@ -8,7 +8,8 @@ import {
   Practice,
   Leaderboard,
   ProtectedRoute,
-  ForgotPassword
+  ForgotPassword,
+  ResetPassword
 } from './pages/index.js'
 import {
   AuthSharedLayout,
@@ -29,6 +30,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/forgotPassword" element={<ForgotPassword />} />
+        <Route path="/resetPassword/:token" element={<ResetPassword />} />
         <Route
           path="/game"
           element={
