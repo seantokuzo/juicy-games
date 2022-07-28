@@ -29,14 +29,14 @@ const Home = () => {
 
   const submitForm = (e) => {
     e.preventDefault()
-    const { email, password } = values
+    const { email, username, password } = values
     // CHECK FOR ALL FIELDS
-    if (!email || !password) {
+    if ((!email && !username) || !password) {
       missingFieldsAlert()
       return
     }
     loginUser(
-      { email, password },
+      { email, username, password },
       'Login success. Welcome to your worst nightmare'
     )
   }

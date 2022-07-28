@@ -116,14 +116,22 @@ export const confirmEmail = async (req, res) => {
 // ********** LOGIN * LOGIN * LOGIN **********
 export const login = async (req, res) => {
   console.log(req.body)
-  const { email, password } = req.body
+  const { email, username, password } = req.body
 
-  // CHECK FOR ALL FIELDS
-  if (!email || !password) {
+  // CHECK FOR ALL FIELDS - MUST HAVE EITHER EMAIL OR USERNAME
+  if ((!email && !username) || !password) {
     throw new BadRequestError("Email and password, c'mon now")
   }
-
-  let user = await User.findOne({ email }).select('+password +confirmed')
+  let user
+  // IF REQ HAS EMAIL FIND USER BY EMAIL
+  if (email) {
+    user = await User.findOne({ email }).select('+password +confirmed')
+  }
+  // IF REQ HAS USERNAME FIND USER BY USERNAME
+  if (!user && username) {
+    user = await User.findOne({ username }).select('+password +confirmed')
+  }
+  // IF USER IS FOUND AND HAS NEW EMAIL FIELD - TELL THEM TO CONFIRM THEIR UPDATED EMAIL
   if (user) {
     if (user.newEmail) {
       throw new UnauthenticatedError(
@@ -131,13 +139,12 @@ export const login = async (req, res) => {
       )
     }
   }
-
+  // IF NO USER CHECK IF THEY'RE TRYING TO LOGIN WITH AN UPDATED / UNCONFIRMED EMAIL
   if (!user) {
     user = await User.findOne({ newEmail: email }).select(
       '+password +confirmed'
     )
   }
-
   // CHECK IF USER EXISTS
   if (!user) {
     throw new UnauthenticatedError('Invalid credentials')
@@ -149,6 +156,8 @@ export const login = async (req, res) => {
   }
   // IF CONFIRMATION TOKEN EXPIRED
   if (!user.confirmed && user.confirmationExpires < Date.now()) {
+    user.confirmationExpires = Date.now() + 24 * 60 * 60 * 1000
+    await user.save()
     const token = user.createJWT(false)
     // CREATE URL FOR BTN IN EMAIL - TOKEN AS PARAM
     const url = `${req.protocol}://${req.get(
@@ -157,6 +166,7 @@ export const login = async (req, res) => {
     // SEND TRIAL EMAIL
     user.password = undefined
     user.confirmed = undefined
+    user.confirmationExpires = undefined
     await new Email(user, url).sendEmailConfirm()
     throw new BadRequestError(
       "New confirmation email sent. Don't blow it this time"
@@ -203,8 +213,7 @@ export const updateUser = async (req, res) => {
   if (emailUpdated) {
     user.newEmail = email
     user.confirmed = false
-    // user.confirmationExpires = Date.now() + 24 * 60 * 60 * 1000
-    user.confirmationExpires = Date.now() + 10 * 1000
+    user.confirmationExpires = Date.now() + 24 * 60 * 60 * 1000
   }
 
   await user.save()
