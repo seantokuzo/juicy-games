@@ -66,27 +66,31 @@ const Home = () => {
         >
           <h3 className="home__link home__link--signup">Login</h3>
         </button>
-        <Link to='/forgotPassword' className='text-mini'>forgot password?</Link>
+        <Link to="/forgotPassword" className="text-mini">
+          forgot password?
+        </Link>
       </form>
-      <div className="links-div">
-        <h3 className="text" style={{ textDecoration: 'underline' }}>
-          OR
-        </h3>
-        <Link
-          to="/signup"
-          className="btn link"
-          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-        >
-          <h3>Create an Account</h3>
-        </Link>
-        <Link
-          to="/practice"
-          className="btn link"
-          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-        >
-          <h3>Practice</h3>
-        </Link>
-      </div>
+      {!user && (
+        <div className="links-div">
+          <h3 className="text" style={{ textDecoration: 'underline' }}>
+            OR
+          </h3>
+          <Link
+            to="/signup"
+            className="btn link"
+            style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
+          >
+            <h3>Create an Account</h3>
+          </Link>
+          <Link
+            to="/practice"
+            className="btn link"
+            style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
+          >
+            <h3>Practice</h3>
+          </Link>
+        </div>
+      )}
     </section>
   )
 }
