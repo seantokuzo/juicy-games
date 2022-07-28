@@ -5,14 +5,23 @@ import { useAppContext } from '../context/appContext.js'
 
 const initialState = {
   email: '',
+  username: '',
   password: ''
 }
 
 const Home = () => {
   const navigate = useNavigate()
+  const [loginWithEmail, setLoginWithEmail] = useState(true)
   const [values, setValues] = useState(initialState)
   const { user, isLoading, showAlert, missingFieldsAlert, loginUser } =
     useAppContext()
+
+  const toggleForm = () => {
+    if (loginWithEmail) {
+      setValues({ ...initialState, password: values.password })
+    }
+    setLoginWithEmail(!loginWithEmail)
+  }
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
@@ -46,13 +55,23 @@ const Home = () => {
       <form className="form home__form" onSubmit={submitForm}>
         <h3 className="form-title subtitle">Login to Play</h3>
         {showAlert && <Alert />}
-        <FormRow
-          type="email"
-          name="email"
-          value={values.email}
-          handleChange={handleChange}
-          first={true}
-        />
+        {loginWithEmail ? (
+          <FormRow
+            type="email"
+            name="email"
+            value={values.email}
+            handleChange={handleChange}
+            first={true}
+          />
+        ) : (
+          <FormRow
+            type="text"
+            name="username"
+            value={values.username}
+            handleChange={handleChange}
+            first={true}
+          />
+        )}
         <FormRow
           type="password"
           name="password"
@@ -66,8 +85,11 @@ const Home = () => {
         >
           <h3 className="home__link home__link--signup">Login</h3>
         </button>
+        <p className="text-mini" onClick={toggleForm}>
+          {`Login with your ${loginWithEmail ? 'username' : 'email'} instead`}
+        </p>
         <Link to="/forgotPassword" className="text-mini">
-          forgot password?
+          Forgot password?
         </Link>
       </form>
       {!user && (
