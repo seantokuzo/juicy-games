@@ -19,6 +19,6 @@ router.route('/login').post(login)
 router.route('/updateUser').patch(authenticateUser, updateUser)
 router.route('/updatePassword').patch(authenticateUser, updatePassword)
 router.route('/forgotPassword').post(forgotPassword)
-router.route('/resetPassword/:token').patch(resetPassword)
+router.route('/resetPassword/:token').get(resetPassword)
 
 export default router

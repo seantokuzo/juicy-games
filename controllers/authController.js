@@ -1,8 +1,14 @@
+import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 import { promisify } from 'util'
 import User from '../models/User.js'
 import { StatusCodes } from 'http-status-codes'
-import { BadRequestError, UnauthenticatedError } from '../errors/index.js'
+import {
+  BadRequestError,
+  UnauthenticatedError,
+  NotFoundError,
+  ServerError
+} from '../errors/index.js'
 import { Email } from '../utils/email.js'
 
 // ********** SIGNUP * SIGNUP * SIGNUP **********
@@ -265,15 +271,41 @@ export const updatePassword = async (req, res) => {
 
 // ********** FORGOT PASSWORD * FORGOT PASSWORD * FORGOT PASSWORD **********
 export const forgotPassword = async (req, res) => {
-  console.log('forgot password')
-  console.log(req.body)
+  const { email } = req.body
+  console.log(email)
+  const user = await User.findOne({ email })
+  if (!user) {
+    throw new NotFoundError('User not found. Who the funk are you?')
+  }
+  const resetToken = user.createPasswordResetToken()
+  await user.save({ validateBeforeSave: false })
 
-  res
-    .status(StatusCodes.OK)
-    .json({ msg: 'Check your email for the password reset link' })
+  // SEND TOKEN TO EMAIL
+  try {
+    // DEVELOPMENT URL
+    const url = `${req.protocol}://localhost:8080/resetPassword/${resetToken}`
+
+    await new Email(user, url).sendPasswordReset()
+
+    res
+      .status(StatusCodes.OK)
+      .json({ msg: 'Check your email for the password reset link' })
+  } catch (err) {
+    user.passwordResetToken = undefined
+    user.passwordResetExpires = undefined
+    await user.save({ validateBeforeSave: false })
+    throw new ServerError(
+      'Apologies fam. Something went wrong, try again later'
+    )
+  }
 }
 
 // ********** RESET PASSWORD * RESET PASSWORD * RESET PASSWORD **********
 export const resetPassword = async (req, res) => {
   console.log('reset password')
+  console.log(req.params.token)
+
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: 'Password updated. Tell Google to remember that ish for you' })
 }

@@ -3,82 +3,43 @@ import { Link } from 'react-router-dom'
 import { Alert, FormRow } from '../components'
 import { useAppContext } from '../context/appContext'
 
-const initialState = {
-  email: '',
-  username: ''
-}
-
 const ForgotPassword = () => {
-  const [values, setValues] = useState(initialState)
-  const [resetWithEmail, setResetWithEmail] = useState(true)
-  console.log(values)
+  const [email, setEmail] = useState('')
 
   const { isLoading, showAlert, displayAlert, requestPasswordReset } =
     useAppContext()
 
-  const toggleForm = () => {
-    setValues(initialState)
-    setResetWithEmail(!resetWithEmail)
-  }
-
-  const handleChange = (e) => {
-    setValues({ ...initialState, [e.target.name]: e.target.value })
-  }
-
   const submitForm = (e) => {
     e.preventDefault()
-    const { email, username } = values
-
-    if (!email && !username) {
+    // IF NO EMAIL THROW ERROR
+    if (!email) {
       displayAlert('danger', "We can't help you without yer info")
     }
-
-    if (email && username) {
-      displayAlert('danger', 'Something went wrong, please try again')
-      setValues(initialState)
-    }
-    const user = {
-      email: email ? email : undefined,
-      username: username ? username : undefined
-    }
-    requestPasswordReset({ ...user })
-    setValues(initialState)
+    // SEND REQUEST & RESET EMAIL
+    requestPasswordReset({ email })
+    // setEmail('')
   }
-
-  console.log(resetWithEmail)
 
   return (
     <div className="forgot page">
       <form className="form" onSubmit={submitForm}>
         <h1 className="form-title">Forgot Password</h1>
         {showAlert && <Alert />}
-        {resetWithEmail ? (
-          <FormRow
-            type="email"
-            name="email"
-            value={values.email}
-            handleChange={handleChange}
-            first={true}
-          />
-        ) : (
-          <FormRow
-            type="text"
-            name="username"
-            value={values.username}
-            handleChange={handleChange}
-            first={true}
-          />
-        )}
+        <FormRow
+          type="email"
+          name="email"
+          value={email}
+          handleChange={(e) => setEmail(e.target.value)}
+          first={true}
+        />
+
         <button
           type="submit"
-          className="btn btn-theme form-btn signup__btn"
+          className="btn btn-theme form-btn forgot__btn"
           disabled={isLoading || showAlert}
         >
           Send Reset Link
         </button>
-        <p className="text-mini forgot__form-switch" onClick={toggleForm}>
-          {`Use your ${resetWithEmail ? 'username' : 'email'} instead`}
-        </p>
       </form>
       <div className="links-div">
         <Link
