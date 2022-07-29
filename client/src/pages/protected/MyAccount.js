@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { FormRow, Alert } from '../../components'
+import AvatarMenu from '../../components/AvatarMenu'
 import { useAppContext } from '../../context/appContext'
 
 const MyAccount = () => {
@@ -123,6 +124,7 @@ const MyAccount = () => {
         >
           {editUserNotPass ? 'Danger Zone' : 'Edit Account'}
         </button>
+        <AvatarMenu />
       </form>
       {editUserNotPass && (
         <div className="links-div">

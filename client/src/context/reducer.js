@@ -23,8 +23,10 @@ import {
   SUBMIT_PRACTICE_ANSWERS,
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
-  UPDATE_USER_EMAIL_SUCCESS,
   UPDATE_USER_ERROR,
+  UPDATE_AVATAR_BEGIN,
+  UPDATE_AVATAR_SUCCESS,
+  UPDATE_AVATAR_ERROR,
   UPDATE_PASSWORD_BEGIN,
   UPDATE_PASSWORD_SUCCESS,
   UPDATE_PASSWORD_ERROR,
@@ -154,6 +156,34 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: 'danger',
       alertText: action.payload.msg
+    }
+  }
+  if (action.type === UPDATE_AVATAR_BEGIN) {
+    return {
+      ...state,
+      practiceState: {
+        ...initialState.practiceState
+      },
+      isLoading: true
+    }
+  }
+  if (action.type === UPDATE_AVATAR_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      user: action.payload.user,
+      showAlert: true,
+      alertType: 'success',
+      alertText: 'Yum Yum'
+    }
+  }
+  if (action.type === UPDATE_AVATAR_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: 'Oops'
     }
   }
   if (action.type === UPDATE_PASSWORD_BEGIN) {

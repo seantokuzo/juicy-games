@@ -3,6 +3,7 @@
   top: 0;
   @include flex(row, center, center);
   width: 100%;
+  height: 10vh;
   
   padding: .5rem;
   z-index: 9999;
@@ -10,7 +11,7 @@
   &__pfp-div {
     @include flex(row, center, center);
     @include transition-ease;
-    position: fixed;
+    position: absolute;
     top: 1rem;
     left: 1rem;
     justify-self: flex-start;
@@ -25,7 +26,7 @@
   }
 
   &__pfp-name {
-    margin-left: 1rem;
+    margin-left: 0.5rem;
   }
 
   &__pfp-icon {

@@ -245,6 +245,15 @@ export const updateUser = async (req, res) => {
   }
 }
 
+export const updateAvatar = async (req, res) => {
+  console.log(req.body)
+  console.log(req.user)
+
+  const user = await User.findOne({ _id: req.user.userId })
+
+  res.status(StatusCodes.OK).json({ user })
+}
+
 // ********** UPDATE PASSWORD * UPDATE PASSWORD * UPDATE PASSWORD **********
 export const updatePassword = async (req, res) => {
   const { currentPassword, newPassword } = req.body
@@ -327,7 +336,5 @@ export const resetPassword = async (req, res) => {
   user.password = undefined
   const token = user.createJWT(true)
 
-  res
-    .status(StatusCodes.OK)
-    .json({ user, token })
+  res.status(StatusCodes.OK).json({ user, token })
 }

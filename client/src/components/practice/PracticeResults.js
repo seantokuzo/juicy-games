@@ -45,7 +45,7 @@ const PracticeResults = () => {
         Result: {score}/{correctAnswers.length}
       </h5>
       {practiceTrivia.map((x, i) => (
-        <div className="game-results__question-div" key={nanoid()}>
+        <div className="game-results__question-div theme-border" key={nanoid()}>
           <p className=" subtitle game-results__number">#{i + 1}</p>
           <p className="game-results__question">{x.question}</p>
           <div className="game-results__answer-div">

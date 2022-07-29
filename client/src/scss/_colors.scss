@@ -19,6 +19,10 @@
   input[type="radio"]::before {
     background-color: $th-strawberry;
   }
+
+  .theme-border {
+    border-color: rgba(lighten($th-strawberry, 10%), 0.5);
+  }
 }
 
 // ORANGE ORANGE ORANGE
@@ -41,6 +45,10 @@
   
   input[type="radio"]::before {
     background-color: $th-orange;
+  }
+
+  .theme-border {
+    border-color: rgba(lighten($th-orange, 10%), 0.5);
   }
 }
 
@@ -65,6 +73,10 @@
   
   input[type="radio"]::before {
     background-color: $th-banana;
+  }
+
+  .theme-border {
+    border-color: rgba(lighten($th-banana, 10%), 0.5);
   }
   
   .home__form-title {
@@ -93,6 +105,11 @@
   input[type="radio"]::before {
     background-color: $th-berry;
   }
+
+
+  .theme-border {
+    border-color: rgba(lighten($th-berry, 10%), 0.5);
+  }
 }
 
 // PURPLE PURPLE PURPLE
@@ -103,7 +120,7 @@
   .practice-options__selector {
     color: $th-grape;
   }
-
+  
   .btn-theme {
     color: white;
     background-color: $th-grape;
@@ -115,5 +132,10 @@
 
   input[type="radio"]::before {
     background-color: $th-grape;
+  }
+
+
+  .theme-border {
+    border-color: rgba(lighten($th-grape, 10%), 0.5);
   }
 }

@@ -26,8 +26,10 @@ import {
   LOGOUT_USER,
   UPDATE_USER_BEGIN,
   UPDATE_USER_SUCCESS,
-  UPDATE_USER_EMAIL_SUCCESS,
   UPDATE_USER_ERROR,
+  UPDATE_AVATAR_BEGIN,
+  UPDATE_AVATAR_SUCCESS,
+  UPDATE_AVATAR_ERROR,
   UPDATE_PASSWORD_BEGIN,
   UPDATE_PASSWORD_SUCCESS,
   UPDATE_PASSWORD_ERROR,
@@ -224,6 +226,22 @@ const AppContextProvider = ({ children }) => {
     clearAlert()
   }
 
+  const updateAvatar = async (avatar) => {
+    dispatch({ type: UPDATE_AVATAR_BEGIN })
+    try {
+      const { data } = await authFetch.patch(`auth/updateAvatar`, { avatar })
+      console.log(data)
+      dispatch({ type: UPDATE_AVATAR_SUCCESS, payload: data.user })
+    } catch (err) {
+      console.log(err.response.data.msg)
+      dispatch({
+        type: UPDATE_AVATAR_ERROR,
+        payload: { msg: err.response.data.msg }
+      })
+    }
+    clearAlert(1500)
+  }
+
   const updatePassword = async (currentPassword, newPassword) => {
     if (!currentPassword || !newPassword) {
       return displayAlert('danger', 'You entered nothing... *golf clap*')
@@ -234,7 +252,7 @@ const AppContextProvider = ({ children }) => {
         'Your old and new passwords seem suspiciously similar. Fix that'
       )
     }
-    dispatch({ type: UPDATE_USER_BEGIN })
+    dispatch({ type: UPDATE_PASSWORD_BEGIN })
     try {
       const { data } = await authFetch.patch('/auth/updatePassword', {
         currentPassword,
@@ -375,6 +393,7 @@ const AppContextProvider = ({ children }) => {
         loginUser,
         logoutUser,
         updateUser,
+        updateAvatar,
         updatePassword,
         requestPasswordReset,
         resetPassword,

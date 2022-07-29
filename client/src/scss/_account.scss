@@ -1,39 +1,12 @@
 .account {
-  @include flex(column, center, space-around);
+  @include flex(column, center, center);
   width: 100%;
   height: 100vh;
   padding: 18% 0;
   max-width: 500px;
   
-  // &__form {
-  //   @include flex;
-
-  //   &-btn {
-
-  //     width: 100%;
-  //     @include box-shadow;
-      
-      
-  //     &--submit {
-  //       margin: 1.5rem 0 0;
-        
-  //     }
-  //   }
-    
-  //   &-line {
-  //     margin: 1.25rem 0;
-  //     width: 100%;
-  //     border-radius: 2px;
-  //     height: 2px;
-  //     background-color: rgba(black, .4);
-  //   }
-  // }
-  
   &__links {
     @include flex;
     width: 100%;
-  
-  //   }
-  // }
   }
 }

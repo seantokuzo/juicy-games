@@ -2,11 +2,12 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useAppContext } from '../context/appContext'
 import Timer from './Timer'
+// import AvatarMenu from './AvatarMenu'
 
 export default function Header() {
   const { pathname } = useLocation()
   const { user, practiceState } = useAppContext()
-  const { practiceReady, practiceActive, practiceOptions } = practiceState
+  const { practiceReady, practiceActive } = practiceState
 
   const pfp = <i className="fa-solid fa-user header__pfp-icon"></i>
 
@@ -18,7 +19,10 @@ export default function Header() {
         </Link>
         {user && <h5 className="header__pfp-name text">{user.username}</h5>}
       </div>
-      {pathname === '/practice' && (practiceReady || practiceActive) && <Timer />}
+      {/* {pathname === '/game/me' && <AvatarMenu />} */}
+      {pathname === '/practice' && (practiceReady || practiceActive) && (
+        <Timer />
+      )}
     </header>
   )
 }

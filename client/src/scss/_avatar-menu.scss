@@ -1,0 +1,39 @@
+.avatars {
+
+  width: 85%;
+  margin-top: 1rem;
+
+  &__title {
+    
+  }
+
+  &__div {
+    width: 100%;
+    margin-top: .5rem;
+    @include flex(row, center, space-between);
+  }
+
+  &__avatar {
+    font-size: 2.25em;
+
+    border: 2px solid;
+    border-radius: 3px;
+    padding: 2px;
+
+    &-strawberry {
+      color: $th-strawberry;
+    }
+    &-orange {
+      color: $th-orange;
+    }
+    &-banana {
+      color: $th-banana;
+    }
+    &-berry {
+      color: $th-berry;
+    }
+    &-grape {
+      color: $th-grape;
+    }
+  }
+}
