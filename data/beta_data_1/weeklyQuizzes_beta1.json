@@ -1,0 +1,59 @@
+[
+  {
+    "gameRipens": "01/01/2022",
+    "gameRotten": "12/31/2022",
+    "gameOfTheWeek": [
+      {
+        "category": "sports",
+        "questions": {
+          "qOne": {
+            "difficulty": 1000,
+            "question": "Correct Answer",
+            "correct_answer": "Correct Answer",
+            "wrong_answers": [
+              "wrong answer 1",
+              "wrong answer 2",
+              "wrong answer 3"
+            ]
+          },
+          "qTwo": {
+            "difficulty": 2000,
+            "correct_answer": "Correct Answer",
+            "wrong_answers": [
+              "wrong answer 1",
+              "wrong answer 2",
+              "wrong answer 3"
+            ]
+          },
+          "qThree": {
+            "difficulty": 3000,
+            "correct_answer": "Correct Answer",
+            "wrong_answers": [
+              "wrong answer 1",
+              "wrong answer 2",
+              "wrong answer 3"
+            ]
+          },
+          "qFour": {
+            "difficulty": 4000,
+            "correct_answer": "Correct Answer",
+            "wrong_answers": [
+              "wrong answer 1",
+              "wrong answer 2",
+              "wrong answer 3"
+            ]
+          },
+          "qFive": {
+            "difficulty": 5000,
+            "correct_answer": "Correct Answer",
+            "wrong_answers": [
+              "wrong answer 1",
+              "wrong answer 2",
+              "wrong answer 3"
+            ]
+          }
+        }
+      }
+    ]
+  }
+]
