@@ -230,8 +230,8 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: UPDATE_AVATAR_BEGIN })
     try {
       const { data } = await authFetch.patch(`auth/updateAvatar`, { avatar })
-      console.log(data)
-      dispatch({ type: UPDATE_AVATAR_SUCCESS, payload: data.user })
+      changeTheme(avatar)
+      dispatch({ type: UPDATE_AVATAR_SUCCESS })
     } catch (err) {
       console.log(err.response.data.msg)
       dispatch({

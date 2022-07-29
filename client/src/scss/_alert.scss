@@ -12,9 +12,19 @@
   @include box-shadow;
 
   &-success {
-    background-color: rgba($alert-success, 0.75);
+    background-color: $alert-success;
   }
   &-danger {
-    background-color: rgba($alert-danger, 0.75)
+    background-color: $alert-danger;
+  }
+
+  &-center {
+    width: fit-content;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 1000;
   }
 }

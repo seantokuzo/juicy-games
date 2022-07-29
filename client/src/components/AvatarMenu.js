@@ -9,7 +9,12 @@ import {
 import { useAppContext } from '../context/appContext'
 
 const AvatarMenu = () => {
-  const { updateAvatar } = useAppContext()
+  const { updateAvatar, isLoading, showAlert } = useAppContext()
+
+  const handleClick = (avatar) => {
+    if (isLoading || showAlert) return
+    updateAvatar(avatar)
+  }
 
   return (
     <div className="avatars">
@@ -17,23 +22,23 @@ const AvatarMenu = () => {
       <div className="avatars__div">
         <GiStrawberry
           className="avatars__avatar avatars__avatar-strawberry"
-          onClick={() => updateAvatar('strawberry')}
+          onClick={() => handleClick('strawberry')}
         />
         <GiOrangeSlice
           className="avatars__avatar avatars__avatar-orange"
-          onClick={() => updateAvatar('orange')}
+          onClick={() => handleClick('orange')}
         />
         <GiBananaBunch
           className="avatars__avatar avatars__avatar-banana"
-          onClick={() => updateAvatar('banana')}
+          onClick={() => handleClick('banana')}
         />
         <GiRaspberry
           className="avatars__avatar avatars__avatar-berry"
-          onClick={() => updateAvatar('berry')}
+          onClick={() => handleClick('berry')}
         />
         <GiGrapes
           className="avatars__avatar avatars__avatar-grape"
-          onClick={() => updateAvatar('grape')}
+          onClick={() => handleClick('grape')}
         />
       </div>
     </div>

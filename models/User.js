@@ -29,6 +29,11 @@ const UserSchema = new mongoose.Schema({
       message: 'Please provide a valid email'
     }
   },
+  avatar: {
+    type: String,
+    enum: ['default', 'strawberry', 'orange', 'banana', 'berry', 'grape'],
+    default: 'default'
+  },
   password: {
     type: String,
     required: [true, 'Please provide password'],

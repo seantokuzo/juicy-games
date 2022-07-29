@@ -171,9 +171,8 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      user: action.payload.user,
       showAlert: true,
-      alertType: 'success',
+      alertType: 'success alert-center',
       alertText: 'Yum Yum'
     }
   }
@@ -182,7 +181,7 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       showAlert: true,
-      alertType: 'danger',
+      alertType: 'danger alert-center',
       alertText: 'Oops'
     }
   }

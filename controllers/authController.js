@@ -246,12 +246,22 @@ export const updateUser = async (req, res) => {
 }
 
 export const updateAvatar = async (req, res) => {
-  console.log(req.body)
-  console.log(req.user)
+  const { avatar } = req.body
 
   const user = await User.findOne({ _id: req.user.userId })
 
-  res.status(StatusCodes.OK).json({ user })
+  if (!user) {
+    throw new UnauthenticatedError("How'd you get in here. Buh bye now")
+  }
+
+  if (!avatar) {
+    throw new BadRequestError('What in the world')
+  }
+
+  user.avatar = avatar
+  await user.save()
+
+  res.status(StatusCodes.OK).json({ theme: user.avatar })
 }
 
 // ********** UPDATE PASSWORD * UPDATE PASSWORD * UPDATE PASSWORD **********
