@@ -172,6 +172,7 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       showAlert: true,
+      user: action.payload.user,
       alertType: 'success alert-center',
       alertText: 'Yum Yum'
     }

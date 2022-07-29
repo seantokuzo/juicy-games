@@ -261,7 +261,7 @@ export const updateAvatar = async (req, res) => {
   user.avatar = avatar
   await user.save()
 
-  res.status(StatusCodes.OK).json({ theme: user.avatar })
+  res.status(StatusCodes.OK).json({ user, theme: user.avatar })
 }
 
 // ********** UPDATE PASSWORD * UPDATE PASSWORD * UPDATE PASSWORD **********

@@ -19,6 +19,7 @@ export default function Header() {
   const whichAvatar = () => {
     if (user) {
       const { avatar } = user
+      console.log(avatar);
       if (!avatar) {
         return <i className="fa-solid fa-user header__pfp-icon"></i>
       }
@@ -26,19 +27,19 @@ export default function Header() {
         return <i className="fa-solid fa-user header__pfp-icon"></i>
       }
       if (avatar === 'strawberry') {
-        return <GiStrawberry />
+        return <GiStrawberry className='header__avatar' />
       }
       if (avatar === 'orange') {
-        return <GiOrangeSlice />
+        return <GiOrangeSlice className='header__avatar' />
       }
       if (avatar === 'banana') {
-        return <GiBananaBunch />
+        return <GiBananaBunch className='header__avatar' />
       }
       if (avatar === 'berry') {
-        return <GiRaspberry />
+        return <GiRaspberry className='header__avatar' />
       }
       if (avatar === 'grape') {
-        return <GiGrapes />
+        return <GiGrapes className='header__avatar' />
       }
     }
     return <i className="fa-solid fa-user header__pfp-icon"></i>

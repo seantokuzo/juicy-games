@@ -1,0 +1,25 @@
+[
+  {
+    "category": "category",
+    "trivia": {
+      "qOne": "Question ObjectID",
+      "qTwo": "Question ObjectID",
+      "qThree": "Question ObjectID",
+      "qFour": "Question ObjectID",
+      "qFive": "Question ObjectID"
+    },
+    "used": false
+  },
+  {
+    "category": "category",
+    "trivia": {
+      "qOne": "Question ObjectID",
+      "qTwo": "Question ObjectID",
+      "qThree": "Question ObjectID",
+      "qFour": "Question ObjectID",
+      "qFive": "Question ObjectID"
+    },
+    "used": true,
+    "usedIn": "Weekly Quiz ObjectID"
+  }
+]

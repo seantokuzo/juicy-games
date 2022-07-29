@@ -132,7 +132,7 @@ const AppContextProvider = ({ children }) => {
 
   const addUserToLocalStorage = ({ user, token }) => {
     localStorage.setItem('user', JSON.stringify(user))
-    localStorage.setItem('token', token)
+    if (token) localStorage.setItem('token', token)
   }
 
   const removeUserFromLocalStorage = () => {
@@ -140,9 +140,17 @@ const AppContextProvider = ({ children }) => {
     localStorage.removeItem('token')
   }
 
+  const addThemeToLocalStorage = (newTheme) => {
+    localStorage.setItem('theme', newTheme)
+  }
+
+  const removeThemeFromLocalStorage = () => {
+    localStorage.removeItem('theme')
+  }
+
   const changeTheme = (newTheme) => {
     dispatch({ type: CHANGE_THEME, payload: { newTheme } })
-    localStorage.setItem('theme', newTheme)
+    addThemeToLocalStorage(newTheme)
   }
 
   const signupNewUser = async (newUser) => {
@@ -230,8 +238,9 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: UPDATE_AVATAR_BEGIN })
     try {
       const { data } = await authFetch.patch(`auth/updateAvatar`, { avatar })
-      changeTheme(avatar)
-      dispatch({ type: UPDATE_AVATAR_SUCCESS })
+      const { user, theme } = data
+      changeTheme(theme)
+      dispatch({ type: UPDATE_AVATAR_SUCCESS, payload: { user } })
     } catch (err) {
       console.log(err.response.data.msg)
       dispatch({

@@ -11,7 +11,7 @@ const initialState = {
 
 const Home = () => {
   const navigate = useNavigate()
-  const [loginWithEmail, setLoginWithEmail] = useState(true)
+  const [loginWithEmail, setLoginWithEmail] = useState(false)
   const [values, setValues] = useState(initialState)
   const { user, isLoading, showAlert, missingFieldsAlert, loginUser } =
     useAppContext()

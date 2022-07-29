@@ -7,6 +7,15 @@
   
   padding: .5rem;
   z-index: 9999;
+
+  &__avatar {
+    color: rgba(#000000, 0.5);
+    // border: 2px solid rgba(#000000, 0.5);
+    // border-radius: 50%;
+    font-size: 2.25em;
+    margin-right: 0.2rem;
+    @include text-shadow;
+  }
   
   &__pfp-div {
     @include flex(row, center, center);
@@ -16,17 +25,14 @@
     left: 1rem;
     justify-self: flex-start;
     height: 5vh;
+    margin-right: 0.5rem;
 
     &:hover {
-      transform: scale(1.1);
+      transform: scale(1.025);
     }
   }
   &__pfp-link {
     width: 100%;
-  }
-
-  &__pfp-name {
-    margin-left: 0.5rem;
   }
 
   &__pfp-icon {

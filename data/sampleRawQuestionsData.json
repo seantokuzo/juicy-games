@@ -1,0 +1,24 @@
+[
+  {
+    "category": "category",
+    "difficulty": 1000,
+    "correct_answer": "Correct Answer",
+    "wrong_answers": ["wrong answer 1", "wrong answer 2", "wrong answer 3"],
+    "used": false
+  },
+  {
+    "category": "category",
+    "difficulty": 4000,
+    "correct_answer": "Correct Answer",
+    "wrong_answers": ["wrong answer 1", "wrong answer 2", "wrong answer 3"],
+    "used": true,
+    "QuizUsedIn": "Quiz ObjectID"
+  },
+  {
+    "category": "category",
+    "difficulty": 3000,
+    "correct_answer": "Correct Answer",
+    "wrong_answers": ["wrong answer 1", "wrong answer 2", "wrong answer 3"],
+    "used": false
+  }
+]

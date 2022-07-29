@@ -1,0 +1,58 @@
+[
+  {
+    "gameRipens": "quiz valid start date",
+    "gameRotten": "quiz valid start date",
+    "gameOfTheWeek": [
+      {
+        "category": "category",
+        "trivia": {
+          "qOne": {
+            "difficulty": 1000,
+            "correct_answer": "Correct Answer",
+            "wrong_answers": [
+              "wrong answer 1",
+              "wrong answer 2",
+              "wrong answer 3"
+            ]
+          },
+          "qTwo": {
+            "difficulty": 2000,
+            "correct_answer": "Correct Answer",
+            "wrong_answers": [
+              "wrong answer 1",
+              "wrong answer 2",
+              "wrong answer 3"
+            ]
+          },
+          "qThree": {
+            "difficulty": 3000,
+            "correct_answer": "Correct Answer",
+            "wrong_answers": [
+              "wrong answer 1",
+              "wrong answer 2",
+              "wrong answer 3"
+            ]
+          },
+          "qFour": {
+            "difficulty": 4000,
+            "correct_answer": "Correct Answer",
+            "wrong_answers": [
+              "wrong answer 1",
+              "wrong answer 2",
+              "wrong answer 3"
+            ]
+          },
+          "qFive": {
+            "difficulty": 5000,
+            "correct_answer": "Correct Answer",
+            "wrong_answers": [
+              "wrong answer 1",
+              "wrong answer 2",
+              "wrong answer 3"
+            ]
+          }
+        }
+      }
+    ]
+  }
+]
