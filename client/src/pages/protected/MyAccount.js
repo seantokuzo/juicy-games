@@ -41,6 +41,8 @@ const MyAccount = () => {
       const emailUpdated = user.email !== email
       // IF THERE ARE UPDATES FIRE OFF THE AXIOS
       updateUser({ username, email, emailUpdated })
+      setUsername(user.username)
+      setEmail(user.email)
       return
     }
 
@@ -124,7 +126,7 @@ const MyAccount = () => {
         >
           {editUserNotPass ? 'Danger Zone' : 'Edit Account'}
         </button>
-        <AvatarMenu />
+        {editUserNotPass && <AvatarMenu />}
       </form>
       {editUserNotPass && (
         <div className="links-div">

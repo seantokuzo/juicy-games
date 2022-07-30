@@ -142,7 +142,7 @@ const reducer = (state, action) => {
       ...state,
       isLoading: false,
       user: action.payload.user,
-      token: action.payload.token,
+      token: action.payload.token ? action.payload.token : state.token,
       showAlert: true,
       alertType: 'success',
       alertText: action.payload.alertText
