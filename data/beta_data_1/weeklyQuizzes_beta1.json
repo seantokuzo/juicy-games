@@ -1,5 +1,6 @@
 [
   {
+    "gameNumber": 1,
     "gameRipens": "01/01/2022",
     "gameRotten": "12/31/2022",
     "gameOfTheWeek": [
@@ -8,8 +9,196 @@
         "questions": {
           "qOne": {
             "difficulty": 1000,
-            "question": "Correct Answer",
-            "correct_answer": "Correct Answer",
+            "question": "Which sport is not part of the triathlon",
+            "correct_answer": "Pole Vault",
+            "wrong_answers": ["Running", "Cycling", "Swimming"]
+          },
+          "qTwo": {
+            "difficulty": 2000,
+            "question": "In golf, what would a score of two under on a hole be called?",
+            "correct_answer": "Eagle",
+            "wrong_answers": ["Bogey", "Birdie", "Albatross"]
+          },
+          "qThree": {
+            "difficulty": 3000,
+            "question": "Lebron James has won how many NBA Championships?",
+            "correct_answer": "4",
+            "wrong_answers": ["3", "2", "5", "3.5"]
+          },
+          "qFour": {
+            "difficulty": 4000,
+            "question": "In which two states do the most NFL teams play their home games?",
+            "correct_answer": "California and Florida",
+            "wrong_answers": [
+              "Texas and California",
+              "Florida and Texas",
+              "New York and Texas",
+              "California and New York"
+            ]
+          },
+          "qFive": {
+            "difficulty": 5000,
+            "question": "Which MLB pitcher has the most career strikeouts",
+            "correct_answer": "Nolan Ryan",
+            "wrong_answers": [
+              "Roger Clemens",
+              "Tom Seaver",
+              "Randy Johnson",
+              "Greg Maddux"
+            ]
+          }
+        }
+      },
+      {
+        "category": "geography",
+        "questions": {
+          "qOne": {
+            "difficulty": 1000,
+            "question": "What is the capital of the United States of America?",
+            "correct_answer": "Washington, D.C.",
+            "wrong_answers": ["Philadelphia", "New York City", "Wilmington"]
+          },
+          "qTwo": {
+            "difficulty": 2000,
+            "question": "In what country is Stonehenge located?",
+            "correct_answer": "England",
+            "wrong_answers": ["Ireland", "Portugal", "Georgia"]
+          },
+          "qThree": {
+            "difficulty": 3000,
+            "question": "What is the only country that borders the United Kingdom",
+            "correct_answer": "Ireland",
+            "wrong_answers": ["Scotland", "Denamrk", "Wales", "France"]
+          },
+          "qFour": {
+            "difficulty": 4000,
+            "question": "What country has the most natrual lakes",
+            "correct_answer": "Canada",
+            "wrong_answers": ["China", "Sweden", "Russia", "USA"]
+          },
+          "qFive": {
+            "difficulty": 5000,
+            "question": "What mountain range traditionally separates Europe and Asia",
+            "correct_answer": "The Ural Mountains",
+            "wrong_answers": [
+              "The Caucasus Montains",
+              "The Baikan Mountains",
+              "The Dolomites",
+              "The Appalachian Mountains"
+            ]
+          }
+        }
+      },
+      {
+        "category": "tv's & movies & music oh my",
+        "questions": {
+          "qOne": {
+            "difficulty": 1000,
+            "question": "Who played agent Fox Mulder on the TV Series 'The X-Files'",
+            "correct_answer": "David Duchovny",
+            "wrong_answers": ["Ted Danson", "Bryan Cranston", "Tom Selleck"]
+          },
+          "qTwo": {
+            "difficulty": 2000,
+            "question": "Who won the first season of American Idol?",
+            "correct_answer": "Kelly Clarkson",
+            "wrong_answers": ["Ruben Studdard", "Clay Aiken", "Fantasia"]
+          },
+          "qThree": {
+            "difficulty": 3000,
+            "question": "What is (most consistently) Homer Simpson's job?",
+            "correct_answer": "Safety Inspector",
+            "wrong_answers": [
+              "Accountant",
+              "Civil Engineer",
+              "Architect",
+              "Astronaut"
+            ]
+          },
+          "qFour": {
+            "difficulty": 4000,
+            "question": "In what movie does a character in prison talk about a life in Zihuatanejo",
+            "correct_answer": "The Shawshank Redemption",
+            "wrong_answers": [
+              "Con Air",
+              "Cool Hand Luke",
+              "The Great Escape",
+              "The Green Mile"
+            ]
+          },
+          "qFive": {
+            "difficulty": 5000,
+            "question": "After Beyoncé, which female artist has won the most Grammys?",
+            "correct_answer": "Alison Krauss",
+            "wrong_answers": [
+              "Aretha Franklin",
+              "Adele",
+              "Lady Gaga",
+              "Alicia Keys"
+            ]
+          }
+        }
+      },
+      {
+        "category": "literature",
+        "questions": {
+          "qOne": {
+            "difficulty": 1000,
+            "question": "'A Song of Ice and Fire' is the name a series of novels adapted into what TV show?",
+            "correct_answer": "Game of Thrones",
+            "wrong_answers": ["The Witcher", "True Blood", "Camelot"]
+          },
+          "qTwo": {
+            "difficulty": 2000,
+            "question": "Tweedledee and Tweedledum are from which children's novel?",
+            "correct_answer": "Alice Through the Looking Glass",
+            "wrong_answers": [
+              "Where the Wild Things Are",
+              "A Wrinkle in Time",
+              "The Little Prince"
+            ]
+          },
+          "qThree": {
+            "difficulty": 3000,
+            "question": "Who's famous books series features a second book, 'The Two Towers'",
+            "correct_answer": "J.R.R. Tolkien",
+            "wrong_answers": [
+              "C.S. Lewis",
+              "J.K. Rowling",
+              "D.B. Cooper",
+              "E.L. James"
+            ]
+          },
+          "qFour": {
+            "difficulty": 4000,
+            "question": "Ernest Hemingway wrote 'The Old Man and the Sea' and...",
+            "correct_answer": "'A Farewell to Arms'",
+            "wrong_answers": [
+              "A Brave New World",
+              "Ulysses",
+              "The Beautiful and Damned",
+              "East of Eden"
+            ]
+          },
+          "qFive": {
+            "difficulty": 5000,
+            "question": "Question",
+            "correct_answer": "Answer",
+            "wrong_answers": [
+              "wrong answer 1",
+              "wrong answer 2",
+              "wrong answer 3"
+            ]
+          }
+        }
+      },
+      {
+        "category": "category",
+        "questions": {
+          "qOne": {
+            "difficulty": 1000,
+            "question": "Question",
+            "correct_answer": "Answer",
             "wrong_answers": [
               "wrong answer 1",
               "wrong answer 2",
@@ -18,7 +207,8 @@
           },
           "qTwo": {
             "difficulty": 2000,
-            "correct_answer": "Correct Answer",
+            "question": "Question",
+            "correct_answer": "Answer",
             "wrong_answers": [
               "wrong answer 1",
               "wrong answer 2",
@@ -27,7 +217,8 @@
           },
           "qThree": {
             "difficulty": 3000,
-            "correct_answer": "Correct Answer",
+            "question": "Question",
+            "correct_answer": "Answer",
             "wrong_answers": [
               "wrong answer 1",
               "wrong answer 2",
@@ -36,7 +227,8 @@
           },
           "qFour": {
             "difficulty": 4000,
-            "correct_answer": "Correct Answer",
+            "question": "Question",
+            "correct_answer": "Answer",
             "wrong_answers": [
               "wrong answer 1",
               "wrong answer 2",
@@ -45,7 +237,8 @@
           },
           "qFive": {
             "difficulty": 5000,
-            "correct_answer": "Correct Answer",
+            "question": "Question",
+            "correct_answer": "Answer",
             "wrong_answers": [
               "wrong answer 1",
               "wrong answer 2",

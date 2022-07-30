@@ -15,17 +15,32 @@
       "qThree": {
         "difficulty": 3000,
         "correct_answer": "Correct Answer",
-        "wrong_answers": ["wrong answer 1", "wrong answer 2", "wrong answer 3"]
+        "wrong_answers": [
+          "wrong answer 1",
+          "wrong answer 2",
+          "wrong answer 3",
+          "wrong answer 4"
+        ]
       },
       "qFour": {
         "difficulty": 4000,
         "correct_answer": "Correct Answer",
-        "wrong_answers": ["wrong answer 1", "wrong answer 2", "wrong answer 3"]
+        "wrong_answers": [
+          "wrong answer 1",
+          "wrong answer 2",
+          "wrong answer 3",
+          "wrong answer 4"
+        ]
       },
       "qFive": {
         "difficulty": 5000,
         "correct_answer": "Correct Answer",
-        "wrong_answers": ["wrong answer 1", "wrong answer 2", "wrong answer 3"]
+        "wrong_answers": [
+          "wrong answer 1",
+          "wrong answer 2",
+          "wrong answer 3",
+          "wrong answer 4"
+        ]
       }
     },
     "used": false
@@ -46,17 +61,32 @@
       "qThree": {
         "difficulty": 3000,
         "correct_answer": "Correct Answer",
-        "wrong_answers": ["wrong answer 1", "wrong answer 2", "wrong answer 3"]
+        "wrong_answers": [
+          "wrong answer 1",
+          "wrong answer 2",
+          "wrong answer 3",
+          "wrong answer 4"
+        ]
       },
       "qFour": {
         "difficulty": 4000,
         "correct_answer": "Correct Answer",
-        "wrong_answers": ["wrong answer 1", "wrong answer 2", "wrong answer 3"]
+        "wrong_answers": [
+          "wrong answer 1",
+          "wrong answer 2",
+          "wrong answer 3",
+          "wrong answer 4"
+        ]
       },
       "qFive": {
         "difficulty": 5000,
         "correct_answer": "Correct Answer",
-        "wrong_answers": ["wrong answer 1", "wrong answer 2", "wrong answer 3"]
+        "wrong_answers": [
+          "wrong answer 1",
+          "wrong answer 2",
+          "wrong answer 3",
+          "wrong answer 4"
+        ]
       }
     },
     "used": true,
