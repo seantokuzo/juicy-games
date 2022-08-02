@@ -129,29 +129,13 @@ const MyAccount = () => {
         {editUserNotPass && <AvatarMenu />}
       </form>
       {editUserNotPass && (
-        <div className="links-div">
-          <Link
-            to="/game"
-            className="btn link account__links-link"
-            style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-          >
-            <h3>My Trivia</h3>
-          </Link>
-          <Link
-            to="/game/my-stats"
-            className="btn link account__links-link"
-            style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-          >
-            <h3>My Stats</h3>
-          </Link>
-          <Link
-            to="/game/leaderboard"
-            className="btn link account__links-link"
-            style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-          >
-            <h3>Leaderboard</h3>
-          </Link>
-        </div>
+        <Link
+          to="/game"
+          className="btn link account__links-link"
+          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
+        >
+          <h3>My Trivia</h3>
+        </Link>
       )}
     </div>
   )

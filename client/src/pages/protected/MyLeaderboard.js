@@ -1,8 +1,12 @@
 import React from 'react'
+import { AccountLinks } from '../../components'
 
 const MyLeaderboard = () => {
   return (
-    <h1>MyLeaderboard</h1>
+    <div className="my-stats page">
+      <h1>My Leaderboard</h1>
+      <AccountLinks />
+    </div>
   )
 }
 

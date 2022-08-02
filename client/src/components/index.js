@@ -9,6 +9,8 @@ import TriviaCarousel from './practice/TriviaCarousel'
 
 import FormRow from './FormRow'
 
+import AccountLinks from './AccountLinks'
+
 export {
   Header,
   Footer,
@@ -17,5 +19,6 @@ export {
   PracticeReady,
   TriviaCarousel,
   PracticeResults,
-  FormRow
+  FormRow,
+  AccountLinks
 }
