@@ -1,4 +1,13 @@
 .error {
   width: 80%;
   max-width: 400px;
+  @include flex;
+
+  padding: 2rem 0;
+  border-radius: 2px;
+  background-color: rgba($clr-black, 0.5);
+
+  &__subtitle {
+    margin: 1rem 0 1.5rem;
+  }
 }
