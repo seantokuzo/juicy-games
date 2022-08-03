@@ -11,7 +11,7 @@ const MyAccount = () => {
     displayAlert,
     showAlert,
     isLoading,
-    updateUser,
+    updateMe,
     updatePassword,
     deleteMe
   } = useAppContext()
@@ -42,7 +42,7 @@ const MyAccount = () => {
       }
       const emailUpdated = user.email !== email
       // IF THERE ARE UPDATES FIRE OFF THE AXIOS
-      updateUser({ username, email, emailUpdated })
+      updateMe({ username, email, emailUpdated })
       if (user.username !== username) setUsername(username)
       if (emailUpdated) setEmail(user.email)
       return

@@ -219,7 +219,7 @@ export const login = async (req, res) => {
 }
 
 // ********** UPDATE USER * UPDATE USER * UPDATE USER **********
-export const updateUser = async (req, res) => {
+export const updateMe = async (req, res) => {
   const { username, email, emailUpdated } = req.body
 
   if (!username || !email) {
@@ -398,6 +398,74 @@ export const resetPassword = async (req, res) => {
   res.status(StatusCodes.OK).json({ user, token })
 }
 
+// ********** REQUEST FRIEND * REQUEST FRIEND * REQUEST FRIEND **********
+export const requestFriend = async (req, res, next) => {
+  console.log('Requesting New Fwiend')
+  const { email: requestedEmail } = req.body
+  // CHECK FOR FIELD
+  if (!requestedEmail) {
+    throw new BadRequestError('Give us something to work with')
+  }
+  const user = await User.findById(req.user.userId).select(
+    '+friendRequestsSent'
+  )
+  const requestedUser = await User.findOne({ email: requestedEmail }).select(
+    '+friendRequestsReceived'
+  )
+
+  // CHECK FOR USER
+  if (!user) {
+    throw new UnauthenticatedError('Get outta here poser!')
+  }
+  // CHECK FOR REQUESTED USER
+  if (!requestedUser) {
+    throw new BadRequestError(
+      "No user with that email. Imaginary friends don't count"
+    )
+  }
+
+  // IF ALREADY FRIENDS
+  if (user.friends.includes(requestedUser._id)) {
+    throw new BadRequestError(
+      'Friend request already sent! Patience is a virtue'
+    )
+  }
+  // IF REQUEST ALREADY RECEIVED FROM THAT PERSON
+  if (user.friendRequestsReceived.includes(requestedUser._id)) {
+    throw new BadRequestError(
+      'Friend request already sent! Patience is a virtue'
+    )
+  }
+  // IF REQUEST ALREADY SENT
+  if (user.friendRequestsSent.includes(requestedUser._id)) {
+    throw new BadRequestError(
+      'Friend request already sent! Patience is a virtue'
+    )
+  }
+
+  // UPDATE RELATED FIELDS ON USER DOCUMENTS && SAVE
+  user.friendRequestsSent = [...user.friendRequestsSent, requestedUser._id]
+  requestedUser.friendRequestsReceived = [
+    ...requestedUser.friendRequestsReceived,
+    user._id
+  ]
+  user.save()
+  requestedUser.save()
+
+  // REMOVE INFO FOR RESPONSE
+  user.friends = undefined
+  user.friendRequestsSent = undefined
+  user.friendRequestsReceived = undefined
+  requestedUser.friendRequestsReceived = undefined
+
+  // DEV RESPONSE ONLY
+  res.status(StatusCodes.OK).json({ user, requestedUser })
+
+  // ACTUAL RESPONSE FOR FRONT END
+  // res.status(StatusCodes.OK).json({ msg: 'success' })
+}
+
+// ********** DELETE ME * DELETE ME * DELETE ME **********
 export const deleteMe = async (req, res) => {
   console.log('Delete Route')
   try {

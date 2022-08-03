@@ -1,12 +1,14 @@
 import React from 'react'
-import { AccountLinks } from '../../components'
+import { MenuLink } from '../../components'
 
 const MyLeaderboard = () => {
   return (
-    <div className="stats page">
-      <h1>My Leaderboard</h1>
-      <AccountLinks />
-    </div>
+    <section className="stats page">
+      <div className="form">
+        <h1>My Leaderboard</h1>
+      </div>
+      <MenuLink />
+    </section>
   )
 }
 

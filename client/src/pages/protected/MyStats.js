@@ -1,12 +1,14 @@
 import React from 'react'
-import { AccountLinks } from '../../components'
+import { MenuLink } from '../../components'
 
 const MyStats = () => {
   return (
-    <div className="stats page">
-      <h1>My Stats</h1>
-      <AccountLinks />
-    </div>
+    <section className="stats page">
+      <div className="form">
+        <h1>My Stats</h1>
+      </div>
+      <MenuLink />
+    </section>
   )
 }
 

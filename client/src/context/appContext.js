@@ -208,10 +208,10 @@ const AppContextProvider = ({ children }) => {
     removeUserFromLocalStorage()
   }
 
-  const updateUser = async (updatedUser) => {
+  const updateMe = async (updatedUser) => {
     dispatch({ type: UPDATE_USER_BEGIN })
     try {
-      const { data } = await authFetch.patch('auth/updateUser', updatedUser)
+      const { data } = await authFetch.patch('auth/updateMe', updatedUser)
 
       const { user, token, msg } = data
 
@@ -418,7 +418,7 @@ const AppContextProvider = ({ children }) => {
         signupNewUser,
         loginUser,
         logoutUser,
-        updateUser,
+        updateMe,
         updateAvatar,
         updatePassword,
         requestPasswordReset,

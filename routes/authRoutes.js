@@ -5,11 +5,12 @@ import {
   signup,
   confirmEmail,
   login,
-  updateUser,
+  updateMe,
   updateAvatar,
   updatePassword,
   forgotPassword,
   resetPassword,
+  requestFriend,
   deleteMe
 } from '../controllers/authController.js'
 
@@ -24,9 +25,12 @@ router.route('/resetPassword/:token').patch(resetPassword)
 // USER MUST BE LOGGED IN TO ACCESS THESE ROUTES
 router.use(authenticateUser)
 
-router.route('/updateUser').patch(updateUser)
+router.route('/updateMe').patch(updateMe)
 router.route('/updateAvatar').patch(updateAvatar)
 router.route('/updatePassword').patch(updatePassword)
+
+router.route('/requestFriend').post(requestFriend)
+
 router.route('/deleteMe').delete(deleteMe)
 
 export default router

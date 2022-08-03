@@ -63,13 +63,22 @@ const UserSchema = new mongoose.Schema({
   friends: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: 'User'
+      ref: 'User',
+      select: false
     }
   ],
-  friendRequests: [
+  friendRequestsReceived: [
     {
       type: mongoose.Schema.ObjectId,
-      ref: 'User'
+      ref: 'User',
+      select: false
+    }
+  ],
+  friendRequestsSent: [
+    {
+      type: mongoose.Schema.ObjectId,
+      ref: 'User',
+      select: false
     }
   ]
 })

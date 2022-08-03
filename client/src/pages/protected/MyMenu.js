@@ -12,8 +12,11 @@ const MyMenu = () => {
   }, [])
 
   return (
-    <div className="trivia-options page">
-      <AccountLinks />
+    <div className="menu page">
+      <div className="form">
+        <h1 className="title">Main Menu</h1>
+        <AccountLinks />
+      </div>
     </div>
   )
 }
