@@ -48,12 +48,12 @@ $fs-text: 'Inter', Verdana, Tahoma, Geneva, sans-serif;
   transform: translate(-50%, -50%);
 }
 
-@mixin box-shadow($color: #000000, $op1: 0.35, $op2: 0.15) {
+@mixin box-shadow($color: $clr-black, $op1: 0.35, $op2: 0.15) {
   box-shadow: 0.25em 0.25em 0.75em rgba($color, $op1),
               0.125em 0.125em 0.25em rgba($color, $op2);
 }
 
-@mixin text-shadow($color: #00000090, $px: 2px) {
+@mixin text-shadow($color: rgba($clr-black, 0.35), $px: 2px) {
   text-shadow: $px $px $color;
 }
 

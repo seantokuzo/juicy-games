@@ -7,17 +7,8 @@
   
   padding: .5rem;
   z-index: 9999;
-
-  &__avatar {
-    color: rgba(#000000, 0.5);
-    // border: 2px solid rgba(#000000, 0.5);
-    // border-radius: 50%;
-    font-size: 2.25em;
-    margin-right: 0.2rem;
-    @include text-shadow;
-  }
   
-  &__pfp-div {
+  &__pfp {
     @include flex(row, center, center);
     @include transition-ease;
     position: absolute;
@@ -30,16 +21,30 @@
     &:hover {
       transform: scale(1.025);
     }
-  }
-  &__pfp-link {
-    width: 100%;
+
+    &-avatar {
+      color: rgba(#000000, 0.5);
+      font-size: 2.25em;
+      margin-right: 0.2rem;
+      @include text-shadow;
+      
+      border: 2px solid rgba(#000000, 0.5);
+      border-radius: 50%;
+      padding: 2px;
+    }
+    
+    &-icon {
+      font-size: 1em;
+      border: 2px solid $clr-white;
+      color: $clr-white;
+      border-radius: 50%;
+      padding: .5rem;
+    }
+    
+    &-name {
+
+    }
   }
 
-  &__pfp-icon {
-    font-size: 1em;
-    border: 2px solid $clr-white;
-    color: $clr-white;
-    border-radius: 50%;
-    padding: .5rem;
-  }
+
 }

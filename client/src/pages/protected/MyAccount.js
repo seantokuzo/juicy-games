@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { AiFillCloseCircle } from 'react-icons/ai'
 import { FormRow, Alert } from '../../components'
 import AvatarMenu from '../../components/AvatarMenu'
 import { useAppContext } from '../../context/appContext'
@@ -12,10 +13,11 @@ const MyAccount = () => {
     isLoading,
     updateUser,
     updatePassword,
-    deleteAccount
+    deleteMe
   } = useAppContext()
 
   const [editUserNotPass, setEditUserNotPass] = useState(true)
+  const [deleteMeWarning, setDeleteMeWarning] = useState(false)
 
   const [username, setUsername] = useState(user?.username)
   const [email, setEmail] = useState(user?.email)
@@ -41,8 +43,8 @@ const MyAccount = () => {
       const emailUpdated = user.email !== email
       // IF THERE ARE UPDATES FIRE OFF THE AXIOS
       updateUser({ username, email, emailUpdated })
-      setUsername(user.username)
-      setEmail(user.email)
+      if (user.username !== username) setUsername(username)
+      if (emailUpdated) setEmail(user.email)
       return
     }
 
@@ -61,6 +63,25 @@ const MyAccount = () => {
 
   return (
     <div className="account page">
+      {deleteMeWarning && (
+        <div className="modal" onClick={() => setDeleteMeWarning(false)}>
+          <div className="modal-inner modal-danger" onClick={() => {}}>
+            <AiFillCloseCircle
+              className="modal__close"
+              onClick={() => setDeleteMeWarning(false)}
+            />
+            <h3 className="modal__title title">Are You Sure Sure?</h3>
+            <button
+              type="button"
+              className="modal__btn modal__btn-danger"
+              disabled={isLoading || showAlert}
+              onClick={deleteMe}
+            >
+              DELETE ME
+            </button>
+          </div>
+        </div>
+      )}
       <form className="form" onSubmit={handleSubmit}>
         {showAlert && <Alert />}
         {editUserNotPass ? (
@@ -111,7 +132,7 @@ const MyAccount = () => {
         <button
           type="submit"
           className="btn btn-theme form-btn"
-          disabled={isLoading || showAlert}
+          disabled={isLoading || showAlert || deleteMeWarning}
           style={{ backgroundColor: !editUserNotPass ? 'red' : '' }}
         >
           {editUserNotPass ? 'Update Me' : 'Update Password'}
@@ -122,17 +143,39 @@ const MyAccount = () => {
           className="btn btn-theme form-btn"
           style={{ backgroundColor: editUserNotPass ? 'red' : '' }}
           onClick={() => setEditUserNotPass(!editUserNotPass)}
-          disabled={isLoading || showAlert}
+          disabled={isLoading || showAlert || deleteMeWarning}
         >
           {editUserNotPass ? 'Danger Zone' : 'Edit Account'}
         </button>
         {editUserNotPass && <AvatarMenu />}
+        {!editUserNotPass && (
+          <>
+            <h3
+              className="text account__text-bye"
+              style={{ textDecoration: 'underline' }}
+            >
+              Or go bye bye?
+            </h3>
+            <button
+              type="button"
+              className="btn btn-theme form-btn"
+              style={{ backgroundColor: 'red' }}
+              onClick={() => setDeleteMeWarning(true)}
+              disabled={isLoading || showAlert || deleteMeWarning}
+            >
+              Delete Account
+            </button>
+          </>
+        )}
       </form>
       {editUserNotPass && (
         <Link
           to="/game"
           className="btn link account__links-link"
-          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
+          style={{
+            pointerEvents:
+              isLoading || showAlert || deleteMeWarning ? 'none' : ''
+          }}
         >
           <h3>My Trivia</h3>
         </Link>

@@ -13,13 +13,13 @@ import Timer from './Timer'
 
 export default function Header() {
   const { pathname } = useLocation()
-  const { user, practiceState } = useAppContext()
+  const { user, practiceState, isLoading, showAlert } = useAppContext()
   const { practiceReady, practiceActive } = practiceState
 
   const whichAvatar = () => {
     if (user) {
       const { avatar } = user
-      console.log(avatar);
+      console.log(avatar)
       if (!avatar) {
         return <i className="fa-solid fa-user header__pfp-icon"></i>
       }
@@ -27,19 +27,19 @@ export default function Header() {
         return <i className="fa-solid fa-user header__pfp-icon"></i>
       }
       if (avatar === 'strawberry') {
-        return <GiStrawberry className='header__avatar' />
+        return <GiStrawberry className="header__pfp-avatar" />
       }
       if (avatar === 'orange') {
-        return <GiOrangeSlice className='header__avatar' />
+        return <GiOrangeSlice className="header__pfp-avatar" />
       }
       if (avatar === 'banana') {
-        return <GiBananaBunch className='header__avatar' />
+        return <GiBananaBunch className="header__pfp-avatar" />
       }
       if (avatar === 'berry') {
-        return <GiRaspberry className='header__avatar' />
+        return <GiRaspberry className="header__pfp-avatar" />
       }
       if (avatar === 'grape') {
-        return <GiGrapes className='header__avatar' />
+        return <GiGrapes className="header__pfp-avatar" />
       }
     }
     return <i className="fa-solid fa-user header__pfp-icon"></i>
@@ -47,13 +47,18 @@ export default function Header() {
 
   return (
     <header className="header">
-      <div className="header__pfp-div">
-        <Link to={user ? '/game/me' : '/'} className="header__pfp-link">
+      <div className="header__pfp">
+        <Link
+          to={user ? '/game/me' : '/'}
+          className="header__pfp-link"
+          style={{
+            pointerEvents: isLoading || showAlert ? 'none' : ''
+          }}
+        >
           {whichAvatar()}
         </Link>
         {user && <h5 className="header__pfp-name text">{user.username}</h5>}
       </div>
-      {/* {pathname === '/game/me' && <AvatarMenu />} */}
       {pathname === '/practice' && (practiceReady || practiceActive) && (
         <Timer />
       )}

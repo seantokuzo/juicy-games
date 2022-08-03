@@ -201,6 +201,11 @@ export const login = async (req, res) => {
     // )
   }
 
+  if (!user.active) {
+    user.active = true
+    user.save()
+  }
+
   const passwordTest = await user.comparePassword(password)
   if (!passwordTest) {
     throw new UnauthenticatedError('Password wrong fam')
@@ -391,4 +396,23 @@ export const resetPassword = async (req, res) => {
   const token = user.createJWT(true)
 
   res.status(StatusCodes.OK).json({ user, token })
+}
+
+export const deleteMe = async (req, res) => {
+  console.log('Delete Route')
+  try {
+    await User.findByIdAndUpdate(req.user.userId, { active: false })
+
+    // OR DELETE DOCUMENT
+    // await User.findByIdAndDelete(req.user.userId)
+
+    res.status(StatusCodes.NO_CONTENT).json({
+      msg: 'success'
+    })
+  } catch (err) {
+    console.log(err.response.data.msg)
+    res
+      .status(StatusCodes.UNAUTHORIZED)
+      .json({ msg: 'Ooops! Something went wrong, try again later' })
+  }
 }

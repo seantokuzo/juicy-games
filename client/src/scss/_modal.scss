@@ -1,0 +1,75 @@
+.modal {
+  @include absolute;
+  width: 100%;
+  min-height: 100vh;
+  height: 100%;
+  text-align: center;
+  
+  background-color: rgba($clr-black, 0.75);
+  z-index: 9999;
+  
+  &-inner {
+    @include absolute;
+
+    width: 85%;
+    max-width: 400px;
+  
+    padding: 2rem;
+  
+    border-radius: 4px;
+  
+    @include box-shadow($alert-danger, 0.75, 0.5)
+  }
+  
+  &-danger {
+    background-color: $alert-danger;
+  }
+  
+  &__title {
+    @include text-shadow;
+    margin: 2rem 0 1rem;
+  }
+
+  &__btn {
+    font-family: $fs-fun;
+    font-size: 1.25em;
+    @include text-shadow(rgba($clr-black, 0.25));
+    margin: 1rem 0;
+    width: 85%;
+    cursor: pointer;
+    border: none;
+    border-radius: 2px;
+    color: $th-strawberry;
+    background: $clr-white;
+  
+    padding: .75rem 0;
+  
+    text-align: center;
+  
+    @include transition-ease;
+    @include box-shadow($clr-black, 0.2, 0.1);
+  
+    &:hover,
+    &:focus {
+      @include box-shadow;
+      transform: scale(1.025)
+    }
+  
+    &:active {
+      transform: scale(0.95)
+    }
+
+    &-danger {
+      color: $alert-danger;
+      background-color: $clr-white;
+    }
+  }
+
+  &__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5em;
+  }
+
+}

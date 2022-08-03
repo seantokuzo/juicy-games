@@ -38,7 +38,10 @@ import {
   REQUEST_PASSWORD_RESET_ERROR,
   RESET_PASSWORD_BEGIN,
   RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_ERROR
+  RESET_PASSWORD_ERROR,
+  DELETE_ME_BEGIN,
+  DELETE_ME_SUCCESS,
+  DELETE_ME_ERROR
 } from './actions'
 
 let user = localStorage.getItem('user')
@@ -182,6 +185,7 @@ const AppContextProvider = ({ children }) => {
         `${baseURL}/api/v1/auth/login`,
         currentUser
       )
+      // console.log(data)
       const { user, token } = data
       dispatch({
         type: LOGIN_USER_SUCCESS,
@@ -321,6 +325,19 @@ const AppContextProvider = ({ children }) => {
     clearAlert()
   }
 
+  const deleteMe = async () => {
+    console.log('delete me')
+    dispatch({ type: DELETE_ME_BEGIN })
+    try {
+      await authFetch.delete('/auth/deleteMe')
+      dispatch({ type: DELETE_ME_SUCCESS })
+    } catch (err) {
+      console.log(err.response.data.msg)
+      dispatch({ type: DELETE_ME_ERROR, payload: err.response.data.msg })
+    }
+    clearAlert()
+  }
+
   // ***********************************************
   // ***         PRACTICE STATE HANDLERS         ***
   // ***********************************************
@@ -406,6 +423,7 @@ const AppContextProvider = ({ children }) => {
         updatePassword,
         requestPasswordReset,
         resetPassword,
+        deleteMe,
         // PRACTICE GAME
         optionComboError,
         retrievePracticeCategories,

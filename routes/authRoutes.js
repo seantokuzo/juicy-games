@@ -9,7 +9,8 @@ import {
   updateAvatar,
   updatePassword,
   forgotPassword,
-  resetPassword
+  resetPassword,
+  deleteMe
 } from '../controllers/authController.js'
 
 import authenticateUser from '../middleware/auth.js'
@@ -19,8 +20,13 @@ router.route('/confirmEmail/:token').get(confirmEmail)
 router.route('/login').post(login)
 router.route('/forgotPassword').post(forgotPassword)
 router.route('/resetPassword/:token').patch(resetPassword)
-router.route('/updateUser').patch(authenticateUser, updateUser)
-router.route('/updateAvatar').patch(authenticateUser, updateAvatar)
-router.route('/updatePassword').patch(authenticateUser, updatePassword)
+
+// USER MUST BE LOGGED IN TO ACCESS THESE ROUTES
+router.use(authenticateUser)
+
+router.route('/updateUser').patch(updateUser)
+router.route('/updateAvatar').patch(updateAvatar)
+router.route('/updatePassword').patch(updatePassword)
+router.route('/deleteMe').delete(deleteMe)
 
 export default router

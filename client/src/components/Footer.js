@@ -9,7 +9,8 @@ import {
 import { useAppContext } from '../context/appContext'
 
 export default function Footer() {
-  const { user, theme, changeTheme, logoutUser } = useAppContext()
+  const { user, theme, changeTheme, logoutUser, isLoading, showAlert } =
+    useAppContext()
 
   return (
     <footer className="footer">
@@ -27,38 +28,43 @@ export default function Footer() {
               : 'footer__fruit footer__fruit-strawberry'
           }
           onClick={() => changeTheme('strawberry')}
-        />
+          disabled={isLoading || showAlert}
+          />
         <GiOrangeSlice
           className={
             theme === 'orange'
-              ? 'footer__fruit footer__fruit-orange footer__fruit--selected'
-              : 'footer__fruit footer__fruit-orange'
+            ? 'footer__fruit footer__fruit-orange footer__fruit--selected'
+            : 'footer__fruit footer__fruit-orange'
           }
           onClick={() => changeTheme('orange')}
-        />
+          disabled={isLoading || showAlert}
+          />
         <GiBananaBunch
           className={
             theme === 'banana'
-              ? 'footer__fruit footer__fruit-banana footer__fruit--selected'
-              : 'footer__fruit footer__fruit-banana'
+            ? 'footer__fruit footer__fruit-banana footer__fruit--selected'
+            : 'footer__fruit footer__fruit-banana'
           }
           onClick={() => changeTheme('banana')}
-        />
+          disabled={isLoading || showAlert}
+          />
         <GiRaspberry
           className={
             theme === 'berry'
-              ? 'footer__fruit footer__fruit-berry footer__fruit--selected'
-              : 'footer__fruit footer__fruit-berry'
+            ? 'footer__fruit footer__fruit-berry footer__fruit--selected'
+            : 'footer__fruit footer__fruit-berry'
           }
           onClick={() => changeTheme('berry')}
-        />
+          disabled={isLoading || showAlert}
+          />
         <GiGrapes
           className={
             theme === 'grape'
-              ? 'footer__fruit footer__fruit-grape footer__fruit--selected'
-              : 'footer__fruit footer__fruit-grape'
+            ? 'footer__fruit footer__fruit-grape footer__fruit--selected'
+            : 'footer__fruit footer__fruit-grape'
           }
           onClick={() => changeTheme('grape')}
+          disabled={isLoading || showAlert}
         />
       </div>
     </footer>

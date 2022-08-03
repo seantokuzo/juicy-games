@@ -35,7 +35,10 @@ import {
   REQUEST_PASSWORD_RESET_ERROR,
   RESET_PASSWORD_BEGIN,
   RESET_PASSWORD_SUCCESS,
-  RESET_PASSWORD_ERROR
+  RESET_PASSWORD_ERROR,
+  DELETE_ME_BEGIN,
+  DELETE_ME_SUCCESS,
+  DELETE_ME_ERROR
 } from './actions'
 
 import { initialState } from './appContext'
@@ -256,6 +259,32 @@ const reducer = (state, action) => {
     }
   }
   if (action.type === RESET_PASSWORD_ERROR) {
+    return {
+      ...state,
+      isLoading: false,
+      showAlert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg
+    }
+  }
+  if (action.type === DELETE_ME_BEGIN) {
+    return {
+      ...state,
+      isLoading: true
+    }
+  }
+  if (action.type === DELETE_ME_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      user: undefined,
+      token: null,
+      showAlert: true,
+      alertType: 'success',
+      alertText: 'You have been deleted. But did you ever even exist?'
+    }
+  }
+  if (action.type === DELETE_ME_ERROR) {
     return {
       ...state,
       isLoading: false,
