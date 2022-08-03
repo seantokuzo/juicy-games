@@ -60,27 +60,33 @@ const UserSchema = new mongoose.Schema({
     default: true,
     select: false
   },
-  friends: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      select: false
-    }
-  ],
-  friendRequestsReceived: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      select: false
-    }
-  ],
-  friendRequestsSent: [
-    {
-      type: mongoose.Schema.ObjectId,
-      ref: 'User',
-      select: false
-    }
-  ]
+  friends: {
+    type: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+      }
+    ],
+    select: false
+  },
+  friendRequestsReceived: {
+    type: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+      }
+    ],
+    select: false
+  },
+  friendRequestsSent: {
+    type: [
+      {
+        type: mongoose.Schema.ObjectId,
+        ref: 'User'
+      }
+    ],
+    select: false
+  }
 })
 
 UserSchema.pre('save', async function () {

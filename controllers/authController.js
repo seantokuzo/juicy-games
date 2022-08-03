@@ -407,7 +407,7 @@ export const requestFriend = async (req, res, next) => {
     throw new BadRequestError('Give us something to work with')
   }
   const user = await User.findById(req.user.userId).select(
-    '+friendRequestsSent'
+    '+friendRequestsSent +friendRequestsReceived +friends'
   )
   const requestedUser = await User.findOne({ email: requestedEmail }).select(
     '+friendRequestsReceived'
@@ -417,13 +417,15 @@ export const requestFriend = async (req, res, next) => {
   if (!user) {
     throw new UnauthenticatedError('Get outta here poser!')
   }
-  // CHECK FOR REQUESTED USER
-  if (!requestedUser) {
+  // CHECK FOR REQUESTED USER + IF THEY ACTIVE && CONFIRMED
+  if (!requestedUser || !requestedUser.confirmed || !requestedUser.active) {
     throw new BadRequestError(
       "No user with that email. Imaginary friends don't count"
     )
   }
 
+  console.log(user)
+  console.log(requestedUser)
   // IF ALREADY FRIENDS
   if (user.friends.includes(requestedUser._id)) {
     throw new BadRequestError(
@@ -459,10 +461,13 @@ export const requestFriend = async (req, res, next) => {
   requestedUser.friendRequestsReceived = undefined
 
   // DEV RESPONSE ONLY
-  res.status(StatusCodes.OK).json({ user, requestedUser })
+  // res.status(StatusCodes.OK).json({ user, requestedUser })
+
+  // SEND NOTIFICATION EMAIL TO REQUESTED USER???
+  // const url = ''
 
   // ACTUAL RESPONSE FOR FRONT END
-  // res.status(StatusCodes.OK).json({ msg: 'success' })
+  res.status(StatusCodes.OK).json({ msg: 'success' })
 }
 
 // ********** DELETE ME * DELETE ME * DELETE ME **********
