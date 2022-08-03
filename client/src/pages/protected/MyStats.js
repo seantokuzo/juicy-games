@@ -3,7 +3,7 @@ import { AccountLinks } from '../../components'
 
 const MyStats = () => {
   return (
-    <div className="my-stats page">
+    <div className="stats page">
       <h1>My Stats</h1>
       <AccountLinks />
     </div>

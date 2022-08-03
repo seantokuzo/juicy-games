@@ -115,7 +115,7 @@ export const confirmEmail = async (req, res) => {
   user.confirmationExpires = undefined
   await user.save({ validateBeforeSave: false })
 
-  // const url = `${req.protocol}://localhost:8080/game`
+  // const url = `${req.protocol}://localhost:8080/me`
   // await new Email(user, url).sendWelcome()
 
   res.status(StatusCodes.OK).json({ msg: 'Account confirmed!' })

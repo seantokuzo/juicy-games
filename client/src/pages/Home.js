@@ -15,7 +15,7 @@ const Home = () => {
   const [values, setValues] = useState(initialState)
   const { user, isLoading, showAlert, missingFieldsAlert, loginUser } =
     useAppContext()
-  console.log(user);
+  console.log(user)
 
   const toggleForm = () => {
     if (loginWithEmail) {
@@ -45,7 +45,7 @@ const Home = () => {
   useEffect(() => {
     if (user) {
       setTimeout(() => {
-        navigate('/game')
+        navigate('/me')
       }, 2000)
     }
   }, [user, navigate])

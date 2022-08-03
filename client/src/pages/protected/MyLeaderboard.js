@@ -3,7 +3,7 @@ import { AccountLinks } from '../../components'
 
 const MyLeaderboard = () => {
   return (
-    <div className="my-stats page">
+    <div className="stats page">
       <h1>My Leaderboard</h1>
       <AccountLinks />
     </div>

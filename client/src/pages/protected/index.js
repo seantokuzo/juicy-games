@@ -1,7 +1,15 @@
 import MyAccount from './MyAccount'
+import MyFriends from './MyFriends'
 import MyLeaderboard from './MyLeaderboard'
 import MyStats from './MyStats'
-import MyTrivia from './MyTrivia'
+import MyMenu from './MyMenu'
 import AuthSharedLayout from './AuthSharedLayout'
 
-export { MyAccount, MyLeaderboard, MyStats, MyTrivia, AuthSharedLayout }
+export {
+  MyAccount,
+  MyFriends,
+  MyLeaderboard,
+  MyStats,
+  MyMenu,
+  AuthSharedLayout
+}

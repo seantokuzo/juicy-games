@@ -8,36 +8,45 @@ const AccountLinks = () => {
 
   return (
     <div className="links-div">
-      {pathname !== '/game' && (
+      {pathname !== '/me' && (
         <Link
-          to="/game"
+          to="/me"
           className="btn link account__links-link"
           style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
         >
           <h3>My Trivia</h3>
         </Link>
       )}
-      {pathname !== '/game/me' && (
+      {pathname !== '/me/account' && (
         <Link
-          to="/game/me"
+          to="/me/account"
           className="btn link account__links-link"
           style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
         >
-          <h3>My Account</h3>
+          <h3>Account</h3>
         </Link>
       )}
-      {pathname !== '/game/my-stats' && (
+      {pathname !== '/me/friends' && (
         <Link
-          to="/game/my-stats"
+          to="/me/friends"
           className="btn link account__links-link"
           style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
         >
-          <h3>My Stats</h3>
+          <h3>Friends</h3>
         </Link>
       )}
-      {pathname !== '/game/leaderboard' && (
+      {pathname !== '/me/stats' && (
         <Link
-          to="/game/leaderboard"
+          to="/me/stats"
+          className="btn link account__links-link"
+          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
+        >
+          <h3>Stats</h3>
+        </Link>
+      )}
+      {pathname !== '/me/leaderboard' && (
+        <Link
+          to="/me/leaderboard"
           className="btn link account__links-link"
           style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
         >

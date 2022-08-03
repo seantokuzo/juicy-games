@@ -56,7 +56,7 @@ const Signup = () => {
   useEffect(() => {
     if (user) {
       setTimeout(() => {
-        navigate('/game')
+        navigate('/me')
       }, 2000)
     }
   }, [user, navigate])

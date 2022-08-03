@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { AccountLinks } from '../../components'
 import { useAppContext } from '../../context/appContext'
 
-const MyTrivia = () => {
+const MyMenu = () => {
   const { user, changeTheme } = useAppContext()
 
   useEffect(() => {
@@ -18,4 +18,4 @@ const MyTrivia = () => {
   )
 }
 
-export default MyTrivia
+export default MyMenu

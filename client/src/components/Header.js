@@ -49,7 +49,7 @@ export default function Header() {
     <header className="header">
       <div className="header__pfp">
         <Link
-          to={user ? '/game/me' : '/'}
+          to={user ? '/me/account' : '/'}
           className="header__pfp-link"
           style={{
             pointerEvents: isLoading || showAlert ? 'none' : ''

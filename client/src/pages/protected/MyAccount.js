@@ -170,14 +170,14 @@ const MyAccount = () => {
       </form>
       {editUserNotPass && (
         <Link
-          to="/game"
+          to="/me"
           className="btn link account__links-link"
           style={{
             pointerEvents:
               isLoading || showAlert || deleteMeWarning ? 'none' : ''
           }}
         >
-          <h3>My Trivia</h3>
+          <h3>Main Menu</h3>
         </Link>
       )}
     </div>

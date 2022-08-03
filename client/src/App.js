@@ -9,15 +9,17 @@ import {
   Leaderboard,
   ProtectedRoute,
   ForgotPassword,
-  ResetPassword
-} from './pages/index.js'
+  ResetPassword,
+  Error
+} from './pages'
 import {
   AuthSharedLayout,
-  MyTrivia,
+  MyAccount,
+  MyFriends,
+  MyMenu,
   MyLeaderboard,
-  MyStats,
-  MyAccount
-} from './pages/protected/index.js'
+  MyStats
+} from './pages/protected'
 import './scss/main.scss'
 
 function App() {
@@ -32,20 +34,22 @@ function App() {
         <Route path="/forgotPassword" element={<ForgotPassword />} />
         <Route path="/resetPassword/:token" element={<ResetPassword />} />
         <Route
-          path="/game"
+          path="/me"
           element={
             <ProtectedRoute>
               <AuthSharedLayout />
             </ProtectedRoute>
           }
         >
-          <Route index element={<MyTrivia />} />
-          <Route path="/game/me" element={<MyAccount />} />
-          <Route path="/game/my-stats" element={<MyStats />} />
-          <Route path="/game/leaderboard" element={<MyLeaderboard />} />
+          <Route index element={<MyMenu />} />
+          <Route path="/me/account" element={<MyAccount />} />
+          <Route path="/me/friends" element={<MyFriends />} />
+          <Route path="/me/stats" element={<MyStats />} />
+          <Route path="/me/leaderboard" element={<MyLeaderboard />} />
         </Route>
         <Route path="/practice" element={<Practice />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
+        <Route path="*" element={<Error />} />
       </Routes>
       <Footer />
     </div>

@@ -5,6 +5,7 @@ import ResetPassword from './ResetPassword'
 import Practice from './Practice'
 import Leaderboard from './Leaderboard'
 import ProtectedRoute from './ProtectedRoute'
+import Error from './Error'
 
 export {
   Home,
@@ -13,5 +14,6 @@ export {
   ResetPassword,
   Practice,
   Leaderboard,
-  ProtectedRoute
+  ProtectedRoute,
+  Error
 }
