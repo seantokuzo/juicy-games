@@ -2,15 +2,25 @@ import Header from './Header'
 import Footer from './Footer'
 import Alert from './Alert'
 
-import PracticeOptions from './practice/PracticeOptions'
-import PracticeResults from './practice/PracticeResults'
-import PracticeReady from './practice/PracticeReady'
-import TriviaCarousel from './practice/TriviaCarousel'
+import {
+  PracticeOptions,
+  PracticeResults,
+  PracticeReady,
+  TriviaCarousel
+} from './practice'
 
 import FormRow from './FormRow'
 
 import AccountLinks from './AccountLinks'
 import MenuLink from './MenuLink'
+
+import {
+  FriendFinder,
+  FriendRequestForm,
+  FriendsList,
+  FriendRequests,
+  FriendMenu
+} from './friends'
 
 export {
   Header,
@@ -22,5 +32,10 @@ export {
   PracticeResults,
   FormRow,
   AccountLinks,
-  MenuLink
+  MenuLink,
+  FriendFinder,
+  FriendRequestForm,
+  FriendsList,
+  FriendRequests,
+  FriendMenu
 }

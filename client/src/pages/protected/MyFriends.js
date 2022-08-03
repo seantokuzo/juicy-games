@@ -1,12 +1,51 @@
-import React from 'react'
-import { MenuLink } from '../../components'
+import React, { useState } from 'react'
+import {
+  FriendFinder,
+  FriendRequestForm,
+  FriendsList,
+  FriendRequests,
+  FriendMenu,
+  MenuLink
+} from '../../components'
 
 const MyFriends = () => {
+  const [view, setView] = useState('list')
+  console.log(view)
+
+  // const pageTitle =
+  //   view === 'list'
+  //     ? 'My Friends'
+  //     : view === 'sent'
+  //     ? 'Sent Requests'
+  //     : view === 'received'
+  //     ? 'Received Requests'
+  //     : view === 'send'
+  //     ? 'Request a Buddy'
+  //     : 'Find New Friends'
+
+  const getPageTitle = () => {
+    if (view === 'list') return 'My Friends'
+    if (view === 'requests') return 'Friend Requests'
+    if (view === 'send') return 'Request a Friend'
+    if (view === 'finder') return 'Find a Buddy'
+    return 'My Friends'
+  }
+
+  const getComponent = () => {
+    if (view === 'list') return <FriendsList />
+    if (view === 'sent') return <FriendRequests />
+    if (view === 'send') return <FriendRequestForm />
+    if (view === 'finder') return <FriendFinder />
+    return 'My Friends'
+  }
+
   return (
-    <section className="friends page">
+    <section className="friends">
       <div className="form">
-        <h3 className="friends__title subtitle">Friends</h3>
+        <h3 className="friends__title subtitle">{getPageTitle()}</h3>
+        {getComponent()}
       </div>
+      <FriendMenu setView={setView} />
       <MenuLink />
     </section>
   )
