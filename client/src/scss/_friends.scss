@@ -22,12 +22,11 @@
   }
   
   &__avatar {
-    font-size: 2rem;
+    font-size: 1.45rem;
     @include text-shadow;
   }
   &__avatar--default {
     font-size: 1rem;
-    @include text-shadow;
   }
   
   &__menu {
@@ -47,6 +46,21 @@
       &--current {
         border: 2px solid $clr-white;
       }
+    }
+
+    &-number {
+      @include flex;
+      @include box-shadow;
+      position: absolute;
+      margin: 0 0 2.5rem 2.5rem;
+      font-family: $fs-text;
+      font-size: .25em;
+      font-weight: bolder;
+      color: $clr-white;
+      background-color: $alert-danger;
+      padding: 5px 7px;
+      border-radius: 50%;
+      text-shadow: none;
     }
   }
 
@@ -110,6 +124,6 @@
   }
 
   &__request-form {
-    
+
   }
 }

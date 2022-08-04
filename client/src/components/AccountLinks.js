@@ -53,6 +53,13 @@ const AccountLinks = () => {
           <h3>Leaderboard</h3>
         </Link>
       )}
+      <Link
+        to="/practice"
+        className="btn btn-theme link account__links-link"
+        style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
+      >
+        <h3>Practice</h3>
+      </Link>
     </div>
   )
 }
