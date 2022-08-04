@@ -41,7 +41,10 @@ import {
   RESET_PASSWORD_ERROR,
   DELETE_ME_BEGIN,
   DELETE_ME_SUCCESS,
-  DELETE_ME_ERROR
+  DELETE_ME_ERROR,
+  GET_MY_FRIENDS_BEGIN,
+  GET_MY_FRIENDS_SUCCESS,
+  GET_MY_FRIENDS_ERROR
 } from './actions'
 
 let user = localStorage.getItem('user')
@@ -61,6 +64,11 @@ const initialState = {
   alertType: '',
   user: user ? JSON.parse(user) : null,
   token: token,
+  friendsData: {
+    friends: [],
+    sentRequests: [],
+    receivedRequests: []
+  },
   // PRACTICE GAME STATE
   practiceState: {
     practiceCategories: undefined,
@@ -338,6 +346,16 @@ const AppContextProvider = ({ children }) => {
     clearAlert()
   }
 
+  const getMyFriends = async () => {
+    console.log('get my friends')
+    // dispatch({ type: GET_MY_FRIENDS_BEGIN })
+    // try {
+    //   const { data } = authFetch('/auth/getMyFriends')
+    // } catch (err) {
+    //   console.log(err)
+    // }
+  }
+
   // ***********************************************
   // ***         PRACTICE STATE HANDLERS         ***
   // ***********************************************
@@ -424,6 +442,7 @@ const AppContextProvider = ({ children }) => {
         requestPasswordReset,
         resetPassword,
         deleteMe,
+        getMyFriends,
         // PRACTICE GAME
         optionComboError,
         retrievePracticeCategories,

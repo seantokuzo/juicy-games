@@ -38,7 +38,10 @@ import {
   RESET_PASSWORD_ERROR,
   DELETE_ME_BEGIN,
   DELETE_ME_SUCCESS,
-  DELETE_ME_ERROR
+  DELETE_ME_ERROR,
+  GET_MY_FRIENDS_BEGIN,
+  GET_MY_FRIENDS_SUCCESS,
+  GET_MY_FRIENDS_ERROR
 } from './actions'
 
 import { initialState } from './appContext'
@@ -277,7 +280,7 @@ const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      user: undefined,
+      user: null,
       token: null,
       showAlert: true,
       alertType: 'success',
@@ -291,6 +294,22 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: 'danger',
       alertText: action.payload.msg
+    }
+  }
+  if (action.type === GET_MY_FRIENDS_BEGIN) {
+    return {
+      ...state,
+      isLoading: true
+    }
+  }
+  if (action.type === GET_MY_FRIENDS_SUCCESS) {
+    return {
+      ...state
+    }
+  }
+  if (action.type === GET_MY_FRIENDS_ERROR) {
+    return {
+      ...state
     }
   }
   // ************************************************************

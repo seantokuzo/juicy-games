@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useAppContext } from '../../context/appContext'
 import {
   FriendFinder,
   FriendRequestForm,
@@ -11,17 +12,11 @@ import {
 const MyFriends = () => {
   const [view, setView] = useState('list')
   console.log(view)
+  const { getMyFriends } = useAppContext()
 
-  // const pageTitle =
-  //   view === 'list'
-  //     ? 'My Friends'
-  //     : view === 'sent'
-  //     ? 'Sent Requests'
-  //     : view === 'received'
-  //     ? 'Received Requests'
-  //     : view === 'send'
-  //     ? 'Request a Buddy'
-  //     : 'Find New Friends'
+  useEffect(() => {
+    getMyFriends()
+  }, [])
 
   const getPageTitle = () => {
     if (view === 'list') return 'My Friends'
@@ -52,3 +47,14 @@ const MyFriends = () => {
 }
 
 export default MyFriends
+
+// const pageTitle =
+//   view === 'list'
+//     ? 'My Friends'
+//     : view === 'sent'
+//     ? 'Sent Requests'
+//     : view === 'received'
+//     ? 'Received Requests'
+//     : view === 'send'
+//     ? 'Request a Buddy'
+//     : 'Find New Friends'
