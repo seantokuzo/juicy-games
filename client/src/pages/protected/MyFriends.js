@@ -10,7 +10,7 @@ import {
 } from '../../components'
 
 const MyFriends = () => {
-  const [view, setView] = useState('list')
+  const [view, setView] = useState('requests')
   console.log(view)
   const { getMyFriends } = useAppContext()
 
@@ -28,7 +28,7 @@ const MyFriends = () => {
 
   const getComponent = () => {
     if (view === 'list') return <FriendsList />
-    if (view === 'sent') return <FriendRequests />
+    if (view === 'requests') return <FriendRequests />
     if (view === 'send') return <FriendRequestForm />
     if (view === 'finder') return <FriendFinder />
     return 'My Friends'
@@ -37,7 +37,7 @@ const MyFriends = () => {
   return (
     <section className="friends">
       <div className="form">
-        <h3 className="friends__title subtitle">{getPageTitle()}</h3>
+        <h1 className="friends__title title">{getPageTitle()}</h1>
         {getComponent()}
       </div>
       <FriendMenu setView={setView} />

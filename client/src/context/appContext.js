@@ -348,12 +348,23 @@ const AppContextProvider = ({ children }) => {
 
   const getMyFriends = async () => {
     console.log('get my friends')
-    // dispatch({ type: GET_MY_FRIENDS_BEGIN })
-    // try {
-    //   const { data } = authFetch('/auth/getMyFriends')
-    // } catch (err) {
-    //   console.log(err)
-    // }
+    dispatch({ type: GET_MY_FRIENDS_BEGIN })
+    try {
+      const { data } = await authFetch('/auth/getMyFriends')
+      const { friends, friendRequestsSent, friendRequestsReceived } = data
+      dispatch({
+        type: GET_MY_FRIENDS_SUCCESS,
+        payload: { friends, friendRequestsSent, friendRequestsReceived }
+      })
+    } catch (err) {
+      console.log(err)
+      dispatch({ type: GET_MY_FRIENDS_ERROR })
+    }
+  }
+
+  const respondToFriendRequest = (email, status) => {
+    console.log('Respond to Friend Request')
+    console.log(email, status)
   }
 
   // ***********************************************
@@ -443,6 +454,7 @@ const AppContextProvider = ({ children }) => {
         resetPassword,
         deleteMe,
         getMyFriends,
+        respondToFriendRequest,
         // PRACTICE GAME
         optionComboError,
         retrievePracticeCategories,

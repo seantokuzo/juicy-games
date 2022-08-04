@@ -11,7 +11,7 @@ const AccountLinks = () => {
       {pathname !== '/me' && (
         <Link
           to="/me"
-          className="btn link account__links-link"
+          className="btn btn-theme link account__links-link"
           style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
         >
           <h3>My Trivia</h3>
@@ -20,7 +20,7 @@ const AccountLinks = () => {
       {pathname !== '/me/account' && (
         <Link
           to="/me/account"
-          className="btn link account__links-link"
+          className="btn btn-theme link account__links-link"
           style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
         >
           <h3>Account</h3>
@@ -29,7 +29,7 @@ const AccountLinks = () => {
       {pathname !== '/me/friends' && (
         <Link
           to="/me/friends"
-          className="btn link account__links-link"
+          className="btn btn-theme link account__links-link"
           style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
         >
           <h3>Friends</h3>
@@ -38,7 +38,7 @@ const AccountLinks = () => {
       {pathname !== '/me/stats' && (
         <Link
           to="/me/stats"
-          className="btn link account__links-link"
+          className="btn btn-theme link account__links-link"
           style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
         >
           <h3>Stats</h3>
@@ -47,7 +47,7 @@ const AccountLinks = () => {
       {pathname !== '/me/leaderboard' && (
         <Link
           to="/me/leaderboard"
-          className="btn link account__links-link"
+          className="btn btn-theme link account__links-link"
           style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
         >
           <h3>Leaderboard</h3>

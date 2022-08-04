@@ -1,6 +1,11 @@
 import Header from './Header'
 import Footer from './Footer'
 import Alert from './Alert'
+import Avatar from './Avatar'
+
+import FormRow from './FormRow'
+import AccountLinks from './AccountLinks'
+import MenuLink from './MenuLink'
 
 import {
   PracticeOptions,
@@ -8,11 +13,6 @@ import {
   PracticeReady,
   TriviaCarousel
 } from './practice'
-
-import FormRow from './FormRow'
-
-import AccountLinks from './AccountLinks'
-import MenuLink from './MenuLink'
 
 import {
   FriendFinder,
@@ -26,6 +26,7 @@ export {
   Header,
   Footer,
   Alert,
+  Avatar,
   PracticeOptions,
   PracticeReady,
   TriviaCarousel,

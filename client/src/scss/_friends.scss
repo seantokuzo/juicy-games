@@ -5,8 +5,12 @@
 
   &__title {
     text-transform: capitalize;
+    margin: 0 0 1rem;
   }
   
+  &__avatar {
+    font-size: 2rem;
+  }
   
   &__menu {
     @include flex(row, center, space-evenly);
@@ -21,6 +25,49 @@
       @include box-shadow;
       padding: .45rem;
       font-size: 2em;
+    }
+  }
+
+  &__requests {
+    @include flex;
+
+    &-username, &-email {
+      margin: 0;
+    }
+
+    &-details {
+      @include flex(column, flex-start, center);
+      width: fit-content;
+
+      &-top {
+        @include flex(row, center, center);
+      }
+    }
+    
+    &-subtitle {
+      margin: 1rem 0 0;
+    }
+
+    &-request {
+      @include flex(row, center, space-between);
+      width: 100%;
+      margin: .75rem 0 0;
+      
+      border-color: inherit;
+      border: 3px solid;
+      border-radius: 3px;
+      padding: 5px .5rem;
+    }
+    
+    &-btns {
+      @include flex(row, center, center)
+
+      &-btn {
+
+        &-add {
+          margin-right: .5rem;
+        }
+      }
     }
   }
 }

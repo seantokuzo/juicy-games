@@ -304,12 +304,21 @@ const reducer = (state, action) => {
   }
   if (action.type === GET_MY_FRIENDS_SUCCESS) {
     return {
-      ...state
+      ...state,
+      isLoading: false,
+      friendsData: {
+        friends: action.payload.friends,
+        friendRequestsSent: action.payload.friendRequestsSent,
+        friendRequestsReceived: action.payload.friendRequestsReceived
+      }
     }
   }
   if (action.type === GET_MY_FRIENDS_ERROR) {
     return {
-      ...state
+      ...state,
+      showAlert: true,
+      alertType: 'danger alert-center',
+      alertText: 'Error retrieving friends. Please try refreshing'
     }
   }
   // ************************************************************
