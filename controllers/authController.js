@@ -412,7 +412,6 @@ export const getMyFriends = async (req, res) => {
     friendRequestsSent: friendRequestsSentIds,
     friendRequestsReceived: friendRequestsReceivedIds
   } = user
-  console.log(friendsIds)
 
   const friends = await Promise.all(
     friendsIds.map(async (id) => {
@@ -435,9 +434,6 @@ export const getMyFriends = async (req, res) => {
       return { username, email, avatar }
     })
   )
-  console.log(friends)
-  console.log(friendRequestsSent)
-  console.log(friendRequestsReceived)
 
   res
     .status(StatusCodes.OK)
@@ -457,7 +453,7 @@ export const requestFriend = async (req, res) => {
   const requestedUser = await User.findOne({ email }).select(
     '+friendRequestsReceived +active +confirmed'
   )
-  console.log(requestedUser)
+  // console.log(requestedUser)
 
   // CHECK FOR USER
   if (!user) {
@@ -469,9 +465,6 @@ export const requestFriend = async (req, res) => {
       "No user with that email. Imaginary friends don't count"
     )
   }
-
-  console.log(user)
-  console.log(requestedUser)
   // IF ALREADY FRIENDS
   if (user.friends.includes(requestedUser._id)) {
     throw new BadRequestError(
@@ -512,6 +505,49 @@ export const requestFriend = async (req, res) => {
 
   // ACTUAL RESPONSE FOR FRONT END
   res.status(StatusCodes.OK).json({ msg: 'Request Sent!' })
+}
+
+export const respondToFriendRequest = async (req, res) => {
+  const { email, status } = req.body
+
+  if (!email || !status || (status !== 'accept' && status !== 'reject')) {
+    throw new BadRequestError('Error Will Robinson')
+  }
+  const user = await User.findById(req.user.userId).select(
+    '+friends +friendRequestsReceived'
+  )
+  if (!user) {
+    throw new UnauthenticatedError('Not authorized to respond')
+  }
+  const maybeFriend = await User.findOne({ email }).select(
+    '+friends +friendRequestsSent'
+  )
+  if (!maybeFriend) {
+    throw new BadRequestError('No friend found with that email')
+  }
+  // REMOVE EACH USER'S ID's FROM THE OTHERS RELATED REQUEST FIELDS
+  user.friendRequestsReceived = user.friendRequestsReceived.filter(
+    (reqUserId) => !reqUserId.equals(maybeFriend._id)
+  )
+  maybeFriend.friendRequestsSent = maybeFriend.friendRequestsSent.filter(
+    (reqUserId) => !reqUserId.equals(user._id)
+  )
+  let msg = 'Rejected!'
+  if (status === 'accept') {
+    // ADD TO BOTH USER'S FRIENDS LIST IF NOT ALREADY ON IT
+    if (!user.friends.includes(maybeFriend._id)) {
+      user.friends = [...user.friends, maybeFriend._id]
+    }
+    if (!maybeFriend.friends.includes(user._id)) {
+      maybeFriend.friends = [...maybeFriend.friends, user._id]
+    }
+
+    msg = 'New Buddy Accepted!'
+  }
+  user.save()
+  maybeFriend.save()
+
+  res.status(StatusCodes.OK).json({ msg })
 }
 
 // ********** DELETE ME * DELETE ME * DELETE ME **********

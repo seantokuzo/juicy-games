@@ -12,6 +12,7 @@ import {
   resetPassword,
   getMyFriends,
   requestFriend,
+  respondToFriendRequest,
   deleteMe
 } from '../controllers/authController.js'
 
@@ -32,6 +33,7 @@ router.route('/updatePassword').patch(updatePassword)
 
 router.route('/getMyFriends').get(getMyFriends)
 router.route('/requestFriend').post(requestFriend)
+router.route('/respondToFriendRequest').post(respondToFriendRequest)
 
 router.route('/deleteMe').delete(deleteMe)
 

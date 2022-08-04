@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import { FaUserPlus, FaRegTrashAlt } from 'react-icons/fa'
 import { useAppContext } from '../../context/appContext'
 import Avatar from '../Avatar'
+import Alert from '../Alert'
 
 const FriendRequests = () => {
-  const { friendsData, respondToFriendRequest } = useAppContext()
+  const { friendsData, respondToFriendRequest, showAlert } = useAppContext()
   const { friendRequestsSent, friendRequestsReceived } = friendsData
   const [view, setView] = useState('received')
   console.log(friendRequestsSent)
@@ -56,6 +57,7 @@ const FriendRequests = () => {
 
   return (
     <div className="friends__requests">
+      {showAlert && <Alert />}
       <h3 className="friends__requests-subtitle subtitle">
         {view === 'sent' && 'Pending Requests'}
         {view === 'received' && 'Requests Received'}

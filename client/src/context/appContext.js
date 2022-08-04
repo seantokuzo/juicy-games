@@ -360,11 +360,28 @@ const AppContextProvider = ({ children }) => {
       console.log(err)
       dispatch({ type: GET_MY_FRIENDS_ERROR })
     }
+    clearAlert()
   }
 
-  const respondToFriendRequest = (email, status) => {
+  const respondToFriendRequest = async (email, status) => {
     console.log('Respond to Friend Request')
     console.log(email, status)
+    try {
+      const { data } = await authFetch.post('/auth/respondToFriendRequest', {
+        email,
+        status
+      })
+      console.log(data)
+      displayAlert('success alert-center', data.msg, 1500)
+    } catch (err) {
+      console.log(err)
+      displayAlert(
+        'danger alert-center',
+        'Something went wrong, try again later'
+      )
+    }
+    getMyFriends()
+    clearAlert()
   }
 
   // ***********************************************
