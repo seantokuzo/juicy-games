@@ -399,19 +399,65 @@ export const resetPassword = async (req, res) => {
 }
 
 // ********** REQUEST FRIEND * REQUEST FRIEND * REQUEST FRIEND **********
-export const requestFriend = async (req, res, next) => {
-  console.log('Requesting New Fwiend')
-  const { email: requestedEmail } = req.body
+export const getMyFriends = async (req, res) => {
+  const user = await User.findById(req.user.userId).select(
+    '+friends +friendRequestsReceived +friendRequestsSent'
+  )
+  if (!user) {
+    throw new UnauthenticatedError('Get out of here imposter!')
+  }
+
+  const {
+    friends: friendsIds,
+    friendRequestsSent: friendRequestsSentIds,
+    friendRequestsReceived: friendRequestsReceivedIds
+  } = user
+  console.log(friendsIds)
+
+  const friends = await Promise.all(
+    friendsIds.map(async (id) => {
+      const fr = await User.findById(id)
+      const { username, email, avatar } = fr
+      return { username, email, avatar }
+    })
+  )
+  const friendRequestsSent = await Promise.all(
+    friendRequestsSentIds.map(async (id) => {
+      const fr = await User.findById(id)
+      const { username, email, avatar } = fr
+      return { username, email, avatar }
+    })
+  )
+  const friendRequestsReceived = await Promise.all(
+    friendRequestsReceivedIds.map(async (id) => {
+      const fr = await User.findById(id)
+      const { username, email, avatar } = fr
+      return { username, email, avatar }
+    })
+  )
+  console.log(friends)
+  console.log(friendRequestsSent)
+  console.log(friendRequestsReceived)
+
+  res
+    .status(StatusCodes.OK)
+    .json({ friends, friendRequestsSent, friendRequestsReceived })
+}
+
+// ********** REQUEST FRIEND * REQUEST FRIEND * REQUEST FRIEND **********
+export const requestFriend = async (req, res) => {
+  const { email } = req.body
   // CHECK FOR FIELD
-  if (!requestedEmail) {
+  if (!email) {
     throw new BadRequestError('Give us something to work with')
   }
   const user = await User.findById(req.user.userId).select(
     '+friendRequestsSent +friendRequestsReceived +friends'
   )
-  const requestedUser = await User.findOne({ email: requestedEmail }).select(
-    '+friendRequestsReceived'
+  const requestedUser = await User.findOne({ email }).select(
+    '+friendRequestsReceived +active +confirmed'
   )
+  console.log(requestedUser)
 
   // CHECK FOR USER
   if (!user) {
@@ -434,9 +480,7 @@ export const requestFriend = async (req, res, next) => {
   }
   // IF REQUEST ALREADY RECEIVED FROM THAT PERSON
   if (user.friendRequestsReceived.includes(requestedUser._id)) {
-    throw new BadRequestError(
-      'Friend request already sent! Patience is a virtue'
-    )
+    throw new BadRequestError('They already requested you. Confirm your buddy!')
   }
   // IF REQUEST ALREADY SENT
   if (user.friendRequestsSent.includes(requestedUser._id)) {
@@ -455,10 +499,10 @@ export const requestFriend = async (req, res, next) => {
   requestedUser.save()
 
   // REMOVE INFO FOR RESPONSE
-  user.friends = undefined
-  user.friendRequestsSent = undefined
-  user.friendRequestsReceived = undefined
-  requestedUser.friendRequestsReceived = undefined
+  // user.friends = undefined
+  // user.friendRequestsSent = undefined
+  // user.friendRequestsReceived = undefined
+  // requestedUser.friendRequestsReceived = undefined
 
   // DEV RESPONSE ONLY
   // res.status(StatusCodes.OK).json({ user, requestedUser })
@@ -467,7 +511,7 @@ export const requestFriend = async (req, res, next) => {
   // const url = ''
 
   // ACTUAL RESPONSE FOR FRONT END
-  res.status(StatusCodes.OK).json({ msg: 'success' })
+  res.status(StatusCodes.OK).json({ msg: 'Request Sent!' })
 }
 
 // ********** DELETE ME * DELETE ME * DELETE ME **********
