@@ -1,9 +1,15 @@
 import React from 'react'
+import { useAppContext } from '../../context/appContext'
+import MapFriends from './MapFriends'
 
 const FriendsList = () => {
+  const {
+    friendsData: { friends }
+  } = useAppContext()
+
   return (
-    <div className='friends__list'>
-      <h1 className='friends__list-title title'>My Friends</h1>
+    <div className="friends__map">
+      <MapFriends dataArray={friends} type="list" />
     </div>
   )
 }

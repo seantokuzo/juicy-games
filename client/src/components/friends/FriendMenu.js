@@ -4,14 +4,14 @@ import { FaUserFriends } from 'react-icons/fa'
 import { TbSend, TbMail } from 'react-icons/tb'
 import { BiSearchAlt } from 'react-icons/bi'
 
-const FriendMenu = ({ setView }) => {
+const FriendMenu = ({ view, setView }) => {
   const { isLoading, showAlert } = useAppContext()
 
   return (
     <div className="friends__menu">
       <button
         type="button"
-        className="btn friends__menu-btn"
+        className={view === 'list' ? "btn btn-theme friends__menu-btn friends__menu-btn--current" : "btn friends__menu-btn"}
         onClick={() => setView('list')}
         disabled={isLoading || showAlert}
       >
@@ -19,7 +19,7 @@ const FriendMenu = ({ setView }) => {
       </button>
       <button
         type="button"
-        className="btn friends__menu-btn"
+        className={view === 'requests' ? "btn btn-theme friends__menu-btn friends__menu-btn--current" : "btn friends__menu-btn"}
         onClick={() => setView('requests')}
         disabled={isLoading || showAlert}
       >
@@ -27,7 +27,7 @@ const FriendMenu = ({ setView }) => {
       </button>
       <button
         type="button"
-        className="btn friends__menu-btn"
+        className={view === 'finder' ? "btn btn-theme friends__menu-btn friends__menu-btn--current" : "btn friends__menu-btn"}
         onClick={() => setView('finder')}
         disabled={isLoading || showAlert}
       >
@@ -35,7 +35,7 @@ const FriendMenu = ({ setView }) => {
       </button>
       <button
         type="button"
-        className="btn friends__menu-btn"
+        className={view === 'send' ? "btn btn-theme friends__menu-btn friends__menu-btn--current" : "btn friends__menu-btn"}
         onClick={() => setView('send')}
         disabled={isLoading || showAlert}
       >

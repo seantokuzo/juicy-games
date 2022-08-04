@@ -46,5 +46,13 @@
     }
   }
 
+    &__friends-refresh {
+      // margin: 0;
+      padding: 2px;
+      font-size: 2em;
+      align-self: flex-end;
+      background-color: rgba($clr-black, 0.25);
+      border-radius: 2px;
+    }
 
 }

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { BiRefresh } from 'react-icons/bi'
 import { useAppContext } from '../../context/appContext'
 import {
   FriendFinder,
@@ -6,13 +7,13 @@ import {
   FriendsList,
   FriendRequests,
   FriendMenu,
-  MenuLink
+  MenuLink,
+  Alert
 } from '../../components'
 
 const MyFriends = () => {
-  const [view, setView] = useState('requests')
-  console.log(view)
-  const { getMyFriends } = useAppContext()
+  const [view, setView] = useState('list')
+  const { getMyFriends, isLoading, showAlert } = useAppContext()
 
   useEffect(() => {
     getMyFriends()
@@ -20,27 +21,38 @@ const MyFriends = () => {
 
   const getPageTitle = () => {
     if (view === 'list') return 'My Friends'
-    if (view === 'requests') return 'Friend Requests'
-    if (view === 'send') return 'Request a Friend'
+    if (view === 'requests') return ''
     if (view === 'finder') return 'Find a Buddy'
+    if (view === 'send') return 'Request a Friend'
     return 'My Friends'
   }
 
   const getComponent = () => {
     if (view === 'list') return <FriendsList />
     if (view === 'requests') return <FriendRequests />
-    if (view === 'send') return <FriendRequestForm />
     if (view === 'finder') return <FriendFinder />
+    if (view === 'send') return <FriendRequestForm />
     return 'My Friends'
   }
 
   return (
     <section className="friends">
-      <div className="form">
+      <div className="form friends__form">
+        {showAlert && <Alert />}
+        {(view === 'list' || view === 'requests') && (
+          <button
+            type="button"
+            className="friends__refresh btn btn-theme"
+            onClick={getMyFriends}
+            disabled={isLoading || showAlert}
+          >
+            <BiRefresh />
+          </button>
+        )}
         <h1 className="friends__title title">{getPageTitle()}</h1>
         {getComponent()}
       </div>
-      <FriendMenu setView={setView} />
+      <FriendMenu view={view} setView={setView} />
       <MenuLink />
     </section>
   )

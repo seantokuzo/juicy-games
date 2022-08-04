@@ -220,10 +220,7 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: UPDATE_USER_BEGIN })
     try {
       const { data } = await authFetch.patch('auth/updateMe', updatedUser)
-
       const { user, token, msg } = data
-
-      console.log(msg)
 
       dispatch({
         type: UPDATE_USER_SUCCESS,
@@ -334,7 +331,6 @@ const AppContextProvider = ({ children }) => {
   }
 
   const deleteMe = async () => {
-    console.log('delete me')
     dispatch({ type: DELETE_ME_BEGIN })
     try {
       await authFetch.delete('/auth/deleteMe')
@@ -347,10 +343,9 @@ const AppContextProvider = ({ children }) => {
   }
 
   const getMyFriends = async () => {
-    console.log('get my friends')
     dispatch({ type: GET_MY_FRIENDS_BEGIN })
     try {
-      const { data } = await authFetch('/auth/getMyFriends')
+      const { data } = await authFetch.get('/auth/getMyFriends')
       const { friends, friendRequestsSent, friendRequestsReceived } = data
       dispatch({
         type: GET_MY_FRIENDS_SUCCESS,
@@ -364,14 +359,11 @@ const AppContextProvider = ({ children }) => {
   }
 
   const respondToFriendRequest = async (email, status) => {
-    console.log('Respond to Friend Request')
-    console.log(email, status)
     try {
       const { data } = await authFetch.post('/auth/respondToFriendRequest', {
         email,
         status
       })
-      console.log(data)
       displayAlert('success alert-center', data.msg, 1500)
     } catch (err) {
       console.log(err)
@@ -380,7 +372,24 @@ const AppContextProvider = ({ children }) => {
         'Something went wrong, try again later'
       )
     }
-    getMyFriends()
+    await getMyFriends()
+    clearAlert()
+  }
+
+  const removeFriend = async (email) => {
+    console.log(email)
+    try {
+      const { data } = await authFetch.post('/auth/removeFriend', { email })
+      console.log(data)
+      displayAlert('success alert-center', data.msg, 3000)
+    } catch (err) {
+      console.log(err)
+      displayAlert(
+        'danger alert-center',
+        'Something went wrong, try again later'
+      )
+    }
+    await getMyFriends()
     clearAlert()
   }
 
@@ -472,6 +481,7 @@ const AppContextProvider = ({ children }) => {
         deleteMe,
         getMyFriends,
         respondToFriendRequest,
+        removeFriend,
         // PRACTICE GAME
         optionComboError,
         retrievePracticeCategories,

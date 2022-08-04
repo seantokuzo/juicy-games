@@ -550,6 +550,31 @@ export const respondToFriendRequest = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg })
 }
 
+export const removeFriend = async (req, res) => {
+  const { email } = req.body
+  if (!email) {
+    throw new BadRequestError("Can't delete nobody")
+  }
+  const user = await User.findById(req.user.userId).select('+friends')
+  if (!user) {
+    throw new UnauthenticatedError('Not Authorized')
+  }
+  const exFriend = await User.findOne({ email }).select('+friends')
+  if (!exFriend) {
+    throw new NotFoundError('Friend not found')
+  }
+
+  user.friends = user.friends.filter((friend) => !friend.equals(exFriend._id))
+  exFriend.friends = exFriend.friends.filter(
+    (friend) => !friend.equals(user._id)
+  )
+
+  user.save()
+  exFriend.save()
+
+  res.status(StatusCodes.OK).json({ msg: 'Unfriended. Uh buh bye now!' })
+}
+
 // ********** DELETE ME * DELETE ME * DELETE ME **********
 export const deleteMe = async (req, res) => {
   console.log('Delete Route')
