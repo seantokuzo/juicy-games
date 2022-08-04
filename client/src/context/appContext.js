@@ -345,7 +345,7 @@ const AppContextProvider = ({ children }) => {
   const getMyFriends = async () => {
     dispatch({ type: GET_MY_FRIENDS_BEGIN })
     try {
-      const { data } = await authFetch.get('/auth/getMyFriends')
+      const { data } = await authFetch('/auth/getMyFriends')
       const { friends, friendRequestsSent, friendRequestsReceived } = data
       dispatch({
         type: GET_MY_FRIENDS_SUCCESS,
@@ -354,6 +354,19 @@ const AppContextProvider = ({ children }) => {
     } catch (err) {
       console.log(err)
       dispatch({ type: GET_MY_FRIENDS_ERROR })
+    }
+    clearAlert()
+  }
+
+  const requestFriend = async (email) => {
+    console.log(email)
+    try {
+      const { data } = await authFetch.post('/auth/requestFriend', { email })
+      await getMyFriends()
+      displayAlert('success', data.msg, 2000)
+    } catch (err) {
+      console.log(err)
+      displayAlert('danger', err.response.data.msg)
     }
     clearAlert()
   }
@@ -480,6 +493,7 @@ const AppContextProvider = ({ children }) => {
         resetPassword,
         deleteMe,
         getMyFriends,
+        requestFriend,
         respondToFriendRequest,
         removeFriend,
         // PRACTICE GAME
