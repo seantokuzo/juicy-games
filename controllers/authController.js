@@ -507,6 +507,7 @@ export const requestFriend = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: 'Request Sent!' })
 }
 
+// * RESPOND TO FRIEND REQUEST * RESPOND TO FRIEND REQUEST * RESPOND TO FRIEND REQUEST *
 export const respondToFriendRequest = async (req, res) => {
   const { email, status } = req.body
 
@@ -550,6 +551,7 @@ export const respondToFriendRequest = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg })
 }
 
+// ********** REMOVE FRIEND * REMOVE FRIEND * REMOVE FRIEND **********
 export const removeFriend = async (req, res) => {
   const { email } = req.body
   if (!email) {
@@ -593,4 +595,40 @@ export const deleteMe = async (req, res) => {
       .status(StatusCodes.UNAUTHORIZED)
       .json({ msg: 'Ooops! Something went wrong, try again later' })
   }
+}
+
+// ********** GET ALL USERS * GET ALL USERS * GET ALL USERS **********
+export const getAllUsers = async (req, res) => {
+  const { sort, search } = req.query
+
+  const queryObject = {}
+
+  if (search) {
+    queryObject.username = { $regex: search, $options: 'i' }
+  }
+
+  // FIND BASED ON SEARCH
+  let result = User.find(queryObject)
+
+  // SORTING CONDITIONS
+  if (sort === 'a-z') {
+    result = result.sort('username')
+  }
+  if (sort === 'z-a') {
+    result = result.sort('-username')
+  }
+
+  // PAGINATION
+  const page = Number(req.query.page) || 1
+  const limit = Number(req.query.limit) || 3
+  const skip = (page - 1) * limit
+
+  result = result.skip(skip).limit(limit)
+
+  const users = await result
+
+  const totalUsers = await User.countDocuments(queryObject)
+  const numOfPages = Math.ceil(totalUsers / limit)
+
+  res.status(StatusCodes.OK).json({ users, totalUsers, numOfPages })
 }

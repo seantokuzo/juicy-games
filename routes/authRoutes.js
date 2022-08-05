@@ -14,6 +14,7 @@ import {
   requestFriend,
   respondToFriendRequest,
   removeFriend,
+  getAllUsers,
   deleteMe
 } from '../controllers/authController.js'
 
@@ -24,6 +25,7 @@ router.route('/confirmEmail/:token').get(confirmEmail)
 router.route('/login').post(login)
 router.route('/forgotPassword').post(forgotPassword)
 router.route('/resetPassword/:token').patch(resetPassword)
+router.route('/getAllUsers').get(getAllUsers)
 
 // USER MUST BE LOGGED IN TO ACCESS THESE ROUTES
 router.use(authenticateUser)
