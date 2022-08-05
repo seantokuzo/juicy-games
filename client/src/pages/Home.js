@@ -15,7 +15,6 @@ const Home = () => {
   const [values, setValues] = useState(initialState)
   const { user, isLoading, showAlert, missingFieldsAlert, loginUser } =
     useAppContext()
-  console.log(user)
 
   const toggleForm = () => {
     if (loginWithEmail) {

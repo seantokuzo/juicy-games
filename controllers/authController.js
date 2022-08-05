@@ -442,19 +442,27 @@ export const getMyFriends = async (req, res) => {
 
 // ********** REQUEST FRIEND * REQUEST FRIEND * REQUEST FRIEND **********
 export const requestFriend = async (req, res) => {
-  const { email } = req.body
+  const { info } = req.body
   // CHECK FOR FIELD
-  if (!email) {
+  if (!info) {
     throw new BadRequestError('Give us something to work with')
   }
   const user = await User.findById(req.user.userId).select(
     '+friendRequestsSent +friendRequestsReceived +friends'
   )
-  const requestedUser = await User.findOne({ email }).select(
+
+  console.log(info)
+  let requestedUser
+  requestedUser = await User.findOne({ email: info }).select(
     '+friendRequestsReceived +active +confirmed'
   )
-  // console.log(requestedUser)
+  if (!requestedUser) {
+    requestedUser = await User.findOne({ username: info }).select(
+      '+friendRequestsReceived +active +confirmed'
+    )
+  }
 
+  console.log(requestedUser)
   // CHECK FOR USER
   if (!user) {
     throw new UnauthenticatedError('Get outta here poser!')
@@ -462,13 +470,13 @@ export const requestFriend = async (req, res) => {
   // CHECK FOR REQUESTED USER + IF THEY ACTIVE && CONFIRMED
   if (!requestedUser || !requestedUser.confirmed || !requestedUser.active) {
     throw new BadRequestError(
-      "No user with that email. Imaginary friends don't count"
+      "No user with that info. Imaginary friends don't count"
     )
   }
   // IF ALREADY FRIENDS
   if (user.friends.includes(requestedUser._id)) {
     throw new BadRequestError(
-      'Friend request already sent! Patience is a virtue'
+      'You already friends!'
     )
   }
   // IF REQUEST ALREADY RECEIVED FROM THAT PERSON
@@ -579,7 +587,6 @@ export const removeFriend = async (req, res) => {
 
 // ********** DELETE ME * DELETE ME * DELETE ME **********
 export const deleteMe = async (req, res) => {
-  console.log('Delete Route')
   try {
     await User.findByIdAndUpdate(req.user.userId, { active: false })
 
@@ -625,7 +632,13 @@ export const getAllUsers = async (req, res) => {
 
   result = result.skip(skip).limit(limit)
 
-  const users = await result
+  const usersFound = await result
+  const users = usersFound.map((person) => {
+    return {
+      username: person.username,
+      avatar: person.avatar
+    }
+  })
 
   const totalUsers = await User.countDocuments(queryObject)
   const numOfPages = Math.ceil(totalUsers / limit)

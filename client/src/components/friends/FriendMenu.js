@@ -11,7 +11,6 @@ const FriendMenu = ({ view, setView }) => {
     showAlert
   } = useAppContext()
 
-  console.log(friendRequestsReceived)
   const numReceived = friendRequestsReceived &&
     friendRequestsReceived.length > 0 && (
       <p className="friends__menu-number">{friendRequestsReceived.length}</p>

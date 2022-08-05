@@ -11,8 +11,6 @@ const TriviaCarousel = () => {
     submitPracticeAnswers,
     showAlert
   } = useAppContext()
-  // console.log(practiceTrivia)
-  // console.log(currentPracticeQuestion)
 
   return (
     <div className="carousel">

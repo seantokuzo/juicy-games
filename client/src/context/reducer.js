@@ -41,7 +41,10 @@ import {
   DELETE_ME_ERROR,
   GET_MY_FRIENDS_BEGIN,
   GET_MY_FRIENDS_SUCCESS,
-  GET_MY_FRIENDS_ERROR
+  GET_MY_FRIENDS_ERROR,
+  GET_USERS_BEGIN,
+  GET_USERS_SUCCESS,
+  GET_USERS_ERROR
 } from './actions'
 
 import { initialState } from './appContext'
@@ -319,6 +322,31 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: 'danger alert-center',
       alertText: 'Error retrieving friends. Please try refreshing'
+    }
+  }
+  if (action.type === GET_USERS_BEGIN) {
+    return {
+      ...state,
+      isLoading: true
+    }
+  }
+  if (action.type === GET_USERS_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      friendFinderData: {
+        users: action.payload.users,
+        totalUsers: action.payload.totalUsers,
+        numOfPages: action.payload.numOfPages
+      }
+    }
+  }
+  if (action.type === GET_USERS_ERROR) {
+    return {
+      ...state,
+      showAlert: true,
+      alertType: 'danger alert-center',
+      alertText: action.payload.msg
     }
   }
   // ************************************************************

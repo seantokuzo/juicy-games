@@ -16,8 +16,6 @@ const ResetPassword = () => {
   const { user, isLoading, showAlert, displayAlert, resetPassword } =
     useAppContext()
 
-  console.log(user)
-
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
   }

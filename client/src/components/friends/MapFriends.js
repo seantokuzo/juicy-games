@@ -1,11 +1,17 @@
 import React from 'react'
-import { FaUserPlus, FaRegTrashAlt } from 'react-icons/fa'
+import { FaUser, FaUserPlus, FaRegTrashAlt } from 'react-icons/fa'
 import Avatar from '../Avatar'
 import { useAppContext } from '../../context/appContext'
 
 const MapFriends = ({ dataArray, type }) => {
-  const { respondToFriendRequest, removeFriend, isLoading, showAlert } =
-    useAppContext()
+  const {
+    friendsData: { friends },
+    requestFriend,
+    respondToFriendRequest,
+    removeFriend,
+    isLoading,
+    showAlert
+  } = useAppContext()
 
   if (dataArray && dataArray.length > 0) {
     return dataArray.map((person) => (
@@ -19,17 +25,36 @@ const MapFriends = ({ dataArray, type }) => {
             />
             <p className="friends__map-username">{person.username}</p>
           </div>
-          <p className="friends__map-email text-mini">{person.email}</p>
+          {type !== 'finder' && (
+            <p className="friends__map-email text-mini">{person.email}</p>
+          )}
         </div>
         <div className="friends__map-btns">
-          {type === 'received' && (
+          {(type === 'received' || type === 'finder') && (
             <button
               type="button"
               className="btn friends__map-btns-btn btn friends__map-btns-btn-add"
-              onClick={() => respondToFriendRequest(person.email, 'accept')}
+              onClick={() => {
+                if (
+                  !friends.every(
+                    (friend) => friend.username !== person.username
+                  )
+                ) {
+                  return
+                }
+                if (type === 'received')
+                  return respondToFriendRequest(person.email, 'accept')
+                if (type === 'finder') return requestFriend(person.username)
+              }}
               disabled={isLoading || showAlert}
             >
-              <FaUserPlus />
+              {friends.every(
+                (friend) => friend.username !== person.username
+              ) ? (
+                <FaUserPlus />
+              ) : (
+                <FaUser />
+              )}
             </button>
           )}
           {(type === 'list' || type === 'received') && (

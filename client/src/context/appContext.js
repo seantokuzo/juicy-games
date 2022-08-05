@@ -44,7 +44,10 @@ import {
   DELETE_ME_ERROR,
   GET_MY_FRIENDS_BEGIN,
   GET_MY_FRIENDS_SUCCESS,
-  GET_MY_FRIENDS_ERROR
+  GET_MY_FRIENDS_ERROR,
+  GET_USERS_BEGIN,
+  GET_USERS_SUCCESS,
+  GET_USERS_ERROR
 } from './actions'
 
 let user = localStorage.getItem('user')
@@ -68,6 +71,11 @@ const initialState = {
     friends: [],
     sentRequests: [],
     receivedRequests: []
+  },
+  friendFinderData: {
+    users: [],
+    totalUsers: 0,
+    numOfPages: 0
   },
   // PRACTICE GAME STATE
   practiceState: {
@@ -358,15 +366,14 @@ const AppContextProvider = ({ children }) => {
     clearAlert()
   }
 
-  const requestFriend = async (email) => {
-    console.log(email)
+  const requestFriend = async (info) => {
     try {
-      const { data } = await authFetch.post('/auth/requestFriend', { email })
+      const { data } = await authFetch.post('/auth/requestFriend', { info })
       await getMyFriends()
-      displayAlert('success', data.msg, 2000)
+      displayAlert('success alert-center', data.msg, 2000)
     } catch (err) {
       console.log(err)
-      displayAlert('danger', err.response.data.msg)
+      displayAlert('danger alert-center', err.response.data.msg)
     }
     clearAlert()
   }
@@ -380,29 +387,41 @@ const AppContextProvider = ({ children }) => {
       displayAlert('success alert-center', data.msg, 1500)
     } catch (err) {
       console.log(err)
-      displayAlert(
-        'danger alert-center',
-        'Something went wrong, try again later'
-      )
+      displayAlert('danger alert-center', err.response.data.msg)
     }
     await getMyFriends()
     clearAlert()
   }
 
   const removeFriend = async (email) => {
-    console.log(email)
     try {
       const { data } = await authFetch.post('/auth/removeFriend', { email })
-      console.log(data)
       displayAlert('success alert-center', data.msg, 3000)
     } catch (err) {
       console.log(err)
-      displayAlert(
-        'danger alert-center',
-        'Something went wrong, try again later'
-      )
+      displayAlert('danger alert-center', err.response.data.msg)
     }
     await getMyFriends()
+    clearAlert()
+  }
+
+  const getUsers = async (search, page = '1', sort = 'a-z') => {
+    let url = `${baseURL}/api/v1/auth/getAllUsers?page=${page}&sort=${sort}`
+
+    if (search) {
+      url = url + `&search=${search}`
+    }
+    dispatch({ type: GET_USERS_BEGIN })
+    try {
+      const { data } = await axios.get(url)
+      dispatch({ type: GET_USERS_SUCCESS, payload: { ...data } })
+    } catch (err) {
+      console.log(err)
+      dispatch({
+        type: GET_USERS_ERROR,
+        payload: { msg: err.response.data.msg }
+      })
+    }
     clearAlert()
   }
 
@@ -496,6 +515,7 @@ const AppContextProvider = ({ children }) => {
         requestFriend,
         respondToFriendRequest,
         removeFriend,
+        getUsers,
         // PRACTICE GAME
         optionComboError,
         retrievePracticeCategories,
