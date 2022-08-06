@@ -87,10 +87,10 @@ const Home = () => {
         >
           <h3 className="home__link home__link--signup">Login</h3>
         </button>
-        <p className="text-mini" onClick={toggleForm}>
+        <p className="text-mini text-mini-click" onClick={toggleForm}>
           {`Login with your ${loginWithEmail ? 'username' : 'email'} instead`}
         </p>
-        <Link to="/forgotPassword" className="text-mini">
+        <Link to="/forgotPassword" className="text-mini text-mini-click">
           Forgot password?
         </Link>
       </form>

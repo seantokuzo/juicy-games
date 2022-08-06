@@ -144,3 +144,27 @@
     border-color: rgba(lighten($th-grape, 10%), 0.5);
   }
 }
+
+.strawberry-color {
+  color: $th-strawberry;  
+}
+
+.orange-color {
+  color: $th-orange;
+}
+
+.banana-color {
+  color: $th-banana;
+}
+
+.berry-color {
+  color: $th-berry;
+}
+
+.grape-color {
+  color: $th-grape;
+}
+
+.default-color {
+  color: $clr-white;
+}

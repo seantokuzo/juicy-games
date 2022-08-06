@@ -23,7 +23,9 @@
   
   &__avatar {
     font-size: 1.45rem;
-    @include text-shadow;
+    background-color: rgba($clr-black, 0.5);
+    padding: 3px;
+    border-radius: 50%;
   }
   &__avatar--default {
     font-size: 1rem;
@@ -73,9 +75,7 @@
       @include flex(row, center, space-between);
       width: 100%;
       margin: .75rem 0 0;
-      
-      border-color: inherit;
-      border: 3px solid;
+      border: 3px solid $clr-white;
       border-radius: 3px;
       padding: .75rem;
     }
