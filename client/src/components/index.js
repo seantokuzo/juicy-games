@@ -22,6 +22,8 @@ import {
   FriendMenu
 } from './friends'
 
+import GamesMenu from './games/GamesMenu'
+
 export {
   Header,
   Footer,
@@ -38,5 +40,6 @@ export {
   FriendRequestForm,
   FriendsList,
   FriendRequests,
-  FriendMenu
+  FriendMenu,
+  GamesMenu
 }

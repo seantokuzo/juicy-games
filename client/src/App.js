@@ -14,12 +14,14 @@ import {
 } from './pages'
 import {
   AuthSharedLayout,
+  MyMenu,
   MyAccount,
   MyFriends,
-  MyMenu,
-  MyLeaderboard,
-  MyStats
+  MyGames,
+  MyStats,
+  MyLeaderboard
 } from './pages/protected'
+import { TrivialTrivia, Boredle } from './pages/protected/games'
 import './scss/main.scss'
 
 function App() {
@@ -44,6 +46,13 @@ function App() {
           <Route index element={<MyMenu />} />
           <Route path="/me/account" element={<MyAccount />} />
           <Route path="/me/friends" element={<MyFriends />} />
+          <Route path="/me/games" element={<MyGames />}>
+            <Route
+              path="/me/games/trivial-trivia"
+              element={<TrivialTrivia />}
+            />
+            <Route path="/me/games/boredle" element={<Boredle />} />
+          </Route>
           <Route path="/me/stats" element={<MyStats />} />
           <Route path="/me/leaderboard" element={<MyLeaderboard />} />
         </Route>

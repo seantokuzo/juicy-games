@@ -35,7 +35,16 @@ const AccountLinks = () => {
           <h3>Friends</h3>
         </Link>
       )}
-      {pathname !== '/me/stats' && (
+      {pathname !== '/me/games' && (
+        <Link
+          to="/me/games"
+          className="btn btn-theme link account__links-link"
+          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
+        >
+          <h3>Games</h3>
+        </Link>
+      )}
+      {/* {pathname !== '/me/stats' && (
         <Link
           to="/me/stats"
           className="btn btn-theme link account__links-link"
@@ -52,14 +61,14 @@ const AccountLinks = () => {
         >
           <h3>Leaderboard</h3>
         </Link>
-      )}
-      <Link
+      )} */}
+      {/* <Link
         to="/practice"
         className="btn btn-theme link account__links-link"
         style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
       >
         <h3>Practice</h3>
-      </Link>
+      </Link> */}
     </div>
   )
 }

@@ -1,7 +1,7 @@
 .form {
   @include flex;
   width: 80%;
-  max-width: 500px;
+  max-width: 450px;
   padding: 1rem;
   border-radius: 5px;
   background-color: rgba(black, .3);
@@ -59,7 +59,7 @@
   &-btn {
     width: 80%;
     min-width: 250px;
-    max-width: 500px;
+    max-width: 400px;
 
     margin-top: 1rem;
     padding: .75rem 0;
