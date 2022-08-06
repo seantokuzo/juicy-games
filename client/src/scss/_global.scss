@@ -101,6 +101,30 @@
   }
 }
 
+.toggles {
+  max-width: 80%;
+  @include flex(row, center, space-around);
+  margin: 0.5rem 0;
+
+  &__page {
+
+    font-size: 1.5em;
+    margin: 0 .5rem;
+
+    &-number {
+
+      &--current {
+        text-decoration: underline;
+        @include text-shadow;
+      }
+    }
+
+    &-caret {
+
+    }
+  }
+}
+
 .center {
   @include absolute;
 }
