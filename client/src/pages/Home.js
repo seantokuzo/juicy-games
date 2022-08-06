@@ -41,6 +41,8 @@ const Home = () => {
     )
   }
 
+  // *** EDIT THIS ***
+  // CHANGE TO CHECK FOR TOKEN - SEND TO ROUTE THAT CHECKS THE TOKEN
   useEffect(() => {
     if (user) {
       setTimeout(() => {

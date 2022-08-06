@@ -22,7 +22,7 @@ import {
   FriendMenu
 } from './friends'
 
-import GamesMenu from './games/GamesMenu'
+import { GamesMenu } from './games'
 
 export {
   Header,

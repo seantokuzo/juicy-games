@@ -229,16 +229,10 @@ const AppContextProvider = ({ children }) => {
     try {
       const { data } = await authFetch.patch('auth/updateMe', updatedUser)
       const { user, token, msg } = data
-
       dispatch({
         type: UPDATE_USER_SUCCESS,
         payload: { user, token, alertText: msg }
       })
-      if (!user) {
-        removeUserFromLocalStorage()
-        clearAlert(5000)
-        return
-      }
       addUserToLocalStorage({ user, token })
     } catch (err) {
       if (err.response.status !== 401) {
@@ -258,6 +252,8 @@ const AppContextProvider = ({ children }) => {
       const { user, theme } = data
       changeTheme(theme)
       dispatch({ type: UPDATE_AVATAR_SUCCESS, payload: { user } })
+      console.log(user)
+      addUserToLocalStorage(user)
     } catch (err) {
       console.log(err.response.data.msg)
       dispatch({
@@ -343,6 +339,7 @@ const AppContextProvider = ({ children }) => {
     try {
       await authFetch.delete('/auth/deleteMe')
       dispatch({ type: DELETE_ME_SUCCESS })
+      removeUserFromLocalStorage()
     } catch (err) {
       console.log(err.response.data.msg)
       dispatch({ type: DELETE_ME_ERROR, payload: err.response.data.msg })
