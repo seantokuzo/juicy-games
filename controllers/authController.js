@@ -451,7 +451,16 @@ export const requestFriend = async (req, res) => {
     '+friendRequestsSent +friendRequestsReceived +friends'
   )
 
-  console.log(info)
+  // CHECK FOR USER
+  if (!user) {
+    throw new UnauthenticatedError('Get outta here poser!')
+  }
+  if (user.email === info || user.username === info) {
+    throw new BadRequestError(
+      "Selflove is good but you can't request yourself, sorry"
+    )
+  }
+
   let requestedUser
   requestedUser = await User.findOne({ email: info }).select(
     '+friendRequestsReceived +active +confirmed'
@@ -462,11 +471,6 @@ export const requestFriend = async (req, res) => {
     )
   }
 
-  console.log(requestedUser)
-  // CHECK FOR USER
-  if (!user) {
-    throw new UnauthenticatedError('Get outta here poser!')
-  }
   // CHECK FOR REQUESTED USER + IF THEY ACTIVE && CONFIRMED
   if (!requestedUser || !requestedUser.confirmed || !requestedUser.active) {
     throw new BadRequestError(
@@ -475,9 +479,7 @@ export const requestFriend = async (req, res) => {
   }
   // IF ALREADY FRIENDS
   if (user.friends.includes(requestedUser._id)) {
-    throw new BadRequestError(
-      'You already friends!'
-    )
+    throw new BadRequestError('You already friends!')
   }
   // IF REQUEST ALREADY RECEIVED FROM THAT PERSON
   if (user.friendRequestsReceived.includes(requestedUser._id)) {

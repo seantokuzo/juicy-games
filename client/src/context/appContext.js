@@ -414,6 +414,9 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: GET_USERS_BEGIN })
     try {
       const { data } = await axios.get(url)
+      data.users = data.users.filter(
+        (userObj) => userObj.username !== state.user.username
+      )
       dispatch({ type: GET_USERS_SUCCESS, payload: { ...data } })
     } catch (err) {
       console.log(err)

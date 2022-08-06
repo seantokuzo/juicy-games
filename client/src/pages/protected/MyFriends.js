@@ -12,7 +12,7 @@ import {
 } from '../../components'
 
 const MyFriends = () => {
-  const [view, setView] = useState('finder')
+  const [view, setView] = useState('list')
   const { getMyFriends, isLoading, showAlert } = useAppContext()
 
   useEffect(() => {

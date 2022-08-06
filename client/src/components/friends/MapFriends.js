@@ -46,7 +46,11 @@ const MapFriends = ({ dataArray, type }) => {
                   return respondToFriendRequest(person.email, 'accept')
                 if (type === 'finder') return requestFriend(person.username)
               }}
-              disabled={isLoading || showAlert}
+              disabled={
+                isLoading ||
+                showAlert ||
+                !friends.every((friend) => friend.username !== person.username)
+              }
             >
               {friends.every(
                 (friend) => friend.username !== person.username
