@@ -22,6 +22,7 @@ import {
   MyLeaderboard
 } from './pages/protected'
 import { TrivialTrivia, Boredle } from './pages/protected/games'
+import { BoredleContextProvider } from './context/boredleContext/boredleContext'
 import './scss/main.scss'
 
 function App() {
@@ -51,7 +52,14 @@ function App() {
               path="/me/games/trivial-trivia"
               element={<TrivialTrivia />}
             />
-            <Route path="/me/games/boredle" element={<Boredle />} />
+            <Route
+              path="/me/games/boredle"
+              element={
+                <BoredleContextProvider>
+                  <Boredle />
+                </BoredleContextProvider>
+              }
+            />
           </Route>
           <Route path="/me/stats" element={<MyStats />} />
           <Route path="/me/leaderboard" element={<MyLeaderboard />} />

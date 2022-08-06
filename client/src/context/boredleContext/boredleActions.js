@@ -1,0 +1,3 @@
+const TEMP_ACTION = 'TEMP_ACTION'
+
+export { TEMP_ACTION }

@@ -1,8 +1,11 @@
 import React from 'react'
+import { BoredleMenu } from '../../../components/games'
 
 const Boredle = () => {
   return (
-    <div>Boredle</div>
+    <div className="boredle">
+      <BoredleMenu />
+    </div>
   )
 }
 
