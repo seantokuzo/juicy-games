@@ -413,27 +413,36 @@ export const getMyFriends = async (req, res) => {
     friendRequestsReceived: friendRequestsReceivedIds
   } = user
 
-  const friends = await Promise.all(
+  let friends = await Promise.all(
     friendsIds.map(async (id) => {
-      const fr = await User.findById(id)
+      const fr = await User.findOne({ _id: id, active: true, confirmed: true })
+      if (!fr) return
       const { username, email, avatar } = fr
       return { username, email, avatar }
     })
   )
-  const friendRequestsSent = await Promise.all(
+
+  console.log(friends)
+  let friendRequestsSent = await Promise.all(
     friendRequestsSentIds.map(async (id) => {
-      const fr = await User.findById(id)
+      const fr = await User.findOne({ _id: id, active: true, confirmed: true })
+      if (!fr) return
       const { username, email, avatar } = fr
       return { username, email, avatar }
     })
   )
-  const friendRequestsReceived = await Promise.all(
+  let friendRequestsReceived = await Promise.all(
     friendRequestsReceivedIds.map(async (id) => {
-      const fr = await User.findById(id)
+      const fr = await User.findOne({ _id: id, active: true, confirmed: true })
+      if (!fr) return
       const { username, email, avatar } = fr
       return { username, email, avatar }
     })
   )
+
+  friends = friends.filter((fr) => fr && fr)
+  friendRequestsSent = friendRequestsSent.filter((fr) => fr && fr)
+  friendRequestsReceived = friendRequestsReceived.filter((fr) => fr && fr)
 
   res
     .status(StatusCodes.OK)
