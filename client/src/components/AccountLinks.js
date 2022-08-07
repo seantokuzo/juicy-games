@@ -1,74 +1,35 @@
 import React from 'react'
-import { Link, useLocation } from 'react-router-dom'
-import { useAppContext } from '../context/appContext'
+import { useLocation } from 'react-router-dom'
+import ButtonLink from './ButtonLink'
 
 const AccountLinks = () => {
   const { pathname } = useLocation()
-  const { isLoading, showAlert } = useAppContext()
+
+  const accountLinkClasses = 'btn-theme link account__links-link'
 
   return (
     <div className="links-div">
-      {pathname !== '/me' && (
-        <Link
-          to="/me"
-          className="btn btn-theme link account__links-link"
-          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-        >
-          <h3>My Trivia</h3>
-        </Link>
-      )}
       {pathname !== '/me/account' && (
-        <Link
-          to="/me/account"
-          className="btn btn-theme link account__links-link"
-          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-        >
-          <h3>Account</h3>
-        </Link>
+        <ButtonLink
+          path="/me/account"
+          btnClass={accountLinkClasses}
+          text="Account"
+        />
       )}
       {pathname !== '/me/friends' && (
-        <Link
-          to="/me/friends"
-          className="btn btn-theme link account__links-link"
-          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-        >
-          <h3>Friends</h3>
-        </Link>
+        <ButtonLink
+          path="/me/friends"
+          btnClass={accountLinkClasses}
+          text="Friends"
+        />
       )}
       {pathname !== '/me/games' && (
-        <Link
-          to="/me/games"
-          className="btn btn-theme link account__links-link"
-          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-        >
-          <h3>Games</h3>
-        </Link>
+        <ButtonLink
+          path="/me/games"
+          btnClass={accountLinkClasses}
+          text="Games"
+        />
       )}
-      {/* {pathname !== '/me/stats' && (
-        <Link
-          to="/me/stats"
-          className="btn btn-theme link account__links-link"
-          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-        >
-          <h3>Stats</h3>
-        </Link>
-      )}
-      {pathname !== '/me/leaderboard' && (
-        <Link
-          to="/me/leaderboard"
-          className="btn btn-theme link account__links-link"
-          style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-        >
-          <h3>Leaderboard</h3>
-        </Link>
-      )} */}
-      {/* <Link
-        to="/practice"
-        className="btn btn-theme link account__links-link"
-        style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-      >
-        <h3>Practice</h3>
-      </Link> */}
     </div>
   )
 }

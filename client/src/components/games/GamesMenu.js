@@ -1,24 +1,21 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import ButtonLink from '../ButtonLink'
 
 const GamesMenu = () => {
   return (
-    <div className="form">
-      <h1 className=" form-title">Games</h1>
-      <Link
-        to="/me/games/trivial-trivia"
-        className="btn btn-theme link account__links-link"
-        // style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-      >
-        <h3>Trivial Trivia</h3>
-      </Link>
-      <Link
-        to="/me/games/boredle"
-        className="btn btn-theme link account__links-link"
-        // style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-      >
-        <h3>Boredle</h3>
-      </Link>
+    <div className="form games__menu">
+      <h1 className="games__menu-title title">Games</h1>
+      <ButtonLink
+        path="/me/games/trivial-trivia"
+        btnClass="btn-theme link account__links-link"
+        text="Trivial Trivia"
+      />
+      <ButtonLink
+        path="/me/games/boredle"
+        btnClass="btn-theme link account__links-link"
+        text="Boredle"
+      />
     </div>
   )
 }

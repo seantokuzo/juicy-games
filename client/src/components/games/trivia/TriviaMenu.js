@@ -1,22 +1,21 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useAppContext } from '../../../context/appContext'
-import { useBoredleContext } from '../../../context/boredleContext/boredleContext'
+import { useTriviaContext } from '../../../context/boredleContext/boredleContext'
 import ButtonLink from '../../ButtonLink'
 
-const BoredleMenu = () => {
+const TriviaMenu = () => {
   const { isLoading, showAlert } = useAppContext()
-  const { updateMode } = useBoredleContext()
+  const { updateMode } = useTriviaContext()
 
   return (
     <>
       <div className="boredle__menu form">
-        <h1 className="title">Boredle</h1>
+        <h1 className="title">Trivia</h1>
         <button
           className="btn btn-theme form-btn"
           onClick={() => updateMode('g-o-t-d')}
         >
-          Boredle of the Day
+          Trivia of the Day
         </button>
         <button
           className="btn btn-theme form-btn"
@@ -28,7 +27,7 @@ const BoredleMenu = () => {
           className="btn btn-theme form-btn"
           onClick={() => updateMode('friends')}
         >
-          Boredle with Friends
+          Trivia with Friends
         </button>
         <button
           className="btn btn-theme form-btn"
@@ -48,4 +47,4 @@ const BoredleMenu = () => {
   )
 }
 
-export default BoredleMenu
+export default TriviaMenu

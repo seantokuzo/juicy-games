@@ -6,6 +6,7 @@ import Avatar from './Avatar'
 import FormRow from './FormRow'
 import AccountLinks from './AccountLinks'
 import MenuLink from './MenuLink'
+import ButtonLink from './ButtonLink'
 
 import {
   PracticeOptions,
@@ -28,6 +29,7 @@ export {
   Header,
   Footer,
   Alert,
+  ButtonLink,
   Avatar,
   PracticeOptions,
   PracticeReady,

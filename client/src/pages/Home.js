@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
-import { Alert, FormRow } from '../components/index.js'
+import { Alert, ButtonLink, FormRow } from '../components/index.js'
 import { useAppContext } from '../context/appContext.js'
 
 const initialState = {
@@ -95,24 +95,12 @@ const Home = () => {
         </Link>
       </form>
       {!user && (
-        <div className="links-div">
+        <div className="home__links-div">
           <h3 className="text" style={{ textDecoration: 'underline' }}>
             OR
           </h3>
-          <Link
-            to="/signup"
-            className="btn link"
-            style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-          >
-            <h3>Create an Account</h3>
-          </Link>
-          <Link
-            to="/practice"
-            className="btn link"
-            style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-          >
-            <h3>Practice</h3>
-          </Link>
+          <ButtonLink path="/signup" btnClass="link" text="Create an Account" />
+          <ButtonLink path="/practice" btnClass="link" text="Practice" />
         </div>
       )}
     </section>

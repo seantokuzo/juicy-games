@@ -8,7 +8,8 @@ import {
   FriendRequests,
   FriendMenu,
   MenuLink,
-  Alert
+  Alert,
+  ButtonLink
 } from '../../components'
 
 const MyFriends = () => {
@@ -53,7 +54,8 @@ const MyFriends = () => {
         {getComponent()}
       </div>
       <FriendMenu view={view} setView={setView} />
-      <MenuLink />
+      {/* <MenuLink /> */}
+      <ButtonLink path="/me" btnClass="link" text="Main Menu" />
     </section>
   )
 }

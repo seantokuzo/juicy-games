@@ -61,11 +61,8 @@ function App() {
               }
             />
           </Route>
-          <Route path="/me/stats" element={<MyStats />} />
-          <Route path="/me/leaderboard" element={<MyLeaderboard />} />
         </Route>
         <Route path="/practice" element={<Practice />} />
-        <Route path="/leaderboard" element={<Leaderboard />} />
         <Route path="*" element={<Error />} />
       </Routes>
       <Footer />

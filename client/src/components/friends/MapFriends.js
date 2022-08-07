@@ -25,7 +25,7 @@ const MapFriends = ({ dataArray, type, page = 1, limit = 3 }) => {
               <div className="friends__map-details-top">
                 <Avatar
                   type={person.avatar}
-                  avatarClass={`friends__avatar ${person.avatar}-color`}
+                  avatarClass={`friends__avatar clr-${person.avatar}`}
                   defaultClass="friends__avatar--default"
                 />
                 <p className="friends__map-username">{person.username}</p>

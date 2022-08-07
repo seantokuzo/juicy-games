@@ -49,19 +49,19 @@
 }
 
 .btn {
-  cursor: pointer;
   font-family: $fs-fun;
+  text-align: center;
+  cursor: pointer;
   border: none;
   border-radius: 2px;
-  color: $th-strawberry;
+
   background: $clr-white;
 
   padding: .5rem;
 
-  text-align: center;
-
   @include transition-ease;
   @include box-shadow($clr-black, 0.2, 0.1);
+  @include text-shadow(lighten($clr-black, 68%), 2px);
 
   &:hover, &:focus {
     @include box-shadow;
@@ -88,7 +88,6 @@
 }
 
 .link {
-  margin: 1rem 0 0;
   width: 80%;
   min-width: 250px;
   max-width: 500px;

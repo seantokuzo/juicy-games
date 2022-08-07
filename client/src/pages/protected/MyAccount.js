@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { AiFillCloseCircle } from 'react-icons/ai'
-import { FormRow, Alert } from '../../components'
+import { FormRow, ButtonLink, Alert } from '../../components'
 import AvatarMenu from '../../components/AvatarMenu'
 import { useAppContext } from '../../context/appContext'
 
@@ -168,18 +168,14 @@ const MyAccount = () => {
           </>
         )}
       </form>
-      {editUserNotPass && (
-        <Link
-          to="/me"
-          className="btn link account__links-link"
-          style={{
-            pointerEvents:
-              isLoading || showAlert || deleteMeWarning ? 'none' : ''
-          }}
-        >
-          <h3>Main Menu</h3>
-        </Link>
-      )}
+      <div className="links-div">
+        <ButtonLink
+          path="/me"
+          btnClass="link account__links-link"
+          disabler={deleteMeWarning}
+          text="Main Menu"
+        ></ButtonLink>
+      </div>
     </div>
   )
 }

@@ -117,7 +117,7 @@ const reducer = (state, action) => {
       user: action.payload.user,
       token: action.payload.token,
       showAlert: true,
-      alertType: 'success',
+      alertType: 'success alert-center',
       alertText: action.payload.alertText
     }
   }
