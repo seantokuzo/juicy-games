@@ -1,6 +1,6 @@
 import React, { useReducer, useContext } from 'react'
 import boredleReducer from './boredleReducer'
-import { UPDATE_MODE } from './boredleActions'
+import { UPDATE_BOREDLE_MODE } from './boredleActions'
 
 const initialState = {
   msg: 'hello from boredle context',
@@ -14,15 +14,15 @@ const BoredleContext = React.createContext()
 const BoredleContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boredleReducer, initialState)
 
-  const updateMode = (mode) => {
-    dispatch({ type: UPDATE_MODE, payload: { mode } })
+  const updateBoredleMode = (mode) => {
+    dispatch({ type: UPDATE_BOREDLE_MODE, payload: { mode } })
   }
 
   return (
     <BoredleContext.Provider
       value={{
         ...state,
-        updateMode
+        updateBoredleMode
       }}
     >
       {children}

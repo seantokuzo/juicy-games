@@ -1,12 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { useAppContext } from '../../../context/appContext'
 import { useBoredleContext } from '../../../context/boredleContext/boredleContext'
 import ButtonLink from '../../ButtonLink'
 
 const BoredleMenu = () => {
-  const { isLoading, showAlert } = useAppContext()
-  const { updateMode } = useBoredleContext()
+  const { updateBoredleMode } = useBoredleContext()
 
   return (
     <>
@@ -14,31 +11,31 @@ const BoredleMenu = () => {
         <h1 className="title">Boredle</h1>
         <button
           className="btn btn-theme form-btn"
-          onClick={() => updateMode('g-o-t-d')}
+          onClick={() => updateBoredleMode('g-o-t-d')}
         >
           Boredle of the Day
         </button>
         <button
           className="btn btn-theme form-btn"
-          onClick={() => updateMode('practice')}
+          onClick={() => updateBoredleMode('practice')}
         >
           Practice
         </button>
         <button
           className="btn btn-theme form-btn"
-          onClick={() => updateMode('friends')}
+          onClick={() => updateBoredleMode('friends')}
         >
           Boredle with Friends
         </button>
         <button
           className="btn btn-theme form-btn"
-          onClick={() => updateMode('stats')}
+          onClick={() => updateBoredleMode('stats')}
         >
           My Stats
         </button>
         <button
           className="btn btn-theme form-btn"
-          onClick={() => updateMode('leaderboard')}
+          onClick={() => updateBoredleMode('leaderboard')}
         >
           Leaderboard
         </button>

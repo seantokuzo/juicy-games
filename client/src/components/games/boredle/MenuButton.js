@@ -4,14 +4,14 @@ import { useBoredleContext } from '../../../context/boredleContext/boredleContex
 
 const MenuButton = () => {
   const { isLoading, showAlert } = useAppContext()
-  const { updateMode } = useBoredleContext()
+  const { updateBoredleMode } = useBoredleContext()
 
   return (
     <div className="links-div">
       <button
-        to="/me/games/boredle"
+        type="button"
         className="btn form-btn"
-        onClick={() => updateMode('menu')}
+        onClick={() => updateBoredleMode('menu')}
         disabled={isLoading || showAlert}
       >
         <h3>Boredle Menu</h3>
