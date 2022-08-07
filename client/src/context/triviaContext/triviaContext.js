@@ -1,6 +1,6 @@
 import React, { useReducer, useContext } from 'react'
 import triviaReducer from './triviaReducer'
-import { UPDATE_MODE } from './triviaActions'
+import { UPDATE_TRIVIA_MODE } from './triviaActions'
 
 const initialState = {
   msg: 'hello from trivia context',
@@ -14,15 +14,15 @@ const TriviaContext = React.createContext()
 const TriviaContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(triviaReducer, initialState)
 
-  const updateMode = (mode) => {
-    dispatch({ type: UPDATE_MODE, payload: { mode } })
+  const updateTriviaMode = (mode) => {
+    dispatch({ type: UPDATE_TRIVIA_MODE, payload: { mode } })
   }
 
   return (
     <TriviaContext.Provider
       value={{
         ...state,
-        updateMode
+        updateTriviaMode
       }}
     >
       {children}

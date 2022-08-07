@@ -23,6 +23,7 @@ import {
 } from './pages/protected'
 import { TrivialTrivia, Boredle } from './pages/protected/games'
 import { BoredleContextProvider } from './context/boredleContext/boredleContext'
+import { TriviaContextProvider } from './context/triviaContext/triviaContext'
 import './scss/main.scss'
 
 function App() {
@@ -50,7 +51,11 @@ function App() {
           <Route path="/me/games" element={<MyGames />}>
             <Route
               path="/me/games/trivial-trivia"
-              element={<TrivialTrivia />}
+              element={
+                <TriviaContextProvider>
+                  <TrivialTrivia />
+                </TriviaContextProvider>
+              }
             />
             <Route
               path="/me/games/boredle"

@@ -1,1 +1,1 @@
-export const UPDATE_MODE = 'UPDATE_MODE'
+export const UPDATE_TRIVIA_MODE = 'UPDATE_TRIVIA_MODE'
