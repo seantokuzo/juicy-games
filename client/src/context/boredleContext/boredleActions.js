@@ -1,3 +1,3 @@
-const TEMP_ACTION = 'TEMP_ACTION'
+const UPDATE_MODE = 'UPDATE_MODE'
 
-export { TEMP_ACTION }
+export { UPDATE_MODE }

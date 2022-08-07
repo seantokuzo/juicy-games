@@ -1,5 +1,5 @@
 import GamesMenu from './GamesMenu'
 
-import { BoredleMenu } from './boredle'
+import { BoredleMenu, BoredlePractice } from './boredle'
 
-export { GamesMenu, BoredleMenu }
+export { GamesMenu, BoredleMenu, BoredlePractice }

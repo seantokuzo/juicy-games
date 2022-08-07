@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { GamesMenu } from '../../components'
+import { GamesMenu, MenuLink } from '../../components'
 import { useAppContext } from '../../context/appContext'
 
 const MyGames = () => {
@@ -11,17 +11,7 @@ const MyGames = () => {
     <div className="game page">
       {pathname === '/me/games' && <GamesMenu />}
       <Outlet />
-      {pathname !== '/me/games' && (
-        <div className="links-div">
-          <Link
-            to="/me/games"
-            className="btn form-btn"
-            style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
-          >
-            <h3>Games Menu</h3>
-          </Link>
-        </div>
-      )}
+      {pathname === '/me/games' && <MenuLink />}
     </div>
   )
 }
