@@ -10,31 +10,31 @@ const BoredleMenu = () => {
       <div className="boredle__menu form">
         <h1 className="title">Boredle</h1>
         <button
-          className="btn btn-theme form-btn"
-          onClick={() => updateBoredleMode('g-o-t-d')}
+          className="btn form-btn fs-boredle"
+          onClick={() => updateBoredleMode('gotd')}
         >
           Boredle of the Day
         </button>
         <button
-          className="btn btn-theme form-btn"
+          className="btn form-btn fs-boredle"
           onClick={() => updateBoredleMode('practice')}
         >
           Practice
         </button>
         <button
-          className="btn btn-theme form-btn"
+          className="btn form-btn fs-boredle"
           onClick={() => updateBoredleMode('friends')}
         >
           Boredle with Friends
         </button>
         <button
-          className="btn btn-theme form-btn"
+          className="btn form-btn fs-boredle"
           onClick={() => updateBoredleMode('stats')}
         >
           My Stats
         </button>
         <button
-          className="btn btn-theme form-btn"
+          className="btn form-btn fs-boredle"
           onClick={() => updateBoredleMode('leaderboard')}
         >
           Leaderboard

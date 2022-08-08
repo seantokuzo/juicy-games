@@ -8,12 +8,12 @@ const GamesMenu = () => {
       <h1 className="games__menu-title title">Games</h1>
       <ButtonLink
         path="/me/games/trivial-trivia"
-        btnClass="btn-theme link account__links-link"
+        btnClass="btn-theme link account__links-link fs-trivia"
         text="Trivial Trivia"
       />
       <ButtonLink
         path="/me/games/boredle"
-        btnClass="btn-theme link account__links-link"
+        btnClass="btn-theme link account__links-link fs-boredle"
         text="Boredle"
       />
     </div>

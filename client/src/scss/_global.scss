@@ -49,7 +49,7 @@
 }
 
 .btn {
-  font-family: $fs-fun;
+  // font-family: $fs-fun;
   text-align: center;
   cursor: pointer;
   border: none;
@@ -134,4 +134,12 @@
 
 .center {
   @include absolute;
+}
+
+.fs-trivia {
+  font-family: $fs-trivia;
+}
+
+.fs-boredle {
+  font-family: $fs-boredle;
 }
