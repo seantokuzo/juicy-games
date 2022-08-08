@@ -498,6 +498,7 @@ const AppContextProvider = ({ children }) => {
       value={{
         ...state,
         // GOOD
+        authFetch,
         changeTheme,
         displayAlert,
         // USER
