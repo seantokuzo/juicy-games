@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { useAppContext } from './context/appContext'
 import { Header, Footer } from './components/index.js'
 import {
@@ -28,10 +28,11 @@ import './scss/main.scss'
 
 function App() {
   const { theme } = useAppContext()
+  const { pathname } = useLocation()
 
   return (
     <div className={`app ${theme}`}>
-      <Header />
+      {!pathname.startsWith('/me/games') && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
@@ -70,7 +71,7 @@ function App() {
         <Route path="/practice" element={<Practice />} />
         <Route path="*" element={<Error />} />
       </Routes>
-      <Footer />
+      {!pathname.startsWith('/me/games') && <Footer />}
     </div>
   )
 }

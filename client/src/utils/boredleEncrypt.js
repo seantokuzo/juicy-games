@@ -105,7 +105,12 @@ const boredleCode = [
   }
 ]
 
-export const cryptBoredle = (letter) => {
-  const thisLetter = boredleCode.filter((obj) => obj.letter === letter)
-  return thisLetter[0].code
+export const encryptBoredle = (word) => {
+  return word
+    .split('')
+    .map((letter) => boredleCode.find((obj) => obj.letter === letter).code)
+}
+
+export const decryptBoredle = (word) => {
+  return word.map((code) => boredleCode.find((obj) => obj.code === code).letter)
 }

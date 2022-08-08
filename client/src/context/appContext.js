@@ -3,9 +3,11 @@ import axios from 'axios'
 import reducer from './reducer'
 import {
   CHANGE_THEME,
-  DISPLAY_ALERT,
   MISSING_FIELDS_ALERT,
   OPTION_COMBO_ERROR,
+  START_LOADING,
+  STOP_LOADING,
+  DISPLAY_ALERT,
   CLEAR_ALERT,
   RETRIEVE_PRACTICE_CATEGORIES,
   UPDATE_PRACTICE_OPTIONS,
@@ -131,6 +133,14 @@ const AppContextProvider = ({ children }) => {
       return Promise.reject(err)
     }
   )
+
+  const startLoading = () => {
+    dispatch({ type: START_LOADING })
+  }
+
+  const stopLoading = () => {
+    dispatch({ type: STOP_LOADING })
+  }
 
   const displayAlert = (alertType, alertText, time = 3000) => {
     dispatch({ type: DISPLAY_ALERT, payload: { alertType, alertText } })
@@ -340,6 +350,7 @@ const AppContextProvider = ({ children }) => {
       await authFetch.delete('/auth/deleteMe')
       dispatch({ type: DELETE_ME_SUCCESS })
       removeUserFromLocalStorage()
+      removeThemeFromLocalStorage()
     } catch (err) {
       console.log(err.response.data.msg)
       dispatch({ type: DELETE_ME_ERROR, payload: err.response.data.msg })
@@ -501,6 +512,9 @@ const AppContextProvider = ({ children }) => {
         authFetch,
         changeTheme,
         displayAlert,
+        clearAlert,
+        startLoading,
+        stopLoading,
         // USER
         missingFieldsAlert,
         signupNewUser,

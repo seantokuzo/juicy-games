@@ -70,7 +70,6 @@ export const getWordOfTheDay = async (req, res) => {
   if (!word) {
     throw new NotFoundError("Didn't find today's word, OOPS")
   }
-  console.log(word)
 
-  res.status(StatusCodes.OK).json(word)
+  res.status(StatusCodes.OK).json({ word: word.word })
 }

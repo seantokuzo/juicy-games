@@ -1,7 +1,9 @@
 import {
   CHANGE_THEME,
-  DISPLAY_ALERT,
   MISSING_FIELDS_ALERT,
+  START_LOADING,
+  STOP_LOADING,
+  DISPLAY_ALERT,
   CLEAR_ALERT,
   SIGNUP_USER_BEGIN,
   SIGNUP_USER_SUCCESS,
@@ -56,20 +58,32 @@ const reducer = (state, action) => {
       theme: action.payload.newTheme
     }
   }
-  if (action.type === DISPLAY_ALERT) {
-    return {
-      ...state,
-      showAlert: true,
-      alertType: action.payload.alertType,
-      alertText: action.payload.alertText
-    }
-  }
   if (action.type === MISSING_FIELDS_ALERT) {
     return {
       ...state,
       showAlert: true,
       alertType: 'danger',
       alertText: "Don't be shy, fill out all the fields"
+    }
+  }
+  if (action.type === START_LOADING) {
+    return {
+      ...state,
+      isLoading: true
+    }
+  }
+  if (action.type === STOP_LOADING) {
+    return {
+      ...state,
+      isLoading: false
+    }
+  }
+  if (action.type === DISPLAY_ALERT) {
+    return {
+      ...state,
+      showAlert: true,
+      alertType: action.payload.alertType,
+      alertText: action.payload.alertText
     }
   }
   if (action.type === CLEAR_ALERT) {
