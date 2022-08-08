@@ -2,21 +2,48 @@
 <head>
   <style>
     body {
+      text-align: center;
       display: flex;
       flex-direction: column;
+      width: 100%;
+      max-width: 100vw;
+      height: 100vh;
+      max-height: 100%;
       background-color: #f87474;
+      font-family: Arial, Helvetica, sans-serif;
     }
-    .link {
+    div {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      max-width: 100vw;
+      height: 100vh;
+      max-height: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    h1 {
+      font-size: 2rem;
+    }
+    a {
+      text-align: center;
+      font-size: 1.5rem;
       padding: 1rem 2rem;
       width: 100px;
       min-width: 100px;
       color: #f87474;
       background-color: #ffffff;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-  <a href="http://localhost:8080/" referrer="noreferrer noopener" class="link"
-    >Login to Play</a
-  >
+  <div>
+    <h1>Account Confirmation Success!</h1>
+    <a href="http://localhost:8080/" referrer="noreferrer noopener" class="link"
+      >Login to Play</a
+    >
+  </div>
 </body>

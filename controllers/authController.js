@@ -1,6 +1,9 @@
 import crypto from 'crypto'
 import jwt from 'jsonwebtoken'
 import { promisify } from 'util'
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
+import path from 'path'
 import User from '../models/User.js'
 import { StatusCodes } from 'http-status-codes'
 import {
@@ -115,10 +118,19 @@ export const confirmEmail = async (req, res) => {
   user.confirmationExpires = undefined
   await user.save({ validateBeforeSave: false })
 
+  // WELCOME EMAIL
   // const url = `${req.protocol}://localhost:8080/me`
   // await new Email(user, url).sendWelcome()
 
-  res.status(StatusCodes.OK).json({ msg: 'Account confirmed!' })
+  // res.status(StatusCodes.OK).json({ msg: 'Account confirmed!' })
+
+  const __dirname = dirname(fileURLToPath(import.meta.url))
+
+  res
+    .status(StatusCodes.OK)
+    .sendFile(path.resolve(__dirname, '../html/emailConfirmed.html'))
+
+  // (__dirname, './client/build/index.html')
 }
 
 // ********** LOGIN * LOGIN * LOGIN **********
