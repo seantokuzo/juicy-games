@@ -2,6 +2,7 @@ import React, { useReducer, useContext } from 'react'
 import boredleReducer from './boredleReducer'
 import { UPDATE_BOREDLE_MODE } from './boredleActions'
 import { useAppContext } from '../appContext'
+import { cryptBoredle } from '../../utils/boredleEncrypt'
 
 const initialState = {
   msg: 'hello from boredle context',
@@ -24,6 +25,8 @@ const BoredleContextProvider = ({ children }) => {
     try {
       const { data } = await authFetch('/boredle/getWordOfTheDay')
       console.log(data)
+      // const codeWord = data.word.split('').map((letter) => cryptBoredle(letter))
+      // console.log(codeWord)
     } catch (err) {
       console.log(err)
     }

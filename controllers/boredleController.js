@@ -72,5 +72,5 @@ export const getWordOfTheDay = async (req, res) => {
   }
   console.log(word)
 
-  res.status(StatusCodes.OK).json({ word })
+  res.status(StatusCodes.OK).json(word)
 }
