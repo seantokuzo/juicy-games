@@ -20,12 +20,11 @@ import connectDB from './db/connect.js'
 
 // ROUTERS
 import authRouter from './routes/authRoutes.js'
-// import jobsRouter from './routes/jobsRoutes.js'
+import boredleRouter from './routes/boredleRoutes.js'
 
 // MIDDLEWARE
 import notFoundMiddleware from './middleware/not-found.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
-import authenticateUser from './middleware/auth.js'
 
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'))
@@ -51,6 +50,7 @@ app.get('/api/v1', (req, res) => {
 })
 
 app.use('/api/v1/auth', authRouter)
+app.use('/api/v1/boredle', boredleRouter)
 
 // app.get('*', (req, res) => {
 //   res.sendFile(path.resolve(__dirname, './client/build/index.html'))
