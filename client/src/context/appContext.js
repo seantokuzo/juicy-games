@@ -402,8 +402,8 @@ const AppContextProvider = ({ children }) => {
     clearAlert()
   }
 
-  const getUsers = async (search, page = '1', sort = 'a-z') => {
-    let url = `${baseURL}/api/v1/auth/getAllUsers?page=${page}&sort=${sort}`
+  const getUsers = async (search, sort = 'a-z') => {
+    let url = `${baseURL}/api/v1/auth/getAllUsers?sort=${sort}`
 
     if (search) {
       url = url + `&search=${search}`

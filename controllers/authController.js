@@ -649,11 +649,11 @@ export const getAllUsers = async (req, res) => {
   }
 
   // PAGINATION
-  const page = Number(req.query.page) || 1
+  // const page = Number(req.query.page) || 1
   const limit = Number(req.query.limit) || 3
-  const skip = (page - 1) * limit
+  // const skip = (page - 1) * limit
 
-  result = result.skip(skip).limit(limit)
+  // result = result.skip(skip).limit(limit)
 
   const usersFound = await result
   const users = usersFound.map((person) => {

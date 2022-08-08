@@ -70,6 +70,11 @@
   &__map {
     @include flex;
     width: 100%;
+    
+    &-container {
+      @include flex;
+      width: 100%;
+    }
 
     &-person {
       @include flex(row, center, space-between);
