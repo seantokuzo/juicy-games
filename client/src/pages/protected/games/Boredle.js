@@ -14,7 +14,7 @@ const Boredle = () => {
 
   return (
     <div className="boredle">
-      {mode === 'g-o-t-d' && <BoredleGOTD />}
+      {mode === 'gotd' && <BoredleGOTD />}
       {mode === 'practice' && <BoredlePractice />}
       {mode === 'friends' && <BoredleFriends />}
       {mode === 'stats' && <BoredleStats />}

@@ -9,7 +9,7 @@ import { useAppContext } from '../appContext'
 import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 
 const initialState = {
-  mode: 'menu',
+  mode: 'gotd',
   stats: {
     wins: 0,
     losses: 0,
@@ -48,8 +48,6 @@ const BoredleContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boredleReducer, initialState)
   const { startLoading, stopLoading, displayAlert, clearAlert, authFetch } =
     useAppContext()
-
-  console.log(state.gotd)
 
   const updateBoredleMode = (mode) => {
     dispatch({ type: UPDATE_BOREDLE_MODE, payload: { mode } })

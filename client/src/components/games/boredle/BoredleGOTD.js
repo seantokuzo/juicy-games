@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useBoredleContext } from '../../../context/boredleContext/boredleContext'
+import BoredleGame from './game/BoredleGame'
 import MenuButton from './MenuButton'
 
 const BoredleGOTD = () => {
@@ -11,7 +12,7 @@ const BoredleGOTD = () => {
 
   return (
     <div className="boredle__gotd page">
-      <h1 className="title">BoredleGOTD</h1>
+      <BoredleGame />
       <MenuButton />
     </div>
   )
