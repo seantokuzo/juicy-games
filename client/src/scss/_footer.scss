@@ -11,40 +11,4 @@
   &__text {
     font-size: .5em;
   }
-
-  &__fruits {
-    // position: absolute;
-    // bottom: .3rem;
-    // right: .35rem;
-    font-size: 1.75em;
-    justify-self: flex-end;
-  }
-
-  &__fruit {
-    margin-left: 8px;
-    padding: 5px;
-    border-radius: 50%;
-    background-color: rgba($clr-black, 0.25);
-    @include box-shadow(#00000050, .1, .1);
-    
-    &-strawberry {
-      color: $th-strawberry;
-    }
-    &-orange {
-      color: $th-orange;
-    }
-    &-banana {
-      color: $th-banana;
-    }
-    &-berry {
-      color: $th-berry;
-    }
-    &-grape {
-      color: $th-grape;
-    }
-
-    &--selected {
-      background-color: $clr-black;
-    }
-  }
 }

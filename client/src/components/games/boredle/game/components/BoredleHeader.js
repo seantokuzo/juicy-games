@@ -8,7 +8,7 @@ import {
 import { useBoredleContext } from '../../../../../context/boredle-context/boredleContext'
 
 const BoredleHeader = () => {
-  const { updateBoredleMode } = useBoredleContext()
+  const { mode, updateBoredleMode } = useBoredleContext()
   // const { toggleHelp, toggleStats, toggleSettings } = useBoredleContext()
 
   const header = (
@@ -23,7 +23,9 @@ const BoredleHeader = () => {
           // onClick={toggleHelp}
         ></FaRegQuestionCircle>
       </div>
-      <h3 className="boredle__header-title subtitle">BOREDLE</h3>
+      <h3 className="boredle__header-title subtitle">
+        {mode === 'gotd' ? 'BOREDLE' : 'PRACTICE'}
+      </h3>
       <div className="boredle__header-icons">
         <FaChartBar
           className="boredle__header-icon"

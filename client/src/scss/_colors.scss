@@ -22,7 +22,7 @@
   }
   
   .theme-border {
-    border-color: rgba(lighten($th-strawberry, 10%), 0.5);
+    border-color: lighten($th-strawberry, 10%)
   }
   
   .bg-theme {
@@ -54,7 +54,7 @@
   }
   
   .theme-border {
-    border-color: rgba(lighten($th-orange, 10%), 0.5);
+    border-color: lighten($th-orange, 10%)
   }
 
   .bg-theme {
@@ -87,7 +87,7 @@
   }
   
   .theme-border {
-    border-color: rgba(lighten($th-banana, 10%), 0.5);
+    border-color: lighten($th-banana, 10%)
   }
   
   .home__form-title {
@@ -124,7 +124,7 @@
   
   
   .theme-border {
-    border-color: rgba(lighten($th-berry, 10%), 0.5);
+    border-color: lighten($th-berry, 10%)
   }
 
   .bg-theme {
@@ -157,7 +157,7 @@
   
   
   .theme-border {
-    border-color: rgba(lighten($th-grape, 10%), 0.5);
+    border-color: lighten($th-grape, 10%)
   }
 
   .bg-theme {
