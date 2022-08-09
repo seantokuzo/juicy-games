@@ -10,7 +10,7 @@ const MenuButton = () => {
     <div className="links-div">
       <button
         type="button"
-        className="btn form-btn"
+        className="btn boredle__btn fs-boredle"
         onClick={() => updateBoredleMode('menu')}
         disabled={isLoading || showAlert}
       >

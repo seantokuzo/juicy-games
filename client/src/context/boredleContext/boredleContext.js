@@ -10,6 +10,14 @@ import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 
 const initialState = {
   mode: 'gotd',
+  // GAME MODAL DISPLAYS
+  showHelp: false,
+  showStats: false,
+  showSettings: false,
+  isRevealing: false,
+  guessWiggle: false,
+  didWin: false,
+  didLose: false,
   stats: {
     wins: 0,
     losses: 0,
@@ -27,16 +35,12 @@ const initialState = {
   gotd: {
     answer: [],
     currentGuess: [],
-    prevGuesses: [],
-    didWin: false,
-    didLose: false
+    prevGuesses: []
   },
   practice: {
     answer: [],
     currentGuess: [],
-    prevGuesses: [],
-    didWin: false,
-    didLose: false
+    prevGuesses: []
   }
 }
 

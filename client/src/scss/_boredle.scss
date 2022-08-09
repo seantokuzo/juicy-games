@@ -5,9 +5,67 @@
   max-height: 100vh;
   font-family: $fs-boredle;
   
+  &__game {
+    @include flex;
+    height: 100%;
+    max-height: 100vh;
+  }
+
+  &__header {
+    @include flex(row, center, space-between);
+    width: 95%;
+    padding: 0.5rem 0;
+    border-bottom: 2px solid rgba($clr-white, 0.6);
+
+    &-title {
+      margin: 0 0 -.35rem;
+    }
+
+    &-icons {
+      @include flex(row);
+    }
+
+    &-icon {
+      font-size: 1.25em;
+
+      margin: 0 .35rem;
+
+      &-fake {
+        visibility: hidden;
+      }
+    }
+  }
+
+  &__guesses {
+    margin: 1rem 0 0;
+  }
+
+  &__guess {
+    @include flex;
+    width: 100%;
+    margin: 1rem 0 0;
+    
+    &-row {
+      @include flex(row, center, center);
+      width: 100%;
+    }
+
+    &-box {
+      @include flex;
+      border: 3px solid rgba($clr-black, 0.25);
+      background-color: rgba($clr-black, 0.35);
+      width: 3.75rem;
+      height: 3.75rem;
+      border-radius: 1px;
+      margin: .15em;
+      padding: 0;
+    }
+  }
+  
   &__keys {
     @include flex;
     width: 100%;
+    margin: 1rem 0 0;
     
     &-row {
       @include flex(row, center, space-around);
@@ -16,10 +74,21 @@
     
     &-key {
       @include flex;
+      font-size: 1em;
       margin: 3px 3px;
       padding: 0 8px;
       min-height: 50px;
 
+      &-text {
+        margin-top: 4px;
+      }
     }
+  }
+
+  &__btn {
+    @include flex;
+    width: 90%;
+    font-size: 1em;
+    padding: 0.75rem 0;
   }
 }
