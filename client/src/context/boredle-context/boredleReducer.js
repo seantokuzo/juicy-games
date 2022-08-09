@@ -1,5 +1,7 @@
 import {
   UPDATE_BOREDLE_MODE,
+  TOGGLE_HELP_MODAL,
+  TOGGLE_SETTINGS_MODAL,
   GET_WOTD_SUCCESS,
   GET_WOTD_ERROR
 } from './boredleActions'
@@ -11,6 +13,18 @@ const boredleReducer = (state, action) => {
     return {
       ...state,
       mode: action.payload.mode
+    }
+  }
+  if (action.type === TOGGLE_HELP_MODAL) {
+    return {
+      ...state,
+      showHelp: !state.showHelp
+    }
+  }
+  if (action.type === TOGGLE_SETTINGS_MODAL) {
+    return {
+      ...state,
+      showSettings: !state.showSettings
     }
   }
   if (action.type === GET_WOTD_SUCCESS) {

@@ -2,6 +2,8 @@ import React, { useReducer, useContext } from 'react'
 import boredleReducer from './boredleReducer'
 import {
   UPDATE_BOREDLE_MODE,
+  TOGGLE_HELP_MODAL,
+  TOGGLE_SETTINGS_MODAL,
   GET_WOTD_SUCCESS,
   GET_WOTD_ERROR
 } from './boredleActions'
@@ -60,13 +62,26 @@ const BoredleContextProvider = ({ children }) => {
     dispatch({ type: UPDATE_BOREDLE_MODE, payload: { mode } })
   }
 
+  const toggleHelp = () => {
+    console.log('toggle help')
+    dispatch({ type: TOGGLE_HELP_MODAL })
+  }
+
+  const toggleSettings = () => {
+    console.log('toggle help')
+    dispatch({ type: TOGGLE_SETTINGS_MODAL })
+  }
+
   const getWordOfTheDay = async () => {
     startLoading()
     try {
       const { data } = await authFetch('/boredle/getWordOfTheDay')
       const { word } = data
-      const wordOTD = encryptBoredle(word)
-      dispatch({ type: GET_WOTD_SUCCESS, payload: { word: wordOTD } })
+      console.log(word)
+      dispatch({
+        type: GET_WOTD_SUCCESS,
+        payload: { word: encryptBoredle(word) }
+      })
       stopLoading()
     } catch (err) {
       console.log(err)
@@ -80,6 +95,8 @@ const BoredleContextProvider = ({ children }) => {
     <BoredleContext.Provider
       value={{
         ...state,
+        toggleHelp,
+        toggleSettings,
         updateBoredleMode,
         getWordOfTheDay
       }}

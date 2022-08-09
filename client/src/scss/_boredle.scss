@@ -76,7 +76,7 @@
       height: 3.75rem;
       border-radius: 1px;
       margin: .15em;
-      padding: 0;
+      // padding: 0;
     }
   }
   
@@ -108,6 +108,79 @@
     width: 90%;
     font-size: 1em;
     padding: 0.75rem 0;
+  }
+
+  &__modal {
+    @include absolute;
+    @include flex;
+    @include box-shadow;
+    width: 95%;
+    
+    background-color: rgba($clr-white, 0.90);
+    border-radius: 5px;
+    border: 5px solid $clr-black;
+    padding: 1.5rem 2rem;
+
+    &-text {
+    }
+  }
+  
+  &__help {
+    padding: 1rem 0;
+    text-align: left;
+    
+    &-rules {
+      border-bottom: 1px solid $clr-white;
+      padding: 0 0 1rem;
+    }
+    
+    &-text {
+      font-size: .85em;
+      margin: .75rem 0 0;
+
+      &-last {
+        margin: 1rem 0 0;
+      }
+    }
+
+    &-examples {
+      margin: 1rem 0 0;
+    }
+
+    &-eg {
+      @include flex(row);
+      margin: 1rem 0 0;
+    }
+
+    &-box {
+      @include flex;
+      border: 3px solid rgba($clr-black, 0.25);
+      background-color: rgba($clr-black, 0.35);
+      width: 3.75rem;
+      height: 3.75rem;
+      border-radius: 1px;
+      margin: .15em;
+    }
+  }
+
+  &__box {
+    color: $clr-white;
+    
+    // &-filled {
+    //   color: $clr-white;
+    // }
+
+    &-correct {
+      background-color: $clr-brdl-correct;
+    }
+
+    &-wrong-spot {
+      background-color: $clr-brdl-wrong-spot;
+    }
+
+    &-incorrect {
+      background-color: $clr-brdl-grey-dk;
+    }
   }
 }
 
