@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppContext } from '../../../context/appContext'
-import { useTriviaContext } from '../../../context/triviaContext/triviaContext'
+import { useTriviaContext } from '../../../context/trivia-context/triviaContext'
 import ButtonLink from '../../ButtonLink'
 
 const TriviaMenu = () => {

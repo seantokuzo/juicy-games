@@ -5,8 +5,10 @@ import {
   FaChartBar,
   FaCog
 } from 'react-icons/fa'
+import { useBoredleContext } from '../../../../../context/boredle-context/boredleContext'
 
 const BoredleHeader = () => {
+  const { updateBoredleMode } = useBoredleContext()
   // const { toggleHelp, toggleStats, toggleSettings } = useBoredleContext()
 
   const header = (
@@ -14,7 +16,7 @@ const BoredleHeader = () => {
       <div className="boredle__header-icons">
         <FaRegArrowAltCircleLeft
           className="boredle__header-icon"
-          // onClick={toggleHelp}
+          onClick={() => updateBoredleMode('menu')}
         ></FaRegArrowAltCircleLeft>
         <FaRegQuestionCircle
           className="boredle__header-icon"

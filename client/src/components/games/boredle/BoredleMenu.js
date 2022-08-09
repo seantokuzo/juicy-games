@@ -1,5 +1,5 @@
 import React from 'react'
-import { useBoredleContext } from '../../../context/boredleContext/boredleContext'
+import { useBoredleContext } from '../../../context/boredle-context/boredleContext'
 import ButtonLink from '../../ButtonLink'
 
 const BoredleMenu = () => {

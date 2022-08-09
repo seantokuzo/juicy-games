@@ -1,6 +1,6 @@
 import React from 'react'
 import { nanoid } from 'nanoid'
-import { useBoredleContext } from '../../../../../context/boredleContext/boredleContext'
+import { useBoredleContext } from '../../../../../context/boredle-context/boredleContext'
 import CurrentRow from './CurrentRow'
 import EmptyRow from './EmptyRow'
 import FilledRow from './FilledRow'

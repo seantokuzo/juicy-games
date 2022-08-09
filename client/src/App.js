@@ -22,8 +22,8 @@ import {
   MyLeaderboard
 } from './pages/protected'
 import { TrivialTrivia, Boredle } from './pages/protected/games'
-import { BoredleContextProvider } from './context/boredleContext/boredleContext'
-import { TriviaContextProvider } from './context/triviaContext/triviaContext'
+import { BoredleContextProvider } from './context/boredle-context/boredleContext'
+import { TriviaContextProvider } from './context/trivia-context/triviaContext'
 import './scss/main.scss'
 
 function App() {

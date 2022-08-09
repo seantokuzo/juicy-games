@@ -1,6 +1,6 @@
 import React from 'react'
 import { useAppContext } from '../../../context/appContext'
-import { useBoredleContext } from '../../../context/boredleContext/boredleContext'
+import { useBoredleContext } from '../../../context/boredle-context/boredleContext'
 
 const MenuButton = () => {
   const { isLoading, showAlert } = useAppContext()

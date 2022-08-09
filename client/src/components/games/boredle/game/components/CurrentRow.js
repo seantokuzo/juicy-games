@@ -6,7 +6,7 @@ import {
   ANIME_DURATION,
   WIN_ANIME_DURATION
 } from '../data/gameSettings'
-import { useBoredleContext } from '../../../../../context/boredleContext/boredleContext'
+import { useBoredleContext } from '../../../../../context/boredle-context/boredleContext'
 
 const CurrentRow = () => {
   const { mode, isRevealing, guessWiggle } = useBoredleContext()

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useBoredleContext } from '../../../../../context/boredleContext/boredleContext'
+import { useBoredleContext } from '../../../../../context/boredle-context/boredleContext'
 
 const FilledRow = ({ guess, row }) => {
   const { mode, isRevealing, didWin, prevGuesses } = useBoredleContext()

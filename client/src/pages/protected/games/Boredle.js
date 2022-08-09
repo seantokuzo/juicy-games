@@ -7,7 +7,7 @@ import {
   BoredleStats,
   BoredleLeaderboard
 } from '../../../components/games/boredle'
-import { useBoredleContext } from '../../../context/boredleContext/boredleContext'
+import { useBoredleContext } from '../../../context/boredle-context/boredleContext'
 
 const Boredle = () => {
   const { mode } = useBoredleContext()

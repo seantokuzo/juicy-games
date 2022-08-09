@@ -1,5 +1,5 @@
 import React from 'react'
-import { useBoredleContext } from '../../../../../context/boredleContext/boredleContext'
+import { useBoredleContext } from '../../../../../context/boredle-context/boredleContext'
 
 const Keyboard = () => {
   // const { answer, prevGuesses, handleKeyClick, handleBackspace, handleEnter } =
