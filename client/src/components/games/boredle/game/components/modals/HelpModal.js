@@ -1,4 +1,5 @@
 import React from 'react'
+import { AiFillCloseCircle } from 'react-icons/ai'
 import { nanoid } from 'nanoid'
 import {
   helpTitle,
@@ -64,41 +65,41 @@ const HelpModal = () => {
   )
 
   return (
-    <div className="boredle__modal bg-theme">
-      <h3 className="subtitle">{helpTitle}</h3>
-      <div className="boredle__help-rules">
-        <h4 className="modal__close" onClick={toggleHelp}>
-          X
-        </h4>
-        <p className="boredle__help-text">{helpText[0]}</p>
-        <p className="boredle__help-text">{helpText[1]}</p>
-        <p className="boredle__help-text">{helpText[2]}</p>
-      </div>
-      <div className="boredle__help-examples border-bottom">
-        <h3 className="subtitle">{helpSubtitle}</h3>
-        {exampleOne}
-        <p className="boredle__help-text">
-          {helpText[3]}
-          <strong>{exampleWords[0][exampleIndices[0]]}</strong>
-          {helpText[4]}
-        </p>
-        {exampleTwo}
-        <p className="boredle__help-text">
-          {helpText[3]}
-          <strong>{exampleWords[1][exampleIndices[1]]}</strong>
-          {helpText[5]}
-        </p>
-        {exampleThree}
-        <p className="boredle__help-text">
-          {helpText[3]}
-          <strong>{exampleWords[2][exampleIndices[2]]}</strong>
-          {helpText[6]}
-        </p>
-      </div>
-      <div>
-        <h4 className="boredle__help-text-last">
-          <strong>{helpText[7]}</strong>
-        </h4>
+    <div className="boredle__modal--dimmer">
+      <div className="boredle__modal bg-theme">
+        <h3 className="subtitle">{helpTitle}</h3>
+        <div className="boredle__help-rules">
+          <AiFillCloseCircle className="modal__close" onClick={toggleHelp} />
+          <p className="boredle__help-text">{helpText[0]}</p>
+          <p className="boredle__help-text">{helpText[1]}</p>
+          <p className="boredle__help-text">{helpText[2]}</p>
+        </div>
+        <div className="boredle__help-examples border-bottom">
+          <h3 className="subtitle">{helpSubtitle}</h3>
+          {exampleOne}
+          <p className="boredle__help-text">
+            {helpText[3]}
+            <strong>{exampleWords[0][exampleIndices[0]]}</strong>
+            {helpText[4]}
+          </p>
+          {exampleTwo}
+          <p className="boredle__help-text">
+            {helpText[3]}
+            <strong>{exampleWords[1][exampleIndices[1]]}</strong>
+            {helpText[5]}
+          </p>
+          {exampleThree}
+          <p className="boredle__help-text">
+            {helpText[3]}
+            <strong>{exampleWords[2][exampleIndices[2]]}</strong>
+            {helpText[6]}
+          </p>
+        </div>
+        <div>
+          <h4 className="boredle__help-text-last">
+            <strong>{helpText[7]}</strong>
+          </h4>
+        </div>
       </div>
     </div>
   )

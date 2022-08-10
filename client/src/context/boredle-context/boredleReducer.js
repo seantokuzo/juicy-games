@@ -1,5 +1,8 @@
 import {
   UPDATE_BOREDLE_MODE,
+  TOGGLE_HARD_MODE,
+  TOGGLE_DARK_MODE,
+  TOGGLE_HIGH_CONTRAST_MODE,
   TOGGLE_HELP_MODAL,
   TOGGLE_SETTINGS_MODAL,
   GET_WOTD_SUCCESS,
@@ -15,15 +18,35 @@ const boredleReducer = (state, action) => {
       mode: action.payload.mode
     }
   }
+  if (action.type === TOGGLE_HARD_MODE) {
+    return {
+      ...state,
+      hardMode: !state.hardMode
+    }
+  }
+  if (action.type === TOGGLE_DARK_MODE) {
+    return {
+      ...state,
+      darkMode: !state.darkMode
+    }
+  }
+  if (action.type === TOGGLE_HIGH_CONTRAST_MODE) {
+    return {
+      ...state,
+      highContrastMode: !state.highContrastMode
+    }
+  }
   if (action.type === TOGGLE_HELP_MODAL) {
     return {
       ...state,
-      showHelp: !state.showHelp
+      showHelp: !state.showHelp,
+      showSettings: false
     }
   }
   if (action.type === TOGGLE_SETTINGS_MODAL) {
     return {
       ...state,
+      showHelp: false,
       showSettings: !state.showSettings
     }
   }

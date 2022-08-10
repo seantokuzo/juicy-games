@@ -2,6 +2,9 @@ import React, { useReducer, useContext } from 'react'
 import boredleReducer from './boredleReducer'
 import {
   UPDATE_BOREDLE_MODE,
+  TOGGLE_HARD_MODE,
+  TOGGLE_DARK_MODE,
+  TOGGLE_HIGH_CONTRAST_MODE,
   TOGGLE_HELP_MODAL,
   TOGGLE_SETTINGS_MODAL,
   GET_WOTD_SUCCESS,
@@ -13,16 +16,18 @@ import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 const initialState = {
   mode: 'gotd',
   // GAME MODAL DISPLAYS
-  showHelp: false,
-  showStats: false,
-  showSettings: false,
-  showAlertModal: false,
-  alertType: '',
-  alertText: '',
-  isRevealing: false,
-  guessWiggle: false,
   didWin: false,
   didLose: false,
+  gotd: {
+    answer: [],
+    currentGuess: [],
+    prevGuesses: []
+  },
+  practice: {
+    answer: [],
+    currentGuess: [],
+    prevGuesses: []
+  },
   stats: {
     wins: 0,
     losses: 0,
@@ -37,16 +42,15 @@ const initialState = {
       six: 0
     }
   },
-  gotd: {
-    answer: [],
-    currentGuess: [],
-    prevGuesses: []
-  },
-  practice: {
-    answer: [],
-    currentGuess: [],
-    prevGuesses: []
-  }
+  hardMode: false,
+  highContrastMode: false,
+  showHelp: false,
+  showSettings: true,
+  showAlertModal: false,
+  alertType: '',
+  alertText: '',
+  isRevealing: false,
+  guessWiggle: false
 }
 
 const baseURL = 'http://localhost:5000'
@@ -62,13 +66,28 @@ const BoredleContextProvider = ({ children }) => {
     dispatch({ type: UPDATE_BOREDLE_MODE, payload: { mode } })
   }
 
+  const toggleHardMode = () => {
+    console.log('toggle hard mode')
+    dispatch({ type: TOGGLE_HARD_MODE })
+  }
+
+  const toggleDarkMode = () => {
+    console.log('toggle dark mode')
+    dispatch({ type: TOGGLE_DARK_MODE })
+  }
+
+  const toggleHighContrastMode = () => {
+    console.log('toggle high constrast')
+    dispatch({ type: TOGGLE_HIGH_CONTRAST_MODE })
+  }
+
   const toggleHelp = () => {
-    console.log('toggle help')
+    // console.log('toggle help')
     dispatch({ type: TOGGLE_HELP_MODAL })
   }
 
   const toggleSettings = () => {
-    console.log('toggle help')
+    // console.log('toggle settings')
     dispatch({ type: TOGGLE_SETTINGS_MODAL })
   }
 
@@ -95,6 +114,9 @@ const BoredleContextProvider = ({ children }) => {
     <BoredleContext.Provider
       value={{
         ...state,
+        toggleHardMode,
+        toggleDarkMode,
+        toggleHighContrastMode,
         toggleHelp,
         toggleSettings,
         updateBoredleMode,

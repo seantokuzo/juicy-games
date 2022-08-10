@@ -10,12 +10,13 @@ import {
 } from './components'
 
 const BoredleGame = () => {
-  const { showAlertModal, showHelp } = useBoredleContext()
+  const { showAlertModal, showHelp, showSettings } = useBoredleContext()
 
   return (
     <div className="boredle__game">
       {showAlertModal && <AlertModal />}
       {showHelp && <HelpModal />}
+      {showSettings && <SettingsModal />}
       <BoredleHeader />
       <GuessGrid />
       <Keyboard />

@@ -8,8 +8,8 @@ import {
 import { useBoredleContext } from '../../../../../context/boredle-context/boredleContext'
 
 const BoredleHeader = () => {
-  const { mode, updateBoredleMode } = useBoredleContext()
-  const { toggleHelp, toggleSettings } = useBoredleContext()
+  const { mode, updateBoredleMode, toggleHelp, toggleSettings } =
+    useBoredleContext()
   // const { toggleHelp, toggleStats, toggleSettings } = useBoredleContext()
 
   const header = (
@@ -34,7 +34,7 @@ const BoredleHeader = () => {
         ></FaChartBar>
         <FaCog
           className="boredle__header-icon"
-          // onClick={toggleSettings}
+          onClick={toggleSettings}
         ></FaCog>
       </div>
     </header>

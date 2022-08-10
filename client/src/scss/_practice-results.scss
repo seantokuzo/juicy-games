@@ -37,7 +37,7 @@
     }
     
     &--incorrect {
-      background-color: darken($th-strawberry, 40%);
+      background-color: $alert-danger;
 
     }
   }

@@ -2,7 +2,7 @@
   @include flex;
   width: 100%;
   height: 100%;
-  max-height: 100vh;
+  // max-height: 100vh;
   font-family: $fs-boredle;
   
   &__game {
@@ -96,7 +96,8 @@
       margin: 3px 3px;
       padding: 0 8px;
       min-height: 50px;
-
+      font-family: $fs-boredle;
+      
       &-text {
         margin-top: 4px;
       }
@@ -105,9 +106,19 @@
 
   &__btn {
     @include flex;
+    // color: $clr-black;
     width: 90%;
     font-size: 1em;
     padding: 0.75rem 0;
+  }
+
+  &__modal--dimmer {
+    @include absolute;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+
+    background-color: rgba(#000000, 0.5)
   }
 
   &__modal {
@@ -163,21 +174,132 @@
     }
   }
 
+  &__settings {
+    @include flex;
+    padding: 1rem 1.5rem;
+    
+    &-setting {
+      @include flex;
+      width: 100%;
+      padding: .5rem 0;
+      border-bottom: 1px solid rgba($clr-white, 0.35);
+      min-height: 4rem;
+      
+      &-dark {
+        margin: 0.5rem 0;
+      }
+      &-top {
+        width: 100%;
+        @include flex(row, flex-start, space-between);
+        // padding: 0.5rem 0;
+        // border: 1px solid red;
+      }
+      
+      &-name {
+        font-size: 1.3em;
+        margin: 0;
+        @include text-shadow;
+      }
+      
+      &__details {
+        width: 100%;
+        text-align: left;
+
+        &-info {
+          font-family: $fs-text;
+          font-size: .6em;
+          margin: 3px 1.5rem 0 0;
+          // border: 1px solid red;
+        }
+      }
+      
+    }
+
+    &-toggler {
+      padding: 0 0.5rem;
+      
+      &-inner {
+        margin-left: auto;
+        @include flex(row, center, flex-start);
+        transform: scale(1.5);
+        box-sizing: content-box;
+        width: 25px;
+        height: 13px;
+        border-radius: 2rem;
+        cursor: pointer;
+        /* background-color: var(--light-grey); */
+        border: 1.5px solid;
+        border-color: $clr-white;
+        background-color: rgba($clr-white, 0.4);
+        
+        transition: all 250ms;
+        
+        &-on {
+          border-color: $alert-success;
+          background-color: $alert-success;
+        }
+        
+        &-on .boredle__settings-toggler-circle {
+          left: 48%;
+        }
+      }
+
+      &-circle {
+        height: 12px;
+        width: 12px;
+        background-color: white;
+        border-radius: 50%;
+      
+        position: absolute;
+        left: 0;
+      
+        transition: all 250ms;
+      }
+    }
+
+    &-feedback {
+      @include flex;
+      width: 100%;
+      // margin: 1rem 0;
+
+      &-line {
+        margin: 0 1rem;
+      }
+      
+      &-links {
+        @include flex(row, center, center);
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+
+      &-link {
+
+
+        &-email {
+          margin-right: 5px;
+        }
+        &-twitter {
+          margin-left: 5px;
+        }
+      }
+
+      &-btn {
+        // border: 1px solid red;
+      }
+    }
+  }
+
   &__box {
     color: $clr-white;
-    
     // &-filled {
     //   color: $clr-white;
     // }
-
     &-correct {
       background-color: $clr-brdl-correct;
     }
-
     &-wrong-spot {
       background-color: $clr-brdl-wrong-spot;
     }
-
     &-incorrect {
       background-color: $clr-brdl-grey-dk;
     }
