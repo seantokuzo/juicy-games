@@ -2,9 +2,12 @@ import React from 'react'
 import { useBoredleContext } from '../../../../../context/boredle-context/boredleContext'
 
 const Keyboard = () => {
-  // const { answer, prevGuesses, handleKeyClick, handleBackspace, handleEnter } =
+  // const { answer, prevGuesses, handleKeyboardClick, handleBackspace, handleEnter } =
   //   props
-  const { mode } = useBoredleContext()
+  const { mode, handleKeyboardClick } = useBoredleContext()
+  const {
+    [mode]: { answer, prevGuesses }
+  } = useBoredleContext()
 
   // const correctLetters = getLettersArray('correct', answer, prevGuesses)
   // const wrongSpotLetters = getLettersArray('wrong spot', answer, prevGuesses)
@@ -28,7 +31,7 @@ const Keyboard = () => {
     <div
       key="Enter"
       className="btn boredle__keys-key boredle__keys-key-btn boredle__keys-key-enter"
-      // onClick={handleEnter}
+      onClick={() => handleKeyboardClick('Enter')}
     >
       <p>ENTER</p>
     </div>
@@ -38,7 +41,7 @@ const Keyboard = () => {
     <div
       key="backspace"
       className="btn boredle__keys-key boredle__keys-key-btn"
-      // onClick={handleBackspace}
+      onClick={() => handleKeyboardClick('Backspace')}
     >
       <i className="fa-solid fa-delete-left boredle__keys-key-backspace"></i>
     </div>
@@ -51,7 +54,7 @@ const Keyboard = () => {
           // className={getKeyClassName(key)}
           className="btn boredle__keys-key boredle__keys-key-letter"
           id={`${key}`}
-          // onClick={() => handleKeyClick(key)}
+          onClick={() => handleKeyboardClick(key)}
           key={`keyboard-${key}`}
         >
           <p className="boredle__keys-key-text">{key}</p>
@@ -67,7 +70,7 @@ const Keyboard = () => {
           // className={getKeyClassName(key)}
           className="btn boredle__keys-key boredle__keys-key-letter"
           id={`${key}`}
-          // onClick={() => handleKeyClick(key)}
+          onClick={() => handleKeyboardClick(key)}
           key={`keyboard-${key}`}
         >
           <p className="boredle__keys-key-text">{key}</p>
@@ -84,7 +87,7 @@ const Keyboard = () => {
           // className={getKeyClassName(key)}
           className="btn boredle__keys-key boredle__keys-key-letter"
           id={`${key}`}
-          // onClick={() => handleKeyClick(key)}
+          onClick={() => handleKeyboardClick(key)}
           key={`keyboard-${key}`}
         >
           <p className="boredle__keys-key-text">{key}</p>

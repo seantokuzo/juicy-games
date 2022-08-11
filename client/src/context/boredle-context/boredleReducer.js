@@ -6,7 +6,10 @@ import {
   TOGGLE_HELP_MODAL,
   TOGGLE_SETTINGS_MODAL,
   GET_WOTD_SUCCESS,
-  GET_WOTD_ERROR
+  GET_WOTD_ERROR,
+  HANDLE_KEYBOARD_LETTER,
+  HANDLE_KEYBOARD_BACKSPACE,
+  HANDLE_KEYBOARD_ENTER
 } from './boredleActions'
 
 import { initialState } from './boredleContext'
@@ -71,6 +74,15 @@ const boredleReducer = (state, action) => {
       },
       practice: {
         ...initialState.practice
+      }
+    }
+  }
+  if (action.type === HANDLE_KEYBOARD_LETTER) {
+    return {
+      ...state,
+      [state.mode]: {
+        ...state[state.mode],
+        currentGuess: action.payload.newCurrentGuess
       }
     }
   }

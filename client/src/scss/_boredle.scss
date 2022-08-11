@@ -161,10 +161,16 @@
     &-eg {
       @include flex(row);
       margin: 1rem 0 0;
+
+      &-text {
+        // TO-DO - FONT SPECIFIC MARGIN - GROSS!!
+        margin: 0 0 -.5rem;
+      }
     }
 
     &-box {
       @include flex;
+      font-size: 1.25em;
       border: 3px solid rgba($clr-black, 0.25);
       background-color: rgba($clr-black, 0.35);
       width: 3.75rem;
@@ -177,6 +183,10 @@
   &__settings {
     @include flex;
     padding: 1rem 1.5rem;
+
+    &-title {
+      font-size: 1.75em;
+    }
     
     &-setting {
       @include flex;
@@ -260,7 +270,6 @@
     &-feedback {
       @include flex;
       width: 100%;
-      // margin: 1rem 0;
 
       &-line {
         margin: 0 1rem;
@@ -273,8 +282,6 @@
       }
 
       &-link {
-
-
         &-email {
           margin-right: 5px;
         }
@@ -283,8 +290,23 @@
         }
       }
 
-      &-btn {
-        // border: 1px solid red;
+    }
+
+    &-btn {
+      @include flex;
+      width: 100%;
+
+      font-family: $fs-boredle;
+      font-size: 1.25em;
+    
+      padding: 0.75rem 0;
+
+      &-new-game {
+        margin: 1rem 0;
+      }
+
+      &-text {
+        margin-bottom: -.35em;
       }
     }
   }

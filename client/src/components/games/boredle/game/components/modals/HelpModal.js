@@ -27,7 +27,7 @@ const HelpModal = () => {
             key={nanoid()}
             className={helpBoxClasses(index, exampleIndices[0], 'correct')}
           >
-            <h2 className="help__eg-text">{item}</h2>
+            <h2 className="boredle__help-eg-text">{item}</h2>
           </div>
         )
       })}
@@ -42,7 +42,7 @@ const HelpModal = () => {
             key={nanoid()}
             className={helpBoxClasses(index, exampleIndices[1], 'wrong-spot')}
           >
-            <h2 className="help__eg-text">{item}</h2>
+            <h2 className="boredle__help-eg-text">{item}</h2>
           </div>
         )
       })}
@@ -57,7 +57,7 @@ const HelpModal = () => {
             key={nanoid()}
             className={helpBoxClasses(index, exampleIndices[2], 'incorrect')}
           >
-            <h2 className="help__eg-text">{item}</h2>
+            <h2 className="boredle__help-eg-text">{item}</h2>
           </div>
         )
       })}

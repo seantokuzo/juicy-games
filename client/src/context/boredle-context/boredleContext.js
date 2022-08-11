@@ -8,9 +8,13 @@ import {
   TOGGLE_HELP_MODAL,
   TOGGLE_SETTINGS_MODAL,
   GET_WOTD_SUCCESS,
-  GET_WOTD_ERROR
+  GET_WOTD_ERROR,
+  HANDLE_KEYBOARD_LETTER,
+  HANDLE_KEYBOARD_BACKSPACE,
+  HANDLE_KEYBOARD_ENTER
 } from './boredleActions'
 import { useAppContext } from '../appContext'
+import { WORD_LENGTH } from '../../components/games/boredle/game/data/gameSettings'
 import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 
 const initialState = {
@@ -45,7 +49,7 @@ const initialState = {
   hardMode: false,
   highContrastMode: false,
   showHelp: false,
-  showSettings: true,
+  showSettings: false,
   showAlertModal: false,
   alertType: '',
   alertText: '',
@@ -110,6 +114,31 @@ const BoredleContextProvider = ({ children }) => {
     clearAlert()
   }
 
+  const handleKeyboardClick = (key) => {
+    console.log(key)
+    const { didWin, didLose, isRevealing, invalidGuessWiggle } = state
+    if (isRevealing || didWin || didLose || invalidGuessWiggle) return
+
+    if (key === 'Backspace') {
+      if (state[state.mode].currentGuess.length <= 0) return
+      console.log('Backspace')
+      dispatch({ type: HANDLE_KEYBOARD_BACKSPACE })
+      return
+    }
+
+    if (key === 'Enter') {
+      console.log('submit answer - checks on checks')
+    }
+
+    if (
+      state[state.mode].currentGuess.length >= 0 &&
+      state[state.mode].currentGuess.length < WORD_LENGTH
+    ) {
+      const newCurrentGuess = [...state[state.mode].currentGuess, key]
+      dispatch({ type: HANDLE_KEYBOARD_LETTER, payload: { newCurrentGuess } })
+    }
+  }
+
   return (
     <BoredleContext.Provider
       value={{
@@ -120,7 +149,8 @@ const BoredleContextProvider = ({ children }) => {
         toggleHelp,
         toggleSettings,
         updateBoredleMode,
-        getWordOfTheDay
+        getWordOfTheDay,
+        handleKeyboardClick
       }}
     >
       {children}

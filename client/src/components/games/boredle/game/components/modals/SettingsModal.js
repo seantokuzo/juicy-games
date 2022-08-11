@@ -4,6 +4,7 @@ import { useBoredleContext } from '../../../../../../context/boredle-context/bor
 
 const SettingsModal = () => {
   const {
+    mode,
     darkMode,
     toggleDarkMode,
     highContrastMode,
@@ -16,7 +17,9 @@ const SettingsModal = () => {
 
   const settingsTitleDiv = (
     <div className="boredle__setting-title">
-      <h3 className="boredle__settings-title modal__title subtitle">SETTINGS</h3>
+      <h3 className="boredle__settings-title modal__title subtitle">
+        SETTINGS
+      </h3>
       <AiFillCloseCircle className="modal__close" onClick={toggleSettings} />
     </div>
   )
@@ -81,24 +84,25 @@ const SettingsModal = () => {
 
   const feedbackSettings = (
     <div className="boredle__settings-feedback">
-      <h6 className="modal__title subtitle">Feedback</h6>
+      <h3 className="boredle__settings-title modal__title subtitle">Feedback</h3>
       <div className="boredle__settings-feedback-links">
-        <button className="boredle__settings-feedback-btn btn fs-boredle">
+        <button className="boredle__settings-btn btn fs-boredle text">
           <a
             href="#"
+            // TO-DO
             // href="https://github.com/seantokuzo/<<REPO>>/issues"
-            className="boredle__settings-feedback-link boredle__settings-feedback-link-email"
+            className="boredle__settings-feedback-link-email boredle__settings-btn-text"
             target="_blank"
             rel="noreferrer noopener"
           >
             GitHub
           </a>
         </button>
-        <p className="boredle__settings-feedback-line">|</p>
-        <button className="boredle__settings-feedback-btn btn fs-boredle">
+        <p className="boredle__settings-feedback-line fs-text">|</p>
+        <button className="boredle__settings-btn btn fs-boredle text">
           <a
             href="https://twitter.com/seantokuzo"
-            className="boredle__settings-feedback-link boredle__settings-feedback-link-twitter"
+            className="boredle__settings-feedback-link-twitter boredle__settings-btn-text"
             target="_blank"
             rel="noreferrer noopener"
           >
@@ -108,11 +112,11 @@ const SettingsModal = () => {
       </div>
     </div>
   )
-  // const newGameButton = (
-  //   <div className="btn boredle__settings__btn" onClick={handleNewGameWarning}>
-  //     <h3 className="btn--text">NEW GAME</h3>
-  //   </div>
-  // )
+  const newGameButton = (
+    <div className="btn boredle__settings-btn boredle__settings-btn-new-game">
+      <h4 className="boredle__settings-btn-text">NEW GAME</h4>
+    </div>
+  )
 
   return (
     <div className="boredle__modal--dimmer">
@@ -122,7 +126,7 @@ const SettingsModal = () => {
         {darkModeSettings}
         {highContrastSettings}
         {feedbackSettings}
-        {/* {newGameButton} */}
+        {mode === 'gotd' && newGameButton}
       </div>
     </div>
   )
