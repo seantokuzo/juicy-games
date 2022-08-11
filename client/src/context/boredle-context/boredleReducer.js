@@ -86,6 +86,15 @@ const boredleReducer = (state, action) => {
       }
     }
   }
+  if (action.type === HANDLE_KEYBOARD_BACKSPACE) {
+    return {
+      ...state,
+      [state.mode]: {
+        ...state[state.mode],
+        currentGuess: action.payload.newCurrentGuess
+      }
+    }
+  }
   throw new Error(`No such action: ${action.type}`)
 }
 

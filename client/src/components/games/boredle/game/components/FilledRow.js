@@ -33,7 +33,7 @@ const FilledRow = ({ guess, row }) => {
           }}
           key={nanoid()}
         >
-          <h3>{letter}</h3>
+          <h3 className="boredle__guess-box-text">{letter}</h3>
         </div>
       ))}
     </div>

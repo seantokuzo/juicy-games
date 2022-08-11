@@ -70,13 +70,19 @@
 
     &-box {
       @include flex;
+      font-size: 1.65em;
       border: 3px solid rgba($clr-black, 0.25);
       background-color: rgba($clr-black, 0.35);
-      width: 3.75rem;
-      height: 3.75rem;
+      width: 3.95rem;
+      height: 3.95rem;
       border-radius: 1px;
-      margin: .15em;
+      margin: .1em;
       // padding: 0;
+
+      &-text {
+        // TO-DO : FONT-SPECIFIC NEGATIVE MARGIN - GROSS!
+        margin: 0 0 -.5rem;
+      }
     }
   }
   
@@ -325,6 +331,11 @@
     &-incorrect {
       background-color: $clr-brdl-grey-dk;
     }
+  }
+
+  &:focus {
+    outline: none;
+    border: none;
   }
 }
 

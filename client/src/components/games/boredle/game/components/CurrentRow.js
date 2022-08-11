@@ -66,7 +66,7 @@ const CurrentRow = () => {
           }}
           key={nanoid()}
         >
-          <h3>{currentGuess[i]}</h3>
+          <h3 className='boredle__guess-box-text'>{currentGuess[i]}</h3>
         </div>
       ))}
     </div>

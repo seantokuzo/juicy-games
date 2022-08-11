@@ -7,9 +7,9 @@ import FilledRow from './FilledRow'
 import { NUMBER_GUESSES } from '../data/gameSettings'
 
 const GuessGrid = () => {
-  const { mode, isRevealing, didWin, invalidGuessWiggle } = useBoredleContext()
+  const { mode } = useBoredleContext()
   const {
-    [mode]: { answer, currentGuess, prevGuesses }
+    [mode]: { prevGuesses }
   } = useBoredleContext()
 
   const filledRows = prevGuesses.map((guess, i) => (

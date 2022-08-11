@@ -20,17 +20,19 @@ import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 const initialState = {
   mode: 'gotd',
   // GAME MODAL DISPLAYS
-  didWin: false,
-  didLose: false,
   gotd: {
     answer: [],
     currentGuess: [],
-    prevGuesses: []
+    prevGuesses: [],
+    didWin: false,
+    didLose: false
   },
   practice: {
     answer: [],
     currentGuess: [],
-    prevGuesses: []
+    prevGuesses: [],
+    didWin: false,
+    didLose: false
   },
   stats: {
     wins: 0,
@@ -103,7 +105,9 @@ const BoredleContextProvider = ({ children }) => {
       console.log(word)
       dispatch({
         type: GET_WOTD_SUCCESS,
-        payload: { word: encryptBoredle(word) }
+        // TO-DO ENCRYPT ANSWER
+        // payload: { word: encryptBoredle(word) }
+        payload: { word: word.toUpperCase().split('') }
       })
       stopLoading()
     } catch (err) {
@@ -114,20 +118,30 @@ const BoredleContextProvider = ({ children }) => {
     clearAlert()
   }
 
-  const handleKeyboardClick = (key) => {
+  const handleBoredleKeyboard = (key) => {
     console.log(key)
     const { didWin, didLose, isRevealing, invalidGuessWiggle } = state
     if (isRevealing || didWin || didLose || invalidGuessWiggle) return
 
     if (key === 'Backspace') {
-      if (state[state.mode].currentGuess.length <= 0) return
+      if (state[state.mode].currentGuess.length <= 0) {
+        return console.log("Can't Backspace rn fam")
+      }
       console.log('Backspace')
-      dispatch({ type: HANDLE_KEYBOARD_BACKSPACE })
+      const newCurrentGuess = state[state.mode].currentGuess.slice(
+        0,
+        state[state.mode].currentGuess.length - 1
+      )
+      dispatch({
+        type: HANDLE_KEYBOARD_BACKSPACE,
+        payload: { newCurrentGuess }
+      })
       return
     }
 
     if (key === 'Enter') {
       console.log('submit answer - checks on checks')
+      return
     }
 
     if (
@@ -136,7 +150,14 @@ const BoredleContextProvider = ({ children }) => {
     ) {
       const newCurrentGuess = [...state[state.mode].currentGuess, key]
       dispatch({ type: HANDLE_KEYBOARD_LETTER, payload: { newCurrentGuess } })
+      return
     }
+    console.log('Did not pass conditions for action')
+    displayAlert(
+      'danger alert-center',
+      "Can't add/subtract letter rn fam",
+      2000
+    )
   }
 
   return (
@@ -150,7 +171,7 @@ const BoredleContextProvider = ({ children }) => {
         toggleSettings,
         updateBoredleMode,
         getWordOfTheDay,
-        handleKeyboardClick
+        handleBoredleKeyboard
       }}
     >
       {children}
