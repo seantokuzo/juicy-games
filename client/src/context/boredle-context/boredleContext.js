@@ -7,6 +7,12 @@ import {
   TOGGLE_HIGH_CONTRAST_MODE,
   TOGGLE_HELP_MODAL,
   TOGGLE_SETTINGS_MODAL,
+  SHOW_ALERT_MODAL,
+  HIDE_ALERT_MODAL,
+  INVALID_GUESS_START,
+  INVALID_GUESS_STOP,
+  IS_REVEALING_START,
+  IS_REVEALING_STOP,
   GET_WOTD_SUCCESS,
   GET_WOTD_ERROR,
   HANDLE_KEYBOARD_LETTER,
@@ -14,7 +20,30 @@ import {
   HANDLE_KEYBOARD_ENTER
 } from './boredleActions'
 import { useAppContext } from '../appContext'
-import { WORD_LENGTH } from '../../components/games/boredle/game/data/gameSettings'
+import { VALID_GUESSES } from '../../components/games/boredle/game/data/validGuesses'
+import {
+  WORD_LENGTH,
+  NUMBER_GUESSES,
+  ANIME_DELAY,
+  ANIME_DURATION,
+  WIN_ANIME_DELAY,
+  WIN_ANIME_DURATION,
+  ALERT_DURATION
+} from '../../components/games/boredle/game/data/gameSettings'
+import {
+  ALERT_MS_GUESS_NOT_FIVE,
+  ALERT_MS_NOT_A_WORD,
+  ALERT_MS_HARDMODE_CHECKER,
+  ALERT_MS_RESET_PENALTY,
+  ALERT_MS_RESET_MS,
+  ALERT_MS_NEW_GAME,
+  ALERT_MS_HARDMODE_TOGGLE
+} from '../../components/games/boredle/game/data/alertsData'
+import {
+  getNewWord,
+  getLettersArray,
+  shareResults
+} from '../../components/games/boredle/game/utils/gameUtils'
 import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 
 const initialState = {
@@ -48,15 +77,14 @@ const initialState = {
       six: 0
     }
   },
-  hardMode: false,
+  hardMode: true,
   highContrastMode: false,
   showHelp: false,
   showSettings: false,
   showAlertModal: false,
-  alertType: '',
   alertText: '',
   isRevealing: false,
-  guessWiggle: false
+  invalidGuessWiggle: false
 }
 
 const baseURL = 'http://localhost:5000'
@@ -97,6 +125,46 @@ const BoredleContextProvider = ({ children }) => {
     dispatch({ type: TOGGLE_SETTINGS_MODAL })
   }
 
+  const handleInvalidGuess = () => {
+    dispatch({ type: INVALID_GUESS_START })
+    setTimeout(() => {
+      dispatch({ type: INVALID_GUESS_STOP })
+    }, WIN_ANIME_DURATION + 100)
+  }
+
+  const handleAlertModal = (alertText) => {
+    dispatch({ type: SHOW_ALERT_MODAL, payload: { alertText } })
+    setTimeout(() => {
+      dispatch({ type: HIDE_ALERT_MODAL })
+    }, ALERT_DURATION + 150)
+  }
+
+  const submitGuessToDB = async () => {
+    try {
+      const { data } = authFetch('/boredle/submitGuess')
+      console.log(data)
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  // const handleReveal = (str) => {
+  //   dispatch({ type: IS_REVEALING_START })
+  //   setTimeout(() => {
+  //     // TO-DO
+  //     // setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
+  //     // setCurrentGuess([])
+  //     dispatch({ type: IS_REVEALING_STOP })
+  //     if (str === 'loss') {
+  //       setDidLose(true)
+  //     }
+  //   }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
+  //   if (str === 'win') {
+  //     setTimeout(() => {
+  //     }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY + WIN_ANIME_DELAY * WORD_LENGTH + 2 * WIN_ANIME_DELAY + 200)
+  //   }
+  // }
+
   const getWordOfTheDay = async () => {
     startLoading()
     try {
@@ -105,9 +173,9 @@ const BoredleContextProvider = ({ children }) => {
       console.log(word)
       dispatch({
         type: GET_WOTD_SUCCESS,
+        payload: { word: encryptBoredle(word) }
         // TO-DO ENCRYPT ANSWER
-        // payload: { word: encryptBoredle(word) }
-        payload: { word: word.toUpperCase().split('') }
+        // payload: { word: word.toUpperCase().split('') }
       })
       stopLoading()
     } catch (err) {
@@ -119,10 +187,10 @@ const BoredleContextProvider = ({ children }) => {
   }
 
   const handleBoredleKeyboard = (key) => {
-    console.log(key)
     const { didWin, didLose, isRevealing, invalidGuessWiggle } = state
     if (isRevealing || didWin || didLose || invalidGuessWiggle) return
 
+    // HANDLE BACKSPACE KEY
     if (key === 'Backspace') {
       if (state[state.mode].currentGuess.length <= 0) {
         return console.log("Can't Backspace rn fam")
@@ -139,11 +207,71 @@ const BoredleContextProvider = ({ children }) => {
       return
     }
 
+    // HANDLE ENTER KEY
     if (key === 'Enter') {
-      console.log('submit answer - checks on checks')
+      // CHECK IF GUESS IS PROPER LENGTH
+      if (state[state.mode].currentGuess.length !== WORD_LENGTH) {
+        handleInvalidGuess()
+        handleAlertModal(ALERT_MS_GUESS_NOT_FIVE)
+        return
+      }
+      // CHECK IF GUESS IS A VALID WORD
+      if (
+        !VALID_GUESSES.includes(
+          state[state.mode].currentGuess.join('').toLowerCase()
+        )
+      ) {
+        handleInvalidGuess()
+        handleAlertModal(ALERT_MS_NOT_A_WORD)
+        return
+      }
+      // HARDMODE CONDITION CHECKER
+      if (state.hardMode && state[state.mode].prevGuesses.length > 0) {
+        const mustUseLetters = getLettersArray(
+          'must use',
+          decryptBoredle(state[state.mode].answer),
+          state[state.mode].prevGuesses
+        )
+        if (
+          !mustUseLetters.every((letter) =>
+            state[state.mode].currentGuess.includes(letter)
+          )
+        ) {
+          handleInvalidGuess()
+          handleAlertModal(ALERT_MS_HARDMODE_CHECKER)
+          return
+        }
+      }
+      //HANDLE A WIN
+      if (
+        decryptBoredle(state[state.mode].answer).every(
+          (letter, i) => letter === state[state.mode].currentGuess[i]
+        )
+      ) {
+        updateStats('win')
+        setDidWin(true)
+        handleReveal('win')
+        return
+        //HANDLE INCORRECT GUESS WITH GUESSES REMAINING
+      } else if (
+        prevGuesses.length >= 0 &&
+        prevGuesses.length < NUMBER_GUESSES - 1
+      ) {
+        handleReveal('none')
+        return
+        //HANDLE LOSS
+      } else if (
+        prevGuesses.length === NUMBER_GUESSES - 1 &&
+        currentGuess !== answer
+      ) {
+        updateStats('loss')
+        handleReveal('loss')
+      }
+
       return
     }
 
+    // HANDLE LETTERS
     if (
       state[state.mode].currentGuess.length >= 0 &&
       state[state.mode].currentGuess.length < WORD_LENGTH
@@ -152,7 +280,8 @@ const BoredleContextProvider = ({ children }) => {
       dispatch({ type: HANDLE_KEYBOARD_LETTER, payload: { newCurrentGuess } })
       return
     }
-    console.log('Did not pass conditions for action')
+
+    console.log('alert?')
     displayAlert(
       'danger alert-center',
       "Can't add/subtract letter rn fam",

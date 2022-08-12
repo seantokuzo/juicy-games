@@ -9,6 +9,10 @@
     @include flex;
     height: 100%;
     max-height: 100vh;
+    
+    &:focus {
+      outline: none;
+    }
   }
 
   &__alert {
@@ -331,11 +335,6 @@
     &-incorrect {
       background-color: $clr-brdl-grey-dk;
     }
-  }
-
-  &:focus {
-    outline: none;
-    border: none;
   }
 }
 

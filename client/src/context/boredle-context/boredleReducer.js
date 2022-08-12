@@ -5,6 +5,12 @@ import {
   TOGGLE_HIGH_CONTRAST_MODE,
   TOGGLE_HELP_MODAL,
   TOGGLE_SETTINGS_MODAL,
+  SHOW_ALERT_MODAL,
+  HIDE_ALERT_MODAL,
+  INVALID_GUESS_START,
+  INVALID_GUESS_STOP,
+  IS_REVEALING_START,
+  IS_REVEALING_STOP,
   GET_WOTD_SUCCESS,
   GET_WOTD_ERROR,
   HANDLE_KEYBOARD_LETTER,
@@ -53,6 +59,20 @@ const boredleReducer = (state, action) => {
       showSettings: !state.showSettings
     }
   }
+  if (action.type === SHOW_ALERT_MODAL) {
+    return {
+      ...state,
+      showAlertModal: true,
+      alertText: action.payload.alertText
+    }
+  }
+  if (action.type === HIDE_ALERT_MODAL) {
+    return {
+      ...state,
+      showAlertModal: false,
+      alertText: ''
+    }
+  }
   if (action.type === GET_WOTD_SUCCESS) {
     console.log(action.payload.word)
     return {
@@ -64,6 +84,30 @@ const boredleReducer = (state, action) => {
       practice: {
         ...initialState.practice
       }
+    }
+  }
+  if (action.type === INVALID_GUESS_START) {
+    return {
+      ...state,
+      invalidGuessWiggle: true
+    }
+  }
+  if (action.type === INVALID_GUESS_STOP) {
+    return {
+      ...state,
+      invalidGuessWiggle: false
+    }
+  }
+  if (action.type === IS_REVEALING_START) {
+    return {
+      ...state,
+      isRevealing: true
+    }
+  }
+  if (action.type === IS_REVEALING_STOP) {
+    return {
+      ...state,
+      isRevealing: false
     }
   }
   if (action.type === GET_WOTD_ERROR) {

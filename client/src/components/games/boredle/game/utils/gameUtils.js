@@ -1,4 +1,4 @@
-import { ANSWERS_LIST } from '../data/words/wordList'
+import { ANSWERS_LIST } from '../data/wordList'
 import { NUMBER_GUESSES } from '../data/gameSettings'
 
 // GET A NEW ANSWER
@@ -10,6 +10,7 @@ function getNewWord() {
 
 // GET ARRAYS OF CORRECT / WRONG SPOT / AND INCORRECT GUESSED LETTERS
 function getLettersArray(str, answer, prevGuesses) {
+  console.log(answer)
   const guessedLettersArray = [
     ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))
   ]

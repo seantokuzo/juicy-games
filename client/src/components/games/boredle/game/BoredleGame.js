@@ -9,6 +9,7 @@ import {
   HelpModal,
   SettingsModal
 } from './components'
+import Alert from '../../../Alert'
 
 const BoredleGame = () => {
   const { isLoading, showAlert } = useAppContext()
@@ -18,7 +19,7 @@ const BoredleGame = () => {
     showHelp,
     showSettings,
     isRevealing,
-    guessWiggle,
+    invalidGuessWiggle,
     toggleHelp,
     toggleSettings,
     handleBoredleKeyboard
@@ -38,9 +39,9 @@ const BoredleGame = () => {
   const handleComputerKeyboard = (e) => {
     if (mode !== 'gotd' && mode !== 'practice') return
     if (isLoading || showAlert) return
-    if (isRevealing || guessWiggle || didLose || didWin) return
+    if (isRevealing || invalidGuessWiggle || didLose || didWin) return
     const { key } = e
-    console.log(key)
+    // console.log(key)
     const letterRegex = /[a-zA-Z]/
     if (!letterRegex.test(key) && key !== 'Enter' && key !== 'Backspace') return
     if (key === 'Enter') {
@@ -60,6 +61,7 @@ const BoredleGame = () => {
       tabIndex="0"
       selected
     >
+      {showAlert && <Alert />}
       {showAlertModal && <AlertModal />}
       {showHelp && <HelpModal />}
       {showSettings && <SettingsModal />}

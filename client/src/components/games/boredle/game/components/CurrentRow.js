@@ -9,7 +9,7 @@ import {
 import { useBoredleContext } from '../../../../../context/boredle-context/boredleContext'
 
 const CurrentRow = () => {
-  const { mode, isRevealing, guessWiggle } = useBoredleContext()
+  const { mode, isRevealing, invalidGuessWiggle } = useBoredleContext()
   const {
     [mode]: { answer, currentGuess }
   } = useBoredleContext()
@@ -35,19 +35,19 @@ const CurrentRow = () => {
 
   // useEffect(() => {
   //   const wigglers = document.getElementsByClassName('current-box')
-  //   if (wigglers && guessWiggle) {
+  //   if (wigglers && invalidGuessWiggle) {
   //     ;[...wigglers].forEach((wiggler) => {
   //       setTimeout(() => {
   //         wiggler.classList.add('guess')
   //       }, ANIME_DURATION)
   //     })
   //   }
-  // }, [guessWiggle])
+  // }, [invalidGuessWiggle])
 
   return (
     <div
       className={
-        guessWiggle
+        invalidGuessWiggle
           ? 'boredle__guess-row boredle__guess-row-wiggle'
           : 'boredle__guess-row'
       }
@@ -66,7 +66,7 @@ const CurrentRow = () => {
           }}
           key={nanoid()}
         >
-          <h3 className='boredle__guess-box-text'>{currentGuess[i]}</h3>
+          <h3 className="boredle__guess-box-text">{currentGuess[i]}</h3>
         </div>
       ))}
     </div>
