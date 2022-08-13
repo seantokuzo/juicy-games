@@ -11,8 +11,8 @@ import {
   INVALID_GUESS_STOP,
   IS_REVEALING_START,
   IS_REVEALING_STOP,
-  GET_WOTD_SUCCESS,
-  GET_WOTD_ERROR,
+  GET_MY_BOREDLE_SUCCESS,
+  GET_MY_BOREDLE_ERROR,
   HANDLE_KEYBOARD_LETTER,
   HANDLE_KEYBOARD_BACKSPACE,
   HANDLE_KEYBOARD_ENTER
@@ -73,14 +73,17 @@ const boredleReducer = (state, action) => {
       alertText: ''
     }
   }
-  if (action.type === GET_WOTD_SUCCESS) {
-    console.log(action.payload.word)
+  if (action.type === GET_MY_BOREDLE_SUCCESS) {
     return {
       ...state,
       gotd: {
         ...initialState.gotd,
-        answer: action.payload.word
+        answer: action.payload.word,
+        prevGuesses: action.payload.currentGame.prevGuesses,
+        didWin: action.payload.currentGame.didWin,
+        didLose: action.payload.currentGame.didLose
       },
+      stats: action.payload.stats,
       practice: {
         ...initialState.practice
       }
@@ -110,7 +113,7 @@ const boredleReducer = (state, action) => {
       isRevealing: false
     }
   }
-  if (action.type === GET_WOTD_ERROR) {
+  if (action.type === GET_MY_BOREDLE_ERROR) {
     return {
       ...state,
       gotd: {

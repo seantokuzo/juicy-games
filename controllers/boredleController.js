@@ -76,6 +76,45 @@ export const getWordOfTheDay = async (req, res) => {
 }
 
 // *****************************************************
+export const getMyBoredle = async (req, res) => {
+  const game = await BoredleGame.findOne({ user: req.user.userId })
+
+  // IF USER DOESN'T HAVE A GAME - CREATE ONE
+  if (!game) {
+    const user = await User.findById(req.user.userId)
+    const word = await BoredleWord.findOne({
+      timeBegins: { $lt: Date.now() },
+      timeExpires: { $gt: Date.now() }
+    })
+    const newGame = await BoredleGame.create({
+      user: req.user.userId,
+      currentGame: {
+        word: word._id
+      }
+    })
+    newGame.id = undefined
+    newGame.__v = undefined
+    res.status(StatusCodes.CREATED).json(newGame)
+    return
+  }
+
+  // CHECK IF WORD EXPIRED
+  if (new Date(game.currentGame.word.timeExpires).getTime() < Date.now()) {
+    const word = await BoredleWord.findOne({
+      timeBegins: { $lt: Date.now() },
+      timeExpires: { $gt: Date.now() }
+    })
+    game.currentGame.word = word._id
+    game.currentGame.prevGuesses = []
+    game.didWin = false
+    game.didLose = false
+    await game.save()
+  }
+  game.id = undefined
+  res.status(StatusCodes.CREATED).json(game)
+}
+
+// *****************************************************
 export const submitGuess = async (req, res) => {
   const { guess, gameStatus } = req.body
   const game = await BoredleGame.findOne({ user: req.user.userId })

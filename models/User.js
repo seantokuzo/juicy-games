@@ -4,90 +4,115 @@ import validator from 'validator'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
-const UserSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: [true, 'Please enter your name'],
-    minlength: 3,
-    maxlength: 16,
-    unique: true,
-    trim: true
-  },
-  email: {
-    type: String,
-    required: [true, 'Please provide email'],
-    validate: {
-      validator: validator.isEmail,
-      message: 'Please provide a valid email'
+const UserSchema = new mongoose.Schema(
+  {
+    username: {
+      type: String,
+      required: [true, 'Please enter your name'],
+      minlength: 3,
+      maxlength: 16,
+      unique: true,
+      trim: true
     },
-    unique: true
-  },
-  newEmail: {
-    type: String,
-    validate: {
-      validator: validator.isEmail,
-      message: 'Please provide a valid email'
+    email: {
+      type: String,
+      required: [true, 'Please provide email'],
+      validate: {
+        validator: validator.isEmail,
+        message: 'Please provide a valid email'
+      },
+      unique: true
+    },
+    newEmail: {
+      type: String,
+      validate: {
+        validator: validator.isEmail,
+        message: 'Please provide a valid email'
+      }
+    },
+    avatar: {
+      type: String,
+      enum: ['default', 'strawberry', 'orange', 'banana', 'berry', 'grape'],
+      default: 'default'
+    },
+    password: {
+      type: String,
+      required: [true, 'Please provide password'],
+      minlength: 8,
+      select: false
+    },
+    role: {
+      type: String,
+      enum: ['user', 'quiz-master', 'admin'],
+      default: 'user'
+    },
+    dateJoined: Date,
+    passwordChangedAt: Date,
+    passwordResetToken: String,
+    passwordResetExpires: Date,
+    confirmationExpires: Date,
+    confirmed: {
+      type: Boolean,
+      default: false,
+      select: false
+    },
+    active: {
+      type: Boolean,
+      default: true,
+      select: false
+    },
+    friends: {
+      type: [
+        {
+          type: mongoose.Schema.ObjectId,
+          ref: 'User'
+        }
+      ],
+      select: false
+    },
+    friendRequestsReceived: {
+      type: [
+        {
+          type: mongoose.Schema.ObjectId,
+          ref: 'User'
+        }
+      ],
+      select: false
+    },
+    friendRequestsSent: {
+      type: [
+        {
+          type: mongoose.Schema.ObjectId,
+          ref: 'User'
+        }
+      ],
+      select: false
     }
-  },
-  avatar: {
-    type: String,
-    enum: ['default', 'strawberry', 'orange', 'banana', 'berry', 'grape'],
-    default: 'default'
-  },
-  password: {
-    type: String,
-    required: [true, 'Please provide password'],
-    minlength: 8,
-    select: false
-  },
-  role: {
-    type: String,
-    enum: ['user', 'quiz-master', 'admin'],
-    default: 'user'
-  },
-  dateJoined: Date,
-  passwordChangedAt: Date,
-  passwordResetToken: String,
-  passwordResetExpires: Date,
-  confirmationExpires: Date,
-  confirmed: {
-    type: Boolean,
-    default: false,
-    select: false
-  },
-  active: {
-    type: Boolean,
-    default: true,
-    select: false
-  },
-  friends: {
-    type: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User'
-      }
-    ],
-    select: false
-  },
-  friendRequestsReceived: {
-    type: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User'
-      }
-    ],
-    select: false
-  },
-  friendRequestsSent: {
-    type: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'User'
-      }
-    ],
-    select: false
+    //   myBoredle: {
+    //     type: mongoose.Schema.ObjectId,
+    //     ref: 'BoredleGame'
+    //   }
   }
-})
+  // {
+  //   toJSON: { virtuals: true },
+  //   toObject: { virtuals: true }
+  // }
+)
+
+// Virtual Populate (COOL!!!) - NOT WORKING
+// UserSchema.virtual('myBoredle', {
+//   ref: 'BoredleGame',
+//   localField: '_id',
+//   foreignField: 'user'
+// })
+
+// POPULATE USER WITH THEIR GAME???
+// UserSchema.pre(/^find/, function () {
+//   this.populate({
+//     path: 'myBoredle',
+//     select: '-__v'
+//   })
+// })
 
 UserSchema.pre('save', async function () {
   // CHECK IF PASSWORD IS MODIFIED

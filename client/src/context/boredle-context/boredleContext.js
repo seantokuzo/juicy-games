@@ -13,8 +13,8 @@ import {
   INVALID_GUESS_STOP,
   IS_REVEALING_START,
   IS_REVEALING_STOP,
-  GET_WOTD_SUCCESS,
-  GET_WOTD_ERROR,
+  GET_MY_BOREDLE_SUCCESS,
+  GET_MY_BOREDLE_ERROR,
   HANDLE_KEYBOARD_LETTER,
   HANDLE_KEYBOARD_BACKSPACE,
   HANDLE_KEYBOARD_ENTER
@@ -47,7 +47,7 @@ import {
 import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 
 const initialState = {
-  mode: 'gotd',
+  mode: 'menu',
   // GAME MODAL DISPLAYS
   gotd: {
     answer: [],
@@ -95,6 +95,9 @@ const BoredleContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boredleReducer, initialState)
   const { startLoading, stopLoading, displayAlert, clearAlert, authFetch } =
     useAppContext()
+
+  console.log(state.gotd)
+  console.log(state.stats)
 
   const updateBoredleMode = (mode) => {
     dispatch({ type: UPDATE_BOREDLE_MODE, payload: { mode } })
@@ -165,22 +168,20 @@ const BoredleContextProvider = ({ children }) => {
   //   }
   // }
 
-  const getWordOfTheDay = async () => {
+  const getMyBoredle = async () => {
     startLoading()
     try {
-      const { data } = await authFetch('/boredle/getWordOfTheDay')
-      const { word } = data
-      console.log(word)
+      const { data } = await authFetch('/boredle/getMyBoredle')
+      const { currentGame, stats } = data
+      const word = encryptBoredle(currentGame.word.word)
       dispatch({
-        type: GET_WOTD_SUCCESS,
-        payload: { word: encryptBoredle(word) }
-        // TO-DO ENCRYPT ANSWER
-        // payload: { word: word.toUpperCase().split('') }
+        type: GET_MY_BOREDLE_SUCCESS,
+        payload: { currentGame, stats, word }
       })
       stopLoading()
     } catch (err) {
       console.log(err)
-      dispatch({ type: GET_WOTD_ERROR })
+      dispatch({ type: GET_MY_BOREDLE_ERROR })
       displayAlert('danger alert-center', err.response.data.msg)
     }
     clearAlert()
@@ -299,7 +300,7 @@ const BoredleContextProvider = ({ children }) => {
         toggleHelp,
         toggleSettings,
         updateBoredleMode,
-        getWordOfTheDay,
+        getMyBoredle,
         handleBoredleKeyboard
       }}
     >

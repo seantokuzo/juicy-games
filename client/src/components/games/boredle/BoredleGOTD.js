@@ -3,10 +3,10 @@ import { useBoredleContext } from '../../../context/boredle-context/boredleConte
 import BoredleGame from './game/BoredleGame'
 
 const BoredleGOTD = () => {
-  const { getWordOfTheDay } = useBoredleContext()
+  const { getMyBoredle } = useBoredleContext()
 
   useEffect(() => {
-    getWordOfTheDay()
+    getMyBoredle()
   }, [])
 
   return (
