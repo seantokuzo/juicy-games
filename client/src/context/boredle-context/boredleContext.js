@@ -50,7 +50,7 @@ import {
 import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 
 const initialState = {
-  mode: 'gotd',
+  mode: 'menu',
   // GAME MODAL DISPLAYS
   gotd: {
     answer: [],
@@ -183,7 +183,7 @@ const BoredleContextProvider = ({ children }) => {
     try {
       const { data } = await authFetch('/boredle/getMyBoredle')
       const { currentGame, stats } = data
-      const word = encryptBoredle(currentGame.word.word)
+      const word = encryptBoredle(currentGame.word)
       dispatch({
         type: GET_MY_BOREDLE_SUCCESS,
         payload: { currentGame, stats, word }
@@ -198,7 +198,8 @@ const BoredleContextProvider = ({ children }) => {
   }
 
   const handleBoredleKeyboard = (key) => {
-    const { didWin, didLose, isRevealing, invalidGuessWiggle } = state
+    const { didWin, didLose, isRevealing, invalidGuessWiggle } =
+      state[state.mode]
     if (isRevealing || didWin || didLose || invalidGuessWiggle) return
 
     // HANDLE BACKSPACE KEY

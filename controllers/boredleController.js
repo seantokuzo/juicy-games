@@ -81,7 +81,6 @@ export const getMyBoredle = async (req, res) => {
 
   // IF USER DOESN'T HAVE A GAME - CREATE ONE
   if (!game) {
-    const user = await User.findById(req.user.userId)
     const word = await BoredleWord.findOne({
       timeBegins: { $lt: Date.now() },
       timeExpires: { $gt: Date.now() }
@@ -95,9 +94,17 @@ export const getMyBoredle = async (req, res) => {
         word: word._id
       }
     })
-    newGame.id = undefined
-    newGame.__v = undefined
-    res.status(StatusCodes.CREATED).json(newGame)
+    const data = {
+      currentGame: {
+        word: word.word,
+        prevGuesses: [],
+        didWin: false,
+        didLose: false
+      },
+      stats: newGame.stats
+    }
+    console.log(data)
+    res.status(StatusCodes.CREATED).json(data)
     return
   }
 
@@ -153,8 +160,8 @@ export const submitGuess = async (req, res) => {
     game.currentGame.didWin = true
     game.stats.wins = game.stats.wins + 1
     game.stats.streak = game.stats.streak + 1
-    if (game.stats.streak + 1 > game.stats.maxStreak) {
-      game.stats.maxStreak = game.stats.streak + 1
+    if (game.stats.streak > game.stats.maxStreak) {
+      game.stats.maxStreak = game.stats.streak
     }
     const numGuesses = game.currentGame.prevGuesses.length + 1
     if (numGuesses === 1) {

@@ -136,6 +136,7 @@
     @include flex;
     @include box-shadow;
     width: 95%;
+    max-width: 400px;
     
     background-color: rgba($clr-white, 0.90);
     border-radius: 5px;
