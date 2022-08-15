@@ -323,16 +323,16 @@
 
   &__box {
     color: $clr-white;
-    // &-filled {
-    //   color: $clr-white;
-    // }
     &-correct {
+      border-color: $clr-brdl-correct;
       background-color: $clr-brdl-correct;
     }
     &-wrong-spot {
+      border-color: $clr-brdl-wrong-spot;
       background-color: $clr-brdl-wrong-spot;
     }
     &-incorrect {
+      border-color: $clr-brdl-grey-dk;
       background-color: $clr-brdl-grey-dk;
     }
   }

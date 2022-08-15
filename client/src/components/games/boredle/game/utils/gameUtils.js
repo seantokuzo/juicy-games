@@ -1,5 +1,6 @@
 import { ANSWERS_LIST } from '../data/wordList'
 import { NUMBER_GUESSES } from '../data/gameSettings'
+import { decryptBoredle } from '../../../../../utils/boredleEncrypt'
 
 // GET A NEW ANSWER
 function getNewWord() {
@@ -9,7 +10,8 @@ function getNewWord() {
 }
 
 // GET ARRAYS OF CORRECT / WRONG SPOT / AND INCORRECT GUESSED LETTERS
-function getLettersArray(str, answer, prevGuesses) {
+function getLettersArray(str, encryptedAnswer, prevGuesses) {
+  const answer = decryptBoredle(encryptedAnswer)
   console.log(answer)
   const guessedLettersArray = [
     ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))

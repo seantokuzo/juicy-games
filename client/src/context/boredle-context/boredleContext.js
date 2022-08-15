@@ -17,7 +17,10 @@ import {
   GET_MY_BOREDLE_ERROR,
   HANDLE_KEYBOARD_LETTER,
   HANDLE_KEYBOARD_BACKSPACE,
-  HANDLE_KEYBOARD_ENTER
+  SUBMIT_GOTD_GUESS,
+  SUBMIT_PRACTICE_GUESS,
+  HANDLE_WIN,
+  HANDLE_LOSS
 } from './boredleActions'
 import { useAppContext } from '../appContext'
 import { VALID_GUESSES } from '../../components/games/boredle/game/data/validGuesses'
@@ -47,7 +50,7 @@ import {
 import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 
 const initialState = {
-  mode: 'menu',
+  mode: 'gotd',
   // GAME MODAL DISPLAYS
   gotd: {
     answer: [],
@@ -77,7 +80,7 @@ const initialState = {
       six: 0
     }
   },
-  hardMode: true,
+  hardMode: false,
   highContrastMode: false,
   showHelp: false,
   showSettings: false,
@@ -97,7 +100,7 @@ const BoredleContextProvider = ({ children }) => {
     useAppContext()
 
   console.log(state.gotd)
-  console.log(state.stats)
+  // console.log(state.stats)
 
   const updateBoredleMode = (mode) => {
     dispatch({ type: UPDATE_BOREDLE_MODE, payload: { mode } })
@@ -135,6 +138,13 @@ const BoredleContextProvider = ({ children }) => {
     }, WIN_ANIME_DURATION + 100)
   }
 
+  const handleReveal = () => {
+    dispatch({ type: IS_REVEALING_START })
+    setTimeout(() => {
+      dispatch({ type: IS_REVEALING_STOP })
+    }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
+  }
+
   const handleAlertModal = (alertText) => {
     dispatch({ type: SHOW_ALERT_MODAL, payload: { alertText } })
     setTimeout(() => {
@@ -142,31 +152,31 @@ const BoredleContextProvider = ({ children }) => {
     }, ALERT_DURATION + 150)
   }
 
-  const submitGuessToDB = async () => {
+  const handleWin = () => {
+    dispatch({ type: HANDLE_WIN })
+  }
+
+  const handleLoss = () => {
+    dispatch({ type: HANDLE_LOSS })
+  }
+
+  const submitGuessToDB = async (guess, gameStatus) => {
     try {
-      const { data } = authFetch('/boredle/submitGuess')
+      const { data } = await authFetch.post('/boredle/submitGuess', {
+        guess,
+        gameStatus
+      })
       console.log(data)
+      const { didWin, didLose, prevGuesses } = data
+      dispatch({ type: SUBMIT_GOTD_GUESS, payload: { prevGuesses } })
+      handleReveal()
+      // TO-DO
+      if (didWin) return handleWin()
+      if (didLose) return handleLoss()
     } catch (err) {
       console.log(err)
     }
   }
-
-  // const handleReveal = (str) => {
-  //   dispatch({ type: IS_REVEALING_START })
-  //   setTimeout(() => {
-  //     // TO-DO
-  //     // setPrevGuesses((prevPrevGuesses) => [...prevPrevGuesses, currentGuess])
-  //     // setCurrentGuess([])
-  //     dispatch({ type: IS_REVEALING_STOP })
-  //     if (str === 'loss') {
-  //       setDidLose(true)
-  //     }
-  //   }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
-  //   if (str === 'win') {
-  //     setTimeout(() => {
-  //     }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY + WIN_ANIME_DELAY * WORD_LENGTH + 2 * WIN_ANIME_DELAY + 200)
-  //   }
-  // }
 
   const getMyBoredle = async () => {
     startLoading()
@@ -226,7 +236,7 @@ const BoredleContextProvider = ({ children }) => {
         handleAlertModal(ALERT_MS_NOT_A_WORD)
         return
       }
-      // HARDMODE CONDITION CHECKER
+      // TO-DO : TEST - HARDMODE CONDITION CHECKER
       if (state.hardMode && state[state.mode].prevGuesses.length > 0) {
         const mustUseLetters = getLettersArray(
           'must use',
@@ -249,26 +259,39 @@ const BoredleContextProvider = ({ children }) => {
           (letter, i) => letter === state[state.mode].currentGuess[i]
         )
       ) {
-        updateStats('win')
-        setDidWin(true)
-        handleReveal('win')
+        console.log('💥 WIN WIN WIN')
+        if (state.mode === 'gotd') {
+          submitGuessToDB(state.gotd.currentGuess, 'win')
+          return
+        }
+        dispatch({ type: SUBMIT_PRACTICE_GUESS })
+        handleWin()
         return
         //HANDLE INCORRECT GUESS WITH GUESSES REMAINING
       } else if (
-        prevGuesses.length >= 0 &&
-        prevGuesses.length < NUMBER_GUESSES - 1
+        state[state.mode].prevGuesses.length >= 0 &&
+        state[state.mode].prevGuesses.length < NUMBER_GUESSES - 1
       ) {
-        handleReveal('none')
+        console.log('💥 INCORRECT GUESS - GUESS REMAINING')
+        if (state.mode === 'gotd') {
+          submitGuessToDB(state.gotd.currentGuess, 'active')
+          return
+        }
+        dispatch({ type: SUBMIT_PRACTICE_GUESS })
         return
         //HANDLE LOSS
       } else if (
-        prevGuesses.length === NUMBER_GUESSES - 1 &&
-        currentGuess !== answer
+        state[state.mode].prevGuesses.length === NUMBER_GUESSES - 1 &&
+        state[state.mode].currentGuess !==
+          decryptBoredle(state[state.mode].answer)
       ) {
-        updateStats('loss')
-        handleReveal('loss')
+        if (state.mode === 'gotd') {
+          submitGuessToDB(state.gotd.currentGuess, 'lose')
+          return
+        }
+        dispatch({ SUBMIT_PRACTICE_GUESS })
+        handleLoss()
       }
-
       return
     }
 

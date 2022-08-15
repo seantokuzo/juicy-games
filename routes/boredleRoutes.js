@@ -15,6 +15,6 @@ router.use(authenticateUser)
 router.route('/getAllWords').get(getAllWords)
 router.route('/getWordOfTheDay').get(getWordOfTheDay)
 router.route('/getMyBoredle').get(getMyBoredle)
-router.route('/submitGuess').patch(submitGuess)
+router.route('/submitGuess').post(submitGuess)
 
 export default router

@@ -41,9 +41,16 @@ const BoredleGame = () => {
     if (isLoading || showAlert) return
     if (isRevealing || invalidGuessWiggle || didLose || didWin) return
     const { key } = e
-    // console.log(key)
+    console.log(key.length)
     const letterRegex = /[a-zA-Z]/
-    if (!letterRegex.test(key) && key !== 'Enter' && key !== 'Backspace') return
+    console.log(
+      key.length !== 1 &&
+        !letterRegex.test(key) &&
+        key !== 'Enter' &&
+        key !== 'Backspace'
+    )
+    if (!letterRegex.test(key)) return
+    if (key.length > 1 && (key !== 'Enter' && key !== 'Backspace')) return
     if (key === 'Enter') {
       if (showSettings) return toggleSettings()
       // TO-DO TOGGLE STATS

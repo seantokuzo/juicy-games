@@ -15,7 +15,10 @@ import {
   GET_MY_BOREDLE_ERROR,
   HANDLE_KEYBOARD_LETTER,
   HANDLE_KEYBOARD_BACKSPACE,
-  HANDLE_KEYBOARD_ENTER
+  SUBMIT_GOTD_GUESS,
+  SUBMIT_PRACTICE_GUESS,
+  HANDLE_WIN,
+  HANDLE_LOSS
 } from './boredleActions'
 
 import { initialState } from './boredleContext'
@@ -139,6 +142,49 @@ const boredleReducer = (state, action) => {
       [state.mode]: {
         ...state[state.mode],
         currentGuess: action.payload.newCurrentGuess
+      }
+    }
+  }
+  if (action.type === SUBMIT_GOTD_GUESS) {
+    return {
+      ...state,
+      gotd: {
+        ...state.gotd,
+        currentGuess: [],
+        prevGuesses: action.payload.prevGuesses
+      }
+    }
+  }
+  if (action.type === SUBMIT_PRACTICE_GUESS) {
+    return {
+      ...state,
+      practice: {
+        ...state.practice,
+        currentGuess: [],
+        prevGuesses: [
+          ...state.practice.prevGuesses,
+          state.practice.currentGuess
+        ]
+      }
+    }
+  }
+  if (action.type === HANDLE_WIN) {
+    return {
+      ...state,
+      [state.mode]: {
+        ...state[state.mode],
+        didWin: true,
+        didLose: false
+      }
+    }
+  }
+  if (action.type === HANDLE_LOSS) {
+    return {
+      ...state,
+      [state.mode]: {
+        ...state[state.mode],
+        didWin: false,
+        didLose: true
       }
     }
   }

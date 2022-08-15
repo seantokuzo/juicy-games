@@ -127,9 +127,8 @@ export const getMyBoredle = async (req, res) => {
 // *****************************************************
 export const submitGuess = async (req, res) => {
   const { guess, gameStatus } = req.body
+  console.log(guess, gameStatus)
   const game = await BoredleGame.findOne({ user: req.user.userId })
-
-  console.log(game)
 
   if (!game) {
     const word = await BoredleWord.findOne({
@@ -144,7 +143,7 @@ export const submitGuess = async (req, res) => {
         didWin: gameStatus === 'win' ? true : false
       }
     })
-    console.log(newGame)
+    console.log(`New Game Created: ${newGame}`)
     res.status(StatusCodes.CREATED).json({ game: newGame })
     return
   }
@@ -184,5 +183,7 @@ export const submitGuess = async (req, res) => {
   }
   await game.save()
 
-  res.status(StatusCodes.OK).json(game)
+  const { didWin, didLose, prevGuesses } = game.currentGame
+
+  res.status(StatusCodes.OK).json({ didWin, didLose, prevGuesses })
 }

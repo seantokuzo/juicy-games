@@ -1,31 +1,34 @@
 import React from 'react'
+import { nanoid } from 'nanoid'
 import { useBoredleContext } from '../../../../../context/boredle-context/boredleContext'
+import { decryptBoredle } from '../../../../../utils/boredleEncrypt'
+import { WIN_ANIME_DELAY, WIN_ANIME_DURATION } from '../data/gameSettings'
 
 const FilledRow = ({ guess, row }) => {
-  const { mode, isRevealing, didWin, prevGuesses } = useBoredleContext()
+  const { mode, isRevealing } = useBoredleContext()
   const {
-    [mode]: { answer }
+    [mode]: { answer, didWin, prevGuesses }
   } = useBoredleContext()
 
-  console.log(answer, prevGuesses)
+  const decrypted = decryptBoredle(answer)
 
-  // const delay = (ind) => WIN_ANIME_DELAY * ind
+  const delay = (ind) => WIN_ANIME_DELAY * ind
 
   return (
     <div className="boredle__guess-row">
       {guess.map((letter, i) => (
         <div
           className={
-            letter === answer[i] &&
+            letter === decrypted[i] &&
             didWin &&
             !isRevealing &&
             row === prevGuesses.length
-              ? 'boredle__guess-box boredle__guess-box-win boredle__correct'
-              : letter === answer[i]
-              ? 'boredle__guess-box boredle__correct'
-              : answer.includes(letter)
-              ? 'boredle__guess-box boredle__wrong-spot'
-              : 'boredle__guess-box boredle__incorrect'
+              ? 'boredle__guess-box boredle__box--win boredle__box-correct'
+              : letter === decrypted[i]
+              ? 'boredle__guess-box boredle__box-correct'
+              : decrypted.includes(letter)
+              ? 'boredle__guess-box boredle__box-wrong-spot'
+              : 'boredle__guess-box boredle__box-incorrect'
           }
           style={{
             animationDelay: `${delay(i)}ms`,
