@@ -86,6 +86,9 @@ export const getMyBoredle = async (req, res) => {
       timeBegins: { $lt: Date.now() },
       timeExpires: { $gt: Date.now() }
     })
+    if (!word) {
+      throw new NotFoundError('Oops, someone needs to add some words')
+    }
     const newGame = await BoredleGame.create({
       user: req.user.userId,
       currentGame: {
@@ -99,17 +102,24 @@ export const getMyBoredle = async (req, res) => {
   }
 
   // CHECK IF WORD EXPIRED
-  if (new Date(game.currentGame.word.timeExpires).getTime() < Date.now()) {
+  if (
+    !game.currentGame.word ||
+    new Date(game.currentGame.word.timeExpires).getTime() < Date.now()
+  ) {
     const word = await BoredleWord.findOne({
       timeBegins: { $lt: Date.now() },
       timeExpires: { $gt: Date.now() }
     })
+    if (!word) {
+      throw new NotFoundError('Oops, someone needs to add some words')
+    }
     game.currentGame.word = word._id
     game.currentGame.prevGuesses = []
     game.didWin = false
     game.didLose = false
     await game.save()
   }
+  console.log(game)
   game.id = undefined
   res.status(StatusCodes.CREATED).json(game)
 }
