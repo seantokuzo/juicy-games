@@ -96,7 +96,7 @@ export const getMyBoredle = async (req, res) => {
     })
     const data = {
       currentGame: {
-        word: word.word,
+        word,
         prevGuesses: [],
         didWin: false,
         didLose: false
@@ -185,8 +185,8 @@ export const submitGuess = async (req, res) => {
   }
   if (gameStatus === 'lose') {
     game.currentGame.didLose = true
-    gameStatus.stats.losses = gameStatus.stats.losses + 1
-    gameStatus.stats.streak = 0
+    game.stats.losses = game.stats.losses + 1
+    game.stats.streak = 0
   }
   await game.save()
 

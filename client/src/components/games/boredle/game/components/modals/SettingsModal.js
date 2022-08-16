@@ -1,4 +1,6 @@
 import React from 'react'
+import ThemeMenu from '../../../../../ThemeMenu'
+import AvatarMenu from '../../../../../AvatarMenu'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { useBoredleContext } from '../../../../../../context/boredle-context/boredleContext'
 
@@ -84,7 +86,9 @@ const SettingsModal = () => {
 
   const feedbackSettings = (
     <div className="boredle__settings-feedback">
-      <h3 className="boredle__settings-title modal__title subtitle">Feedback</h3>
+      <h3 className="boredle__settings-title modal__title subtitle">
+        Feedback
+      </h3>
       <div className="boredle__settings-feedback-links">
         <button className="boredle__settings-btn btn fs-boredle text">
           <a
@@ -125,8 +129,9 @@ const SettingsModal = () => {
         {hardModeSettings}
         {darkModeSettings}
         {highContrastSettings}
+        <ThemeMenu custom={true} />
         {feedbackSettings}
-        {mode === 'gotd' && newGameButton}
+        {mode !== 'gotd' && newGameButton}
       </div>
     </div>
   )

@@ -8,11 +8,15 @@ import {
 } from 'react-icons/gi'
 import { useAppContext } from '../context/appContext'
 
-const ThemeMenu = () => {
+const ThemeMenu = ({ custom }) => {
   const { theme, changeTheme, isLoading, showAlert } = useAppContext()
 
   return (
-    <div className="themes__fruits">
+    <div
+      className={
+        custom ? 'themes__fruits themes__fruits-custom' : 'themes__fruits'
+      }
+    >
       <GiStrawberry
         className={
           theme === 'strawberry'

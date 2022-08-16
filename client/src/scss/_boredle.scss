@@ -22,13 +22,13 @@
     background-color: $clr-black;
     border: solid 3px;
     @include box-shadow($clr-black, 0.75, 0.5);
+    z-index: 100;
 
     &-perm {
 
     }
 
     &-temp {
-
       animation: alert-fade 1s ease-out 1s forwards;
     }
   }
@@ -127,6 +127,7 @@
     width: 100%;
     height: 100%;
     min-height: 100vh;
+    animation: fade-in 250ms;
 
     background-color: rgba(#000000, 0.5)
   }
@@ -142,6 +143,9 @@
     border-radius: 5px;
     border: 5px solid $clr-black;
     padding: 1.5rem 2rem;
+
+    animation: modal-slide 250ms;
+    z-index: 9999;
 
     &-text {
     }

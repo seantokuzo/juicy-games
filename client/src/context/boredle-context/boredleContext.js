@@ -99,8 +99,9 @@ const BoredleContextProvider = ({ children }) => {
   const { startLoading, stopLoading, displayAlert, clearAlert, authFetch } =
     useAppContext()
 
-  console.log(state.gotd)
-  // console.log(state.stats)
+  // console.log(state.gotd)
+  console.log(state.practice)
+  console.log(state.stats)
 
   const updateBoredleMode = (mode) => {
     dispatch({ type: UPDATE_BOREDLE_MODE, payload: { mode } })
@@ -138,9 +139,10 @@ const BoredleContextProvider = ({ children }) => {
     }, WIN_ANIME_DURATION + 100)
   }
 
-  const handleReveal = () => {
+  const handleReveal = (prevGuesses) => {
     dispatch({ type: IS_REVEALING_START })
     setTimeout(() => {
+      dispatch({ type: SUBMIT_GOTD_GUESS, payload: { prevGuesses } })
       dispatch({ type: IS_REVEALING_STOP })
     }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
   }
@@ -168,8 +170,7 @@ const BoredleContextProvider = ({ children }) => {
       })
       console.log(data)
       const { didWin, didLose, prevGuesses } = data
-      dispatch({ type: SUBMIT_GOTD_GUESS, payload: { prevGuesses } })
-      handleReveal()
+      handleReveal(prevGuesses)
       // TO-DO
       if (didWin) return handleWin()
       if (didLose) return handleLoss()
@@ -183,7 +184,7 @@ const BoredleContextProvider = ({ children }) => {
     try {
       const { data } = await authFetch('/boredle/getMyBoredle')
       const { currentGame, stats } = data
-      const word = encryptBoredle(currentGame.word)
+      const word = encryptBoredle(currentGame.word.word)
       dispatch({
         type: GET_MY_BOREDLE_SUCCESS,
         payload: { currentGame, stats, word }
@@ -205,7 +206,7 @@ const BoredleContextProvider = ({ children }) => {
     // HANDLE BACKSPACE KEY
     if (key === 'Backspace') {
       if (state[state.mode].currentGuess.length <= 0) {
-        return console.log("Can't Backspace rn fam")
+        handleInvalidGuess()
       }
       console.log('Backspace')
       const newCurrentGuess = state[state.mode].currentGuess.slice(
@@ -239,11 +240,13 @@ const BoredleContextProvider = ({ children }) => {
       }
       // TO-DO : TEST - HARDMODE CONDITION CHECKER
       if (state.hardMode && state[state.mode].prevGuesses.length > 0) {
+        console.log('hi')
         const mustUseLetters = getLettersArray(
           'must use',
-          decryptBoredle(state[state.mode].answer),
+          state[state.mode].answer,
           state[state.mode].prevGuesses
         )
+        console.log('here')
         if (
           !mustUseLetters.every((letter) =>
             state[state.mode].currentGuess.includes(letter)
@@ -305,13 +308,7 @@ const BoredleContextProvider = ({ children }) => {
       dispatch({ type: HANDLE_KEYBOARD_LETTER, payload: { newCurrentGuess } })
       return
     }
-
-    console.log('alert?')
-    displayAlert(
-      'danger alert-center',
-      "Can't add/subtract letter rn fam",
-      2000
-    )
+    handleInvalidGuess()
   }
 
   return (

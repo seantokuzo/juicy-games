@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import Confetti from 'react-confetti'
 import { useAppContext } from '../../../../context/appContext'
 import { useBoredleContext } from '../../../../context/boredle-context/boredleContext'
 import {
@@ -61,6 +62,7 @@ const BoredleGame = () => {
       tabIndex="0"
       selected
     >
+      {didWin && <Confetti />}
       {showAlert && <Alert />}
       {showAlertModal && <AlertModal />}
       {showHelp && <HelpModal />}
