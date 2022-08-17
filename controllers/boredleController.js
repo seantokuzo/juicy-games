@@ -77,7 +77,9 @@ export const getWordOfTheDay = async (req, res) => {
 
 // *****************************************************
 export const getMyBoredle = async (req, res) => {
+  console.log('💥 GET MY BOREDLE')
   const game = await BoredleGame.findOne({ user: req.user.userId })
+  console.log(game)
 
   // IF USER DOESN'T HAVE A GAME - CREATE ONE
   if (!game) {
@@ -96,7 +98,7 @@ export const getMyBoredle = async (req, res) => {
     })
     const data = {
       currentGame: {
-        word,
+        word: word.word,
         prevGuesses: [],
         didWin: false,
         didLose: false
@@ -113,6 +115,7 @@ export const getMyBoredle = async (req, res) => {
     !game.currentGame.word ||
     new Date(game.currentGame.word.timeExpires).getTime() < Date.now()
   ) {
+    console.log('💥 WORD EXPIRED - GET NEW WORD')
     const word = await BoredleWord.findOne({
       timeBegins: { $lt: Date.now() },
       timeExpires: { $gt: Date.now() }
@@ -122,22 +125,47 @@ export const getMyBoredle = async (req, res) => {
     }
     game.currentGame.word = word._id
     game.currentGame.prevGuesses = []
-    game.didWin = false
-    game.didLose = false
+    game.currentGame.didWin = false
+    game.currentGame.didLose = false
     await game.save()
+    console.log(`⭐️ expired word - saved game: ${game}`)
+    const data = {
+      currentGame: {
+        word: word.word,
+        prevGuesses: [],
+        didWin: false,
+        didLose: false
+      },
+      stats: game.stats
+    }
+    res.status(StatusCodes.OK).json(data)
+    return
   }
-  console.log(game)
-  game.id = undefined
-  res.status(StatusCodes.CREATED).json(game)
+
+  const data = {
+    currentGame: {
+      word: game.currentGame.word.word,
+      prevGuesses: game.currentGame.prevGuesses,
+      didWin: game.currentGame.didWin,
+      didLose: game.currentGame.didLose
+    },
+    stats: game.stats
+  }
+
+  console.log(data)
+  res.status(StatusCodes.CREATED).json(data)
 }
 
 // *****************************************************
 export const submitGuess = async (req, res) => {
+  console.log('💥 SUBMIT GUESS ROUTE START')
   const { guess, gameStatus } = req.body
-  console.log(guess, gameStatus)
+  console.log(gameStatus)
   const game = await BoredleGame.findOne({ user: req.user.userId })
+  console.log(game.currentGame)
 
   if (!game) {
+    console.log('💥 SUBMIT GUESS BUT NO GAME')
     const word = await BoredleWord.findOne({
       timeBegins: { $lt: Date.now() },
       timeExpires: { $gt: Date.now() }
@@ -157,13 +185,15 @@ export const submitGuess = async (req, res) => {
 
   game.currentGame.prevGuesses = [...game.currentGame.prevGuesses, guess]
   if (gameStatus === 'win') {
+    console.log('💥 GAME WIN')
     game.currentGame.didWin = true
     game.stats.wins = game.stats.wins + 1
     game.stats.streak = game.stats.streak + 1
     if (game.stats.streak > game.stats.maxStreak) {
       game.stats.maxStreak = game.stats.streak
     }
-    const numGuesses = game.currentGame.prevGuesses.length + 1
+    const numGuesses = game.currentGame.prevGuesses.length
+    console.log(numGuesses)
     if (numGuesses === 1) {
       game.stats.guessStats.one = game.stats.guessStats.one + 1
     }
@@ -184,6 +214,7 @@ export const submitGuess = async (req, res) => {
     }
   }
   if (gameStatus === 'lose') {
+    console.log('💥 GAME LOSE')
     game.currentGame.didLose = true
     game.stats.losses = game.stats.losses + 1
     game.stats.streak = 0
@@ -191,6 +222,7 @@ export const submitGuess = async (req, res) => {
   await game.save()
 
   const { didWin, didLose, prevGuesses } = game.currentGame
+  console.log(didWin, didLose, prevGuesses)
 
   res.status(StatusCodes.OK).json({ didWin, didLose, prevGuesses })
 }

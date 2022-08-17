@@ -11,7 +11,8 @@ const BoredleGameSchema = new mongoose.Schema(
     currentGame: {
       word: {
         type: mongoose.Schema.ObjectId,
-        ref: 'BoredleWord'
+        ref: 'BoredleWord',
+        required: [true, 'A BoredleGame must always have a word']
       },
       prevGuesses: [
         [

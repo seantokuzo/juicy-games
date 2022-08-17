@@ -100,8 +100,8 @@ const BoredleContextProvider = ({ children }) => {
     useAppContext()
 
   // console.log(state.gotd)
-  console.log(state.practice)
-  console.log(state.stats)
+  // console.log(state.practice)
+  // console.log(state.stats)
 
   const updateBoredleMode = (mode) => {
     dispatch({ type: UPDATE_BOREDLE_MODE, payload: { mode } })
@@ -183,8 +183,9 @@ const BoredleContextProvider = ({ children }) => {
     startLoading()
     try {
       const { data } = await authFetch('/boredle/getMyBoredle')
+      console.log(data)
       const { currentGame, stats } = data
-      const word = encryptBoredle(currentGame.word.word)
+      const word = encryptBoredle(currentGame.word)
       dispatch({
         type: GET_MY_BOREDLE_SUCCESS,
         payload: { currentGame, stats, word }

@@ -16,7 +16,7 @@ const BoredleGOTD = () => {
       {gotd.didLose && (
         <AlertModal text={`Answer: ${decryptBoredle(gotd.answer).join('')}`} />
         )}
-      {/* {gotd.didWin && <AlertModal text={`You Win!`} />} */}
+      {gotd.didWin && <AlertModal text={`You Win!`} />}
       <BoredleGame />
     </div>
   )

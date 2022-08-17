@@ -1,37 +1,102 @@
 [
   {
     "word": "fangs",
-    "timeBegins": "8/15/2022 0:00:00",
-    "timeExpires": "8/16/2022 0:00:00"
-  },
-  {
-    "word": "charm",
-    "timeBegins": "8/16/2022 0:00:00",
-    "timeExpires": "8/17/2022 0:00:00"
+    "timeBegins": "8/17/2022 12:00:00",
+    "timeExpires": "8/17/2022 12:01:00"
   },
   {
     "word": "kayak",
-    "timeBegins": "8/17/2022 0:00:00",
-    "timeExpires": "8/18/2022 0:00:00"
+    "timeBegins": "8/17/2022 12:01:00",
+    "timeExpires": "8/17/2022 12:02:00"
   },
   {
     "word": "flies",
-    "timeBegins": "8/18/2022 0:00:00",
-    "timeExpires": "8/19/2022 0:00:00"
+    "timeBegins": "8/17/2022 12:02:00",
+    "timeExpires": "8/17/2022 12:03:00"
   },
   {
     "word": "minty",
-    "timeBegins": "8/19/2022 0:00:00",
-    "timeExpires": "8/20/2022 0:00:00"
+    "timeBegins": "8/17/2022 12:03:00",
+    "timeExpires": "8/17/2022 12:04:00"
   },
   {
     "word": "olive",
-    "timeBegins": "8/20/2022 0:00:00",
-    "timeExpires": "8/21/2022 0:00:00"
+    "timeBegins": "8/17/2022 12:04:00",
+    "timeExpires": "8/17/2022 12:05:00"
   },
   {
     "word": "manic",
-    "timeBegins": "8/21/2022 0:00:00",
-    "timeExpires": "8/22/2022 0:00:00"
+    "timeBegins": "8/17/2022 12:05:00",
+    "timeExpires": "8/17/2022 12:06:00"
+  },
+  {
+    "word": "panic",
+    "timeBegins": "8/17/2022 12:06:00",
+    "timeExpires": "8/17/2022 12:07:00"
+  },
+  {
+    "word": "start",
+    "timeBegins": "8/17/2022 12:07:00",
+    "timeExpires": "8/17/2022 12:08:00"
+  },
+  {
+    "word": "dirty",
+    "timeBegins": "8/17/2022 12:08:00",
+    "timeExpires": "8/17/2022 12:09:00"
+  },
+  {
+    "word": "tacos",
+    "timeBegins": "8/17/2022 12:09:00",
+    "timeExpires": "8/17/2022 12:10:00"
+  },
+  {
+    "word": "socks",
+    "timeBegins": "8/17/2022 12:10:00",
+    "timeExpires": "8/17/2022 12:11:00"
+  },
+  {
+    "word": "block",
+    "timeBegins": "8/17/2022 12:11:00",
+    "timeExpires": "8/17/2022 12:12:00"
+  },
+  {
+    "word": "rocks",
+    "timeBegins": "8/17/2022 12:12:00",
+    "timeExpires": "8/17/2022 12:13:00"
+  },
+  {
+    "word": "biker",
+    "timeBegins": "8/17/2022 12:13:00",
+    "timeExpires": "8/17/2022 12:14:00"
+  },
+  {
+    "word": "hiker",
+    "timeBegins": "8/17/2022 12:14:00",
+    "timeExpires": "8/17/2022 12:15:00"
+  },
+  {
+    "word": "ships",
+    "timeBegins": "8/17/2022 12:15:00",
+    "timeExpires": "8/17/2022 12:16:00"
+  },
+  {
+    "word": "chips",
+    "timeBegins": "8/17/2022 12:16:00",
+    "timeExpires": "8/17/2022 12:17:00"
+  },
+  {
+    "word": "final",
+    "timeBegins": "8/17/2022 12:17:00",
+    "timeExpires": "8/17/2022 12:18:00"
+  },
+  {
+    "word": "words",
+    "timeBegins": "8/17/2022 12:18:00",
+    "timeExpires": "8/17/2022 12:19:00"
+  },
+  {
+    "word": "goner",
+    "timeBegins": "8/17/2022 12:19:00",
+    "timeExpires": "8/17/2022 12:20:00"
   }
 ]
