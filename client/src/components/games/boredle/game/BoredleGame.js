@@ -8,6 +8,7 @@ import {
   Keyboard,
   AlertModal,
   HelpModal,
+  StatsModal,
   SettingsModal
 } from './components'
 import Alert from '../../../Alert'
@@ -18,6 +19,7 @@ const BoredleGame = () => {
     mode,
     showAlertModal,
     showHelp,
+    showStats,
     showSettings,
     isRevealing,
     invalidGuessWiggle,
@@ -28,6 +30,8 @@ const BoredleGame = () => {
   const {
     [mode]: { didWin, didLose }
   } = useBoredleContext()
+
+  console.log(showStats)
 
   // FOCUS THE APP ON PAGE LOAD
   useEffect(() => {
@@ -66,6 +70,7 @@ const BoredleGame = () => {
       {showAlert && <Alert />}
       {showAlertModal && <AlertModal />}
       {showHelp && <HelpModal />}
+      {showStats && <StatsModal />}
       {showSettings && <SettingsModal />}
       <BoredleHeader />
       <GuessGrid />

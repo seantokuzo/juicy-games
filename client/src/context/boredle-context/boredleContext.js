@@ -6,6 +6,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_HIGH_CONTRAST_MODE,
   TOGGLE_HELP_MODAL,
+  TOGGLE_STATS_MODAL,
   TOGGLE_SETTINGS_MODAL,
   SHOW_ALERT_MODAL,
   HIDE_ALERT_MODAL,
@@ -83,6 +84,7 @@ const initialState = {
   hardMode: false,
   highContrastMode: false,
   showHelp: false,
+  showStats: false,
   showSettings: false,
   showAlertModal: false,
   alertText: '',
@@ -123,12 +125,14 @@ const BoredleContextProvider = ({ children }) => {
   }
 
   const toggleHelp = () => {
-    // console.log('toggle help')
     dispatch({ type: TOGGLE_HELP_MODAL })
   }
 
+  const toggleStats = () => {
+    dispatch({ type: TOGGLE_STATS_MODAL })
+  }
+
   const toggleSettings = () => {
-    // console.log('toggle settings')
     dispatch({ type: TOGGLE_SETTINGS_MODAL })
   }
 
@@ -142,7 +146,9 @@ const BoredleContextProvider = ({ children }) => {
   const handleReveal = (prevGuesses) => {
     dispatch({ type: IS_REVEALING_START })
     setTimeout(() => {
-      dispatch({ type: SUBMIT_GOTD_GUESS, payload: { prevGuesses } })
+      if (prevGuesses) {
+        dispatch({ type: SUBMIT_GOTD_GUESS, payload: { prevGuesses } })
+      }
       dispatch({ type: IS_REVEALING_STOP })
     }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
   }
@@ -320,6 +326,7 @@ const BoredleContextProvider = ({ children }) => {
         toggleDarkMode,
         toggleHighContrastMode,
         toggleHelp,
+        toggleStats,
         toggleSettings,
         updateBoredleMode,
         getMyBoredle,

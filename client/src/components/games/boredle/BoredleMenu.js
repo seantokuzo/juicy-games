@@ -15,29 +15,29 @@ const BoredleMenu = () => {
         >
           Boredle of the Day
         </button>
-        <button
-          className="btn form-btn fs-boredle"
-          onClick={() => updateBoredleMode('practice')}
-        >
-          Practice
-        </button>
-        <button
+        {/* <button
           className="btn form-btn fs-boredle"
           onClick={() => updateBoredleMode('friends')}
         >
           Boredle with Friends
-        </button>
+        </button> */}
         <button
           className="btn form-btn fs-boredle"
           onClick={() => updateBoredleMode('stats')}
         >
           My Stats
         </button>
-        <button
+        {/* <button
           className="btn form-btn fs-boredle"
           onClick={() => updateBoredleMode('leaderboard')}
         >
           Leaderboard
+        </button> */}
+        <button
+          className="btn form-btn fs-boredle"
+          onClick={() => updateBoredleMode('practice')}
+        >
+          Practice
         </button>
       </div>
       <ButtonLink path="/me/games" btnClass="form-btn" text="Games Menu" />

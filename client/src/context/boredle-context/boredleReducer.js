@@ -4,6 +4,7 @@ import {
   TOGGLE_DARK_MODE,
   TOGGLE_HIGH_CONTRAST_MODE,
   TOGGLE_HELP_MODAL,
+  TOGGLE_STATS_MODAL,
   TOGGLE_SETTINGS_MODAL,
   SHOW_ALERT_MODAL,
   HIDE_ALERT_MODAL,
@@ -52,6 +53,15 @@ const boredleReducer = (state, action) => {
     return {
       ...state,
       showHelp: !state.showHelp,
+      showStats: false,
+      showSettings: false
+    }
+  }
+  if (action.type === TOGGLE_STATS_MODAL) {
+    return {
+      ...state,
+      showHelp: false,
+      showStats: !state.showStats,
       showSettings: false
     }
   }
@@ -59,6 +69,7 @@ const boredleReducer = (state, action) => {
     return {
       ...state,
       showHelp: false,
+      showStats: false,
       showSettings: !state.showSettings
     }
   }
