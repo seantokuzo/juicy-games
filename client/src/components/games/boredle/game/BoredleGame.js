@@ -31,8 +31,6 @@ const BoredleGame = () => {
     [mode]: { didWin, didLose }
   } = useBoredleContext()
 
-  console.log(showStats)
-
   // FOCUS THE APP ON PAGE LOAD
   useEffect(() => {
     const boredleWrapper = document.getElementById('boredle-wrapper')

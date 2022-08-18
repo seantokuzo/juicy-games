@@ -51,7 +51,7 @@ import {
 import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 
 const initialState = {
-  mode: 'menu',
+  mode: 'gotd',
   // GAME MODAL DISPLAYS
   gotd: {
     answer: [],
@@ -84,7 +84,7 @@ const initialState = {
   hardMode: false,
   highContrastMode: false,
   showHelp: false,
-  showStats: false,
+  showStats: true,
   showSettings: false,
   showAlertModal: false,
   alertText: '',
@@ -215,7 +215,6 @@ const BoredleContextProvider = ({ children }) => {
       if (state[state.mode].currentGuess.length <= 0) {
         handleInvalidGuess()
       }
-      console.log('Backspace')
       const newCurrentGuess = state[state.mode].currentGuess.slice(
         0,
         state[state.mode].currentGuess.length - 1
@@ -247,13 +246,11 @@ const BoredleContextProvider = ({ children }) => {
       }
       // TO-DO : TEST - HARDMODE CONDITION CHECKER
       if (state.hardMode && state[state.mode].prevGuesses.length > 0) {
-        console.log('hi')
         const mustUseLetters = getLettersArray(
           'must use',
           state[state.mode].answer,
           state[state.mode].prevGuesses
         )
-        console.log('here')
         if (
           !mustUseLetters.every((letter) =>
             state[state.mode].currentGuess.includes(letter)
@@ -296,6 +293,7 @@ const BoredleContextProvider = ({ children }) => {
         state[state.mode].currentGuess !==
           decryptBoredle(state[state.mode].answer)
       ) {
+        console.log('💥 LOSER LOSER LOSER')
         if (state.mode === 'gotd') {
           submitGuessToDB(state.gotd.currentGuess, 'lose')
           return

@@ -195,6 +195,22 @@
     }
   }
 
+  &__stats {
+    @include flex;
+    
+    &-chart {
+      @include flex;
+      font-size: 1em;
+      width: 100%;
+      color: $clr-white;
+
+      &-title {
+        @include text-shadow;
+        font-size: 1.25em;
+      }
+    }
+  }
+
   &__settings {
     @include flex;
     padding: 1rem 1.5rem;
