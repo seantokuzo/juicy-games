@@ -197,6 +197,22 @@
 
   &__stats {
     @include flex;
+    &-top {
+      @include flex(row, base-line, space-between);
+      width: 100%;
+      padding: 0 0 1rem;
+    }
+    
+    &-stat {
+      padding: 1rem 0;
+      min-width: 25%;
+      &-value {
+        font-size: 2.25em;
+      }
+      &-label {
+        font-size: .9em;
+      }
+    }
     
     &-chart {
       @include flex;

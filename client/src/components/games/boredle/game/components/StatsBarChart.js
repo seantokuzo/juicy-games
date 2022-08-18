@@ -19,7 +19,7 @@ const StatsBarChart = () => {
 
   const barChartEl = (
     <ResponsiveContainer width="100%" height={200}>
-      <BarChart data={data} margin={{ top: 50 }}>
+      <BarChart data={data} margin={{ top: 10 }}>
         <XAxis
           dataKey="name"
           tickLine={false}
