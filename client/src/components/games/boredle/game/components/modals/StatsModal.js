@@ -51,7 +51,7 @@ const StatsModal = ({ page }) => {
   )
 
   const shareButton = (
-    <div className="btn boredle__btn boredle__btn-share" onClick={handleShare}>
+    <div className="btn boredle__btn boredle__btn-share fs-boredle" onClick={handleShare}>
       <h3>SHARE</h3>
     </div>
   )
