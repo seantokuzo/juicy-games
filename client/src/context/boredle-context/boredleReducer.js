@@ -186,7 +186,8 @@ const boredleReducer = (state, action) => {
         ...state[state.mode],
         didWin: true,
         didLose: false
-      }
+      },
+      stats: action.payload.newStats
     }
   }
   if (action.type === HANDLE_LOSS) {
@@ -196,7 +197,8 @@ const boredleReducer = (state, action) => {
         ...state[state.mode],
         didWin: false,
         didLose: true
-      }
+      },
+      stats: action.payload.newStats
     }
   }
   throw new Error(`No such action: ${action.type}`)

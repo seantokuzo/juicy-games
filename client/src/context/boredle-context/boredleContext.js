@@ -82,9 +82,10 @@ const initialState = {
     }
   },
   hardMode: false,
+  darkMode: false,
   highContrastMode: false,
   showHelp: false,
-  showStats: true,
+  showStats: false,
   showSettings: false,
   showAlertModal: false,
   alertText: '',
@@ -98,12 +99,19 @@ const BoredleContext = React.createContext()
 
 const BoredleContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boredleReducer, initialState)
-  const { startLoading, stopLoading, displayAlert, clearAlert, authFetch } =
-    useAppContext()
+  const {
+    isLoading,
+    showAlert,
+    startLoading,
+    stopLoading,
+    displayAlert,
+    clearAlert,
+    authFetch
+  } = useAppContext()
 
   // console.log(state.gotd)
   // console.log(state.practice)
-  // console.log(state.stats)
+  console.log(state.stats)
 
   const updateBoredleMode = (mode) => {
     dispatch({ type: UPDATE_BOREDLE_MODE, payload: { mode } })
@@ -160,12 +168,18 @@ const BoredleContextProvider = ({ children }) => {
     }, ALERT_DURATION + 150)
   }
 
-  const handleWin = () => {
-    dispatch({ type: HANDLE_WIN })
+  const handleWin = (newStats) => {
+    dispatch({ type: HANDLE_WIN, payload: { newStats } })
+    setTimeout(() => {
+      toggleStats()
+    }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY + 500)
   }
 
-  const handleLoss = () => {
-    dispatch({ type: HANDLE_LOSS })
+  const handleLoss = (newStats) => {
+    dispatch({ type: HANDLE_LOSS, payload: { newStats } })
+    setTimeout(() => {
+      toggleStats()
+    }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY + 500)
   }
 
   const submitGuessToDB = async (guess, gameStatus) => {
@@ -174,12 +188,12 @@ const BoredleContextProvider = ({ children }) => {
         guess,
         gameStatus
       })
-      console.log(data)
-      const { didWin, didLose, prevGuesses } = data
+      // console.log(data)
+      const { didWin, didLose, prevGuesses, stats } = data
       handleReveal(prevGuesses)
       // TO-DO
-      if (didWin) return handleWin()
-      if (didLose) return handleLoss()
+      if (didWin) return handleWin(stats)
+      if (didLose) return handleLoss(stats)
     } catch (err) {
       console.log(err)
     }
@@ -208,7 +222,15 @@ const BoredleContextProvider = ({ children }) => {
   const handleBoredleKeyboard = (key) => {
     const { didWin, didLose, isRevealing, invalidGuessWiggle } =
       state[state.mode]
-    if (isRevealing || didWin || didLose || invalidGuessWiggle) return
+    if (
+      isRevealing ||
+      didWin ||
+      didLose ||
+      invalidGuessWiggle ||
+      isLoading ||
+      showAlert
+    )
+      return
 
     // HANDLE BACKSPACE KEY
     if (key === 'Backspace') {
@@ -316,6 +338,17 @@ const BoredleContextProvider = ({ children }) => {
     handleInvalidGuess()
   }
 
+  const handleShare = () => {
+    shareResults(
+      decryptBoredle(state.gotd.answer).join('').toUpperCase(),
+      state.gotd.prevGuesses,
+      state.hardMode,
+      state.darkMode,
+      state.highContrastMode,
+      state.gotd.didWin
+    )
+  }
+
   return (
     <BoredleContext.Provider
       value={{
@@ -328,7 +361,8 @@ const BoredleContextProvider = ({ children }) => {
         toggleSettings,
         updateBoredleMode,
         getMyBoredle,
-        handleBoredleKeyboard
+        handleBoredleKeyboard,
+        handleShare
       }}
     >
       {children}
