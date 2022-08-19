@@ -5,10 +5,13 @@ import {
   getAllWords,
   getWordOfTheDay,
   getMyBoredle,
-  submitGuess
+  submitGuess,
+  getBoredleLeaderboard
 } from '../controllers/boredleController.js'
 
 import authenticateUser from '../middleware/auth.js'
+
+router.route('/getBoredleLeaderboard').get(getBoredleLeaderboard)
 
 router.use(authenticateUser)
 
