@@ -86,7 +86,15 @@ BoredleGameSchema.index({ wins: 1 })
 BoredleGameSchema.index({ streak: 1 })
 BoredleGameSchema.index({ maxStreak: 1 })
 
+// POPULATE GAME WITH THEIR USER
+// BoredleGameSchema.pre(/^find/, function () {})
+
+// POPULATE GAME WITH WORD DOC
 BoredleGameSchema.pre(/^find/, function () {
+  this.populate({
+    path: 'user',
+    select: 'username avatar'
+  })
   this.populate({
     path: 'currentGame.word',
     select: '-__v'
