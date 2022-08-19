@@ -3,14 +3,25 @@ import { AiFillCloseCircle } from 'react-icons/ai'
 import { useBoredleContext } from '../../../../../../context/boredle-context/boredleContext'
 import StatsBarChart from '../StatsBarChart'
 
-const StatsModal = () => {
-  const { stats, toggleStats } = useBoredleContext()
+const StatsModal = ({ page }) => {
+  const {
+    stats,
+    toggleStats,
+    updateBoredleMode,
+    mode,
+    handleShare,
+    gotd: { didWin, didLose }
+  } = useBoredleContext()
+  console.log(stats)
   const { wins, losses, streak, maxStreak } = stats
 
   const statsTitleDiv = (
     <div className="boredle__setting-title">
       <h3 className="boredle__settings-title modal__title subtitle">Stats</h3>
-      <AiFillCloseCircle className="modal__close" onClick={toggleStats} />
+      <AiFillCloseCircle
+        className="modal__close"
+        onClick={page ? () => updateBoredleMode('menu') : toggleStats}
+      />
     </div>
   )
 
@@ -39,12 +50,19 @@ const StatsModal = () => {
     </div>
   )
 
+  const shareButton = (
+    <div className="btn boredle__btn boredle__btn-share" onClick={handleShare}>
+      <h3>SHARE</h3>
+    </div>
+  )
+
   return (
     <div className="boredle__modal--dimmer">
       <div className="boredle__modal boredle__stats bg-theme">
         {statsTitleDiv}
         {statsEl}
         <StatsBarChart />
+        {mode === 'gotd' && (didWin || didLose) && shareButton}
       </div>
     </div>
   )

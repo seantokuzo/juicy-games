@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect } from 'react'
 import {
   BoredleMenu,
   BoredleGOTD,
@@ -10,7 +10,11 @@ import {
 import { useBoredleContext } from '../../../context/boredle-context/boredleContext'
 
 const Boredle = () => {
-  const { mode } = useBoredleContext()
+  const { mode, getMyBoredle } = useBoredleContext()
+
+  useEffect(() => {
+    getMyBoredle()
+  }, [])
 
   return (
     <div className="boredle">

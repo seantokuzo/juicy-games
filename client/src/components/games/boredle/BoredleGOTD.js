@@ -5,17 +5,22 @@ import BoredleGame from './game/BoredleGame'
 import { AlertModal } from './game/components'
 
 const BoredleGOTD = () => {
-  const { getMyBoredle, gotd } = useBoredleContext()
+  const { getMyBoredle, gotd, toggleStats } = useBoredleContext()
+  const { didWin, didLose } = gotd
+
+  // useEffect(() => {
+  //   getMyBoredle()
+  // }, [])
 
   useEffect(() => {
-    getMyBoredle()
+    if (didWin || didLose) toggleStats()
   }, [])
 
   return (
     <div className="boredle__gotd page">
-      {gotd.didLose && (
+      {/* {gotd.didLose && (
         <AlertModal text={`Answer: ${decryptBoredle(gotd.answer).join('')}`} />
-        )}
+      )} */}
       {/* {gotd.didWin && <AlertModal text={`You Win!`} />} */}
       <BoredleGame />
     </div>

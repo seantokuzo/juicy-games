@@ -89,27 +89,34 @@
       }
     }
   }
-  
+
   &__keys {
     @include flex;
     width: 100%;
     margin: 1rem 0 0;
-    
+
     &-row {
       @include flex(row, center, space-around);
-      
+
     }
-    
+
     &-key {
       @include flex;
       font-size: 1em;
+      min-width: 1.75rem;
       margin: 3px 3px;
       padding: 0 8px;
       min-height: 50px;
       font-family: $fs-boredle;
-      
+
+      &--filled {
+        color: $clr-white;
+        @include text-shadow(rgba($clr-black, 0.2));
+      }
+
       &-text {
         margin-top: 4px;
+        text-transform: uppercase;
       }
     }
   }
@@ -120,6 +127,11 @@
     width: 90%;
     font-size: 1em;
     padding: 0.75rem 0;
+
+    &-share {
+      @include flex(row, center, center);
+      margin: 2rem 0 .5rem;
+    }
   }
 
   &__modal--dimmer {
