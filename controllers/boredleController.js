@@ -222,7 +222,9 @@ export const submitGuess = async (req, res) => {
   await game.save()
 
   const { didWin, didLose, prevGuesses } = game.currentGame
-  console.log(didWin, didLose, prevGuesses)
+  let data = { didWin, didLose, prevGuesses }
+  if (didWin || didLose) data.stats = game.stats
+  console.log(data)
 
-  res.status(StatusCodes.OK).json({ didWin, didLose, prevGuesses })
+  res.status(StatusCodes.OK).json(data)
 }
