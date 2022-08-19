@@ -34,17 +34,6 @@ const CurrentRow = () => {
     }
   }, [isRevealing])
 
-  // useEffect(() => {
-  //   const wigglers = document.getElementsByClassName('current-box')
-  //   if (wigglers && invalidGuessWiggle) {
-  //     ;[...wigglers].forEach((wiggler) => {
-  //       setTimeout(() => {
-  //         wiggler.classList.add('guess')
-  //       }, ANIME_DURATION)
-  //     })
-  //   }
-  // }, [invalidGuessWiggle])
-
   return (
     <div
       className={
