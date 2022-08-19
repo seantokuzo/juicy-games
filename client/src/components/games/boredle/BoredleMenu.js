@@ -27,12 +27,12 @@ const BoredleMenu = () => {
         >
           My Stats
         </button>
-        {/* <button
+        <button
           className="btn form-btn fs-boredle"
           onClick={() => updateBoredleMode('leaderboard')}
         >
           Leaderboard
-        </button> */}
+        </button>
         <button
           className="btn form-btn fs-boredle"
           onClick={() => updateBoredleMode('practice')}
