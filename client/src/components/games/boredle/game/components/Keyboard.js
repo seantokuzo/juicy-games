@@ -1,5 +1,6 @@
 import React from 'react'
 import { useBoredleContext } from '../../../../../context/boredle-context/boredleContext'
+import { getLettersArray } from '../utils/gameUtils'
 
 const Keyboard = () => {
   // const { answer, prevGuesses, handleBoredleKeyboard, handleBackspace, handleEnter } =
@@ -9,23 +10,23 @@ const Keyboard = () => {
     [mode]: { answer, prevGuesses }
   } = useBoredleContext()
 
-  // const correctLetters = getLettersArray('correct', answer, prevGuesses)
-  // const wrongSpotLetters = getLettersArray('wrong spot', answer, prevGuesses)
-  // const incorrectLetters = getLettersArray('incorrect', answer, prevGuesses)
+  const correctLetters = getLettersArray('correct', answer, prevGuesses)
+  const wrongSpotLetters = getLettersArray('wrong spot', answer, prevGuesses)
+  const incorrectLetters = getLettersArray('incorrect', answer, prevGuesses)
 
-  // const areYouCorrect = (letter) => correctLetters.includes(letter)
-  // const areYouWrongSpot = (letter) => wrongSpotLetters.includes(letter)
-  // const areYouIncorrect = (letter) => incorrectLetters.includes(letter)
+  const areYouCorrect = (letter) => correctLetters.includes(letter)
+  const areYouWrongSpot = (letter) => wrongSpotLetters.includes(letter)
+  const areYouIncorrect = (letter) => incorrectLetters.includes(letter)
 
-  // const getKeyClassName = (key) => {
-  //   return areYouCorrect(key)
-  //     ? 'btn boredle__keys-key boredle__keys-key-letter correct key--guessed'
-  //     : areYouWrongSpot(key)
-  //     ? 'btn boredle__keys-key boredle__keys-key-letter wrong-spot key--guessed'
-  //     : areYouIncorrect(key)
-  //     ? 'btn boredle__keys-key boredle__keys-key-letter incorrect key--guessed'
-  //     : 'btn boredle__keys-key boredle__keys-key-letter'
-  // }
+  const getKeyClassName = (key) => {
+    return areYouCorrect(key)
+      ? 'boredle__keys-key boredle__keys-key-letter boredle__box-correct boredle__keys-key--filled'
+      : areYouWrongSpot(key)
+      ? 'boredle__keys-key boredle__keys-key-letter boredle__box-wrong-spot boredle__keys-key--filled'
+      : areYouIncorrect(key)
+      ? 'boredle__keys-key boredle__keys-key-letter boredle__box-incorrect boredle__keys-key--filled'
+      : 'btn boredle__keys-key boredle__keys-key-letter'
+  }
 
   const enterKey = (
     <div
@@ -49,10 +50,9 @@ const Keyboard = () => {
 
   const topRow = (
     <div className="boredle__keys-row">
-      {['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'].map((key) => (
+      {['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'].map((key) => (
         <div
-          // className={getKeyClassName(key)}
-          className="btn boredle__keys-key boredle__keys-key-letter"
+          className={getKeyClassName(key)}
           id={`${key}`}
           onClick={() => handleBoredleKeyboard(key)}
           key={`keyboard-${key}`}
@@ -65,10 +65,9 @@ const Keyboard = () => {
 
   const middleRow = (
     <div className="boredle__keys-row">
-      {['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'].map((key) => (
+      {['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l'].map((key) => (
         <div
-          // className={getKeyClassName(key)}
-          className="btn boredle__keys-key boredle__keys-key-letter"
+          className={getKeyClassName(key)}
           id={`${key}`}
           onClick={() => handleBoredleKeyboard(key)}
           key={`keyboard-${key}`}
@@ -82,10 +81,9 @@ const Keyboard = () => {
   const bottomRow = (
     <div className="boredle__keys-row">
       {enterKey}
-      {['Z', 'X', 'C', 'V', 'B', 'N', 'M'].map((key) => (
+      {['z', 'x', 'c', 'v', 'b', 'n', 'm'].map((key) => (
         <div
-          // className={getKeyClassName(key)}
-          className="btn boredle__keys-key boredle__keys-key-letter"
+          className={getKeyClassName(key)}
           id={`${key}`}
           onClick={() => handleBoredleKeyboard(key)}
           key={`keyboard-${key}`}

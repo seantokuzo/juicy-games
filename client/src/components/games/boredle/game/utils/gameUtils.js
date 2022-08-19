@@ -12,7 +12,6 @@ function getNewWord() {
 // GET ARRAYS OF CORRECT / WRONG SPOT / AND INCORRECT GUESSED LETTERS
 function getLettersArray(str, encryptedAnswer, prevGuesses) {
   const answer = decryptBoredle(encryptedAnswer)
-  console.log(answer)
   const guessedLettersArray = [
     ...new Set(prevGuesses.reduce((acc, guess) => [...acc, ...guess], []))
   ]
@@ -54,9 +53,9 @@ function getLettersArray(str, encryptedAnswer, prevGuesses) {
 function shareResults(
   answer,
   prevGuesses,
-  hardMode,
-  darkMode,
-  highContrastMode,
+  hardMode = false,
+  darkMode = true,
+  highContrastMode = false,
   didWin
 ) {
   const getSquare = (str) => {
@@ -95,8 +94,8 @@ function shareResults(
     : `X/${NUMBER_GUESSES}${asterisk}`
   const game = `${score}\n\n${squareGrid}`
   const message = didWin
-    ? `I beat Bobby Shmurdle!\n${game}`
-    : `Shmurdle caught a body\n${game}`
+    ? `I beat Boredle!\n${game}`
+    : `Boredle caught a body\n${game}`
   const shareObj = { text: message }
 
   let shareSuccess
