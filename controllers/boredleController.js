@@ -105,7 +105,7 @@ export const getMyBoredle = async (req, res) => {
       },
       stats: newGame.stats
     }
-    console.log(data)
+
     res.status(StatusCodes.CREATED).json(data)
     return
   }
@@ -128,7 +128,7 @@ export const getMyBoredle = async (req, res) => {
     game.currentGame.didWin = false
     game.currentGame.didLose = false
     await game.save()
-    console.log(`⭐️ expired word - saved game: ${game}`)
+
     const data = {
       currentGame: {
         word: word.word,
@@ -152,7 +152,6 @@ export const getMyBoredle = async (req, res) => {
     stats: game.stats
   }
 
-  console.log(data)
   res.status(StatusCodes.CREATED).json(data)
 }
 
@@ -160,9 +159,8 @@ export const getMyBoredle = async (req, res) => {
 export const submitGuess = async (req, res) => {
   console.log('💥 SUBMIT GUESS ROUTE START')
   const { guess, gameStatus } = req.body
-  console.log(gameStatus)
+
   const game = await BoredleGame.findOne({ user: req.user.userId })
-  console.log(game.currentGame)
 
   if (!game) {
     console.log('💥 SUBMIT GUESS BUT NO GAME')
@@ -178,7 +176,7 @@ export const submitGuess = async (req, res) => {
         didWin: gameStatus === 'win' ? true : false
       }
     })
-    console.log(`New Game Created: ${newGame}`)
+    console.log('🏄🏽‍♂️ New Game Created')
     res.status(StatusCodes.CREATED).json({ game: newGame })
     return
   }
@@ -193,7 +191,6 @@ export const submitGuess = async (req, res) => {
       game.stats.maxStreak = game.stats.streak
     }
     const numGuesses = game.currentGame.prevGuesses.length
-    console.log(numGuesses)
     if (numGuesses === 1) {
       game.stats.guessStats.one = game.stats.guessStats.one + 1
     }
@@ -224,7 +221,56 @@ export const submitGuess = async (req, res) => {
   const { didWin, didLose, prevGuesses } = game.currentGame
   let data = { didWin, didLose, prevGuesses }
   if (didWin || didLose) data.stats = game.stats
-  console.log(data)
 
   res.status(StatusCodes.OK).json(data)
+}
+
+// *****************************************************
+export const getBoredleLeaderboard = async (req, res) => {
+  console.log('💥 Get Leaderboard')
+
+  const { sort, search } = req.query
+
+  const queryObject = {}
+
+  if (search) {
+    queryObject.word = { $regex: search, $options: 'i' }
+  }
+
+  // FIND BASED ON SEARCH
+  let result = BoredleGame.find(queryObject).select(
+    '-currentGame -_id -__v -stats.guessStats'
+  )
+
+  // SORTING CONDITIONS
+  if (sort === 'wins') {
+    result = result.sort('-stats.wins')
+  }
+  if (!sort || sort === 'streak') {
+    result = result.sort('-stats.streak')
+  }
+  if (sort === 'maxStreak') {
+    result = result.sort('-stats.maxStreak')
+  }
+
+  // PAGINATION
+  const page = Number(req.query.page) || 1
+  const limit = Number(req.query.limit) || 7
+  const skip = (page - 1) * limit
+
+  result = result.skip(skip).limit(limit)
+
+  let leaders = await result
+
+  leaders = leaders.map((game) => ({
+    username: game.user.username,
+    avatar: game.user.avatar,
+    ...game.stats,
+    guessStats: undefined
+  }))
+
+  const totalGames = await BoredleGame.countDocuments(queryObject)
+  const numOfPages = Math.ceil(totalGames / limit)
+
+  res.status(StatusCodes.OK).json({ leaders, totalGames, numOfPages })
 }
