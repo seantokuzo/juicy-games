@@ -14,6 +14,7 @@ import {
   IS_REVEALING_STOP,
   GET_MY_BOREDLE_SUCCESS,
   GET_MY_BOREDLE_ERROR,
+  GET_PRACTICE_WORD,
   GET_BOREDLE_LEADERBOARD,
   HANDLE_KEYBOARD_LETTER,
   HANDLE_KEYBOARD_BACKSPACE,
@@ -136,6 +137,15 @@ const boredleReducer = (state, action) => {
       },
       practice: {
         ...initialState.practice
+      }
+    }
+  }
+  if (action.type === GET_PRACTICE_WORD) {
+    return {
+      ...state,
+      practice: {
+        ...state.practice,
+        answer: action.payload.newWord
       }
     }
   }

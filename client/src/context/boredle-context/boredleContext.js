@@ -17,6 +17,7 @@ import {
   IS_REVEALING_STOP,
   GET_MY_BOREDLE_SUCCESS,
   GET_MY_BOREDLE_ERROR,
+  GET_PRACTICE_WORD,
   GET_BOREDLE_LEADERBOARD,
   HANDLE_KEYBOARD_LETTER,
   HANDLE_KEYBOARD_BACKSPACE,
@@ -46,7 +47,7 @@ import {
   ALERT_MS_HARDMODE_TOGGLE
 } from '../../components/games/boredle/game/data/alertsData'
 import {
-  getNewWord,
+  getWordFromAnswerList,
   getLettersArray,
   shareResults
 } from '../../components/games/boredle/game/utils/gameUtils'
@@ -159,6 +160,9 @@ const BoredleContextProvider = ({ children }) => {
     setTimeout(() => {
       if (prevGuesses) {
         dispatch({ type: SUBMIT_GOTD_GUESS, payload: { prevGuesses } })
+      }
+      if (state.mode === 'practice') {
+        dispatch({ type: SUBMIT_PRACTICE_GUESS })
       }
       dispatch({ type: IS_REVEALING_STOP })
     }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY)
@@ -370,6 +374,13 @@ const BoredleContextProvider = ({ children }) => {
     )
   }
 
+  const getPracticeWord = () => {
+    console.log('💥 Get Practice Word')
+    const newWord = encryptBoredle(getWordFromAnswerList())
+    console.log(newWord)
+    dispatch({ type: GET_PRACTICE_WORD, payload: { newWord } })
+  }
+
   return (
     <BoredleContext.Provider
       value={{
@@ -382,6 +393,7 @@ const BoredleContextProvider = ({ children }) => {
         toggleSettings,
         updateBoredleMode,
         getMyBoredle,
+        getPracticeWord,
         handleBoredleKeyboard,
         getBoredleLeaderboard,
         handleShare

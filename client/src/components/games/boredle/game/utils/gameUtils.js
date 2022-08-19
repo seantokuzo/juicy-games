@@ -3,9 +3,9 @@ import { NUMBER_GUESSES } from '../data/gameSettings'
 import { decryptBoredle } from '../../../../../utils/boredleEncrypt'
 
 // GET A NEW ANSWER
-function getNewWord() {
+function getWordFromAnswerList() {
   const randex = Math.floor(Math.random() * ANSWERS_LIST.length)
-  const newWord = ANSWERS_LIST[randex].toUpperCase().split('')
+  const newWord = ANSWERS_LIST[randex]
   return newWord
 }
 
@@ -113,4 +113,4 @@ function shareResults(
   }
 }
 
-export { getNewWord, getLettersArray, shareResults }
+export { getWordFromAnswerList, getLettersArray, shareResults }
