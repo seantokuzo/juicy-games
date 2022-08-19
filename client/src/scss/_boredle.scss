@@ -140,8 +140,9 @@
     height: 100%;
     min-height: 100vh;
     animation: fade-in 250ms;
-
-    background-color: rgba(#000000, 0.5)
+    
+    background-color: rgba(#000000, 0.5);
+    z-index: 9999;
   }
 
   &__modal {
@@ -157,7 +158,6 @@
     padding: 1.5rem 2rem;
 
     animation: modal-slide 250ms;
-    z-index: 9999;
 
     &-text {
     }
@@ -371,6 +371,8 @@
   }
 
   &__box {
+    z-index: 1;
+
     color: $clr-white;
     &-correct {
       border-color: $clr-brdl-correct;
@@ -383,6 +385,30 @@
     &-incorrect {
       border-color: $clr-brdl-grey-dk;
       background-color: $clr-brdl-grey-dk;
+    }
+    &--win {
+      animation: jump;
+      animation-timing-function: ease-in;
+    }
+  }
+
+  &__leaderboard {
+    
+    &-container {
+      width: 90%;
+      
+    }
+    &-leader {
+      min-height: 3.3rem;
+    }
+
+    &-sorters {
+      width: 100%;
+      @include flex(row, center, space-between);
+
+      &-btn {
+        padding: 0.5rem 1rem;
+      }
     }
   }
 }
