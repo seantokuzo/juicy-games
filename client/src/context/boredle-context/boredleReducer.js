@@ -14,6 +14,7 @@ import {
   IS_REVEALING_STOP,
   GET_MY_BOREDLE_SUCCESS,
   GET_MY_BOREDLE_ERROR,
+  GET_BOREDLE_LEADERBOARD,
   HANDLE_KEYBOARD_LETTER,
   HANDLE_KEYBOARD_BACKSPACE,
   SUBMIT_GOTD_GUESS,
@@ -136,6 +137,12 @@ const boredleReducer = (state, action) => {
       practice: {
         ...initialState.practice
       }
+    }
+  }
+  if (action.type === GET_BOREDLE_LEADERBOARD) {
+    return {
+      ...state,
+      leaderboard: action.payload.leaderboard
     }
   }
   if (action.type === HANDLE_KEYBOARD_LETTER) {

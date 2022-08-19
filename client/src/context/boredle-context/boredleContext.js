@@ -1,4 +1,5 @@
 import React, { useReducer, useContext } from 'react'
+import axios from 'axios'
 import boredleReducer from './boredleReducer'
 import {
   UPDATE_BOREDLE_MODE,
@@ -16,6 +17,7 @@ import {
   IS_REVEALING_STOP,
   GET_MY_BOREDLE_SUCCESS,
   GET_MY_BOREDLE_ERROR,
+  GET_BOREDLE_LEADERBOARD,
   HANDLE_KEYBOARD_LETTER,
   HANDLE_KEYBOARD_BACKSPACE,
   SUBMIT_GOTD_GUESS,
@@ -51,7 +53,7 @@ import {
 import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 
 const initialState = {
-  mode: 'gotd',
+  mode: 'menu',
   // GAME MODAL DISPLAYS
   gotd: {
     answer: [],
@@ -90,7 +92,8 @@ const initialState = {
   showAlertModal: false,
   alertText: '',
   isRevealing: false,
-  invalidGuessWiggle: false
+  invalidGuessWiggle: false,
+  leaderboard: []
 }
 
 const baseURL = 'http://localhost:5000'
@@ -111,7 +114,7 @@ const BoredleContextProvider = ({ children }) => {
 
   // console.log(state.gotd)
   // console.log(state.practice)
-  console.log(state.stats)
+  // console.log(state.stats)
 
   const updateBoredleMode = (mode) => {
     dispatch({ type: UPDATE_BOREDLE_MODE, payload: { mode } })
@@ -210,12 +213,12 @@ const BoredleContextProvider = ({ children }) => {
         type: GET_MY_BOREDLE_SUCCESS,
         payload: { currentGame, stats, word }
       })
-      stopLoading()
     } catch (err) {
       console.log(err)
       dispatch({ type: GET_MY_BOREDLE_ERROR })
       displayAlert('danger alert-center', err.response.data.msg)
     }
+    stopLoading()
     clearAlert()
   }
 
@@ -338,6 +341,24 @@ const BoredleContextProvider = ({ children }) => {
     handleInvalidGuess()
   }
 
+  const getBoredleLeaderboard = async (sort = 'streak') => {
+    startLoading()
+    try {
+      const { data } = await axios(
+        `${baseURL}/api/v1/boredle/getBoredleLeaderboard?sort=${sort}`
+      )
+      dispatch({
+        type: GET_BOREDLE_LEADERBOARD,
+        payload: { leaderboard: data.leaders }
+      })
+    } catch (err) {
+      console.log(err)
+      displayAlert('danger', err.response.data.msg)
+    }
+    stopLoading()
+    clearAlert()
+  }
+
   const handleShare = () => {
     shareResults(
       decryptBoredle(state.gotd.answer).join('').toUpperCase(),
@@ -362,6 +383,7 @@ const BoredleContextProvider = ({ children }) => {
         updateBoredleMode,
         getMyBoredle,
         handleBoredleKeyboard,
+        getBoredleLeaderboard,
         handleShare
       }}
     >
