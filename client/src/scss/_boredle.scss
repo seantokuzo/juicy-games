@@ -400,6 +400,10 @@
     }
     &-leader {
       min-height: 3.3rem;
+
+      &--me {
+        border-color: $alert-success;
+      }
     }
 
     &-sorters {
@@ -408,6 +412,11 @@
 
       &-btn {
         padding: 0.5rem 1rem;
+
+        &--selected {
+          background-color: rgba($clr-black, .85);
+          text-shadow: none;
+        }
       }
     }
   }
