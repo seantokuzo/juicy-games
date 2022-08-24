@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react'
 import BoredleGame from './game/BoredleGame'
+import { AlertModal } from './game/components'
 import { useBoredleContext } from '../../../context/boredle-context/boredleContext'
+import { decryptBoredle } from '../../../utils/boredleEncrypt'
 
 const BoredlePractice = () => {
-  const { getPracticeWord } = useBoredleContext()
+  const { practice, getPracticeWord } = useBoredleContext()
+  const { didLose, answer } = practice
 
   useEffect(() => {
     getPracticeWord()
@@ -11,6 +14,9 @@ const BoredlePractice = () => {
 
   return (
     <div className="boredle__practice page">
+      {didLose && (
+        <AlertModal text={`Answer: ${decryptBoredle(answer).join('')}`} />
+      )}
       <BoredleGame />
     </div>
   )

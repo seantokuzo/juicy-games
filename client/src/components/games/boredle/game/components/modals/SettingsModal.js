@@ -13,7 +13,8 @@ const SettingsModal = () => {
     toggleHighContrastMode,
     toggleSettings,
     hardMode,
-    toggleHardMode
+    toggleHardMode,
+    newPracticeGame
     // handleNewGameWarning
   } = useBoredleContext()
 
@@ -117,9 +118,13 @@ const SettingsModal = () => {
     </div>
   )
   const newGameButton = (
-    <div className="btn boredle__settings-btn boredle__settings-btn-new-game">
+    <button
+      type="button"
+      className="btn boredle__settings-btn boredle__settings-btn-new-game"
+      onClick={newPracticeGame}
+    >
       <h4 className="boredle__settings-btn-text">NEW GAME</h4>
-    </div>
+    </button>
   )
 
   return (

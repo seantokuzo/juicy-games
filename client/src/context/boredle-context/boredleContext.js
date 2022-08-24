@@ -18,6 +18,7 @@ import {
   GET_MY_BOREDLE_SUCCESS,
   GET_MY_BOREDLE_ERROR,
   GET_PRACTICE_WORD,
+  NEW_PRACTICE_GAME,
   GET_BOREDLE_LEADERBOARD,
   HANDLE_KEYBOARD_LETTER,
   HANDLE_KEYBOARD_BACKSPACE,
@@ -114,7 +115,7 @@ const BoredleContextProvider = ({ children }) => {
   } = useAppContext()
 
   // console.log(state.gotd)
-  // console.log(state.practice)
+  console.log(state.practice)
   // console.log(state.stats)
 
   const updateBoredleMode = (mode) => {
@@ -158,7 +159,7 @@ const BoredleContextProvider = ({ children }) => {
   const handleReveal = (prevGuesses) => {
     dispatch({ type: IS_REVEALING_START })
     setTimeout(() => {
-      if (prevGuesses) {
+      if (prevGuesses && state.mode === 'gotd') {
         dispatch({ type: SUBMIT_GOTD_GUESS, payload: { prevGuesses } })
       }
       if (state.mode === 'practice') {
@@ -178,14 +179,24 @@ const BoredleContextProvider = ({ children }) => {
   const handleWin = (newStats) => {
     dispatch({ type: HANDLE_WIN, payload: { newStats } })
     setTimeout(() => {
-      toggleStats()
+      if (state.mode === 'gotd') {
+        toggleStats()
+      }
+      if (state.mode === 'practice') {
+        toggleSettings()
+      }
     }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY + 500)
   }
 
   const handleLoss = (newStats) => {
     dispatch({ type: HANDLE_LOSS, payload: { newStats } })
     setTimeout(() => {
-      toggleStats()
+      if (state.mode === 'gotd') {
+        toggleStats()
+      }
+      if (state.mode === 'practice') {
+        toggleSettings()
+      }
     }, ANIME_DELAY * WORD_LENGTH + 2 * ANIME_DELAY + 500)
   }
 
@@ -242,7 +253,8 @@ const BoredleContextProvider = ({ children }) => {
     // HANDLE BACKSPACE KEY
     if (key === 'Backspace') {
       if (state[state.mode].currentGuess.length <= 0) {
-        handleInvalidGuess()
+        // handleInvalidGuess()
+        return
       }
       const newCurrentGuess = state[state.mode].currentGuess.slice(
         0,
@@ -273,7 +285,7 @@ const BoredleContextProvider = ({ children }) => {
         handleAlertModal(ALERT_MS_NOT_A_WORD)
         return
       }
-      // TO-DO : TEST - HARDMODE CONDITION CHECKER
+      // HARD MODE CHECKER
       if (state.hardMode && state[state.mode].prevGuesses.length > 0) {
         const mustUseLetters = getLettersArray(
           'must use',
@@ -297,11 +309,13 @@ const BoredleContextProvider = ({ children }) => {
         )
       ) {
         console.log('💥 WIN WIN WIN')
+        // GOTD
         if (state.mode === 'gotd') {
           submitGuessToDB(state.gotd.currentGuess, 'win')
           return
         }
-        dispatch({ type: SUBMIT_PRACTICE_GUESS })
+        // PRACTICE
+        handleReveal()
         handleWin()
         return
         //HANDLE INCORRECT GUESS WITH GUESSES REMAINING
@@ -310,11 +324,13 @@ const BoredleContextProvider = ({ children }) => {
         state[state.mode].prevGuesses.length < NUMBER_GUESSES - 1
       ) {
         console.log('💥 INCORRECT GUESS - GUESS REMAINING')
+        // GOTD
         if (state.mode === 'gotd') {
           submitGuessToDB(state.gotd.currentGuess, 'active')
           return
         }
-        dispatch({ type: SUBMIT_PRACTICE_GUESS })
+        // PRACTICE
+        handleReveal()
         return
         //HANDLE LOSS
       } else if (
@@ -327,7 +343,7 @@ const BoredleContextProvider = ({ children }) => {
           submitGuessToDB(state.gotd.currentGuess, 'lose')
           return
         }
-        dispatch({ SUBMIT_PRACTICE_GUESS })
+        handleReveal()
         handleLoss()
       }
       return
@@ -342,7 +358,7 @@ const BoredleContextProvider = ({ children }) => {
       dispatch({ type: HANDLE_KEYBOARD_LETTER, payload: { newCurrentGuess } })
       return
     }
-    handleInvalidGuess()
+    // handleInvalidGuess()
   }
 
   const getBoredleLeaderboard = async (sort = 'streak') => {
@@ -381,6 +397,13 @@ const BoredleContextProvider = ({ children }) => {
     dispatch({ type: GET_PRACTICE_WORD, payload: { newWord } })
   }
 
+  const newPracticeGame = () => {
+    console.log('💥 New Practice Game')
+    dispatch({ type: NEW_PRACTICE_GAME })
+    getPracticeWord()
+    displayAlert('success alert-center', 'Good Luck!', 1000)
+  }
+
   return (
     <BoredleContext.Provider
       value={{
@@ -394,6 +417,7 @@ const BoredleContextProvider = ({ children }) => {
         updateBoredleMode,
         getMyBoredle,
         getPracticeWord,
+        newPracticeGame,
         handleBoredleKeyboard,
         getBoredleLeaderboard,
         handleShare

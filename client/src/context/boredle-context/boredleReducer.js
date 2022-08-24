@@ -15,6 +15,7 @@ import {
   GET_MY_BOREDLE_SUCCESS,
   GET_MY_BOREDLE_ERROR,
   GET_PRACTICE_WORD,
+  NEW_PRACTICE_GAME,
   GET_BOREDLE_LEADERBOARD,
   HANDLE_KEYBOARD_LETTER,
   HANDLE_KEYBOARD_BACKSPACE,
@@ -149,6 +150,17 @@ const boredleReducer = (state, action) => {
       }
     }
   }
+  if (action.type === NEW_PRACTICE_GAME) {
+    return {
+      ...state,
+      practice: {
+        ...initialState.practice
+      },
+      showHelp: false,
+      showSettings: false,
+      showStats: false
+    }
+  }
   if (action.type === GET_BOREDLE_LEADERBOARD) {
     return {
       ...state,
@@ -204,7 +216,7 @@ const boredleReducer = (state, action) => {
         didWin: true,
         didLose: false
       },
-      stats: action.payload.newStats
+      stats: action.payload.newStats ? action.payload.newStats : state.stats
     }
   }
   if (action.type === HANDLE_LOSS) {
@@ -215,7 +227,7 @@ const boredleReducer = (state, action) => {
         didWin: false,
         didLose: true
       },
-      stats: action.payload.newStats
+      stats: action.payload.newStats ? action.payload.newStats : state.stats
     }
   }
   throw new Error(`No such action: ${action.type}`)
