@@ -14,7 +14,7 @@ const BoredleLeaderboard = () => {
     getBoredleLeaderboard(sortBy)
   }, [sortBy])
 
-  console.log('🧘🏽‍♀️', leaderboard)
+  const sortByName = sortBy === 'maxStreak' ? 'Max Streak' : sortBy
 
   const leaderboardMap = leaderboard.map((leader) => (
     <div
@@ -31,7 +31,7 @@ const BoredleLeaderboard = () => {
         defaultClass="friends__avatar--default"
       />
       <p className="friends__map-username">{leader.username}</p>
-      <p className="friends__map-username">{`${sortBy}: ${leader[sortBy]}`}</p>
+      <p className="friends__map-username">{`${sortByName}: ${leader[sortBy]}`}</p>
     </div>
   ))
 
