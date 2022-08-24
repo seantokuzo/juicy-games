@@ -53,7 +53,7 @@ const Home = () => {
 
   return (
     <section className="home page">
-      <h1 className="home__title title">Trivial Trivia</h1>
+      <h1 className="home__title title">Fruity Games</h1>
       <form className="form home__form" onSubmit={submitForm}>
         <h3 className="form-title subtitle">Login to Play</h3>
         {showAlert && <Alert />}
@@ -100,7 +100,7 @@ const Home = () => {
             OR
           </h3>
           <ButtonLink path="/signup" btnClass="link" text="Create an Account" />
-          <ButtonLink path="/practice" btnClass="link" text="Practice" />
+          {/* <ButtonLink path="/practice" btnClass="link" text="Practice" /> */}
         </div>
       )}
     </section>
