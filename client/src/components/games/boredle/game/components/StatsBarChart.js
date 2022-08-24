@@ -15,7 +15,6 @@ const StatsBarChart = () => {
   const data = Object.keys(stats.guessStats).map((key, i) => {
     return { name: `${i + 1}`, value: stats.guessStats[key] }
   })
-  console.log(data)
 
   const barChartEl = (
     <ResponsiveContainer width="100%" height={200}>
