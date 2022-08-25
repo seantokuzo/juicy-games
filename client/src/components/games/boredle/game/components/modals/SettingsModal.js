@@ -3,6 +3,7 @@ import ThemeMenu from '../../../../../ThemeMenu'
 import AvatarMenu from '../../../../../AvatarMenu'
 import { AiFillCloseCircle } from 'react-icons/ai'
 import { useBoredleContext } from '../../../../../../context/boredle-context/boredleContext'
+import NewGameBtn from '../NewGameBtn'
 
 const SettingsModal = () => {
   const {
@@ -117,15 +118,6 @@ const SettingsModal = () => {
       </div>
     </div>
   )
-  const newGameButton = (
-    <button
-      type="button"
-      className="btn boredle__settings-btn boredle__settings-btn-new-game"
-      onClick={newPracticeGame}
-    >
-      <h4 className="boredle__settings-btn-text">NEW GAME</h4>
-    </button>
-  )
 
   return (
     <div className="boredle__modal--dimmer">
@@ -136,7 +128,7 @@ const SettingsModal = () => {
         {highContrastSettings}
         <ThemeMenu custom={true} />
         {feedbackSettings}
-        {mode !== 'gotd' && newGameButton}
+        {mode !== 'gotd' && <NewGameBtn />}
       </div>
     </div>
   )
