@@ -1,6 +1,7 @@
 import GuessGrid from './GuessGrid'
 import BoredleHeader from './BoredleHeader'
 import Keyboard from './Keyboard'
+import NewGameBtn from './NewGameBtn'
 
 import AlertModal from './modals/AlertModal'
 import HelpModal from './modals/HelpModal'
@@ -14,5 +15,6 @@ export {
   AlertModal,
   HelpModal,
   StatsModal,
-  SettingsModal
+  SettingsModal,
+  NewGameBtn
 }
