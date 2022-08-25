@@ -420,6 +420,18 @@
       }
     }
   }
+
+  &__practice {
+
+
+    &-new-game {
+      @include absolute;
+
+      &-btn {
+        width: 100%;
+      }
+    }
+  }
 }
 
 @keyframes alert-fade {
