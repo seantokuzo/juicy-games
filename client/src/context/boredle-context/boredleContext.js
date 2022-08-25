@@ -18,6 +18,7 @@ import {
   GET_MY_BOREDLE_SUCCESS,
   GET_MY_BOREDLE_ERROR,
   GET_PRACTICE_WORD,
+  SET_PRACTICE_GAME,
   NEW_PRACTICE_GAME,
   GET_BOREDLE_LEADERBOARD,
   HANDLE_KEYBOARD_LETTER,
@@ -54,6 +55,9 @@ import {
 } from '../../components/games/boredle/game/utils/gameUtils'
 import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 
+const localPractice = localStorage.getItem('practice')
+console.log(localPractice)
+
 const initialState = {
   mode: 'menu',
   // GAME MODAL DISPLAYS
@@ -64,13 +68,15 @@ const initialState = {
     didWin: false,
     didLose: false
   },
-  practice: {
-    answer: [],
-    currentGuess: [],
-    prevGuesses: [],
-    didWin: false,
-    didLose: false
-  },
+  practice: localPractice
+    ? JSON.parse(localPractice)
+    : {
+        answer: [],
+        currentGuess: [],
+        prevGuesses: [],
+        didWin: false,
+        didLose: false
+      },
   stats: {
     wins: 0,
     losses: 0,
@@ -115,8 +121,47 @@ const BoredleContextProvider = ({ children }) => {
   } = useAppContext()
 
   // console.log(state.gotd)
-  console.log(state.practice)
+  // console.log(state.practice)
   // console.log(state.stats)
+
+  const updateLocalPractice = (str, answer) => {
+    console.log('👋 Update Local Practice')
+    if (str === 'new game') {
+      const newGame = {
+        answer,
+        currentGuess: [],
+        prevGuesses: [],
+        didWin: false,
+        didLose: false
+      }
+      localStorage.setItem('practice', JSON.stringify(newGame))
+      return
+    }
+    const localPractice = {
+      ...state.practice
+    }
+    if (state.practice.currentGuess.length === WORD_LENGTH) {
+      localPractice.prevGuesses = [
+        ...localPractice.prevGuesses,
+        localPractice.currentGuess
+      ]
+      localPractice.currentGuess = []
+    }
+    if (str === 'win') {
+      localPractice.didWin = true
+    }
+    if (str === 'lose') {
+      localPractice.didLose = true
+    }
+    console.log('Update Local', localPractice)
+    localStorage.setItem('practice', JSON.stringify(localPractice))
+  }
+
+  const removeLocalPractice = () => {
+    console.log('❌ Remove Local Practice')
+    localStorage.removeItem('practice')
+    console.log(localStorage.getItem('practice'))
+  }
 
   const updateBoredleMode = (mode) => {
     dispatch({ type: UPDATE_BOREDLE_MODE, payload: { mode } })
@@ -317,6 +362,7 @@ const BoredleContextProvider = ({ children }) => {
         // PRACTICE
         handleReveal()
         handleWin()
+        updateLocalPractice('win')
         return
         //HANDLE INCORRECT GUESS WITH GUESSES REMAINING
       } else if (
@@ -331,6 +377,7 @@ const BoredleContextProvider = ({ children }) => {
         }
         // PRACTICE
         handleReveal()
+        updateLocalPractice()
         return
         //HANDLE LOSS
       } else if (
@@ -339,12 +386,15 @@ const BoredleContextProvider = ({ children }) => {
           decryptBoredle(state[state.mode].answer)
       ) {
         console.log('💥 LOSER LOSER LOSER')
+        // GOTD
         if (state.mode === 'gotd') {
           submitGuessToDB(state.gotd.currentGuess, 'lose')
           return
         }
+        // PRACTICE
         handleReveal()
         handleLoss()
+        updateLocalPractice('lose')
       }
       return
     }
@@ -393,15 +443,22 @@ const BoredleContextProvider = ({ children }) => {
   const getPracticeWord = () => {
     console.log('💥 Get Practice Word')
     const newWord = encryptBoredle(getWordFromAnswerList())
-    console.log(newWord)
     dispatch({ type: GET_PRACTICE_WORD, payload: { newWord } })
+    updateLocalPractice('new game', newWord)
   }
 
   const newPracticeGame = () => {
     console.log('💥 New Practice Game')
+    removeLocalPractice()
     dispatch({ type: NEW_PRACTICE_GAME })
     getPracticeWord()
-    displayAlert('success alert-center', 'Good Luck!', 1000)
+    handleAlertModal('Good Luck!', 1000)
+  }
+
+  const getLocalPractice = () => {
+    const localPractice = JSON.parse(localStorage.getItem('practice'))
+    if (!localPractice) return newPracticeGame()
+    dispatch({ type: SET_PRACTICE_GAME, payload: { practice: localPractice } })
   }
 
   return (
@@ -416,6 +473,7 @@ const BoredleContextProvider = ({ children }) => {
         toggleSettings,
         updateBoredleMode,
         getMyBoredle,
+        getLocalPractice,
         getPracticeWord,
         newPracticeGame,
         handleBoredleKeyboard,

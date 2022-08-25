@@ -15,6 +15,7 @@ import {
   GET_MY_BOREDLE_SUCCESS,
   GET_MY_BOREDLE_ERROR,
   GET_PRACTICE_WORD,
+  SET_PRACTICE_GAME,
   NEW_PRACTICE_GAME,
   GET_BOREDLE_LEADERBOARD,
   HANDLE_KEYBOARD_LETTER,
@@ -150,11 +151,21 @@ const boredleReducer = (state, action) => {
       }
     }
   }
+  if (action.type === SET_PRACTICE_GAME) {
+    return {
+      ...state,
+      practice: action.payload.practice
+    }
+  }
   if (action.type === NEW_PRACTICE_GAME) {
     return {
       ...state,
       practice: {
-        ...initialState.practice
+        answer: [],
+        currentGuess: [],
+        prevGuesses: [],
+        didWin: false,
+        didLose: false
       },
       showHelp: false,
       showSettings: false,
