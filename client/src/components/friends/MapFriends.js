@@ -1,10 +1,17 @@
 import React, { useState } from 'react'
-import { FaUser, FaUserPlus, FaRegTrashAlt } from 'react-icons/fa'
+import {
+  FaUser,
+  FaUserPlus,
+  FaRegTrashAlt,
+  FaRegHandshake
+} from 'react-icons/fa'
 import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai'
+import { TbSwords } from 'react-icons/tb'
 import Avatar from '../Avatar'
 import { useAppContext } from '../../context/appContext'
+import { useBoredleContext } from '../../context/boredle-context/boredleContext'
 
-const MapFriends = ({ dataArray, type }) => {
+const MapFriends = ({ dataArray, type, customLimit }) => {
   const [page, setPage] = useState(1)
   const {
     friendsData: { friends },
@@ -14,8 +21,9 @@ const MapFriends = ({ dataArray, type }) => {
     isLoading,
     showAlert
   } = useAppContext()
+  const { startBoredleBattle, startBoredleTeam } = useBoredleContext()
 
-  const limit = 3
+  const limit = customLimit || 3
   const indexOne = (page - 1) * limit
   const indexTwo = page * limit - 1
 
@@ -68,6 +76,69 @@ const MapFriends = ({ dataArray, type }) => {
     </div>
   )
 
+  const addFriendButton = (person) => (
+    <button
+      type="button"
+      className="btn friends__map-btns-btn btn friends__map-btns-btn-add"
+      onClick={() => {
+        if (!friends.every((friend) => friend.username !== person.username)) {
+          return
+        }
+        if (type === 'received')
+          return respondToFriendRequest(person.email, 'accept')
+        if (type === 'finder') return requestFriend(person.username)
+      }}
+      disabled={
+        isLoading ||
+        showAlert ||
+        !friends.every((friend) => friend.username !== person.username)
+      }
+    >
+      {friends.every((friend) => friend.username !== person.username) ? (
+        <FaUserPlus />
+      ) : (
+        <FaUser />
+      )}
+    </button>
+  )
+
+  const deleteFriendButton = (person) => (
+    <button
+      type="button"
+      className="btn friends__map-btns-btn"
+      onClick={() => {
+        if (type === 'list') {
+          removeFriend(person.email)
+        }
+        if (type === 'received') {
+          respondToFriendRequest(person.email, 'reject')
+        }
+      }}
+      disabled={isLoading || showAlert}
+    >
+      <FaRegTrashAlt />
+    </button>
+  )
+
+  const boredleButtons = (person) => (
+    <>
+      <button
+        type="button"
+        className="btn boredle__friends-btn boredle__friends-btn-battle"
+        onClick={() => startBoredleBattle(person)}
+      >
+        <TbSwords />
+      </button>
+      <button
+        type="button"
+        className="btn boredle__friends-btn boredle__friends-btn-team"
+        onClick={() => startBoredleTeam(person)}
+      >
+        <FaRegHandshake />
+      </button>
+    </>
+  )
+
   if (dataArray && dataArray.length > 0) {
     return (
       <div className="friends__map-container">
@@ -84,64 +155,18 @@ const MapFriends = ({ dataArray, type }) => {
                     />
                     <p className="friends__map-username">{person.username}</p>
                   </div>
-                  {type !== 'finder' && (
+                  {type !== 'finder' && type !== 'boredle' && (
                     <p className="friends__map-email text-mini">
                       {person.email}
                     </p>
                   )}
                 </div>
                 <div className="friends__map-btns">
-                  {(type === 'received' || type === 'finder') && (
-                    <button
-                      type="button"
-                      className="btn friends__map-btns-btn btn friends__map-btns-btn-add"
-                      onClick={() => {
-                        if (
-                          !friends.every(
-                            (friend) => friend.username !== person.username
-                          )
-                        ) {
-                          return
-                        }
-                        if (type === 'received')
-                          return respondToFriendRequest(person.email, 'accept')
-                        if (type === 'finder')
-                          return requestFriend(person.username)
-                      }}
-                      disabled={
-                        isLoading ||
-                        showAlert ||
-                        !friends.every(
-                          (friend) => friend.username !== person.username
-                        )
-                      }
-                    >
-                      {friends.every(
-                        (friend) => friend.username !== person.username
-                      ) ? (
-                        <FaUserPlus />
-                      ) : (
-                        <FaUser />
-                      )}
-                    </button>
-                  )}
-                  {(type === 'list' || type === 'received') && (
-                    <button
-                      type="button"
-                      className="btn friends__map-btns-btn"
-                      onClick={() => {
-                        if (type === 'list') {
-                          removeFriend(person.email)
-                        }
-                        if (type === 'received') {
-                          respondToFriendRequest(person.email, 'reject')
-                        }
-                      }}
-                      disabled={isLoading || showAlert}
-                    >
-                      <FaRegTrashAlt />
-                    </button>
-                  )}
+                  {(type === 'received' || type === 'finder') &&
+                    addFriendButton(person)}
+                  {(type === 'list' || type === 'received') &&
+                    deleteFriendButton(person)}
+                  {type === 'boredle' && boredleButtons(person)}
                 </div>
               </div>
             )

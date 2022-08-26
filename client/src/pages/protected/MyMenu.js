@@ -4,6 +4,7 @@ import { useAppContext } from '../../context/appContext'
 
 const MyMenu = () => {
   const { user, changeTheme } = useAppContext()
+  console.log(user)
 
   useEffect(() => {
     if (user.avatar && user.avatar !== 'default') {

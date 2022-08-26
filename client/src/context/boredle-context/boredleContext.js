@@ -56,10 +56,9 @@ import {
 import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 
 const localPractice = localStorage.getItem('practice')
-console.log(localPractice)
 
 const initialState = {
-  mode: 'menu',
+  mode: 'friends',
   // GAME MODAL DISPLAYS
   gotd: {
     answer: [],
@@ -461,6 +460,16 @@ const BoredleContextProvider = ({ children }) => {
     dispatch({ type: SET_PRACTICE_GAME, payload: { practice: localPractice } })
   }
 
+  const startBoredleBattle = (friend) => {
+    console.log('StartBoredle Battle with:')
+    console.log(friend._id)
+  }
+
+  const startBoredleTeam = (friend) => {
+    console.log('StartBoredle Team Play with:')
+    console.log(friend._id)
+  }
+
   return (
     <BoredleContext.Provider
       value={{
@@ -478,7 +487,9 @@ const BoredleContextProvider = ({ children }) => {
         newPracticeGame,
         handleBoredleKeyboard,
         getBoredleLeaderboard,
-        handleShare
+        handleShare,
+        startBoredleBattle,
+        startBoredleTeam
       }}
     >
       {children}

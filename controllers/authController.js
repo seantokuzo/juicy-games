@@ -429,8 +429,8 @@ export const getMyFriends = async (req, res) => {
     friendsIds.map(async (id) => {
       const fr = await User.findOne({ _id: id, active: true, confirmed: true })
       if (!fr) return
-      const { username, email, avatar } = fr
-      return { username, email, avatar }
+      const { _id, username, email, avatar } = fr
+      return { _id, username, email, avatar }
     })
   )
 
@@ -439,16 +439,16 @@ export const getMyFriends = async (req, res) => {
     friendRequestsSentIds.map(async (id) => {
       const fr = await User.findOne({ _id: id, active: true, confirmed: true })
       if (!fr) return
-      const { username, email, avatar } = fr
-      return { username, email, avatar }
+      const { _id, username, email, avatar } = fr
+      return { _id, username, email, avatar }
     })
   )
   let friendRequestsReceived = await Promise.all(
     friendRequestsReceivedIds.map(async (id) => {
       const fr = await User.findOne({ _id: id, active: true, confirmed: true })
       if (!fr) return
-      const { username, email, avatar } = fr
-      return { username, email, avatar }
+      const { _id, username, email, avatar } = fr
+      return { _id, username, email, avatar }
     })
   )
 

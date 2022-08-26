@@ -432,6 +432,25 @@
       }
     }
   }
+
+  &__friends {
+
+    &-list {
+      width: 90%;
+    }
+
+    &-btn {
+      @include flex;
+      font-size: 1.25em;
+
+      &-battle {
+
+      }
+      &-team {
+        margin-left: 1rem;
+      }
+    }
+  }
 }
 
 @keyframes alert-fade {
