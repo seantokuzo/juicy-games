@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import io from 'socket.io-client'
 import { BiRefresh } from 'react-icons/bi'
 import { useAppContext } from '../../context/appContext'
 import {
@@ -12,13 +13,24 @@ import {
   ButtonLink
 } from '../../components'
 
+const socket = io.connect('http://localhost:5000')
+
 const MyFriends = () => {
   const [view, setView] = useState('list')
-  const { getMyFriends, isLoading, showAlert } = useAppContext()
+  const { getMyFriends, whoIsOnline, isLoading, showAlert } = useAppContext()
 
   useEffect(() => {
     getMyFriends()
+    socket.emit('get_online_users', socket.id)
   }, [])
+
+  useEffect(() => {
+    socket.on('online_users', (data) => {
+      // console.log('💥 Online Users:')
+      const onlineUsers = data.map((userMap) => userMap[0])
+      whoIsOnline(onlineUsers)
+    })
+  }, [socket])
 
   const getPageTitle = () => {
     if (view === 'list') return 'My Friends'

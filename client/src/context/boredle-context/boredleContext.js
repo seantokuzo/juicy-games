@@ -1,5 +1,6 @@
 import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
+import io from 'socket.io-client'
 import boredleReducer from './boredleReducer'
 import {
   UPDATE_BOREDLE_MODE,
@@ -76,6 +77,10 @@ const initialState = {
         didWin: false,
         didLose: false
       },
+  battle: {
+    roomId: '',
+    answer: []
+  },
   stats: {
     wins: 0,
     losses: 0,
@@ -105,11 +110,14 @@ const initialState = {
 
 const baseURL = 'http://localhost:5000'
 
+const socket = io.connect('http://localhost:5000')
+
 const BoredleContext = React.createContext()
 
 const BoredleContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(boredleReducer, initialState)
   const {
+    user,
     isLoading,
     showAlert,
     startLoading,
@@ -159,7 +167,6 @@ const BoredleContextProvider = ({ children }) => {
   const removeLocalPractice = () => {
     console.log('❌ Remove Local Practice')
     localStorage.removeItem('practice')
-    console.log(localStorage.getItem('practice'))
   }
 
   const updateBoredleMode = (mode) => {
@@ -462,7 +469,10 @@ const BoredleContextProvider = ({ children }) => {
 
   const startBoredleBattle = (friend) => {
     console.log('StartBoredle Battle with:')
-    console.log(friend._id)
+    const roomId = `Boredle-Battle: ${user._id}-${friend._id}`
+    console.log(roomId)
+    socket.emit('join_boredle_battle', roomId)
+    updateBoredleMode('battle')
   }
 
   const startBoredleTeam = (friend) => {

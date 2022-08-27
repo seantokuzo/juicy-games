@@ -2,10 +2,12 @@ import React, { useEffect } from 'react'
 import {
   BoredleMenu,
   BoredleGOTD,
-  BoredlePractice,
+  BoredleBattle,
+  BoredleTeam,
   BoredleFriends,
   BoredleStats,
-  BoredleLeaderboard
+  BoredleLeaderboard,
+  BoredlePractice
 } from '../../../components/games/boredle'
 import { useBoredleContext } from '../../../context/boredle-context/boredleContext'
 
@@ -18,12 +20,14 @@ const Boredle = () => {
 
   return (
     <div className="boredle">
+      {mode === 'menu' && <BoredleMenu />}
       {mode === 'gotd' && <BoredleGOTD />}
-      {mode === 'practice' && <BoredlePractice />}
+      {mode === 'battle' && <BoredleBattle />}
+      {mode === 'team' && <BoredleTeam />}
       {mode === 'friends' && <BoredleFriends />}
       {mode === 'stats' && <BoredleStats />}
       {mode === 'leaderboard' && <BoredleLeaderboard />}
-      {mode === 'menu' && <BoredleMenu />}
+      {mode === 'practice' && <BoredlePractice />}
     </div>
   )
 }

@@ -434,7 +434,7 @@ export const getMyFriends = async (req, res) => {
     })
   )
 
-  console.log(friends)
+  // console.log(friends)
   let friendRequestsSent = await Promise.all(
     friendRequestsSentIds.map(async (id) => {
       const fr = await User.findOne({ _id: id, active: true, confirmed: true })

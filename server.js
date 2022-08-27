@@ -82,10 +82,34 @@ const start = async () => {
       console.log('💥 SOCKET: Connection')
       global.chatSocket = socket
 
-      socket.on('add-user', (userId) => {
-        onlineUsers.set(userId, socket.id)
-        console.log('💥 SOCKET: Add User')
-        console.log(onlineUsers)
+      socket.on('login', (userId) => {
+        console.log('💥 SOCKET: User Logged In')
+        onlineUsers.set(userId)
+        socket.broadcast.emit('online_users', Array.from(global.onlineUsers))
+      })
+
+      // socket.on('add_user', (userId) => {
+      //   onlineUsers.set(userId, socket.id)
+      //   console.log('💥 SOCKET: Add User')
+      //   socket.emit('online_users', Array.from(global.onlineUsers))
+      // })
+
+      socket.on('get_online_users', (socketId) => {
+        // socket.to(socketId).emit('online_users', onlineUsers)
+        console.log(global.onlineUsers)
+        io.to(socketId).emit('online_users', Array.from(global.onlineUsers))
+      })
+
+      socket.on('join_boredle_battle', (roomId) => {
+        console.log('💥 SOCKET: Join Boredle Battle')
+        socket.join(roomId)
+        console.log(`User ${socket.id} joined room ${roomId}`)
+      })
+
+      socket.on('logout', (userId) => {
+        console.log('❌ SOCKET: User LoggedOut')
+        onlineUsers.delete(userId)
+        socket.broadcast.emit('online_users', Array.from(global.onlineUsers))
       })
 
       socket.on('disconnect', () => {
@@ -103,7 +127,7 @@ const start = async () => {
 //   console.log(`💥 SOCKET ${socket}`)
 //   global.chatSocket = socket
 
-//   socket.on('add-user', (userId) => {
+//   socket.on('add_user', (userId) => {
 //     onlineUsers.set(userId, socket.id)
 //     console.log(`💥 ONLINE USERS: ${onlineUsers}`)
 //   })

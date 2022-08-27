@@ -8,7 +8,7 @@ import {
   Alert
 } from '../components/index.js'
 
-const Practice = () => {
+const TriviaPractice = () => {
   const {
     displayAlert,
     showAlert,
@@ -101,4 +101,4 @@ const Practice = () => {
   )
 }
 
-export default Practice
+export default TriviaPractice

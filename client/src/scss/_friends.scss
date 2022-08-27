@@ -101,7 +101,18 @@
       &-top {
         @include flex(row, center, center);
       }
+      
     }
+
+    &-online-dot {
+      @include box-shadow;
+      border-radius: 50%;
+      width: 10px;
+      height: 10px;
+      background-color: $alert-success;
+      margin-left: 0.5rem;
+    }
+
     
     &-subtitle {
       margin: 1rem 0 0;

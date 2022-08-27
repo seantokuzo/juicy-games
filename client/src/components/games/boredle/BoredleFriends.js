@@ -9,7 +9,7 @@ const BoredleFriends = () => {
     getMyFriends,
     friendsData: { friends }
   } = useAppContext()
-  console.log(friends)
+  // console.log(friends)
 
   useEffect(() => {
     getMyFriends()
@@ -21,8 +21,8 @@ const BoredleFriends = () => {
 
   return (
     <div className="boredle__friends page">
-      <h1 className="title">Boredle with Friends</h1>
       <div className="form boredle__friends-list">
+        <h3 className="title">Boredle with Friends</h3>
         <MapFriends dataArray={friends} type="boredle" customLimit={5} />
       </div>
       <MenuButton />

@@ -15,6 +15,7 @@ const MapFriends = ({ dataArray, type, customLimit }) => {
   const [page, setPage] = useState(1)
   const {
     friendsData: { friends },
+    onlineFriends,
     requestFriend,
     respondToFriendRequest,
     removeFriend,
@@ -28,8 +29,6 @@ const MapFriends = ({ dataArray, type, customLimit }) => {
   const indexTwo = page * limit - 1
 
   const numPages = Math.ceil(dataArray.length / limit)
-  console.log(dataArray)
-  console.log(numPages)
 
   const changePage = (arg) => {
     if (typeof arg === 'number') {
@@ -154,6 +153,9 @@ const MapFriends = ({ dataArray, type, customLimit }) => {
                       defaultClass="friends__avatar--default"
                     />
                     <p className="friends__map-username">{person.username}</p>
+                    {onlineFriends.includes(person._id) && (
+                      <div className="friends__map-online-dot"></div>
+                    )}
                   </div>
                   {type !== 'finder' && type !== 'boredle' && (
                     <p className="friends__map-email text-mini">

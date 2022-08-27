@@ -1,5 +1,6 @@
 import React, { useReducer, useContext, useEffect, useRef } from 'react'
 import axios from 'axios'
+import io from 'socket.io-client'
 import reducer from './reducer'
 import {
   CHANGE_THEME,
@@ -47,6 +48,7 @@ import {
   GET_MY_FRIENDS_BEGIN,
   GET_MY_FRIENDS_SUCCESS,
   GET_MY_FRIENDS_ERROR,
+  WHO_IS_ONLINE,
   GET_USERS_BEGIN,
   GET_USERS_SUCCESS,
   GET_USERS_ERROR
@@ -74,6 +76,7 @@ const initialState = {
     sentRequests: [],
     receivedRequests: []
   },
+  onlineFriends: [],
   friendFinderData: {
     users: [],
     totalUsers: 0,
@@ -99,6 +102,8 @@ const initialState = {
 }
 
 const baseURL = 'http://localhost:5000'
+
+const socket = io.connect('http://localhost:5000')
 
 const AppContext = React.createContext()
 
@@ -219,6 +224,7 @@ const AppContextProvider = ({ children }) => {
       })
       // ADD USER TO LOCAL STORAGE
       addUserToLocalStorage({ user, token })
+      socket.emit('login', state.user._id)
     } catch (err) {
       console.log(err)
       dispatch({
@@ -232,6 +238,7 @@ const AppContextProvider = ({ children }) => {
   const logoutUser = () => {
     dispatch({ type: LOGOUT_USER })
     removeUserFromLocalStorage()
+    socket.emit('logout', state.user._id)
   }
 
   const updateMe = async (updatedUser) => {
@@ -262,7 +269,6 @@ const AppContextProvider = ({ children }) => {
       const { user, theme } = data
       changeTheme(theme)
       dispatch({ type: UPDATE_AVATAR_SUCCESS, payload: { user } })
-      console.log(user)
       addUserToLocalStorage(user)
     } catch (err) {
       console.log(err.response.data.msg)
@@ -363,6 +369,7 @@ const AppContextProvider = ({ children }) => {
     try {
       const { data } = await authFetch('/auth/getMyFriends')
       const { friends, friendRequestsSent, friendRequestsReceived } = data
+      console.log('💥 Get My Friends')
       dispatch({
         type: GET_MY_FRIENDS_SUCCESS,
         payload: { friends, friendRequestsSent, friendRequestsReceived }
@@ -372,6 +379,16 @@ const AppContextProvider = ({ children }) => {
       dispatch({ type: GET_MY_FRIENDS_ERROR })
     }
     clearAlert()
+  }
+
+  const whoIsOnline = (onlineUsers) => {
+    console.log('💥 Who is Online')
+    const friendIds = state.friendsData.friends.map((friend) => friend._id)
+    const onlineFriends = onlineUsers
+      .filter((id) => id !== state.user._id)
+      .filter((id) => friendIds.includes(id))
+    console.log(onlineFriends)
+    dispatch({ type: WHO_IS_ONLINE, payload: { onlineFriends } })
   }
 
   const requestFriend = async (info) => {
@@ -527,6 +544,7 @@ const AppContextProvider = ({ children }) => {
         resetPassword,
         deleteMe,
         getMyFriends,
+        whoIsOnline,
         requestFriend,
         respondToFriendRequest,
         removeFriend,

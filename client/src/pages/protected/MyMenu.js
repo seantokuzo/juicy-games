@@ -3,13 +3,13 @@ import { AccountLinks } from '../../components'
 import { useAppContext } from '../../context/appContext'
 
 const MyMenu = () => {
-  const { user, changeTheme } = useAppContext()
-  console.log(user)
+  const { user, changeTheme, getMyFriends } = useAppContext()
 
   useEffect(() => {
     if (user.avatar && user.avatar !== 'default') {
       changeTheme(user.avatar)
     }
+    getMyFriends()
   }, [])
 
   return (

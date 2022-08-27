@@ -17,12 +17,9 @@ import {
   MyMenu,
   MyAccount,
   MyFriends,
-  MyGames,
-  MyStats,
-  MyLeaderboard
+  MyGames
 } from './pages/protected'
 import { TrivialTrivia, Boredle } from './pages/protected/games'
-import { BoredleContextProvider } from './context/boredle-context/boredleContext'
 import { TriviaContextProvider } from './context/trivia-context/triviaContext'
 import './scss/main.scss'
 
@@ -58,17 +55,9 @@ function App() {
                 </TriviaContextProvider>
               }
             />
-            <Route
-              path="/me/games/boredle"
-              element={
-                <BoredleContextProvider>
-                  <Boredle />
-                </BoredleContextProvider>
-              }
-            />
+            <Route path="/me/games/boredle" element={<Boredle />} />
           </Route>
         </Route>
-        <Route path="/practice" element={<Practice />} />
         <Route path="*" element={<Error />} />
       </Routes>
       {!pathname.startsWith('/me/games') && <Footer />}

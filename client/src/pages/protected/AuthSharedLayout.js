@@ -1,16 +1,16 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
-import { io } from 'socket.io-client'
+import io from 'socket.io-client'
 import { useAppContext } from '../../context/appContext'
 
+const socket = io.connect('http://localhost:5000')
+
 const AuthSharedLayout = () => {
-  const socket = useRef()
   const { user } = useAppContext()
 
   useEffect(() => {
     if (user) {
-      socket.current = io('http://localhost:5000')
-      socket.current.emit('add-user', user._id)
+      socket.emit('login', user._id)
     }
   }, [user])
 

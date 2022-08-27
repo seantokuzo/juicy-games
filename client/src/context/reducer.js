@@ -44,6 +44,7 @@ import {
   GET_MY_FRIENDS_BEGIN,
   GET_MY_FRIENDS_SUCCESS,
   GET_MY_FRIENDS_ERROR,
+  WHO_IS_ONLINE,
   GET_USERS_BEGIN,
   GET_USERS_SUCCESS,
   GET_USERS_ERROR
@@ -336,6 +337,12 @@ const reducer = (state, action) => {
       showAlert: true,
       alertType: 'danger alert-center',
       alertText: 'Error retrieving friends. Please try refreshing'
+    }
+  }
+  if (action.type === WHO_IS_ONLINE) {
+    return {
+      ...state,
+      onlineFriends: action.payload.onlineFriends
     }
   }
   if (action.type === GET_USERS_BEGIN) {
