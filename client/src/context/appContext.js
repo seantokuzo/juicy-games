@@ -3,6 +3,7 @@ import axios from 'axios'
 import io from 'socket.io-client'
 import reducer from './reducer'
 import {
+  SET_SOCKET_ID,
   CHANGE_THEME,
   MISSING_FIELDS_ALERT,
   OPTION_COMBO_ERROR,
@@ -71,6 +72,7 @@ const initialState = {
   alertType: '',
   user: user ? JSON.parse(user) : null,
   token: token,
+  socketId: '',
   friendsData: {
     friends: [],
     sentRequests: [],
@@ -110,6 +112,13 @@ const AppContext = React.createContext()
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState)
 
+  useEffect(() => {
+    socket.on('connect', () => {
+      console.log('Socket ID:', socket.id)
+      setSocketId(socket.id)
+    })
+  }, [socket])
+
   // AXIOS AUTH FETCH WITH TOKEN
   const authFetch = axios.create({
     baseURL: `${baseURL}/api/v1/`
@@ -138,6 +147,10 @@ const AppContextProvider = ({ children }) => {
       return Promise.reject(err)
     }
   )
+
+  const setSocketId = (socketId) => {
+    dispatch({ type: SET_SOCKET_ID, payload: { socketId } })
+  }
 
   const startLoading = () => {
     dispatch({ type: START_LOADING })

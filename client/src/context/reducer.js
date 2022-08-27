@@ -47,12 +47,19 @@ import {
   WHO_IS_ONLINE,
   GET_USERS_BEGIN,
   GET_USERS_SUCCESS,
-  GET_USERS_ERROR
+  GET_USERS_ERROR,
+  SET_SOCKET_ID
 } from './actions'
 
 import { initialState } from './appContext'
 
 const reducer = (state, action) => {
+  if (action.type === SET_SOCKET_ID) {
+    return {
+      ...state,
+      socketId: action.payload.socketId
+    }
+  }
   if (action.type === CHANGE_THEME) {
     return {
       ...state,
