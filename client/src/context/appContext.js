@@ -119,6 +119,12 @@ const AppContextProvider = ({ children }) => {
     })
   }, [socket])
 
+  useEffect(() => {
+    if (state.user) {
+      socket.emit('login', state.user._id)
+    }
+  }, [state.user])
+
   // AXIOS AUTH FETCH WITH TOKEN
   const authFetch = axios.create({
     baseURL: `${baseURL}/api/v1/`
@@ -237,7 +243,7 @@ const AppContextProvider = ({ children }) => {
       })
       // ADD USER TO LOCAL STORAGE
       addUserToLocalStorage({ user, token })
-      socket.emit('login', state.user._id)
+      // socket.emit('login', state.user._id)
     } catch (err) {
       console.log(err)
       dispatch({

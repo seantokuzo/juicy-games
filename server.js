@@ -84,7 +84,7 @@ const start = async () => {
 
       socket.on('login', (userId) => {
         console.log('💥 SOCKET: User Logged In')
-        onlineUsers.set(userId)
+        onlineUsers.set(userId, socket.id)
         socket.broadcast.emit('online_users', Array.from(global.onlineUsers))
       })
 
@@ -113,7 +113,21 @@ const start = async () => {
       })
 
       socket.on('disconnect', () => {
+        console.log(socket.id)
+        const keys = Array.from(global.onlineUsers.keys())
+        const values = Array.from(global.onlineUsers.values())
+        const onlineUsers = keys.map((key, i) => ({
+          userId: key,
+          socketId: values[i]
+        }))
+        console.log(onlineUsers)
+        const thisUser = onlineUsers.filter(
+          (user) => user.socketId === socket.id
+        )
+        console.log('Disconnecting User:', thisUser)
+        // console.log(thisUser[0].userId)
         console.log('❌ SOCKET: User Disconnected')
+        socket.broadcast.emit('online_users', Array.from(global.onlineUsers))
       })
     })
   } catch (err) {
