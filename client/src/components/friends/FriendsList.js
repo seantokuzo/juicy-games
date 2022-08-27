@@ -1,5 +1,4 @@
-import React, { useState } from 'react'
-// import { AiFillCaretLeft, AiFillCaretRight } from 'react-icons/ai'
+import React from 'react'
 import { useAppContext } from '../../context/appContext'
 import MapFriends from './MapFriends'
 
