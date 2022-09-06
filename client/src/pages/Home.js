@@ -13,8 +13,14 @@ const Home = () => {
   const navigate = useNavigate()
   const [loginWithEmail, setLoginWithEmail] = useState(false)
   const [values, setValues] = useState(initialState)
-  const { user, isLoading, showAlert, missingFieldsAlert, loginUser } =
-    useAppContext()
+  const {
+    user,
+    isLoading,
+    showAlert,
+    missingFieldsAlert,
+    loginUser,
+    getMyFriends
+  } = useAppContext()
 
   const toggleForm = () => {
     if (loginWithEmail) {

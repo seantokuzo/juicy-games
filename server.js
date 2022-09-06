@@ -83,8 +83,10 @@ const start = async () => {
       global.chatSocket = socket
 
       socket.on('login', (userId) => {
-        console.log('💥 SOCKET: User Logged In')
-        onlineUsers.set(userId, socket.id)
+        console.log('💥 SOCKET: User Logged In', socket.id)
+        // onlineUsers.set(userId, socket.id)
+        onlineUsers.set(socket.id, userId)
+        console.log(onlineUsers)
         socket.broadcast.emit('online_users', Array.from(global.onlineUsers))
       })
 
@@ -95,9 +97,8 @@ const start = async () => {
       // })
 
       socket.on('get_online_users', (socketId) => {
-        // socket.to(socketId).emit('online_users', onlineUsers)
-        console.log(global.onlineUsers)
-        io.to(socketId).emit('online_users', Array.from(global.onlineUsers))
+        console.log('get_online_users', onlineUsers)
+        socket.to(socketId).emit('online_users', Array.from(global.onlineUsers))
       })
 
       socket.on('join_boredle_battle', (roomId) => {
@@ -108,25 +109,27 @@ const start = async () => {
 
       socket.on('logout', (userId) => {
         console.log('❌ SOCKET: User LoggedOut')
-        onlineUsers.delete(userId)
+        onlineUsers.delete(socket.id)
+        console.log(onlineUsers)
         socket.broadcast.emit('online_users', Array.from(global.onlineUsers))
       })
 
       socket.on('disconnect', () => {
-        console.log(socket.id)
-        const keys = Array.from(global.onlineUsers.keys())
-        const values = Array.from(global.onlineUsers.values())
-        const onlineUsers = keys.map((key, i) => ({
-          userId: key,
-          socketId: values[i]
-        }))
+        console.log(`❌ Disconnecting: ${socket.id}`)
+        onlineUsers.delete(socket.id)
+        // const keys = Array.from(global.onlineUsers.keys())
+        // const values = Array.from(global.onlineUsers.values())
+        // const onlineUsers = keys.map((key, i) => ({
+        //   userId: key,
+        //   socketId: values[i]
+        // }))
         console.log(onlineUsers)
-        const thisUser = onlineUsers.filter(
-          (user) => user.socketId === socket.id
-        )
-        console.log('Disconnecting User:', thisUser)
+        // const thisUser = onlineUsers.filter(
+        //   (user) => user.socketId === socket.id
+        // )
+        // console.log('Disconnecting User:', thisUser)
         // console.log(thisUser[0].userId)
-        console.log('❌ SOCKET: User Disconnected')
+        // console.log('❌ SOCKET: User Disconnected')
         socket.broadcast.emit('online_users', Array.from(global.onlineUsers))
       })
     })

@@ -8,11 +8,11 @@ const socket = io.connect('http://localhost:5000')
 const AuthSharedLayout = () => {
   const { user } = useAppContext()
 
-  useEffect(() => {
-    if (user) {
-      socket.emit('login', user._id)
-    }
-  }, [user])
+  // useEffect(() => {
+  //   if (user) {
+  //     socket.emit('login', user._id)
+  //   }
+  // }, [user])
 
   return (
     <main className="auth-shared">

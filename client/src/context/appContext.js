@@ -120,10 +120,24 @@ const AppContextProvider = ({ children }) => {
   }, [socket])
 
   useEffect(() => {
+    console.log('FriendsData: ', state.friendsData.friends)
+  }, [state.friendsData.friends])
+
+  useEffect(() => {
     if (state.user) {
+      console.log('Emit Login')
       socket.emit('login', state.user._id)
     }
   }, [state.user])
+
+  useEffect(() => {
+    socket.on('online_users', (data) => {
+      const onlineUsers = data.map((userMap) => userMap[1])
+      console.log('💥 Online Users:', onlineUsers)
+      console.log(state.friendsData)
+      whoIsOnline(onlineUsers)
+    })
+  }, [socket])
 
   // AXIOS AUTH FETCH WITH TOKEN
   const authFetch = axios.create({
@@ -393,6 +407,7 @@ const AppContextProvider = ({ children }) => {
         type: GET_MY_FRIENDS_SUCCESS,
         payload: { friends, friendRequestsSent, friendRequestsReceived }
       })
+      socket.emit('get_online_users', socket.id)
     } catch (err) {
       console.log(err)
       dispatch({ type: GET_MY_FRIENDS_ERROR })
@@ -401,12 +416,14 @@ const AppContextProvider = ({ children }) => {
   }
 
   const whoIsOnline = (onlineUsers) => {
+    console.log(onlineUsers)
     console.log('💥 Who is Online')
     const friendIds = state.friendsData.friends.map((friend) => friend._id)
     const onlineFriends = onlineUsers
       .filter((id) => id !== state.user._id)
       .filter((id) => friendIds.includes(id))
-    console.log(onlineFriends)
+    console.log('Friends: ', state.friendsData.friends)
+    console.log('Online Friends:', onlineFriends)
     dispatch({ type: WHO_IS_ONLINE, payload: { onlineFriends } })
   }
 

@@ -8,7 +8,6 @@ import {
   FriendsList,
   FriendRequests,
   FriendMenu,
-  MenuLink,
   Alert,
   ButtonLink
 } from '../../components'
@@ -21,13 +20,12 @@ const MyFriends = () => {
 
   useEffect(() => {
     getMyFriends()
-    socket.emit('get_online_users', socket.id)
   }, [])
 
   useEffect(() => {
     socket.on('online_users', (data) => {
-      // console.log('💥 Online Users:')
-      const onlineUsers = data.map((userMap) => userMap[0])
+      const onlineUsers = data.map((userMap) => userMap[1])
+      console.log('💥 Online Users:', onlineUsers)
       whoIsOnline(onlineUsers)
     })
   }, [socket])

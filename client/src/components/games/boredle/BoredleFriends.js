@@ -1,23 +1,29 @@
 import React, { useEffect } from 'react'
+import io from 'socket.io-client'
 import { useAppContext } from '../../../context/appContext'
 import MenuButton from './MenuButton'
 import MapFriends from '../../friends/MapFriends'
-import Avatar from '../../Avatar'
+
+const socket = io.connect('http://localhost:5000')
 
 const BoredleFriends = () => {
   const {
     getMyFriends,
+    whoIsOnline,
     friendsData: { friends }
   } = useAppContext()
-  // console.log(friends)
 
   useEffect(() => {
     getMyFriends()
   }, [])
 
-  const friendsList = friends.map((friend) => (
-    <div className="boredle__friends-friend"></div>
-  ))
+  useEffect(() => {
+    socket.on('online_users', (data) => {
+      const onlineUsers = data.map((userMap) => userMap[1])
+      console.log('💥 Online Users:', onlineUsers)
+      whoIsOnline(onlineUsers)
+    })
+  }, [socket])
 
   return (
     <div className="boredle__friends page">
