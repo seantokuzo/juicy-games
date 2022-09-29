@@ -257,6 +257,7 @@ const AppContextProvider = ({ children }) => {
         type: LOGIN_USER_SUCCESS,
         payload: { user, token, alertText }
       })
+      changeTheme(user.avatar)
       // ADD USER TO LOCAL STORAGE
       addUserToLocalStorage({ user, token })
       // socket.emit('login', state.user._id)
