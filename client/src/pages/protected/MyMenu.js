@@ -9,7 +9,7 @@ const MyMenu = () => {
     if (user.avatar && user.avatar !== 'default') {
       changeTheme(user.avatar)
     }
-    getMyFriends()
+    // getMyFriends()
   }, [])
 
   return (

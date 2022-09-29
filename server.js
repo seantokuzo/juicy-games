@@ -97,8 +97,9 @@ const start = async () => {
       // })
 
       socket.on('get_online_users', (socketId) => {
-        console.log('get_online_users', onlineUsers)
-        socket.to(socketId).emit('online_users', Array.from(global.onlineUsers))
+        console.log('💥 SOCKET: Get Online Users', onlineUsers)
+        io.to(socketId).emit('online_users', Array.from(global.onlineUsers))
+        // socket.broadcast.emit('online_users', Array.from(global.onlineUsers))
       })
 
       socket.on('join_boredle_battle', (roomId) => {

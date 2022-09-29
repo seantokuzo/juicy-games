@@ -120,24 +120,26 @@ const AppContextProvider = ({ children }) => {
   }, [socket])
 
   useEffect(() => {
-    console.log('FriendsData: ', state.friendsData.friends)
-  }, [state.friendsData.friends])
-
-  useEffect(() => {
     if (state.user) {
-      console.log('Emit Login')
+      console.log('💥 Emit Login')
       socket.emit('login', state.user._id)
+      // console.log('💥 SocketEmit: Get Online Users')
+      // socket.emit('get_online_users', socket.id)
+      // getMyFriends()
     }
   }, [state.user])
 
-  useEffect(() => {
-    socket.on('online_users', (data) => {
-      const onlineUsers = data.map((userMap) => userMap[1])
-      console.log('💥 Online Users:', onlineUsers)
-      console.log(state.friendsData)
-      whoIsOnline(onlineUsers)
-    })
-  }, [socket])
+  // useEffect(() => {
+  //   socket.on('online_users', (data) => {
+  //     const onlineUsers = data.map((userMap) => userMap[1])
+  //     console.log('💥 Online Users: AppContext', onlineUsers)
+  //     whoIsOnline(onlineUsers)
+  //   })
+  // }, [socket, state.friendsData.friends])
+
+  // useEffect(() => {
+  //   socket.emit('get_online_users', socket.id)
+  // }, [socket])
 
   // AXIOS AUTH FETCH WITH TOKEN
   const authFetch = axios.create({
@@ -402,7 +404,7 @@ const AppContextProvider = ({ children }) => {
     try {
       const { data } = await authFetch('/auth/getMyFriends')
       const { friends, friendRequestsSent, friendRequestsReceived } = data
-      console.log('💥 Get My Friends')
+      console.log('💥 Get My Friends', friends)
       dispatch({
         type: GET_MY_FRIENDS_SUCCESS,
         payload: { friends, friendRequestsSent, friendRequestsReceived }
@@ -416,14 +418,11 @@ const AppContextProvider = ({ children }) => {
   }
 
   const whoIsOnline = (onlineUsers) => {
-    console.log(onlineUsers)
     console.log('💥 Who is Online')
     const friendIds = state.friendsData.friends.map((friend) => friend._id)
     const onlineFriends = onlineUsers
       .filter((id) => id !== state.user._id)
       .filter((id) => friendIds.includes(id))
-    console.log('Friends: ', state.friendsData.friends)
-    console.log('Online Friends:', onlineFriends)
     dispatch({ type: WHO_IS_ONLINE, payload: { onlineFriends } })
   }
 

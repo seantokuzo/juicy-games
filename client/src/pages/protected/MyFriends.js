@@ -18,17 +18,17 @@ const MyFriends = () => {
   const [view, setView] = useState('list')
   const { getMyFriends, whoIsOnline, isLoading, showAlert } = useAppContext()
 
-  useEffect(() => {
-    getMyFriends()
-  }, [])
+  // useEffect(() => {
+  //   getMyFriends()
+  // }, [])
 
-  useEffect(() => {
-    socket.on('online_users', (data) => {
-      const onlineUsers = data.map((userMap) => userMap[1])
-      console.log('💥 Online Users:', onlineUsers)
-      whoIsOnline(onlineUsers)
-    })
-  }, [socket])
+  // useEffect(() => {
+  //   socket.on('online_users', (data) => {
+  //     const onlineUsers = data.map((userMap) => userMap[1])
+  //     console.log('💥 Online Users:', onlineUsers)
+  //     whoIsOnline(onlineUsers)
+  //   })
+  // }, [socket])
 
   const getPageTitle = () => {
     if (view === 'list') return 'My Friends'

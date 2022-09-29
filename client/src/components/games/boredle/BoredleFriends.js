@@ -8,22 +8,22 @@ const socket = io.connect('http://localhost:5000')
 
 const BoredleFriends = () => {
   const {
-    getMyFriends,
-    whoIsOnline,
+    // getMyFriends,
+    // whoIsOnline,
     friendsData: { friends }
   } = useAppContext()
 
-  useEffect(() => {
-    getMyFriends()
-  }, [])
+  // useEffect(() => {
+  //   getMyFriends()
+  // }, [])
 
-  useEffect(() => {
-    socket.on('online_users', (data) => {
-      const onlineUsers = data.map((userMap) => userMap[1])
-      console.log('💥 Online Users:', onlineUsers)
-      whoIsOnline(onlineUsers)
-    })
-  }, [socket])
+  // useEffect(() => {
+  //   socket.on('online_users', (data) => {
+  //     const onlineUsers = data.map((userMap) => userMap[1])
+  //     console.log('💥 Online Users:', onlineUsers)
+  //     whoIsOnline(onlineUsers)
+  //   })
+  // }, [socket])
 
   return (
     <div className="boredle__friends page">

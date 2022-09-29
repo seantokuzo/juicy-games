@@ -59,6 +59,8 @@
 
   padding: .5rem;
 
+  max-width: 400px;
+
   @include transition-ease;
   @include box-shadow($clr-black, 0.2, 0.1);
   @include text-shadow(lighten($clr-black, 68%), 2px);

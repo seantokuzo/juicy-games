@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import io from 'socket.io-client'
 import {
   FaUser,
   FaUserPlus,
@@ -11,6 +12,8 @@ import Avatar from '../Avatar'
 import { useAppContext } from '../../context/appContext'
 import { useBoredleContext } from '../../context/boredle-context/boredleContext'
 
+const socket = io.connect('http://localhost:5000')
+
 const MapFriends = ({ dataArray, type, customLimit }) => {
   const [page, setPage] = useState(1)
   const {
@@ -20,9 +23,28 @@ const MapFriends = ({ dataArray, type, customLimit }) => {
     respondToFriendRequest,
     removeFriend,
     isLoading,
-    showAlert
+    showAlert,
+    whoIsOnline,
+    getMyFriends
   } = useAppContext()
   const { startBoredleBattle, startBoredleTeam } = useBoredleContext()
+
+  useEffect(() => {
+    console.log('MapFriends: GetMyFriends()')
+    getMyFriends()
+  }, [])
+
+  useEffect(() => {
+    socket.emit('get_online_users', socket.id)
+    console.log('💥 SocketEmit: Get Online Users')
+  }, [friends])
+
+  useEffect(() => {
+    socket.on('online_users', (data) => {
+      const onlineUsers = data.map((userMap) => userMap[1])
+      whoIsOnline(onlineUsers)
+    })
+  }, [socket, friends])
 
   const limit = customLimit || 3
   const indexOne = (page - 1) * limit
