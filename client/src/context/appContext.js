@@ -114,14 +114,14 @@ const AppContextProvider = ({ children }) => {
 
   useEffect(() => {
     socket.on('connect', () => {
-      console.log('Socket ID:', socket.id)
+      // console.log('Socket ID:', socket.id)
       setSocketId(socket.id)
     })
   }, [socket])
 
   useEffect(() => {
     if (state.user) {
-      console.log('💥 Emit Login')
+      // console.log('💥 Emit Login')
       socket.emit('login', state.user._id)
       // console.log('💥 SocketEmit: Get Online Users')
       // socket.emit('get_online_users', socket.id)
@@ -404,7 +404,7 @@ const AppContextProvider = ({ children }) => {
     try {
       const { data } = await authFetch('/auth/getMyFriends')
       const { friends, friendRequestsSent, friendRequestsReceived } = data
-      console.log('💥 Get My Friends', friends)
+      // console.log('💥 Get My Friends', friends)
       dispatch({
         type: GET_MY_FRIENDS_SUCCESS,
         payload: { friends, friendRequestsSent, friendRequestsReceived }
@@ -418,7 +418,7 @@ const AppContextProvider = ({ children }) => {
   }
 
   const whoIsOnline = (onlineUsers) => {
-    console.log('💥 Who is Online')
+    // console.log('💥 Who is Online')
     const friendIds = state.friendsData.friends.map((friend) => friend._id)
     const onlineFriends = onlineUsers
       .filter((id) => id !== state.user._id)

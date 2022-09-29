@@ -30,13 +30,13 @@ const MapFriends = ({ dataArray, type, customLimit }) => {
   const { startBoredleBattle, startBoredleTeam } = useBoredleContext()
 
   useEffect(() => {
-    console.log('MapFriends: GetMyFriends()')
+    // console.log('MapFriends: GetMyFriends()')
     getMyFriends()
   }, [])
 
   useEffect(() => {
     socket.emit('get_online_users', socket.id)
-    console.log('💥 SocketEmit: Get Online Users')
+    // console.log('💥 SocketEmit: Get Online Users')
   }, [friends])
 
   useEffect(() => {
