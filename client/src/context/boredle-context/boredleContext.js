@@ -59,7 +59,7 @@ import { encryptBoredle, decryptBoredle } from '../../utils/boredleEncrypt'
 const localPractice = localStorage.getItem('practice')
 
 const initialState = {
-  mode: 'friends',
+  mode: 'menu',
   // GAME MODAL DISPLAYS
   gotd: {
     answer: [],
