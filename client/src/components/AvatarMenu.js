@@ -18,7 +18,7 @@ const AvatarMenu = () => {
 
   return (
     <div className="avatars">
-      <h3 className="avatars__title text">Pick a Fruit you Fruit</h3>
+      <h3 className="avatars__title text">Pick a Fruit</h3>
       <div className="avatars__div">
         <GiStrawberry
           className="avatars__avatar avatars__avatar-strawberry"
