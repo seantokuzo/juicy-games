@@ -13,7 +13,7 @@ const start = async () => {
   const startDate = new Date(
     new Date().toLocaleDateString() + ' 0:00:00'
   ).getTime()
-  const numWordsToFill = 100
+  const numWordsToFill = 365
   const answerListCopy = [...ANSWERS_LIST]
 
   const wordsList = []

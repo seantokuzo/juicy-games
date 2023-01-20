@@ -11,7 +11,7 @@ const BoredlePractice = () => {
 
   useEffect(() => {
     const localPractice = localStorage.getItem('practice')
-    console.log(localPractice)
+    // console.log(localPractice)
     if (localPractice) return getLocalPractice()
     getPracticeWord()
   }, [])

@@ -132,7 +132,7 @@ const BoredleContextProvider = ({ children }) => {
   // console.log(state.stats)
 
   const updateLocalPractice = (str, answer) => {
-    console.log('👋 Update Local Practice')
+    // console.log('👋 Update Local Practice')
     if (str === 'new game') {
       const newGame = {
         answer,
@@ -160,12 +160,12 @@ const BoredleContextProvider = ({ children }) => {
     if (str === 'lose') {
       localPractice.didLose = true
     }
-    console.log('Update Local', localPractice)
+    // console.log('Update Local', localPractice)
     localStorage.setItem('practice', JSON.stringify(localPractice))
   }
 
   const removeLocalPractice = () => {
-    console.log('❌ Remove Local Practice')
+    // console.log('❌ Remove Local Practice')
     localStorage.removeItem('practice')
   }
 
@@ -174,17 +174,17 @@ const BoredleContextProvider = ({ children }) => {
   }
 
   const toggleHardMode = () => {
-    console.log('toggle hard mode')
+    // console.log('toggle hard mode')
     dispatch({ type: TOGGLE_HARD_MODE })
   }
 
   const toggleDarkMode = () => {
-    console.log('toggle dark mode')
+    // console.log('toggle dark mode')
     dispatch({ type: TOGGLE_DARK_MODE })
   }
 
   const toggleHighContrastMode = () => {
-    console.log('toggle high constrast')
+    // console.log('toggle high constrast')
     dispatch({ type: TOGGLE_HIGH_CONTRAST_MODE })
   }
 
@@ -264,7 +264,7 @@ const BoredleContextProvider = ({ children }) => {
       if (didWin) return handleWin(stats)
       if (didLose) return handleLoss(stats)
     } catch (err) {
-      console.log(err)
+      // console.log(err)
     }
   }
 
@@ -272,7 +272,7 @@ const BoredleContextProvider = ({ children }) => {
     startLoading()
     try {
       const { data } = await authFetch('/boredle/getMyBoredle')
-      console.log(data)
+      // console.log(data)
       const { currentGame, stats } = data
       const word = encryptBoredle(currentGame.word)
       dispatch({
@@ -280,7 +280,7 @@ const BoredleContextProvider = ({ children }) => {
         payload: { currentGame, stats, word }
       })
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       dispatch({ type: GET_MY_BOREDLE_ERROR })
       displayAlert('danger alert-center', err.response.data.msg)
     }
@@ -359,7 +359,7 @@ const BoredleContextProvider = ({ children }) => {
           (letter, i) => letter === state[state.mode].currentGuess[i]
         )
       ) {
-        console.log('💥 WIN WIN WIN')
+        // console.log('💥 WIN WIN WIN')
         // GOTD
         if (state.mode === 'gotd') {
           submitGuessToDB(state.gotd.currentGuess, 'win')
@@ -375,7 +375,7 @@ const BoredleContextProvider = ({ children }) => {
         state[state.mode].prevGuesses.length >= 0 &&
         state[state.mode].prevGuesses.length < NUMBER_GUESSES - 1
       ) {
-        console.log('💥 INCORRECT GUESS - GUESS REMAINING')
+        // console.log('💥 INCORRECT GUESS - GUESS REMAINING')
         // GOTD
         if (state.mode === 'gotd') {
           submitGuessToDB(state.gotd.currentGuess, 'active')
@@ -391,7 +391,7 @@ const BoredleContextProvider = ({ children }) => {
         state[state.mode].currentGuess !==
           decryptBoredle(state[state.mode].answer)
       ) {
-        console.log('💥 LOSER LOSER LOSER')
+        // console.log('💥 LOSER LOSER LOSER')
         // GOTD
         if (state.mode === 'gotd') {
           submitGuessToDB(state.gotd.currentGuess, 'lose')
@@ -428,7 +428,7 @@ const BoredleContextProvider = ({ children }) => {
         payload: { leaderboard: data.leaders }
       })
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       displayAlert('danger', err.response.data.msg)
     }
     stopLoading()
@@ -447,14 +447,14 @@ const BoredleContextProvider = ({ children }) => {
   }
 
   const getPracticeWord = () => {
-    console.log('💥 Get Practice Word')
+    // console.log('💥 Get Practice Word')
     const newWord = encryptBoredle(getWordFromAnswerList())
     dispatch({ type: GET_PRACTICE_WORD, payload: { newWord } })
     updateLocalPractice('new game', newWord)
   }
 
   const newPracticeGame = () => {
-    console.log('💥 New Practice Game')
+    // console.log('💥 New Practice Game')
     removeLocalPractice()
     dispatch({ type: NEW_PRACTICE_GAME })
     getPracticeWord()
@@ -468,16 +468,16 @@ const BoredleContextProvider = ({ children }) => {
   }
 
   const startBoredleBattle = (friend) => {
-    console.log('StartBoredle Battle with:')
+    // console.log('StartBoredle Battle with:')
     const roomId = `Boredle-Battle: ${user._id}-${friend._id}`
-    console.log(roomId)
+    // console.log(roomId)
     socket.emit('join_boredle_battle', roomId)
     updateBoredleMode('battle')
   }
 
   const startBoredleTeam = (friend) => {
-    console.log('StartBoredle Team Play with:')
-    console.log(friend._id)
+    // console.log('StartBoredle Team Play with:')
+    // console.log(friend._id)
   }
 
   return (

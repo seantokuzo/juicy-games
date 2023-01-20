@@ -41,7 +41,9 @@ const TriviaPractice = () => {
             target: { name: 'category', value: data.trivia_categories[0].id }
           })
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          // console.log(err)
+        })
     }
   }, [showPracticeOptions])
 
@@ -80,7 +82,7 @@ const TriviaPractice = () => {
           setPracticeTrivia(trivia)
         })
         .catch((err) => {
-          console.log(err)
+          // console.log(err)
           displayAlert(
             'danger',
             'Something went wrong retrieving your questions. Try again later.',

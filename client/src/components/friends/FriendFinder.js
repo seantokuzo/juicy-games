@@ -9,7 +9,7 @@ const FriendFinder = () => {
     getUsers,
     friendFinderData: { users, totalUsers, numOfPages }
   } = useAppContext()
-  console.log({ users, totalUsers, numOfPages })
+  // console.log({ users, totalUsers, numOfPages })
 
   useEffect(() => {
     if (search) getUsers(search)

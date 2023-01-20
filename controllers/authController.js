@@ -135,7 +135,7 @@ export const confirmEmail = async (req, res) => {
 
 // ********** LOGIN * LOGIN * LOGIN **********
 export const login = async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   const { email, username, password } = req.body
 
   // CHECK FOR ALL FIELDS - MUST HAVE EITHER EMAIL OR USERNAME
@@ -620,7 +620,7 @@ export const deleteMe = async (req, res) => {
       msg: 'success'
     })
   } catch (err) {
-    console.log(err.response.data.msg)
+    // console.log(err.response.data.msg)
     res
       .status(StatusCodes.UNAUTHORIZED)
       .json({ msg: 'Ooops! Something went wrong, try again later' })

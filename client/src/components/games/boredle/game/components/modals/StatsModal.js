@@ -12,7 +12,7 @@ const StatsModal = ({ page }) => {
     handleShare,
     gotd: { didWin, didLose }
   } = useBoredleContext()
-  console.log(stats)
+  // console.log(stats)
   const { wins, losses, streak, maxStreak } = stats
 
   const statsTitleDiv = (

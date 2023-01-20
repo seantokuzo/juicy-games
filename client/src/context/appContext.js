@@ -162,7 +162,7 @@ const AppContextProvider = ({ children }) => {
     },
     (err) => {
       // LOGOUT USER IN CASE OF INVALID AUTHENTICATION
-      console.log(err.response)
+      // console.log(err.response)
       if (err.response.status === 401) {
         logoutUser()
       }
@@ -233,7 +233,7 @@ const AppContextProvider = ({ children }) => {
       dispatch({ type: SIGNUP_USER_SUCCESS })
       response = { status: 'success', msg: data.msg }
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       dispatch({
         type: SIGNUP_USER_ERROR,
         payload: { msg: err.response.data.msg }
@@ -262,7 +262,7 @@ const AppContextProvider = ({ children }) => {
       addUserToLocalStorage({ user, token })
       // socket.emit('login', state.user._id)
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       dispatch({
         type: LOGIN_USER_ERROR,
         payload: { msg: err.response.data.msg }
@@ -307,7 +307,7 @@ const AppContextProvider = ({ children }) => {
       dispatch({ type: UPDATE_AVATAR_SUCCESS, payload: { user } })
       addUserToLocalStorage(user)
     } catch (err) {
-      console.log(err.response.data.msg)
+      // console.log(err.response.data.msg)
       dispatch({
         type: UPDATE_AVATAR_ERROR,
         payload: { msg: err.response.data.msg }
@@ -358,7 +358,7 @@ const AppContextProvider = ({ children }) => {
         payload: { alertText: data.msg }
       })
     } catch (err) {
-      console.log(err.response.data.msg)
+      // console.log(err.response.data.msg)
       dispatch({
         type: REQUEST_PASSWORD_RESET_ERROR,
         payload: { msg: err.response.data.msg }
@@ -377,7 +377,7 @@ const AppContextProvider = ({ children }) => {
       const { user, token } = data
       dispatch({ type: RESET_PASSWORD_SUCCESS, payload: { user, token } })
     } catch (err) {
-      console.log(err.response.data.msg)
+      // console.log(err.response.data.msg)
       dispatch({
         type: RESET_PASSWORD_ERROR,
         payload: { msg: err.response.data.msg }
@@ -394,7 +394,7 @@ const AppContextProvider = ({ children }) => {
       removeUserFromLocalStorage()
       removeThemeFromLocalStorage()
     } catch (err) {
-      console.log(err.response.data.msg)
+      // console.log(err.response.data.msg)
       dispatch({ type: DELETE_ME_ERROR, payload: err.response.data.msg })
     }
     clearAlert()
@@ -412,7 +412,7 @@ const AppContextProvider = ({ children }) => {
       })
       socket.emit('get_online_users', socket.id)
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       dispatch({ type: GET_MY_FRIENDS_ERROR })
     }
     clearAlert()
@@ -433,7 +433,7 @@ const AppContextProvider = ({ children }) => {
       await getMyFriends()
       displayAlert('success alert-center', data.msg, 2000)
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       displayAlert('danger alert-center', err.response.data.msg)
     }
     clearAlert()
@@ -447,7 +447,7 @@ const AppContextProvider = ({ children }) => {
       })
       displayAlert('success alert-center', data.msg, 1500)
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       displayAlert('danger alert-center', err.response.data.msg)
     }
     await getMyFriends()
@@ -459,7 +459,7 @@ const AppContextProvider = ({ children }) => {
       const { data } = await authFetch.post('/auth/removeFriend', { email })
       displayAlert('success alert-center', data.msg, 3000)
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       displayAlert('danger alert-center', err.response.data.msg)
     }
     await getMyFriends()
@@ -480,7 +480,7 @@ const AppContextProvider = ({ children }) => {
       )
       dispatch({ type: GET_USERS_SUCCESS, payload: { ...data } })
     } catch (err) {
-      console.log(err)
+      // console.log(err)
       dispatch({
         type: GET_USERS_ERROR,
         payload: { msg: err.response.data.msg }
