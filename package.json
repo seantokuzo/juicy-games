@@ -1,5 +1,5 @@
 {
-  "name": "trivialtrivia",
+  "name": "juicy-games",
   "version": "1.0.0",
   "description": "game",
   "main": "index.js",
@@ -14,12 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/seantokuzo/trivial-trivia.git"
+    "url": "git+https://github.com/seantokuzo/juicy-games.git"
   },
   "author": "seantokuzo",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/seantokuzo/trivial-trivia/issues"
+    "url": "https://github.com/seantokuzo/juicy-games/issues"
   },
   "devDependencies": {
     "concurrently": "^7.2.1",

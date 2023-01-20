@@ -14,7 +14,7 @@ const GamesMenu = () => {
       <ButtonLink
         path="/me/games/trivial-trivia"
         btnClass="btn-theme link account__links-link fs-trivia"
-        text="Trivial Trivia"
+        text="Juicy Games"
       />
     </div>
   )

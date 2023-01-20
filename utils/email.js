@@ -9,7 +9,7 @@ export class Email {
     this.to = user.newEmail || user.email
     this.username = user.username
     this.url = url
-    this.from = `Trivial Trivia <${process.env.EMAIL_FROM}>`
+    this.from = `Juicy Games <${process.env.EMAIL_FROM}>`
   }
 
   newTransport() {
@@ -61,28 +61,25 @@ export class Email {
   async sendEmailConfirm() {
     await this.send(
       'confirmEmail',
-      'Trivial Trivia | Please confirm your email address'
+      'Juicy Games | Please confirm your email address'
     )
   }
 
   async sendUpdateEmailConfirm() {
     await this.send(
       'updateEmailConfirm',
-      'Trivial Trivia | Please confirm your email address'
+      'Juicy Games | Please confirm your email address'
     )
   }
 
   async sendWelcome() {
-    await this.send(
-      'welcome',
-      'Trivial Trivia | Welcome to your worst nightmare!'
-    )
+    await this.send('welcome', 'Juicy Games | Welcome to your worst nightmare!')
   }
 
   async sendPasswordReset() {
     await this.send(
       'passwordResetEmail',
-      'Trivial Trivia | Password Reset (You got 10 minutes, tick tock...)'
+      'Juicy Games | Password Reset (You got 10 minutes, tick tock...)'
     )
   }
 }

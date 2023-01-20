@@ -59,7 +59,7 @@ const Home = () => {
 
   return (
     <section className="home page">
-      <h1 className="home__title title">Fruity Games</h1>
+      <h1 className="home__title title">Juicy Games</h1>
       <form className="form home__form" onSubmit={submitForm}>
         <h3 className="form-title subtitle">Login to Play</h3>
         {showAlert && <Alert />}
