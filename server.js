@@ -66,7 +66,7 @@ const port = process.env.PORT || 5000
 const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: 'http://localhost:8080',
+    origin: 'https://juicy-games.onrender.com/',
     credentials: true
   }
 })
@@ -94,7 +94,7 @@ const start = async () => {
 
       // socket.on('add_user', (userId) => {
       //   onlineUsers.set(userId, socket.id)
-        console.log('💥 SOCKET: Add User')
+      console.log('💥 SOCKET: Add User')
       //   socket.emit('online_users', Array.from(global.onlineUsers))
       // })
 

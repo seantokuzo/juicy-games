@@ -108,9 +108,9 @@ const initialState = {
   leaderboard: []
 }
 
-const baseURL = 'http://localhost:5000'
+const baseURL = 'https://juicy-games.onrender.com/'
 
-const socket = io.connect('http://localhost:5000')
+const socket = io.connect('https://juicy-games.onrender.com/')
 
 const BoredleContext = React.createContext()
 

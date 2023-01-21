@@ -362,7 +362,7 @@ export const forgotPassword = async (req, res) => {
   // SEND TOKEN TO EMAIL
   try {
     // DEVELOPMENT URL
-    const url = `${req.protocol}://localhost:8080/resetPassword/${resetToken}`
+    const url = `${req.protocol}://juicy-games.onrender.com/resetPassword/${resetToken}`
 
     await new Email(user, url).sendPasswordReset()
 

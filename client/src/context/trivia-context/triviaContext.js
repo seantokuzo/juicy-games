@@ -7,7 +7,7 @@ const initialState = {
   mode: 'menu'
 }
 
-const baseURL = 'http://localhost:5000'
+const baseURL = 'https://juicy-games.onrender.com/'
 
 const TriviaContext = React.createContext()
 

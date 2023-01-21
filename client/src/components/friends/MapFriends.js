@@ -12,7 +12,7 @@ import Avatar from '../Avatar'
 import { useAppContext } from '../../context/appContext'
 import { useBoredleContext } from '../../context/boredle-context/boredleContext'
 
-const socket = io.connect('http://localhost:5000')
+const socket = io.connect('https://juicy-games.onrender.com/')
 
 const MapFriends = ({ dataArray, type, customLimit }) => {
   const [page, setPage] = useState(1)

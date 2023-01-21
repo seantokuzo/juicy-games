@@ -12,7 +12,7 @@ import {
   ButtonLink
 } from '../../components'
 
-const socket = io.connect('http://localhost:5000')
+const socket = io.connect('https://juicy-games.onrender.com/')
 
 const MyFriends = () => {
   const [view, setView] = useState('list')

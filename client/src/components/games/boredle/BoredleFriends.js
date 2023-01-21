@@ -4,7 +4,7 @@ import { useAppContext } from '../../../context/appContext'
 import MenuButton from './MenuButton'
 import MapFriends from '../../friends/MapFriends'
 
-const socket = io.connect('http://localhost:5000')
+const socket = io.connect('https://juicy-games.onrender.com/')
 
 const BoredleFriends = () => {
   const {

@@ -3,7 +3,7 @@ import { Outlet } from 'react-router-dom'
 import io from 'socket.io-client'
 import { useAppContext } from '../../context/appContext'
 
-const socket = io.connect('http://localhost:5000')
+const socket = io.connect('https://juicy-games.onrender.com/')
 
 const AuthSharedLayout = () => {
   const { user } = useAppContext()
