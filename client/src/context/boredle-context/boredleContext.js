@@ -108,9 +108,7 @@ const initialState = {
   leaderboard: []
 }
 
-const baseURL = 'https://juicy-games.onrender.com/'
-
-const socket = io.connect('https://juicy-games.onrender.com/')
+const socket = io.connect('/api/v1/')
 
 const BoredleContext = React.createContext()
 
@@ -421,7 +419,7 @@ const BoredleContextProvider = ({ children }) => {
     startLoading()
     try {
       const { data } = await axios(
-        `${baseURL}/api/v1/boredle/getBoredleLeaderboard?sort=${sort}`
+        `/api/v1/boredle/getBoredleLeaderboard?sort=${sort}`
       )
       dispatch({
         type: GET_BOREDLE_LEADERBOARD,

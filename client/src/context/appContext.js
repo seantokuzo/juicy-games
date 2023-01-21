@@ -103,9 +103,9 @@ const initialState = {
   }
 }
 
-const baseURL = 'https://juicy-games.onrender.com/'
+const baseURL = '/api/v1/'
 
-const socket = io.connect('https://juicy-games.onrender.com/')
+const socket = io.connect('/api/v1/')
 
 const AppContext = React.createContext()
 
@@ -143,7 +143,7 @@ const AppContextProvider = ({ children }) => {
 
   // AXIOS AUTH FETCH WITH TOKEN
   const authFetch = axios.create({
-    baseURL: `${baseURL}/api/v1/`
+    baseURL: '/api/v1/'
   })
   // SET HEADER IN REQUESTS
   authFetch.interceptors.request.use(
@@ -227,7 +227,7 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: SIGNUP_USER_BEGIN })
     try {
       const { data } = await axios.post(
-        `${baseURL}/api/v1/auth/signup`,
+        `/api/v1/auth/signup`,
         newUser
       )
       dispatch({ type: SIGNUP_USER_SUCCESS })
@@ -248,7 +248,7 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: LOGIN_USER_BEGIN })
     try {
       const { data } = await axios.post(
-        `${baseURL}/api/v1/auth/login`,
+        `/api/v1/auth/login`,
         currentUser
       )
       // console.log(data)
@@ -350,7 +350,7 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: REQUEST_PASSWORD_RESET_BEGIN })
     try {
       const { data } = await axios.post(
-        `${baseURL}/api/v1/auth/forgotPassword`,
+        `/api/v1/auth/forgotPassword`,
         user
       )
       dispatch({
@@ -371,7 +371,7 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: RESET_PASSWORD_BEGIN })
     try {
       const { data } = await axios.patch(
-        `${baseURL}/api/v1/auth/resetPassword/${resetToken}`,
+        `/api/v1/auth/resetPassword/${resetToken}`,
         { newPassword }
       )
       const { user, token } = data
@@ -467,7 +467,7 @@ const AppContextProvider = ({ children }) => {
   }
 
   const getUsers = async (search, sort = 'a-z') => {
-    let url = `${baseURL}/api/v1/auth/getAllUsers?sort=${sort}`
+    let url = `/api/v1/auth/getAllUsers?sort=${sort}`
 
     if (search) {
       url = url + `&search=${search}`
