@@ -11,36 +11,36 @@ const TriviaMenu = () => {
     <>
       <div className="trivia__menu form">
         <h1 className="title">Trivia</h1>
-        <button
+        {/* <button
           className="btn btn-theme form-btn"
           onClick={() => updateTriviaMode('g-o-t-d')}
         >
           Trivia of the Day
-        </button>
+        </button> */}
         <button
           className="btn btn-theme form-btn"
           onClick={() => updateTriviaMode('practice')}
         >
           Practice
         </button>
-        <button
+        {/* <button
           className="btn btn-theme form-btn"
           onClick={() => updateTriviaMode('friends')}
         >
           Trivia with Friends
-        </button>
-        <button
+        </button> */}
+        {/* <button
           className="btn btn-theme form-btn"
           onClick={() => updateTriviaMode('stats')}
         >
           My Stats
-        </button>
-        <button
+        </button> */}
+        {/* <button
           className="btn btn-theme form-btn"
           onClick={() => updateTriviaMode('leaderboard')}
         >
           Leaderboard
-        </button>
+        </button> */}
       </div>
       <ButtonLink path="/me/games" btnClass="form-btn" text="Games Menu" />
     </>

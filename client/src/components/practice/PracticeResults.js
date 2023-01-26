@@ -19,42 +19,45 @@ const PracticeResults = () => {
     if (chosen !== correct) {
       return (
         <>
-          <div className="game-results__answer game-results__answer--incorrect">
-            <p className="text game-results__answer-text">
+          <div className="trivia-results__answer trivia-results__answer--incorrect">
+            <p className="text trivia-results__answer-text">
               {!chosen ? 'Not Answered' : chosen}
             </p>
           </div>
-          <div className="game-results__answer game-results__answer--correct">
-            <p className="text game-results__answer-text">{correct}</p>
+          <div className="trivia-results__answer trivia-results__answer--correct">
+            <p className="text trivia-results__answer-text">{correct}</p>
           </div>
         </>
       )
     }
     if (chosen === correct) {
       return (
-        <div className="game-results__answer game-results__answer--correct">
-          <p className="text game-results__answer-text">{chosen}</p>
+        <div className="trivia-results__answer trivia-results__answer--correct">
+          <p className="text trivia-results__answer-text">{chosen}</p>
         </div>
       )
     }
   }
 
   return (
-    <div className="game-results">
-      <h5 className=" subtitle game-results__score">
+    <div className="trivia-results">
+      <h5 className=" subtitle trivia-results__score">
         Result: {score}/{correctAnswers.length}
       </h5>
       {practiceTrivia.map((x, i) => (
-        <div className="game-results__question-div theme-border" key={nanoid()}>
-          <p className=" subtitle game-results__number">#{i + 1}</p>
-          <p className="game-results__question">{x.question}</p>
-          <div className="game-results__answer-div">
+        <div
+          className="trivia-results__question-div theme-border"
+          key={nanoid()}
+        >
+          <p className=" subtitle trivia-results__number">#{i + 1}</p>
+          <p className="trivia-results__question">{x.question}</p>
+          <div className="trivia-results__answer-div">
             {createAnswer(x.selectedAnswer, x.correctAnswer)}
           </div>
         </div>
       ))}
       <div
-        className="btn game-ready__btn game-results__btn"
+        className="btn game-ready__btn trivia-results__btn"
         onClick={resetPracticeOptions}
       >
         <p className="text btn-text game-ready__btn-text">Play Again</p>

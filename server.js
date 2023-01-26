@@ -66,7 +66,10 @@ const port = process.env.PORT || 5000
 const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
-    origin: 'https://juicy-games.onrender.com/',
+    // DEVELOPMENT
+    origin: 'http://localhost:8080',
+    // PRODUCTION
+    // origin: 'https://juicy-games.onrender.com/',
     credentials: true
   }
 })

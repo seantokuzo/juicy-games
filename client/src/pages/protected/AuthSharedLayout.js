@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react'
 import { Outlet } from 'react-router-dom'
 import io from 'socket.io-client'
+import { socketBaseURL } from '../../utils/baseURLs'
 import { useAppContext } from '../../context/appContext'
 
-const socket = io.connect('https://juicy-games.onrender.com/')
+const socket = io.connect(socketBaseURL)
 
 const AuthSharedLayout = () => {
   const { user } = useAppContext()

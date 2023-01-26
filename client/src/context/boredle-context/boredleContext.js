@@ -1,6 +1,7 @@
 import React, { useReducer, useContext } from 'react'
 import axios from 'axios'
 import io from 'socket.io-client'
+import { axiosBaseURL, socketBaseURL } from '../../utils/baseURLs'
 import boredleReducer from './boredleReducer'
 import {
   UPDATE_BOREDLE_MODE,
@@ -108,7 +109,7 @@ const initialState = {
   leaderboard: []
 }
 
-const socket = io.connect('/api/v1/')
+const socket = io.connect(socketBaseURL)
 
 const BoredleContext = React.createContext()
 
@@ -419,7 +420,7 @@ const BoredleContextProvider = ({ children }) => {
     startLoading()
     try {
       const { data } = await axios(
-        `/api/v1/boredle/getBoredleLeaderboard?sort=${sort}`
+        `${axiosBaseURL}boredle/getBoredleLeaderboard?sort=${sort}`
       )
       dispatch({
         type: GET_BOREDLE_LEADERBOARD,

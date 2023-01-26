@@ -5,7 +5,8 @@ import {
   PracticeReady,
   TriviaCarousel,
   PracticeResults,
-  Alert
+  Alert,
+  Timer
 } from '../components/index.js'
 
 const TriviaPractice = () => {

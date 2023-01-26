@@ -3,12 +3,15 @@ import { Link, useLocation } from 'react-router-dom'
 import { useAppContext } from '../context/appContext'
 import Timer from './Timer'
 import Avatar from './Avatar'
+import { useTriviaContext } from '../context/trivia-context/triviaContext'
 // import AvatarMenu from './AvatarMenu'
 
 export default function Header() {
   const { pathname } = useLocation()
   const { user, practiceState, isLoading, showAlert } = useAppContext()
+  const { mode } = useTriviaContext()
   const { practiceReady, practiceActive } = practiceState
+  console.log(pathname)
 
   return (
     <header className="header">
@@ -28,9 +31,9 @@ export default function Header() {
         </Link>
         {user && <h5 className="header__pfp-name text">{user.username}</h5>}
       </div>
-      {pathname === '/practice' && (practiceReady || practiceActive) && (
-        <Timer />
-      )}
+      {pathname === '/me/games/trivial-trivia' &&
+        mode === 'practice' &&
+        (practiceReady || practiceActive) && <Timer />}
     </header>
   )
 }

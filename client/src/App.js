@@ -5,8 +5,6 @@ import { Header, Footer } from './components/index.js'
 import {
   Home,
   Signup,
-  Practice,
-  Leaderboard,
   ProtectedRoute,
   ForgotPassword,
   ResetPassword,
@@ -20,7 +18,6 @@ import {
   MyGames
 } from './pages/protected'
 import { TrivialTrivia, Boredle } from './pages/protected/games'
-import { TriviaContextProvider } from './context/trivia-context/triviaContext'
 import './scss/main.scss'
 
 function App() {
@@ -29,7 +26,7 @@ function App() {
 
   return (
     <div className={`app ${theme}`}>
-      {!pathname.startsWith('/me/games') && <Header />}
+      {!pathname.startsWith('/me/games/boredle') && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/signup" element={<Signup />} />
@@ -49,11 +46,7 @@ function App() {
           <Route path="/me/games" element={<MyGames />}>
             <Route
               path="/me/games/trivial-trivia"
-              element={
-                <TriviaContextProvider>
-                  <TrivialTrivia />
-                </TriviaContextProvider>
-              }
+              element={<TrivialTrivia />}
             />
             <Route path="/me/games/boredle" element={<Boredle />} />
           </Route>

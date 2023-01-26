@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
+import { socketBaseURL } from '../../utils/baseURLs'
 import { BiRefresh } from 'react-icons/bi'
 import { useAppContext } from '../../context/appContext'
 import {
@@ -12,7 +13,7 @@ import {
   ButtonLink
 } from '../../components'
 
-const socket = io.connect('https://juicy-games.onrender.com/')
+const socket = io.connect(socketBaseURL)
 
 const MyFriends = () => {
   const [view, setView] = useState('list')

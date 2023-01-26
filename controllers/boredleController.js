@@ -239,8 +239,9 @@ export const getBoredleLeaderboard = async (req, res) => {
 
   // FIND BASED ON SEARCH
   let result = BoredleGame.find(queryObject).select(
-    '-currentGame -_id -__v -stats.guessStats'
+    '-currentGame -__v -stats.guessStats'
   )
+  console.log(sort)
 
   // SORTING CONDITIONS
   if (sort === 'wins') {
@@ -262,15 +263,24 @@ export const getBoredleLeaderboard = async (req, res) => {
 
   let leaders = await result
 
-  leaders = leaders.map((game) => ({
-    username: game.user.username,
-    avatar: game.user.avatar,
-    ...game.stats,
-    guessStats: undefined
-  }))
+  try {
+    const formattedLeaders = leaders.map((game) => {
+      if (!game.user) return
+      return {
+        username: game.user.username,
+        avatar: game.user.avatar,
+        ...game.stats
+        // guessStats: undefined
+      }
+    })
 
-  const totalGames = await BoredleGame.countDocuments(queryObject)
-  const numOfPages = Math.ceil(totalGames / limit)
+    const totalGames = await BoredleGame.countDocuments(queryObject)
+    const numOfPages = Math.ceil(totalGames / limit)
 
-  res.status(StatusCodes.OK).json({ leaders, totalGames, numOfPages })
+    res
+      .status(StatusCodes.OK)
+      .json({ leaders: formattedLeaders, totalGames, numOfPages })
+  } catch (err) {
+    console.log(err)
+  }
 }

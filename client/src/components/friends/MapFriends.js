@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import io from 'socket.io-client'
+import { socketBaseURL } from '../../utils/baseURLs'
 import {
   FaUser,
   FaUserPlus,
@@ -12,7 +13,7 @@ import Avatar from '../Avatar'
 import { useAppContext } from '../../context/appContext'
 import { useBoredleContext } from '../../context/boredle-context/boredleContext'
 
-const socket = io.connect('https://juicy-games.onrender.com/')
+const socket = io.connect(socketBaseURL)
 
 const MapFriends = ({ dataArray, type, customLimit }) => {
   const [page, setPage] = useState(1)

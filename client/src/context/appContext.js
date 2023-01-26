@@ -1,6 +1,7 @@
-import React, { useReducer, useContext, useEffect, useRef } from 'react'
+import React, { useReducer, useContext, useEffect } from 'react'
 import axios from 'axios'
 import io from 'socket.io-client'
+import { axiosBaseURL, socketBaseURL } from '../utils/baseURLs'
 import reducer from './reducer'
 import {
   SET_SOCKET_ID,
@@ -103,9 +104,7 @@ const initialState = {
   }
 }
 
-const baseURL = '/api/v1/'
-
-const socket = io.connect('/api/v1/')
+const socket = io.connect(socketBaseURL)
 
 const AppContext = React.createContext()
 
@@ -143,7 +142,7 @@ const AppContextProvider = ({ children }) => {
 
   // AXIOS AUTH FETCH WITH TOKEN
   const authFetch = axios.create({
-    baseURL: '/api/v1/'
+    baseURL: axiosBaseURL
   })
   // SET HEADER IN REQUESTS
   authFetch.interceptors.request.use(
@@ -226,10 +225,7 @@ const AppContextProvider = ({ children }) => {
     let response
     dispatch({ type: SIGNUP_USER_BEGIN })
     try {
-      const { data } = await axios.post(
-        `/api/v1/auth/signup`,
-        newUser
-      )
+      const { data } = await axios.post(`${axiosBaseURL}auth/signup`, newUser)
       dispatch({ type: SIGNUP_USER_SUCCESS })
       response = { status: 'success', msg: data.msg }
     } catch (err) {
@@ -248,7 +244,7 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: LOGIN_USER_BEGIN })
     try {
       const { data } = await axios.post(
-        `/api/v1/auth/login`,
+        `${axiosBaseURL}auth/login`,
         currentUser
       )
       // console.log(data)
@@ -350,7 +346,7 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: REQUEST_PASSWORD_RESET_BEGIN })
     try {
       const { data } = await axios.post(
-        `/api/v1/auth/forgotPassword`,
+        `${axiosBaseURL}auth/forgotPassword`,
         user
       )
       dispatch({
@@ -371,7 +367,7 @@ const AppContextProvider = ({ children }) => {
     dispatch({ type: RESET_PASSWORD_BEGIN })
     try {
       const { data } = await axios.patch(
-        `/api/v1/auth/resetPassword/${resetToken}`,
+        `${axiosBaseURL}auth/resetPassword/${resetToken}`,
         { newPassword }
       )
       const { user, token } = data
@@ -467,7 +463,7 @@ const AppContextProvider = ({ children }) => {
   }
 
   const getUsers = async (search, sort = 'a-z') => {
-    let url = `/api/v1/auth/getAllUsers?sort=${sort}`
+    let url = `${axiosBaseURL}/auth/getAllUsers?sort=${sort}`
 
     if (search) {
       url = url + `&search=${search}`

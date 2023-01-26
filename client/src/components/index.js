@@ -2,6 +2,7 @@ import Header from './Header'
 import Footer from './Footer'
 import Alert from './Alert'
 import Avatar from './Avatar'
+import Timer from './Timer'
 
 import FormRow from './FormRow'
 import AccountLinks from './AccountLinks'
@@ -34,6 +35,7 @@ export {
   PracticeOptions,
   PracticeReady,
   TriviaCarousel,
+  Timer,
   PracticeResults,
   FormRow,
   AccountLinks,

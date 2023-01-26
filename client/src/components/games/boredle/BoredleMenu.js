@@ -15,12 +15,12 @@ const BoredleMenu = () => {
         >
           Boredle of the Day
         </button>
-        <button
+        {/* <button
           className="btn form-btn fs-boredle"
           onClick={() => updateBoredleMode('friends')}
         >
           Boredle w/ Friends
-        </button>
+        </button> */}
         <button
           className="btn form-btn fs-boredle"
           onClick={() => updateBoredleMode('stats')}

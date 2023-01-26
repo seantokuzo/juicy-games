@@ -1,8 +1,8 @@
-.game-results {
+.trivia-results {
   @include flex;
   width: 75%;
   margin: 0 auto;
-  padding: 15% 0;
+  padding: 6rem 0 0;
   
   &__question-div {
     width: 100%;

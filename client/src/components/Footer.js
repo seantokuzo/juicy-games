@@ -11,7 +11,7 @@ export default function Footer() {
       {/* <p className="text footer__text">A seantokuzo game</p> */}
       {user && (
         <button type="button" className="btn" onClick={logoutUser}>
-          Logout {user.username}
+          Logout
         </button>
       )}
       <ThemeMenu />
