@@ -81,6 +81,7 @@ export const signup = async (req, res) => {
 
   // SEND TRIAL EMAIL
   await new Email(user, url).sendEmailConfirm()
+  console.log('Email Sent?')
 
   res.status(StatusCodes.CREATED).json({
     msg: "We sent you a confirmation email. If that was your real email address now's the time to prove it"
