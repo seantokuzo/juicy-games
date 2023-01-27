@@ -5,7 +5,7 @@ dotenv.config()
 import http from 'http'
 import { Server } from 'socket.io'
 
-import cors from 'cors'
+// import cors from 'cors'
 import 'express-async-errors'
 import morgan from 'morgan'
 
@@ -36,7 +36,7 @@ if (process.env.NODE_ENV !== 'production') {
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
 app.use(express.static(path.resolve(__dirname, './client/build')))
-app.use(cors())
+// app.use(cors())
 app.use(express.json())
 
 // SECURITY PACKAGES
