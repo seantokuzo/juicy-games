@@ -4,7 +4,6 @@ import { useAppContext } from '../context/appContext'
 import Timer from './Timer'
 import Avatar from './Avatar'
 import { useTriviaContext } from '../context/trivia-context/triviaContext'
-// import AvatarMenu from './AvatarMenu'
 
 export default function Header() {
   const { pathname } = useLocation()
