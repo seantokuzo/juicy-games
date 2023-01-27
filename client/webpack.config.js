@@ -35,8 +35,7 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public/index.html'),
-      filename: 'index.html',
-      publicPath: '/'
+      filename: 'index.html'
     })
   ],
   stats: {
