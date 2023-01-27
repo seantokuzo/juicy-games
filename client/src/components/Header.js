@@ -11,7 +11,6 @@ export default function Header() {
   const { user, practiceState, isLoading, showAlert } = useAppContext()
   const { mode } = useTriviaContext()
   const { practiceReady, practiceActive } = practiceState
-  console.log(pathname)
 
   return (
     <header className="header">
