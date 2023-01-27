@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAppContext } from '../../context/appContext'
 import Alert from '../Alert'
+import { AiFillCaretLeft } from 'react-icons/ai'
 
 const PracticeOptions = () => {
   const {
@@ -9,10 +11,15 @@ const PracticeOptions = () => {
     loadPractice,
     updatePracticeOptions
   } = useAppContext()
+  const navigate = useNavigate()
   const { amount, category, difficulty, type } = practiceOptions
 
   return (
     <div className="practice-options">
+      <AiFillCaretLeft
+        className="practice-options__caret-left"
+        onClick={() => navigate(-1)}
+      />
       <h3 className="practice-options__title title">Practice Trivia</h3>
       {/* NUMBER OF QUESTIONS */}
       {showAlert && <Alert />}

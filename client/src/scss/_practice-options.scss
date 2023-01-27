@@ -19,10 +19,6 @@
     margin-top: 1rem;
     text-align: center;
   }
-  
-  &__label {
-    
-  }
 
   &__selector {
     width: 100%;
@@ -54,5 +50,19 @@
     &:hover {
       @include box-shadow;
     }
+  }
+
+  &__caret-left {
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 5px 8px 5px 5px;
+    font-size: 2.25rem;
+    border: 2px solid white;
+    border-radius: 100%;
   }
 }
