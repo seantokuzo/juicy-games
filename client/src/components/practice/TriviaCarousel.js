@@ -2,6 +2,7 @@ import React from 'react'
 import { useAppContext } from '../../context/appContext'
 import QuestionCard from '../QuestionCard'
 import Alert from '../Alert'
+import { FaCaretLeft, FaCaretRight } from 'react-icons/fa'
 import { nanoid } from 'nanoid'
 
 const TriviaCarousel = () => {
@@ -25,10 +26,14 @@ const TriviaCarousel = () => {
         />
       ))}
       <div className="carousel__controls">
-        <i
+        <FaCaretLeft
           className="fa-solid fa-caret-left carousel-toggle carousel-char"
           onClick={() => togglePracticeQuestion(currentPracticeQuestion - 1)}
-        ></i>
+        />
+        {/* <i
+          className="fa-solid fa-caret-left carousel-toggle carousel-char"
+          onClick={() => togglePracticeQuestion(currentPracticeQuestion - 1)}
+        ></i> */}
         {practiceTrivia.map((x, i) => (
           <p
             className={
@@ -46,10 +51,14 @@ const TriviaCarousel = () => {
             {i + 1}
           </p>
         ))}
-        <i
+        <FaCaretRight
           className="fa-solid fa-caret-right carousel-toggle carousel-char"
           onClick={() => togglePracticeQuestion(currentPracticeQuestion + 1)}
-        ></i>
+        />
+        {/* <i
+          className="fa-solid fa-caret-right carousel-toggle carousel-char"
+          onClick={() => togglePracticeQuestion(currentPracticeQuestion + 1)}
+        ></i> */}
       </div>
       <div className="btn carousel__submit-btn">
         <h1 className="subtitle" onClick={submitPracticeAnswers}>

@@ -7,13 +7,16 @@ import {
   GiRaspberry,
   GiGrapes
 } from 'react-icons/gi'
+import { FaUser } from 'react-icons/fa'
 
 const Avatar = ({ type, avatarClass, defaultClass }) => {
   if (!type) {
-    return <i className={`fa-solid fa-user ${defaultClass}`}></i>
+    return <FaUser className={avatarClass} />
+    // return <i className={`fa-solid fa-user ${defaultClass}`}></i>
   }
   if (type === 'default') {
-    return <i className={`fa-solid fa-user ${defaultClass}`}></i>
+    return <FaUser className={avatarClass} />
+    // return <i className={`fa-solid fa-user ${defaultClass}`}></i>
   }
   if (type === 'strawberry') {
     return <GiStrawberry className={avatarClass} />
@@ -30,7 +33,8 @@ const Avatar = ({ type, avatarClass, defaultClass }) => {
   if (type === 'grape') {
     return <GiGrapes className={avatarClass} />
   }
-  return <i className={`fa-solid fa-user ${defaultClass}`}></i>
+  return <FaUser className={avatarClass} />
+  // return <i className={`fa-solid fa-user ${defaultClass}`}></i>
 }
 
 export default Avatar

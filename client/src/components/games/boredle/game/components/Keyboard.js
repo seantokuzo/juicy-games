@@ -1,5 +1,6 @@
 import React from 'react'
 import { useBoredleContext } from '../../../../../context/boredle-context/boredleContext'
+import { FaBackspace } from 'react-icons/fa'
 import { getLettersArray } from '../utils/gameUtils'
 
 const Keyboard = () => {
@@ -44,7 +45,8 @@ const Keyboard = () => {
       className="btn boredle__keys-key boredle__keys-key-btn"
       onClick={() => handleBoredleKeyboard('Backspace')}
     >
-      <i className="fa-solid fa-delete-left boredle__keys-key-backspace"></i>
+      {/* <i className="fa-solid fa-delete-left boredle__keys-key-backspace"></i> */}
+      <FaBackspace className="fa-solid fa-delete-left boredle__keys-key-backspace" />
     </div>
   )
 
