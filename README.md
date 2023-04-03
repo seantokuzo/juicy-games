@@ -1,12 +1,8 @@
 <div align="center">
 <br>
 <div align="center" style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">
-  <p align="center">
-    <img align="center" width="300px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Login.PNG">
-  </p>
-  <p align="center">
-    <img align="center" width="300px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Account-pink.PNG">
-  </p>
+  <img align="center" width="300px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Login.PNG">
+  <img align="center" width="300px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Account-pink.PNG">
 </div>
 <h1 align="center">Juicy Games</h1>
 <h3 align="center">A social gaming site</h3>
@@ -27,48 +23,24 @@
 <br>
 <br>
 <div align="center" style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">
-  <p align="center">
-    <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_MainMenu.PNG">
-  </p>
-  <p align="center">
-    <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Friends.PNG">
-  </p>
-  <p align="center">
-    <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_ChangePass.PNG">
-  </p>
-  <p align="center">
-    <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_FriendReq.PNG">
-  </p>
+  <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_MainMenu.PNG">
+  <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Friends.PNG">
+  <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_ChangePass.PNG">
+  <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_FriendReq.PNG">
 </div>
 <br>
 <div align="center" style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">
-  <p align="center">
-    <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_GameMenu.PNG">
-  </p>
-  <p align="center">
-    <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Boredle.PNG">
-  </p>
-  <p align="center">
-    <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Leaderboard.PNG">
-  </p>
-  <p align="center">
-    <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Stats.PNG">
-  </p>
+  <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_GameMenu.PNG">
+  <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Boredle.PNG">
+  <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Leaderboard.PNG">
+  <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Stats.PNG">
 </div>
 <br>
 <div align="center" style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">
-  <p align="center">
-    <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_TriviaMenu.PNG">
-  </p>
-  <p align="center">
-    <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Trivia.PNG">
-  </p>
-  <p align="center">
-    <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Account-orange.PNG">
-  </p>
-  <p align="center">
-    <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_ForgotPass.PNG">
-  </p>
+  <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_TriviaMenu.PNG">
+  <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Trivia.PNG">
+  <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Account-orange.PNG">
+  <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_ForgotPass.PNG">
 </div>
 <br>
 <br>
