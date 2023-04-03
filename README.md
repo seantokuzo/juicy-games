@@ -1,6 +1,6 @@
 <div align="center">
 <br>
-<div align="center" style="display: flex; justify-content: space-evenly; align-items: center;">
+<div align="center" style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">
   <p align="center">
     <img align="center" width="300px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_Login.PNG">
   </p>
@@ -26,7 +26,7 @@
 <br>
 <br>
 <br>
-<div align="center" style="display: flex; justify-content: space-evenly; align-items: center;">
+<div align="center" style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">
   <p align="center">
     <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_MainMenu.PNG">
   </p>
@@ -41,7 +41,7 @@
   </p>
 </div>
 <br>
-<div align="center" style="display: flex; justify-content: space-evenly; align-items: center;">
+<div align="center" style="display: flex; flex-direction: row; justify-content: space-evenly; align-items: center;">
   <p align="center">
     <img align="center" width="225px" style="border-radius: 15px;" alt="Music Video page preview" src="https://seantokuzo-bucket.s3.us-west-1.amazonaws.com/ProjectAssets/JuicyGames-assets/JG_GameMenu.PNG">
   </p>
