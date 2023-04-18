@@ -19,6 +19,7 @@ import {
 } from '../controllers/authController.js'
 
 import authenticateUser from '../middleware/auth.js'
+import { testUser } from '../middleware/testUser.js'
 
 router.route('/signup').post(signup)
 router.route('/confirmEmail/:token').get(confirmEmail)
@@ -30,15 +31,15 @@ router.route('/getAllUsers').get(getAllUsers)
 // USER MUST BE LOGGED IN TO ACCESS THESE ROUTES
 router.use(authenticateUser)
 
-router.route('/updateMe').patch(updateMe)
+router.route('/updateMe').patch(testUser, updateMe)
 router.route('/updateAvatar').patch(updateAvatar)
-router.route('/updatePassword').patch(updatePassword)
+router.route('/updatePassword').patch(testUser, updatePassword)
 
 router.route('/getMyFriends').get(getMyFriends)
 router.route('/requestFriend').post(requestFriend)
 router.route('/respondToFriendRequest').post(respondToFriendRequest)
 router.route('/removeFriend').post(removeFriend)
 
-router.route('/deleteMe').delete(deleteMe)
+router.route('/deleteMe').delete(testUser, deleteMe)
 
 export default router

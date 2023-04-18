@@ -13,14 +13,8 @@ const Home = () => {
   const navigate = useNavigate()
   const [loginWithEmail, setLoginWithEmail] = useState(false)
   const [values, setValues] = useState(initialState)
-  const {
-    user,
-    isLoading,
-    showAlert,
-    missingFieldsAlert,
-    loginUser,
-    getMyFriends
-  } = useAppContext()
+  const { user, isLoading, showAlert, missingFieldsAlert, loginUser } =
+    useAppContext()
 
   const toggleForm = () => {
     if (loginWithEmail) {
@@ -99,6 +93,21 @@ const Home = () => {
         <Link to="/forgotPassword" className="text-mini text-mini-click">
           Forgot password?
         </Link>
+        <p
+          className="home__demo-btn form-btn"
+          onClick={() =>
+            loginUser(
+              {
+                email: 'juicyTester@test.com',
+                username: 'Juicy Tester',
+                password: 'test1234'
+              },
+              'Login successful! Enjoy the demo'
+            )
+          }
+        >
+          Demo the App
+        </p>
       </form>
       {!user && (
         <div className="home__links-div">

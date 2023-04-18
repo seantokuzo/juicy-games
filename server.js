@@ -67,9 +67,9 @@ const server = http.createServer(app)
 const io = new Server(server, {
   cors: {
     // DEVELOPMENT
-    // origin: 'http://localhost:8080',
+    origin: 'http://localhost:8080',
     // PRODUCTION
-    origin: 'https://juicy-games.onrender.com/',
+    // origin: 'https://juicy-games.onrender.com/',
     credentials: true
   }
 })

@@ -66,7 +66,7 @@ const MyFriends = () => {
       </div>
       <FriendMenu view={view} setView={setView} />
       {/* <MenuLink /> */}
-      <ButtonLink path="/me" btnClass="link" text="Main Menu" />
+      <ButtonLink path="/me" btnClass="link form-btn" text="Main Menu" />
     </section>
   )
 }

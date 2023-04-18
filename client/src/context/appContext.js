@@ -463,7 +463,7 @@ const AppContextProvider = ({ children }) => {
   }
 
   const getUsers = async (search, sort = 'a-z') => {
-    let url = `${axiosBaseURL}/auth/getAllUsers?sort=${sort}`
+    let url = `${axiosBaseURL}auth/getAllUsers?sort=${sort}`
 
     if (search) {
       url = url + `&search=${search}`

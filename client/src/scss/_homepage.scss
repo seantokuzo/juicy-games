@@ -14,4 +14,20 @@
     @include flex;
     margin-top: 1rem;
   }
+
+  &__demo-btn {
+    margin-top: 1rem;
+    padding: .75rem 0;
+    background-color: rgba(white, 0.25);
+    border-radius: 2px;
+
+    @include box-shadow();
+    @include transition-ease();
+
+    cursor: pointer;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
 }

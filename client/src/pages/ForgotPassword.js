@@ -44,7 +44,7 @@ const ForgotPassword = () => {
       <div className="links-div">
         <Link
           to="/"
-          className="btn link"
+          className="btn link form-btn"
           style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
         >
           <h3>Back to Login</h3>

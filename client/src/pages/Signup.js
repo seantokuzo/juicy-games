@@ -125,7 +125,7 @@ const Signup = () => {
           </h3>
           <Link
             to="/"
-            className="btn link signup__link"
+            className="btn link signup__link form-btn"
             style={{ pointerEvents: isLoading || showAlert ? 'none' : '' }}
           >
             <h3>Login to Account</h3>
