@@ -23,9 +23,10 @@ import './scss/main.scss'
 function App() {
   const { theme } = useAppContext()
   const { pathname } = useLocation()
+  console.log(theme)
 
   return (
-    <div className={`app ${theme}`}>
+    <div className={`app ${theme === 'default' ? 'strawberry' : theme}`}>
       {!pathname.startsWith('/me/games/boredle') && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
