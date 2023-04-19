@@ -84,25 +84,25 @@ const start = async () => {
     global.onlineUsers = new Map()
 
     io.on('connection', (socket) => {
-      console.log('💥 SOCKET: Connection')
+      // console.log('💥 SOCKET: Connection')
       global.chatSocket = socket
 
       socket.on('login', (userId) => {
-        console.log('💥 SOCKET: User Logged In', socket.id)
+        // console.log('💥 SOCKET: User Logged In', socket.id)
         // onlineUsers.set(userId, socket.id)
         onlineUsers.set(socket.id, userId)
-        console.log(onlineUsers)
+        // console.log(onlineUsers)
         socket.broadcast.emit('online_users', Array.from(global.onlineUsers))
       })
 
       // socket.on('add_user', (userId) => {
       //   onlineUsers.set(userId, socket.id)
-      console.log('💥 SOCKET: Add User')
+      // console.log('💥 SOCKET: Add User')
       //   socket.emit('online_users', Array.from(global.onlineUsers))
       // })
 
       socket.on('get_online_users', (socketId) => {
-        console.log('💥 SOCKET: Get Online Users', onlineUsers)
+        // console.log('💥 SOCKET: Get Online Users', onlineUsers)
         io.to(socketId).emit('online_users', Array.from(global.onlineUsers))
         // socket.broadcast.emit('online_users', Array.from(global.onlineUsers))
       })
@@ -114,14 +114,14 @@ const start = async () => {
       })
 
       socket.on('logout', (userId) => {
-        console.log('❌ SOCKET: User LoggedOut')
+        // console.log('❌ SOCKET: User LoggedOut')
         onlineUsers.delete(socket.id)
         // console.log(onlineUsers)
         socket.broadcast.emit('online_users', Array.from(global.onlineUsers))
       })
 
       socket.on('disconnect', () => {
-        console.log(`❌ Disconnecting: ${socket.id}`)
+        // console.log(`❌ Disconnecting: ${socket.id}`)
         onlineUsers.delete(socket.id)
         // console.log(onlineUsers)
         socket.broadcast.emit('online_users', Array.from(global.onlineUsers))

@@ -77,9 +77,9 @@ export const getWordOfTheDay = async (req, res) => {
 
 // *****************************************************
 export const getMyBoredle = async (req, res) => {
-  console.log('💥 GET MY BOREDLE')
+  // console.log('💥 GET MY BOREDLE')
   const game = await BoredleGame.findOne({ user: req.user.userId })
-  console.log(game)
+  // console.log(game)
 
   // IF USER DOESN'T HAVE A GAME - CREATE ONE
   if (!game) {
@@ -115,7 +115,7 @@ export const getMyBoredle = async (req, res) => {
     !game.currentGame.word ||
     new Date(game.currentGame.word.timeExpires).getTime() < Date.now()
   ) {
-    console.log('💥 WORD EXPIRED - GET NEW WORD')
+    // console.log('💥 WORD EXPIRED - GET NEW WORD')
     const word = await BoredleWord.findOne({
       timeBegins: { $lt: Date.now() },
       timeExpires: { $gt: Date.now() }
@@ -157,13 +157,13 @@ export const getMyBoredle = async (req, res) => {
 
 // *****************************************************
 export const submitGuess = async (req, res) => {
-  console.log('💥 SUBMIT GUESS ROUTE START')
+  // console.log('💥 SUBMIT GUESS ROUTE START')
   const { guess, gameStatus } = req.body
 
   const game = await BoredleGame.findOne({ user: req.user.userId })
 
   if (!game) {
-    console.log('💥 SUBMIT GUESS BUT NO GAME')
+    // console.log('💥 SUBMIT GUESS BUT NO GAME')
     const word = await BoredleWord.findOne({
       timeBegins: { $lt: Date.now() },
       timeExpires: { $gt: Date.now() }
@@ -176,14 +176,14 @@ export const submitGuess = async (req, res) => {
         didWin: gameStatus === 'win' ? true : false
       }
     })
-    console.log('🏄🏽‍♂️ New Game Created')
+    // console.log('🏄🏽‍♂️ New Game Created')
     res.status(StatusCodes.CREATED).json({ game: newGame })
     return
   }
 
   game.currentGame.prevGuesses = [...game.currentGame.prevGuesses, guess]
   if (gameStatus === 'win') {
-    console.log('💥 GAME WIN')
+    // console.log('💥 GAME WIN')
     game.currentGame.didWin = true
     game.stats.wins = game.stats.wins + 1
     game.stats.streak = game.stats.streak + 1
@@ -211,7 +211,7 @@ export const submitGuess = async (req, res) => {
     }
   }
   if (gameStatus === 'lose') {
-    console.log('💥 GAME LOSE')
+    // console.log('💥 GAME LOSE')
     game.currentGame.didLose = true
     game.stats.losses = game.stats.losses + 1
     game.stats.streak = 0
@@ -227,7 +227,7 @@ export const submitGuess = async (req, res) => {
 
 // *****************************************************
 export const getBoredleLeaderboard = async (req, res) => {
-  console.log('💥 Get Leaderboard')
+  // console.log('💥 Get Leaderboard')
 
   const { sort, search } = req.query
 
@@ -241,7 +241,6 @@ export const getBoredleLeaderboard = async (req, res) => {
   let result = BoredleGame.find(queryObject).select(
     '-currentGame -__v -stats.guessStats'
   )
-  console.log(sort)
 
   // SORTING CONDITIONS
   if (sort === 'wins') {
