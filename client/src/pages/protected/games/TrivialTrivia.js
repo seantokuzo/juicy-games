@@ -7,7 +7,7 @@ const TrivialTrivia = () => {
   const { mode } = useTriviaContext()
 
   return (
-    <div className="trivia page">
+    <div className="">
       {mode === 'menu' && <TriviaMenu />}
       {mode === 'practice' && <TriviaPractice />}
     </div>

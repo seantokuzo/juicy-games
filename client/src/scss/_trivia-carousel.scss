@@ -8,6 +8,7 @@
   &__controls {
     @include flex(row, center, space-evenly);
     width: 100%;
+    max-width: 600px;
     margin-top: 1rem;
   }
 
@@ -17,9 +18,13 @@
   }
 
   &-number {
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.05);
+    }
 
     &--answered {
-      color: $th-berry;
+      color: black;
     }
 
     &--current {
@@ -30,6 +35,7 @@
 
   &__submit-btn {
     width: 80%;
+    max-width: 350px;
 
     margin: 1.5rem 0 0;
   }

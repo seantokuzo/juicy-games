@@ -24,6 +24,17 @@ function App() {
   const { theme } = useAppContext()
   const { pathname } = useLocation()
 
+  useEffect(() => {
+    document.body.classList.remove(
+      'strawberry',
+      'berry',
+      'orange',
+      'banana',
+      'grape'
+    )
+    document.body.classList.add(`${theme}`)
+  }, [theme])
+
   return (
     <div className={`app ${theme === 'default' ? 'strawberry' : theme}`}>
       {!pathname.startsWith('/me/games/boredle') && <Header />}

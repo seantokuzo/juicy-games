@@ -27,7 +27,9 @@ export default function Header() {
             defaultClass="header__pfp-icon"
           />
         </Link>
-        {user && <h5 className="header__pfp-name text">{user.username}</h5>}
+        {user && !pathname.startsWith('/me/games/trivial-trivia') && (
+          <h5 className="header__pfp-name text">{user.username}</h5>
+        )}
       </div>
       {pathname === '/me/games/trivial-trivia' &&
         mode === 'practice' &&

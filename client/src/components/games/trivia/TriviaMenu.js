@@ -8,7 +8,7 @@ const TriviaMenu = () => {
   const { updateTriviaMode } = useTriviaContext()
 
   return (
-    <>
+    <div className="page">
       <div className="trivia__menu form">
         <h1 className="title">Trivia</h1>
         {/* <button
@@ -43,7 +43,7 @@ const TriviaMenu = () => {
         </button> */}
       </div>
       <ButtonLink path="/me/games" btnClass="form-btn" text="Games Menu" />
-    </>
+    </div>
   )
 }
 

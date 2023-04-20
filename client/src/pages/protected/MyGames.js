@@ -8,7 +8,7 @@ const MyGames = () => {
   const { isLoading, showAlert } = useAppContext()
 
   return (
-    <div className="game page">
+    <div className="alt-page">
       {pathname === '/me/games' && <GamesMenu />}
       <Outlet />
       {pathname === '/me/games' && <MenuLink />}

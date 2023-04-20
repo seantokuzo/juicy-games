@@ -7,7 +7,8 @@ const QuestionCard = ({ index, question, possibleAnswers, selectedAnswer }) => {
   const {
     practiceState: { currentPracticeQuestion },
     selectPracticeAnswer,
-    togglePracticeQuestion
+    togglePracticeQuestion,
+    theme
   } = useAppContext()
 
   const cardClass =
@@ -25,7 +26,7 @@ const QuestionCard = ({ index, question, possibleAnswers, selectedAnswer }) => {
   })
 
   return (
-    <div {...handlers} className={cardClass} key={question}>
+    <div {...handlers} className={`${theme} ${cardClass}`} key={question}>
       <h1 className="question-card__label">#{index + 1}</h1>
       <h3 className="question-card__question fs-text">{question}</h3>
       <div className="question-card__answers fs-text">
@@ -36,7 +37,7 @@ const QuestionCard = ({ index, question, possibleAnswers, selectedAnswer }) => {
               className={
                 answer === selectedAnswer
                   ? 'question-card__answer question-card__answer--selected'
-                  : 'question-card__answer'
+                  : `question-card__answer ${theme}-border`
               }
               onClick={() => {
                 if (answer !== selectedAnswer) {

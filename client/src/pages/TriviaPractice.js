@@ -24,7 +24,8 @@ const TriviaPractice = () => {
       practiceOver,
       practiceOptions,
       showPracticeOptions,
-      loadingPractice
+      loadingPractice,
+      theme
     }
   } = useAppContext()
 
@@ -94,7 +95,7 @@ const TriviaPractice = () => {
   }, [loadingPractice])
 
   return (
-    <div className="game">
+    <div className="">
       {showPracticeOptions && <PracticeOptions />}
       {practiceReady && <PracticeReady />}
       {practiceActive && <TriviaCarousel />}
